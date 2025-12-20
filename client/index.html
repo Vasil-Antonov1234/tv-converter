@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/styles.css"/>
+    <link rel="stylesheet" href="./styles/styles.css" />
     <link rel="icon" type="image/x-icon" href="./images/icons8-computer-100.png">
     <script defer src="./src/app.js"></script>
     <title>TV-converter</title>
 </head>
+
 <body>
     <div id="main-container">
         <header>
@@ -21,15 +23,16 @@
         <span id="date">
             <p>Day</p>
         </span>
-    
+
         <section class="input-wraper">
             <div class="input-container">
                 <form id="main-form" class="input">
                     <textarea name="tvText" id="inputArea" class="tvText" placeholder="Paste your text here"></textarea>
                     <button type="submit" id="convertBtn">Convert</button>
                     <!-- <img src="./images/arrow.png" class="arrow"> -->
-                    <textarea name="output" id="outputArea" class="tvText" placeholder="The converted text will appear here"></textarea>
-    
+                    <textarea name="output" id="outputArea" class="tvText"
+                        placeholder="The converted text will appear here"></textarea>
+
                     <div class="radio-container">
                         <input type="radio" id="tvWeek" name="tv-radio" value="week">
                         <label for="tvWeek">Tv Paper</label>
@@ -39,8 +42,8 @@
                         <label for="tvWeek">Tv Sunday</label>
                     </div>
                 </form>
-                
-    
+
+
                 <div class="calc-container">
                     <h1 id="calcChars">Characters count: 0</h1>
                     <h1 id="calcRows">Rows count: 0</h1>
@@ -50,18 +53,19 @@
                 </div>
             </div>
         </section>
-    
+
         <section class="buttons">
             <div class="buttons-container">
                 <button class="reset" id="resetInput">Clear</button>
                 <button class="reset" id="resetOutput">Clear</button>
             </div>
         </section>
-                        
+
         <button class="reset-all" id="resetAll">Clear All</button>
 
         <span class="notify">error</span>
         <span class="close">X</span>
     </div>
 </body>
+
 </html>

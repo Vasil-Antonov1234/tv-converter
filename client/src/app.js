@@ -1748,7 +1748,7 @@ function tvBookView() {
     document.getElementById("calcBtnTvBook").addEventListener("click", onCalc);
     document.getElementById("resetCalcTvBook").addEventListener("click", onResetCalc);
     document.getElementById("rename").addEventListener("click", onTvRename);
-    document.getElementById("submitTvData").addEventListener("click", onSubmitTvData)
+    document.getElementById("submitTvData").addEventListener("submit", onSubmitTvData)
 }
 
 const tvBookTemplate = document.createElement("div");
@@ -1940,16 +1940,17 @@ async function onSubmitTvData(event) {
 
     const data = Object.fromEntries(formData);
 
+    const dataJSON = JSON.stringify(data);
+
     try {
-        const response = await fetch("http://localhost:5000/tv/add", {
+        await fetch("http://localhost:5000/tv/add", {
             method: "POST",
             headers: {
                 "content-type": "application/json"
-            }
+            },
+            body: dataJSON
         });
     } catch (error) {
         alert(error);
     };
-
-    console.log(data);
-}
+};

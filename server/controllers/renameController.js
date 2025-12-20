@@ -4,7 +4,7 @@ import paths from "../paths/paths.js";
 
 const renameController = Router();
 
-renameController.get("/rename", (req, res) => {
+renameController.get("/", (req, res) => {
     const inputFilePath = paths.input;
     const dir = fs.readdirSync(inputFilePath);
     const regex = /-\d\d./
