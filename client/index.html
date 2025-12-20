@@ -11,59 +11,63 @@
 </head>
 
 <body>
-    <div id="main-container">
-        <header>
-            <a href="javascript:void(0)" id="paper-view">Paper</a>
-            <a href="javascript:void(0)" id="tv-book-view">TV Book</a>
-            <a href="javascript:void(0)" id="tv-weather-view">Weather</a>
-            <a href="./redirects/Archive/archive.html" id="archive">Archive</a>
-        </header>
+    <header>
+        <a href="javascript:void(0)" id="paper-view">Paper</a>
+        <a href="javascript:void(0)" id="tv-book-view">TV Book</a>
+        <a href="javascript:void(0)" id="tv-weather-view">Weather</a>
+        <a href="./redirects/Archive/archive.html" id="archive">Archive</a>
+    </header>
+    <div id="root">
+        <div id="main-container">
 
-        <span id="date">
-            <p>Day</p>
-        </span>
 
-        <section class="input-wraper">
-            <div class="input-container">
-                <form id="main-form" class="input">
-                    <textarea name="tvText" id="inputArea" class="tvText" placeholder="Paste your text here"></textarea>
-                    <button type="submit" id="convertBtn">Convert</button>
-                    <!-- <img src="./images/arrow.png" class="arrow"> -->
-                    <textarea name="output" id="outputArea" class="tvText"
-                        placeholder="The converted text will appear here"></textarea>
+            <span id="date">
+                <p>Day</p>
+            </span>
 
-                    <div class="radio-container">
-                        <input type="radio" id="tvWeek" name="tv-radio" value="week">
-                        <label for="tvWeek">Tv Paper</label>
-                        <input type="radio" id="tvSaturday" name="tv-radio" value="saturday">
-                        <label for="tvWeek">Tv Saturday</label>
-                        <input type="radio" id="tvSunday" name="tv-radio" value="sunday">
-                        <label for="tvWeek">Tv Sunday</label>
+            <section class="input-wraper">
+                <div class="input-container">
+                    <form id="main-form" class="input">
+                        <textarea name="tvText" id="inputArea" class="tvText"
+                            placeholder="Paste your text here"></textarea>
+                        <button type="submit" id="convertBtn">Convert</button>
+                        <!-- <img src="./images/arrow.png" class="arrow"> -->
+                        <textarea name="output" id="outputArea" class="tvText"
+                            placeholder="The converted text will appear here"></textarea>
+
+                        <div class="radio-container">
+                            <input type="radio" id="tvWeek" name="tv-radio" value="week">
+                            <label for="tvWeek">Tv Paper</label>
+                            <input type="radio" id="tvSaturday" name="tv-radio" value="saturday">
+                            <label for="tvWeek">Tv Saturday</label>
+                            <input type="radio" id="tvSunday" name="tv-radio" value="sunday">
+                            <label for="tvWeek">Tv Sunday</label>
+                        </div>
+                    </form>
+
+
+                    <div class="calc-container">
+                        <h1 id="calcChars">Characters count: 0</h1>
+                        <h1 id="calcRows">Rows count: 0</h1>
+                        <textarea name="calc" id="calcArea" class="calcText"></textarea>
+                        <button id="calcBtn">Calculate chars</button>
+                        <button class="calcReset" id="resetCalc">Clear</button>
                     </div>
-                </form>
-
-
-                <div class="calc-container">
-                    <h1 id="calcChars">Characters count: 0</h1>
-                    <h1 id="calcRows">Rows count: 0</h1>
-                    <textarea name="calc" id="calcArea" class="calcText"></textarea>
-                    <button id="calcBtn">Calculate chars</button>
-                    <button class="calcReset" id="resetCalc">Clear</button>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="buttons">
-            <div class="buttons-container">
-                <button class="clear1" id="resetInput">Clear</button>
-                <button class="clear2" id="resetOutput">Clear</button>
-            </div>
-        </section>
+            <section class="buttons">
+                <div class="buttons-container">
+                    <button class="clear1" id="resetInput">Clear</button>
+                    <button class="clear2" id="resetOutput">Clear</button>
+                </div>
+            </section>
 
-        <button class="reset-all" id="resetAll">Clear All</button>
+            <button class="reset-all" id="resetAll">Clear All</button>
 
-        <span class="notify">error</span>
-        <span class="close">X</span>
+            <span class="notify">error</span>
+            <span class="close">X</span>
+        </div>
     </div>
 </body>
 

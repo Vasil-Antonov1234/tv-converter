@@ -1,0 +1,80 @@
+body {
+  background-image: url("..//css/archive11.png");
+  background-size: cover;
+  background-color: rgba(255, 217, 3, 0.082);
+  
+}
+
+
+a {
+  font-size: 40px;
+  text-decoration: none;
+  margin-left: 40px;
+  color: white;
+  font-family: cursive;
+}
+
+.cont {
+    margin-left: 34%;
+    margin-top: 40px;
+  }
+  
+  
+  .input {
+    padding: 10px;
+    border: 0.1px solid gray;
+    border-radius: 4px;
+    font-size: 34px;
+    box-shadow: 1px 1px 10px 0px;
+    color: lightgray;
+  }
+  
+  .btn {
+    font-size: 30px;
+    padding: 15px;
+    border: 2px solid rgb(214, 62, 2);
+    border-radius: 18px;
+    background-color: #ffdd6f;
+    margin-left: 14px;
+    box-shadow: 1px 1px 2px 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: sans-serif;
+  }
+  
+  .btn:hover {
+    background-color: darkred;
+    border: 2px solid #ffdd6f;
+    color: white;
+    box-shadow: 1px 1px 2px 2px;
+    cursor: pointer;
+  }
+  
+  
+  .issue-number {
+    font-size: 50px;
+    text-align: center;
+    font-family: cursive;
+    color: #ffdd6f;
+    margin-top: 28px;
+  }
+
+  .output-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -4%;
+    margin-top: 11px;
+    font-family: sans-serif;
+    font-size: 20px;
+  }
+
+
+  .date-issue {
+    color: white;
+  }
+
+  .date-and-issue {
+    color: white;
+    font-size: 34px;
+  }

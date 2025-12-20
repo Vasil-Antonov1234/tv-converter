@@ -32,9 +32,9 @@ a:hover {
     color: gray;
 }
 
-/* #tv-weather-view {
-  text-decoration: none;
-} */
+.isActive {
+    color: gray;
+}
 
 #paper-view {
     text-decoration: none;
@@ -258,12 +258,6 @@ h1 {
     color: #a37521;
 }
 
-.copyCode:hover {
-    background-color: #55411b;
-    color: antiquewhite;
-    cursor: pointer;
-}
-
 .tvRename {
     position: relative;
     margin-top: 10px;
@@ -273,12 +267,6 @@ h1 {
     background-color: antiquewhite;
     color: #a37521;
     margin-right: 10px;
-}
-
-.tvRename:hover {
-    background-color: #55411b;
-    color: antiquewhite;
-    cursor: pointer;
 }
 
 .renamedTvMessage {
@@ -297,12 +285,6 @@ h1 {
     margin-right: 10px;
 }
 
-.clear1:hover {
-    background-color: #55411b;
-    color: antiquewhite;
-    cursor: pointer;
-}
-
 .clear2 {
     position: relative;
     left: 510%;
@@ -315,12 +297,26 @@ h1 {
     margin-right: 10px;
 }
 
-.clear2:hover {
+.submitAddTvData {
+    position: relative;
+    margin-top: 10px;
+    padding: 10px;
+    font-weight: 700;
+    border-radius: 10px;
+    background-color: antiquewhite;
+    color: #a37521;
+    margin-right: 10px;
+}
+
+.submitAddTvData:hover,
+.clear2:hover,
+.clear1:hover,
+.tvRename:hover,
+.copyCode:hover {
     background-color: #55411b;
     color: antiquewhite;
     cursor: pointer;
 }
-
 
 #calcBtn {
     padding: 10px;

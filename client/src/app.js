@@ -1,4 +1,5 @@
 const body = document.querySelector("body");
+const root = document.getElementById("root");
 const paperTemplate = document.getElementById("main-container");
 document.querySelector("#main-form").addEventListener("submit", onConvert);
 const inputEl = document.querySelector(".tvText");
@@ -1736,10 +1737,15 @@ function closeNotification() {
     spanClose.style.display = "none";
 };
 
-function tvBookView() {
+function tvBookView(event) {
+    const allHrefs = document.querySelectorAll("a");
+    allHrefs.forEach((x) => x.classList.remove("isActive"));
+    event.currentTarget.classList.add("isActive");
+    root.classList.remove("weather");
     body.classList.remove("weather");
+    root.classList.add("tv-book");
     body.classList.add("tv-book");
-    body.replaceChildren(tvBookTemplate);
+    root.replaceChildren(tvBookTemplate);
     tvCalcValue = "book";
     document.querySelector("#tv-book-form").addEventListener("submit", onConvert);
     document.querySelector("#tvBook").style.display = "none";
@@ -1754,13 +1760,6 @@ function tvBookView() {
 const tvBookTemplate = document.createElement("div");
 tvBookTemplate.setAttribute("id", "test");
 tvBookTemplate.innerHTML = `
-    <header>
-        <a href="javascript:void(0)" id="paper-view">Paper</a>
-        <a href="javascript:void(0)" id="tv-book-view">TV Book</a>    
-        <a href="javascript:void(0)" id="tv-weather-view">Weather</a>
-        <a href="./redirects/Archive/archive.html" id="archive">Archive</a>
-    </header>
-
     <span id="dateBook">
             <p>Day</p>
         </span>
@@ -1786,13 +1785,13 @@ tvBookTemplate.innerHTML = `
             </div>
         </div>
         <button id="rename" class="tvRename">TV-rename</button>
-        <span class="renamedTvMessage" id="renamedTvMessage">Test</span>
+        <span class="renamedTvMessage" id="renamedTvMessage"></span>
 
         
     <form id="submitTvData" class="outputTvDate">
         <input type="text" name="day">
         <input type="text" name="date">
-        <button>submit</button>
+        <button class="submitAddTvData">submit</button>
     </form>
     <textarea id="responseMessage" class="responseMessage"></textarea>
 
@@ -1801,17 +1800,27 @@ tvBookTemplate.innerHTML = `
 
 
 
-function tvPaperView() {
+function tvPaperView(event) {
+    const allHrefs = document.querySelectorAll("a");
+    allHrefs.forEach((x) => x.classList.remove("isActive"));
+    event.currentTarget.classList.add("isActive");
+    root.classList.remove("tv-book");
     body.classList.remove("tv-book");
+    root.classList.remove("weather");
     body.classList.remove("weather");
-    body.replaceChildren(paperTemplate);
+    root.replaceChildren(paperTemplate);
     tvCalcValue = "paper";
 }
 
-function weatherView() {
+function weatherView(event) {
+    const allHrefs = document.querySelectorAll("a");
+    allHrefs.forEach((x) => x.classList.remove("isActive"));
+    event.currentTarget.classList.add("isActive");
+    root.classList.remove("tv-book");
     body.classList.remove("tv-book");
+    root.classList.add("weather");
     body.classList.add("weather");
-    body.replaceChildren(weatherTemplate);
+    root.replaceChildren(weatherTemplate);
     document.getElementById("tv-book-view").addEventListener("click", tvBookView);
     document.getElementById("paper-view").addEventListener("click", tvPaperView);
     document.getElementById("getBtnBG").addEventListener("click", onWeatherConvert);
@@ -1822,13 +1831,6 @@ function weatherView() {
 const weatherTemplate = document.createElement("div");
 weatherTemplate.setAttribute("id", "weather");
 weatherTemplate.innerHTML = `
-    <header>
-        <a href="javascript:void(0)" id="paper-view">Paper</a>
-        <a href="javascript:void(0)" id="tv-book-view">TV Book</a>
-        <a href="javascript:void(0)" id="tv-weather-view">Weather</a>
-        <a href="./redirects/Archive/archive.html" id="archive">Archive</a>
-    </header>
-    
     <div class="weather-container">
         <textarea name="input" id=input class="text"></textarea>
         <div id="buttons-container">
@@ -1936,7 +1938,7 @@ async function onTvRename() {
         message.style.display = "inline";
 
     } catch (error) {
-        alert(error.message);
+        alert(`${error.message} \nThe server is probably not working!`);
     };
 }
 
@@ -2004,6 +2006,11 @@ async function onSubmitTvData(event) {
         tvMessage.value = reportMessage;
 
     } catch (error) {
-        alert(`${error.message}. \nThe server is probably not working!`);
+        
+        if (error.message === "Failed to fetch") {
+            return alert(`${error.message}. \nThe server is probably not working!`);
+        }
+        
+        alert(error.message);
     };
 };
