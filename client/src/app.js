@@ -1940,6 +1940,42 @@ async function onSubmitTvData(event) {
 
     const data = Object.fromEntries(formData);
 
+    const days = [
+        "Понеделник",
+        "Вторник",
+        "Сряда",
+        "Четвъртък",
+        "Петък",
+        "Събота",
+        "Неделя"
+    ];
+
+    if (!data.day || !data.date) {
+        return alert("Day and date is required!");
+    };
+
+    if (!days.includes(data.day)) {
+        return alert(`Ivalid day input: '${data.day}'!`);
+    };
+
+    const regex = /^\d\d.\d\d.\d\d\d\d$/
+
+    const match = data.date.match(regex);
+
+    if (!match) {
+        return alert(`Ivalid date format! \n Should be: 'dd.mm.year' receive: '${data.date}'`);
+    };
+
+    const dateTokens = data.date.split(".");
+
+    if (dateTokens[0] < 1 || dateTokens[0] > 31) {
+        return alert(`Invalid day! \n Should be between 1 and 31 receive" '${dateTokens[0]}'`);
+    };
+
+    if (dateTokens[1] < 1 || dateTokens[1] > 12) {
+        return alert(`Ivalid month! \n Should be between 1 and 12 receive: '${dateTokens[1]}'`);
+    };
+
     const dataJSON = JSON.stringify(data);
 
     try {
@@ -1951,6 +1987,6 @@ async function onSubmitTvData(event) {
             body: dataJSON
         });
     } catch (error) {
-        alert(error);
+        alert(`${error.message}. \nThe server is probably not working!`);
     };
 };
