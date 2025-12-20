@@ -1785,13 +1785,17 @@ tvBookTemplate.innerHTML = `
                 <button class="calcReset" id="resetCalcTvBook">Clear</button>
             </div>
         </div>
-        <button id="rename" class="reset">TV-rename</button>
+        <button id="rename" class="tvRename">TV-rename</button>
+        <span class="renamedTvMessage" id="renamedTvMessage">Test</span>
+
         
-    <form id="submitTvData">
+    <form id="submitTvData" class="outputTvDate">
         <input type="text" name="day">
         <input type="text" name="date">
         <button>submit</button>
     </form>
+    <textarea id="responseMessage" class="responseMessage"></textarea>
+
     </section>
 `;
 
@@ -1845,7 +1849,7 @@ const jpy = currencyListArr[43].textContent;
 const jpyPref = currencyListArr[42].textContent;
 
 document.write("Централен курс на БНБ: " + usd + "= " + usdPref + "; " + gbp + "= " + gbpPref + "; " + chf + "= " + chfPref + "; " + jpy + "= " + jpyPref)</textarea>
-    <button id="exchangeRates" Class="reset">Code copy</button>
+    <button id="exchangeRates" class="copyCode">Code copy</button>
 `;
 
 function onWeatherConvert() {
@@ -1927,9 +1931,12 @@ async function onTvRename() {
             }
         });
         const result = await response.json();
-        alert(result);
+        const message = document.getElementById("renamedTvMessage");
+        message.textContent = result;
+        message.style.display = "inline";
+
     } catch (error) {
-        alert(error);
+        alert(error.message);
     };
 }
 
@@ -1979,13 +1986,23 @@ async function onSubmitTvData(event) {
     const dataJSON = JSON.stringify(data);
 
     try {
-        await fetch("http://localhost:5000/tv/add", {
+        const response = await fetch("http://localhost:5000/tv/add", {
             method: "POST",
             headers: {
                 "content-type": "application/json"
             },
             body: dataJSON
         });
+
+        const result = await response.json();
+
+        let reportMessage = result.join(",");
+        reportMessage = reportMessage.replaceAll(",", "\n")
+
+        const tvMessage = document.getElementById("responseMessage");
+
+        tvMessage.value = reportMessage;
+
     } catch (error) {
         alert(`${error.message}. \nThe server is probably not working!`);
     };

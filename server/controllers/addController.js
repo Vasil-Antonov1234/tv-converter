@@ -20,10 +20,13 @@ addController.post("/", (req, res) => {
     const day = req.body.day;
     const date = req.body.date;
 
+    const response = [];
+
     for (let i = 0; i < 46; i++) {
 
         if (!dir.includes(allTv[i])) {
             tvArr.push(`${isMissingTvNames[i]}\n`);
+            response.push(`${allTv[i]} - File is missing!`)
             continue;
         }
 
@@ -44,14 +47,16 @@ addController.post("/", (req, res) => {
 
         if (!encodedTV.includes(`${day} ${date}`)) {
             tvArr.push(`${isMissingTvNames[i]}\n`);
+            response.push(`${allTvNames[i]} - NO DATA!`)
             continue;
         }
 
         tvArr.push(allTvNames[i]);
+        response.push(`${allTvNames[i]} - OK`);
 
         splittedTV = encodedTV.split("\n");
 
-        let isCurrentDay = false
+        let isCurrentDay = false;
 
         for (let row of splittedTV) {
 
@@ -80,7 +85,7 @@ addController.post("/", (req, res) => {
 
     fs.writeFileSync(outputFile, result, { encoding: "utf-8" });
 
-    res.end();
+    res.send(JSON.stringify(response));
 })
 
 export default addController;
