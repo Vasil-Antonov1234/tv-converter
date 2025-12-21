@@ -26,7 +26,7 @@ addController.post("/", (req, res) => {
     for (let i = 0; i < 46; i++) {
 
         if (!dir.includes(allTv[i])) {
-            tvArr.push(`${isMissingTvNames[i]}\n`);
+            tvArr.push(`${allTvNames[i]}${EOL}${day} ${date}${EOL}`);
             response.push(`${allTv[i]} - File is missing! ❌`)
             continue;
         }
@@ -47,7 +47,7 @@ addController.post("/", (req, res) => {
         let splittedTV = [];
 
         if (!encodedTV.includes(`${day} ${date}`)) {
-            tvArr.push(`${isMissingTvNames[i]}\n`);
+            tvArr.push(`${allTvNames[i]}${EOL}${day} ${date}${EOL}`);
             response.push(`${allTvNames[i]} - NO DATA! ❌`)
             continue;
         }
