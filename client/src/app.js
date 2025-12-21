@@ -18,6 +18,10 @@ document.getElementById("tv-book-view").addEventListener("click", tvBookView);
 document.getElementById("tv-weather-view").addEventListener("click", weatherView)
 const dateEl = document.querySelector("#date p");
 const dateContainer = document.getElementById("date");
+const getFileElement = document.getElementById("listFile");
+const selectFileElement = document.getElementById("selectFile");
+getFileElement.addEventListener("click", () => selectFileElement.click());
+selectFileElement.addEventListener("change", () => addFileContent("inputArea", selectFileElement));
 
 const tvCalcConstants = {
     paper: 30,
@@ -1022,18 +1026,11 @@ function delTextIncluding(el, text) {
 
 function delTextExcluding(row, text) {
 
-    row = row.replace(text, text + " ~")
-    const elArr = row.split(" ");
-
-    for (let i = 0; i < elArr.length; i++) {
-        const token = elArr[i];
-
-        if (token === "~" || token === "~," || token === "~;" || token === "~:") {
-            elArr.splice(i, elArr.length - 1);
-        };
-    };
-
-    return elArr.join(" ");
+    row = row.replace(text, text + "~")
+    
+    const result = row.split("~");
+    
+    return result[0];
 }
 
 function removeComma(el) {
@@ -1755,6 +1752,11 @@ function tvBookView(event) {
     document.getElementById("resetCalcTvBook").addEventListener("click", onResetCalc);
     document.getElementById("rename").addEventListener("click", onTvRename);
     document.getElementById("submitTvData").addEventListener("submit", onSubmitTvData)
+    const getFileElementBook = document.getElementById("listFileBook");
+    const selectFileElementBook = document.getElementById("selectFileBook");
+    getFileElementBook.addEventListener("click", () => selectFileElementBook.click());
+    selectFileElementBook.addEventListener("change", () => addFileContent("inputBookArea", selectFileElementBook));
+
 }
 
 const tvBookTemplate = document.createElement("div");
@@ -1766,6 +1768,12 @@ tvBookTemplate.innerHTML = `
     
     <section class="input-wraper">
         <div class="input-container">
+
+            <div>
+                <button class="selectFileBook" id="listFileBook">Select file</button>
+                <input type="file" id="selectFileBook" accept=".txt" style="display: none">
+            </div>
+
             <form id="tv-book-form" class="input">
                 <textarea name="tvText" id="inputBookArea" class="tvText" placeholder="Paste your text here"></textarea>
                 <button type="submit" id="convertBtnTvBook">Convert</button>
@@ -2037,3 +2045,20 @@ async function onSubmitTvData(event) {
         alert(error.message);
     };
 };
+
+function addFileContent(input, selectElememt) {
+    const inputArea = document.getElementById(input);
+    const file = selectElememt.files[0];
+
+    if (!file) {
+        return;
+    };
+
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+        inputArea.value = event.target.result;
+    };
+
+    reader.readAsText(file);
+}

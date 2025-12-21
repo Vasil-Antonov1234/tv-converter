@@ -2,6 +2,7 @@ import { Router } from "express";
 import fs from "node:fs";
 import iconv from "iconv-lite";
 import jschardet from "jschardet";
+import { EOL } from "os";
 
 import { allTvNames, isMissingTvNames } from "../data/tvNames.js"
 import { allTv } from "../data/tvPaths.js"
@@ -73,6 +74,9 @@ addController.post("/", (req, res) => {
             if (isCurrentDay && row !== "" && row !== "\r" && row !== "\n") {
                 tvArr.push(row)
             }
+
+            // row !== EOL
+            // EOL + EOL
         }
     }
 
@@ -85,6 +89,7 @@ addController.post("/", (req, res) => {
 
     fs.writeFileSync(outputFile, result, { encoding: "utf-8" });
 
+    res.status(201);
     res.send(JSON.stringify(response));
 })
 

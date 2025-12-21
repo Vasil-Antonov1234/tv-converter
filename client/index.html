@@ -20,7 +20,6 @@
     <div id="root">
         <div id="main-container">
 
-
             <span id="date">
                 <p>Day</p>
             </span>
@@ -29,7 +28,7 @@
                 <div class="input-container">
                     <form id="main-form" class="input">
                         <textarea name="tvText" id="inputArea" class="tvText"
-                            placeholder="Paste your text here"></textarea>
+                            placeholder="Paste your text here or click 'Select file' button"></textarea>
                         <button type="submit" id="convertBtn">Convert</button>
                         <!-- <img src="./images/arrow.png" class="arrow"> -->
                         <textarea name="output" id="outputArea" class="tvText"
@@ -63,7 +62,12 @@
                 </div>
             </section>
 
-            <button class="reset-all" id="resetAll">Clear All</button>
+            <div>
+                <button class="reset-all" id="resetAll">Clear All</button>
+                <button class="selectFile" id="listFile">Select file</button>
+                <input type="file" id="selectFile" accept=".txt" style="display: none">
+            </div>
+
 
             <span class="notify">error</span>
             <span class="close">X</span>
