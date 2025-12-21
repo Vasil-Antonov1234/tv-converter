@@ -1928,8 +1928,12 @@ function replaceSpaces(text) {
 async function onTvRename(event) {
 
     const button = event.currentTarget;
-    
+
     button.setAttribute("disabled", true);
+
+    setTimeout(() => {
+        button.removeAttribute("disabled");
+    }, 1000)
 
     try {
 
@@ -1943,8 +1947,6 @@ async function onTvRename(event) {
         const message = document.getElementById("renamedTvMessage");
         message.textContent = result;
         message.style.display = "inline";
-
-        button.removeAttribute("disabled");
 
     } catch (error) {
 
@@ -1961,6 +1963,10 @@ async function onSubmitTvData(event) {
 
     const button = document.getElementById("submitAddTvDataBtv");
     button.setAttribute("disabled", true);
+
+    setTimeout(() => {
+        button.removeAttribute("disabled");
+    }, 1000);
 
     const formData = new FormData(event.currentTarget);
 
@@ -2021,8 +2027,6 @@ async function onSubmitTvData(event) {
         const tvMessage = document.getElementById("responseMessage");
 
         tvMessage.value = reportMessage;
-
-        button.removeAttribute("disabled");
 
     } catch (error) {
 
