@@ -1791,7 +1791,7 @@ tvBookTemplate.innerHTML = `
     <form id="submitTvData" class="outputTvDate">
         <input type="text" name="day">
         <input type="text" name="date">
-        <button class="submitAddTvData">submit</button>
+        <button class="submitAddTvData" id="submitAddTvDataBtv">submit</button>
     </form>
     <textarea id="responseMessage" class="responseMessage"></textarea>
 
@@ -1924,8 +1924,15 @@ function replaceSpaces(text) {
     return text
 };
 
-async function onTvRename() {
+
+async function onTvRename(event) {
+
+    const button = event.currentTarget;
+    
+    button.setAttribute("disabled", true);
+
     try {
+
         const response = await fetch("http://localhost:5000/tv/rename", {
             method: "GET",
             headers: {
@@ -1937,13 +1944,23 @@ async function onTvRename() {
         message.textContent = result;
         message.style.display = "inline";
 
+        button.removeAttribute("disabled");
+
     } catch (error) {
+
+        if (error.name === "AbortError") {
+            return alert("Request was aborted");
+        }
+
         alert(`${error.message} \nThe server is probably not working!`);
     };
 }
 
 async function onSubmitTvData(event) {
     event.preventDefault();
+
+    const button = document.getElementById("submitAddTvDataBtv");
+    button.setAttribute("disabled", true);
 
     const formData = new FormData(event.currentTarget);
 
@@ -2005,12 +2022,14 @@ async function onSubmitTvData(event) {
 
         tvMessage.value = reportMessage;
 
+        button.removeAttribute("disabled");
+
     } catch (error) {
-        
+
         if (error.message === "Failed to fetch") {
             return alert(`${error.message}. \nThe server is probably not working!`);
         }
-        
+
         alert(error.message);
     };
 };

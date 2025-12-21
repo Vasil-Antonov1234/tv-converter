@@ -26,7 +26,7 @@ addController.post("/", (req, res) => {
 
         if (!dir.includes(allTv[i])) {
             tvArr.push(`${isMissingTvNames[i]}\n`);
-            response.push(`${allTv[i]} - File is missing!`)
+            response.push(`${allTv[i]} - File is missing! ❌`)
             continue;
         }
 
@@ -47,12 +47,12 @@ addController.post("/", (req, res) => {
 
         if (!encodedTV.includes(`${day} ${date}`)) {
             tvArr.push(`${isMissingTvNames[i]}\n`);
-            response.push(`${allTvNames[i]} - NO DATA!`)
+            response.push(`${allTvNames[i]} - NO DATA! ❌`)
             continue;
         }
 
         tvArr.push(allTvNames[i]);
-        response.push(`${allTvNames[i]} - OK`);
+        response.push(`${allTvNames[i]} - OK ✅`);
 
         splittedTV = encodedTV.split("\n");
 
