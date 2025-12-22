@@ -5,7 +5,9 @@ body {
 }
 
 header {
-    background-color: rgb(129, 103, 103)
+    background-color: rgb(129, 103, 103);
+    border-radius: 14px;
+    padding: 4px;
 }
 
 .tv-book {
@@ -153,7 +155,6 @@ h1 {
     font-size: xxx-large;
     color: brown;
     /* background-image: url(../images/arrow.png); */
-    cursor: pointer;
 }
 
 
