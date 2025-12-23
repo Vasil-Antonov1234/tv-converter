@@ -1807,7 +1807,15 @@ tvBookTemplate.innerHTML = `
         </div>
 
         <form id="submitTvData" class="outputTvDate">
-            <input type="text" name="day">
+            <select name="day" id="day">
+                <option value="Понеделник" name="day">Понеделник</option>
+                <option value="Вторник" name="day">Вторник</option>
+                <option value="Сряда" name="day">Сряда</option>
+                <option value="Четвъртък" name="day">Четвъртък</option>
+                <option value="Петък" name="day">Петък</option>
+                <option value="Събота" name="day">Събота</option>
+                <option value="Неделя" name="day">Неделя</option>
+            </select>
             <input type="text" name="date">
             <button class="submitAddTvData" id="submitAddTvDataBtv">submit</button>
         </form>
@@ -1989,23 +1997,25 @@ async function onSubmitTvData(event) {
 
     const data = Object.fromEntries(formData);
 
-    const days = [
-        "Понеделник",
-        "Вторник",
-        "Сряда",
-        "Четвъртък",
-        "Петък",
-        "Събота",
-        "Неделя"
-    ];
+    console.log(data);
+
+    // const days = [
+    //     "Понеделник",
+    //     "Вторник",
+    //     "Сряда",
+    //     "Четвъртък",
+    //     "Петък",
+    //     "Събота",
+    //     "Неделя"
+    // ];
 
     if (!data.day || !data.date) {
         return alert("Day and date is required!");
     };
 
-    if (!days.includes(data.day)) {
-        return alert(`Ivalid day input: '${data.day}'!`);
-    };
+    // if (!days.includes(data.day)) {
+    //     return alert(`Ivalid day input: '${data.day}'!`);
+    // };
 
     const regex = /^\d\d.\d\d.\d\d\d\d$/
 
