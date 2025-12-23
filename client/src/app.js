@@ -1753,7 +1753,7 @@ function tvBookView(event) {
     document.getElementById("calcBtnTvBook").addEventListener("click", onCalc);
     document.getElementById("resetCalcTvBook").addEventListener("click", onResetCalc);
     document.getElementById("rename").addEventListener("click", onTvRename);
-    document.getElementById("submitTvData").addEventListener("submit", onSubmitTvData)
+    document.getElementById("submitTvData").addEventListener("submit", onSubmitTvData);
     const getFileElementBook = document.getElementById("listFileBook");
     const selectFileElementBook = document.getElementById("selectFileBook");
 
@@ -1763,8 +1763,7 @@ function tvBookView(event) {
         isAddedGetFile = true;
     };
 
-
-}
+};
 
 const tvBookTemplate = document.createElement("div");
 tvBookTemplate.setAttribute("id", "test");
@@ -1803,8 +1802,8 @@ tvBookTemplate.innerHTML = `
         <span class="renamedTvMessage" id="renamedTvMessage"></span>
 
         <div class="reportMessageTitleContainer">
-            <span class="reportMessageTitle">Missing files: 0</span>
-            <span class="reportMessageTitle">Missing data: 0</span>
+            <span class="reportMessageTitle" id="missingFilesCount">Missing files: 0</span>
+            <span class="reportMessageTitle1" id="missingDataCount">Missing data: 0</span>
         </div>
 
         <form id="submitTvData" class="outputTvDate">
@@ -1815,8 +1814,8 @@ tvBookTemplate.innerHTML = `
     
         <div>
             <textarea id="responseMessage" class="responseMessage"></textarea>
-            <textarea id="responseMessage" class="responseMessage"></textarea>
-            <textarea id="responseMessage" class="responseMessage"></textarea>
+            <textarea id="missingFilesMessage" class="responseMessage"></textarea>
+            <textarea id="missingDataMessega" class="responseMessage"></textarea>
         </div>
     </section>
 `;
@@ -1972,11 +1971,6 @@ async function onTvRename(event) {
         message.style.display = "inline";
 
     } catch (error) {
-
-        if (error.name === "AbortError") {
-            return alert("Request was aborted");
-        }
-
         alert(`${error.message} \nThe server is probably not working!`);
     };
 }
@@ -2044,12 +2038,31 @@ async function onSubmitTvData(event) {
 
         const result = await response.json();
 
-        let reportMessage = result.join("\n");
-        // reportMessage = reportMessage.replaceAll(",", "\n")
+        const reportMessage = result.join("\n");
+        const reportMissingFilesMessage = result.filter((x) => x.includes("File is missing!"));
+        const reportMissingDataMessage = result.filter((x) => x.includes("NO DATA!"))
 
         const tvMessage = document.getElementById("responseMessage");
+        const missingFilesMessage = document.getElementById("missingFilesMessage");
+        const missingDataMessage = document.getElementById("missingDataMessega");
+
+        const missingFilesCount = document.getElementById("missingFilesCount");
+        missingFilesCount.textContent = `Missing files: ${reportMissingFilesMessage.length}`;
+
+        const missingDataCount = document.getElementById("missingDataCount");
+        missingDataCount.textContent = `Missing data: ${reportMissingDataMessage.length}`;
+
+        if (reportMissingFilesMessage.length > 0) {
+            missingFilesCount.style.color = "red";
+        };
+
+        if (reportMissingDataMessage.length > 0) {
+            missingDataCount.style.color = "red";
+        };
 
         tvMessage.value = reportMessage;
+        missingFilesMessage.value = reportMissingFilesMessage.join("\n");
+        missingDataMessage.value = reportMissingDataMessage.join("\n");
 
     } catch (error) {
 

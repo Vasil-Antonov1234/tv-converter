@@ -48,7 +48,7 @@ addController.post("/", (req, res) => {
 
         if (!encodedTV.includes(`${day} ${date}`)) {
             tvArr.push(`${allTvNames[i]}${EOL}${day} ${date}${EOL}`);
-            response.push(`${allTvNames[i]} - NO DATA! ❌`)
+            response.push(`${allTvNames[i]} - NO DATA! ❌ (${allTv[i]})`);
             continue;
         }
 
@@ -63,7 +63,7 @@ addController.post("/", (req, res) => {
 
             if (handleEndOfCurrentTv(row) && isCurrentDay) {
                 isCurrentDay = false
-                tvArr.push("\n")
+                tvArr.push("\n");
                 break;
             }
 

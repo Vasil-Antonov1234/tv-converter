@@ -31,11 +31,11 @@ a {
 }
 
 a:hover {
-    color: gray;
+    color: rgb(118, 198, 245);
 }
 
 .isActive {
-    color: gray;
+    color: rgb(118, 198, 245);
 }
 
 #paper-view {
@@ -416,14 +416,22 @@ h1 {
 }
 
 .reportMessageTitleContainer {
-    position: relative;
-    left: 44%;
     margin-bottom: -34px;
+    display: flex;
+    justify-content: center;
 }
 
-.reportMessageTitle {
-    margin-right: 100px;
+.reportMessageTitle,
+.reportMessageTitle1 {
     font-size: 30px;
     font-family: cursive;
     color: green;
+}
+
+.reportMessageTitle {
+    margin-left: 310px;
+}
+
+.reportMessageTitle1 {
+    margin-left: 100px;
 }
