@@ -2078,6 +2078,9 @@ function addFileContent(input, selectElememt) {
     const inputArea = document.getElementById(input);
     const file = selectElememt.files[0];
 
+    const outputArea = document.getElementById("outputArea");
+    outputArea.value = "";
+
     if (!file) {
         return;
     };
