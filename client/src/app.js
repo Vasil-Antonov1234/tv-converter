@@ -1999,23 +1999,9 @@ async function onSubmitTvData(event) {
 
     console.log(data);
 
-    // const days = [
-    //     "Понеделник",
-    //     "Вторник",
-    //     "Сряда",
-    //     "Четвъртък",
-    //     "Петък",
-    //     "Събота",
-    //     "Неделя"
-    // ];
-
     if (!data.day || !data.date) {
         return alert("Day and date is required!");
     };
-
-    // if (!days.includes(data.day)) {
-    //     return alert(`Ivalid day input: '${data.day}'!`);
-    // };
 
     const regex = /^\d\d.\d\d.\d\d\d\d$/
 

@@ -54,7 +54,7 @@ addController.post("/", (req, res) => {
 
         tvArr.push(allTvNames[i]);
         // TODO check if this should be exactly on this row
-        response.push(`${allTvNames[i]} - OK ✅`);
+        // response.push(`${allTvNames[i]} - OK ✅`);
 
         splittedTV = encodedTV.split("\n");
 
@@ -67,10 +67,6 @@ addController.post("/", (req, res) => {
                 break;
             }
 
-            // if ((row === `${day} ${date}\r` || row === `${day} ${date}`) && !isCurrentDay) {
-            //     isCurrentDay = true
-            // };
-
             if (row.startsWith(`${day} ${date}`) && !isCurrentDay) {
                 isCurrentDay = true
             };
@@ -79,6 +75,14 @@ addController.post("/", (req, res) => {
                 tvArr.push(row);
             };
         };
+
+        if (tvArr.length > 3) {
+            response.push(`${allTvNames[i]} - OK ✅`);
+        }
+
+        if (tvArr.length < 3) {
+            response.push(`${allTvNames[i]} - NO DATA! ❌ (${allTv[i]})`);
+        }
 
         tvArr.push(EOL);
     };
