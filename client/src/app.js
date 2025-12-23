@@ -1734,6 +1734,8 @@ function closeNotification() {
     spanClose.style.display = "none";
 };
 
+let isAddedGetFile = false;
+
 function tvBookView(event) {
     const allHrefs = document.querySelectorAll("a");
     allHrefs.forEach((x) => x.classList.remove("isActive"));
@@ -1754,8 +1756,13 @@ function tvBookView(event) {
     document.getElementById("submitTvData").addEventListener("submit", onSubmitTvData)
     const getFileElementBook = document.getElementById("listFileBook");
     const selectFileElementBook = document.getElementById("selectFileBook");
-    getFileElementBook.addEventListener("click", () => selectFileElementBook.click());
-    selectFileElementBook.addEventListener("change", () => addFileContent("inputBookArea", selectFileElementBook));
+
+    if (!isAddedGetFile) {
+        getFileElementBook.addEventListener("click", () => selectFileElementBook.click());
+        selectFileElementBook.addEventListener("change", () => addFileContent("inputBookArea", selectFileElementBook));
+        isAddedGetFile = true;
+    };
+
 
 }
 
