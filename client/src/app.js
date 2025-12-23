@@ -1027,9 +1027,9 @@ function delTextIncluding(el, text) {
 function delTextExcluding(row, text) {
 
     row = row.replace(text, text + "~")
-    
+
     const result = row.split("~");
-    
+
     return result[0];
 }
 
@@ -1763,8 +1763,8 @@ const tvBookTemplate = document.createElement("div");
 tvBookTemplate.setAttribute("id", "test");
 tvBookTemplate.innerHTML = `
     <span id="dateBook">
-            <p>Day</p>
-        </span>
+        <p>Day</p>
+    </span>
     
     <section class="input-wraper">
         <div class="input-container">
@@ -1795,14 +1795,22 @@ tvBookTemplate.innerHTML = `
         <button id="rename" class="tvRename">TV-rename</button>
         <span class="renamedTvMessage" id="renamedTvMessage"></span>
 
-        
-    <form id="submitTvData" class="outputTvDate">
-        <input type="text" name="day">
-        <input type="text" name="date">
-        <button class="submitAddTvData" id="submitAddTvDataBtv">submit</button>
-    </form>
-    <textarea id="responseMessage" class="responseMessage"></textarea>
+        <div class="reportMessageTitleContainer">
+            <span class="reportMessageTitle">Missing files: 0</span>
+            <span class="reportMessageTitle">Missing data: 0</span>
+        </div>
 
+        <form id="submitTvData" class="outputTvDate">
+            <input type="text" name="day">
+            <input type="text" name="date">
+            <button class="submitAddTvData" id="submitAddTvDataBtv">submit</button>
+        </form>
+    
+        <div>
+            <textarea id="responseMessage" class="responseMessage"></textarea>
+            <textarea id="responseMessage" class="responseMessage"></textarea>
+            <textarea id="responseMessage" class="responseMessage"></textarea>
+        </div>
     </section>
 `;
 
@@ -2029,8 +2037,8 @@ async function onSubmitTvData(event) {
 
         const result = await response.json();
 
-        let reportMessage = result.join(",");
-        reportMessage = reportMessage.replaceAll(",", "\n")
+        let reportMessage = result.join("\n");
+        // reportMessage = reportMessage.replaceAll(",", "\n")
 
         const tvMessage = document.getElementById("responseMessage");
 
