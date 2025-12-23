@@ -2054,10 +2054,14 @@ async function onSubmitTvData(event) {
 
         if (reportMissingFilesMessage.length > 0) {
             missingFilesCount.style.color = "red";
-        };
+        } else {
+            missingFilesCount.style.color = "green";
+        }
 
         if (reportMissingDataMessage.length > 0) {
             missingDataCount.style.color = "red";
+        } else {
+            missingDataCount.style.color = "green";
         };
 
         tvMessage.value = reportMessage;

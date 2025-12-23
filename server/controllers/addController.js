@@ -4,7 +4,7 @@ import iconv from "iconv-lite";
 import jschardet from "jschardet";
 import { EOL } from "os";
 
-import { allTvNames, isMissingTvNames } from "../data/tvNames.js"
+import { allTvNames } from "../data/tvNames.js"
 import { allTv } from "../data/tvPaths.js"
 import { handleDay, handleOutputDay } from "../utils/handleDay.js"
 import { handleEndOfCurrentTv } from "../utils/handleEndOfCuttentTv.js"
@@ -53,6 +53,7 @@ addController.post("/", (req, res) => {
         }
 
         tvArr.push(allTvNames[i]);
+        // TODO check if this should be exactly on this row
         response.push(`${allTvNames[i]} - OK ✅`);
 
         splittedTV = encodedTV.split("\n");
@@ -63,25 +64,27 @@ addController.post("/", (req, res) => {
 
             if (handleEndOfCurrentTv(row) && isCurrentDay) {
                 isCurrentDay = false
-                tvArr.push("\n");
                 break;
             }
 
-            if ((row === `${day} ${date}\r` || row === `${day} ${date}`) && !isCurrentDay) {
+            // if ((row === `${day} ${date}\r` || row === `${day} ${date}`) && !isCurrentDay) {
+            //     isCurrentDay = true
+            // };
+
+            if (row.startsWith(`${day} ${date}`) && !isCurrentDay) {
                 isCurrentDay = true
             };
 
             if (isCurrentDay && row !== "" && row !== "\r" && row !== "\n") {
-                tvArr.push(row)
-            }
+                tvArr.push(row);
+            };
+        };
 
-            // row !== EOL
-            // EOL + EOL
-        }
-    }
+        tvArr.push(EOL);
+    };
 
     let result = tvArr.join("\n");
-    result = result.replaceAll("•", "-");
+    result = result.replaceAll("•", "-").trim();
 
     const outputDir = paths.output;
 
