@@ -6,32 +6,44 @@ const regex = /-\d\d.txt/
 
 export default {
     renameAllTv() {
-        const dir = fs.readdirSync(inputFilePath);
-        let result = 0;
 
-        if (dir.find((x) => x.includes("-"))) {
+        try {
+            const dir = fs.readdirSync(inputFilePath);
+            let result = 0;
 
-            for (let el of dir) {
+            if (dir.find((x) => x.includes("-"))) {
 
-                const match = el.match(regex);
+                for (let el of dir) {
 
-                if (!match || !el.endsWith(".txt")) {
-                    continue;
+                    const match = el.match(regex);
+
+                    if (!match || !el.endsWith(".txt")) {
+                        continue;
+                    };
+
+                    result++;
+
+                    let fileName = el.replace(regex, ".txt");
+
+                    fs.rename(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`, (error) => {
+
+                        if (error) {
+                            console.log(error)
+                        }
+                    });
                 };
-
-                result++;
-
-                let fileName = el.replace(regex, ".txt");
-
-                fs.rename(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`, (error) => {
-
-                    if (error) {
-                        console.log(error)
-                    }
-                });
             };
-        };
 
-        return result;
+            return result;
+        } catch (error) {
+            console.log(error.message);
+            throw(error.message);
+        }
+
+
+    },
+
+    renameFiles(inputPath, find, replaceTo, extension) {
+        const dir = fs.readdirSync(inputPath);
     }
 }

@@ -2032,6 +2032,10 @@ async function onSubmitTvData(event) {
 
         const result = await response.json();
 
+        if (typeof(result) === "string") {
+            return alert(result);
+        };
+
         const reportMessage = result.join("\n");
         const reportMissingFilesMessage = result.filter((x) => x.includes("File is missing!"));
         const reportMissingDataMessage = result.filter((x) => x.includes("NO DATA!"))
