@@ -1967,7 +1967,7 @@ async function onTvRename(event) {
 
     try {
 
-        const response = await fetch("http://localhost:5000/tv/rename", {
+        const response = await fetch("http://localhost:5000/rename/tv", {
             method: "GET",
             headers: {
                 "content-type": "application/json"
