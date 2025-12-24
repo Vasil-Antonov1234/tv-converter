@@ -1087,7 +1087,7 @@ function calcReturnsCount1(arr, value) {
             };
         };
 
-        console.log(paragraphCharsCount);
+        // console.log(paragraphCharsCount);
 
         if (paragraphCharsCount > value) {
             currentRows = Math.ceil(paragraphCharsCount / value);
@@ -1996,8 +1996,6 @@ async function onSubmitTvData(event) {
     const formData = new FormData(event.currentTarget);
 
     const data = Object.fromEntries(formData);
-
-    console.log(data);
 
     if (!data.day || !data.date) {
         return alert("Day and date is required!");
