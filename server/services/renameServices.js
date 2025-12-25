@@ -37,13 +37,20 @@ export default {
             return result;
         } catch (error) {
             console.log(error.message);
-            throw(error.message);
+            throw (error.message);
         }
 
 
     },
 
     renameFiles(inputPath, find, replaceTo, extension) {
-        const dir = fs.readdirSync(inputPath);
+
+        try {
+            const dir = fs.readdirSync(inputPath);
+
+        } catch (error) {
+            throw(error.message)
+        }
+
     }
 }

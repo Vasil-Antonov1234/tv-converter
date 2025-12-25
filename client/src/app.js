@@ -1910,14 +1910,13 @@ function onOthersView(event) {
         selectPathInput.addEventListener("change", () => addFileContent("inputBookArea", selectPathInput));
         isAddedSelectPath = true;
     };
-}
+};
 
 const othersTemplate = document.createElement("div");
 othersTemplate.setAttribute("id", "others");
 othersTemplate.innerHTML = `   
     <form class="othersForm" id="findReplaceForm">
-        <input type="file" name="dirPath" id="dirPath" style="display: none">
-        <button class="selectFile" id="selectPath">Select path</button>
+        <input type="text" name="path">
         <input type="text" name="find" id="find">
         <input type="text" name="changeTo" id="changeTo">
         <input type="text" name="extension" id="extension">
@@ -1925,8 +1924,25 @@ othersTemplate.innerHTML = `
     </form>
 `;
 
-function onFindAndReplace(event) {
+async function onFindAndReplace(event) {
     event.preventDefault();
+ 
+    const formData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(formData);
+
+    try {
+       const response = await fetch("http://localhost:5000/rename/files", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+       })
+    } catch (error) {
+        console.log(error.message)
+    }
+
+    
 }
 
 function onWeatherConvert() {
@@ -2077,7 +2093,7 @@ async function onSubmitTvData(event) {
 
         const result = await response.json();
 
-        if (typeof(result) === "string") {
+        if (typeof (result) === "string") {
             return alert(result);
         };
 
