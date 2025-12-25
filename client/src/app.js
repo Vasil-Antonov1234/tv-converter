@@ -14,8 +14,10 @@ const radioContainerElement = document.querySelector(".radio-container");
 const spanNotify = document.querySelector(".notify");
 const spanClose = document.querySelector(".close");
 spanClose.addEventListener("click", closeNotification);
+document.getElementById("paper-view").addEventListener("click", tvPaperView);
 document.getElementById("tv-book-view").addEventListener("click", tvBookView);
-document.getElementById("tv-weather-view").addEventListener("click", weatherView)
+document.getElementById("tv-weather-view").addEventListener("click", weatherView);
+document.getElementById("others-view").addEventListener("click", onOthersView);
 const dateEl = document.querySelector("#date p");
 const dateContainer = document.getElementById("date");
 const getFileElement = document.getElementById("listFile");
@@ -1735,6 +1737,7 @@ function closeNotification() {
 };
 
 let isAddedGetFile = false;
+let isAddedSelectPath = false;
 
 function tvBookView(event) {
     const allHrefs = document.querySelectorAll("a");
@@ -1742,14 +1745,16 @@ function tvBookView(event) {
     event.currentTarget.classList.add("isActive");
     root.classList.remove("weather");
     body.classList.remove("weather");
+    root.classList.remove("others");
+    body.classList.remove("others");
     root.classList.add("tv-book");
     body.classList.add("tv-book");
     root.replaceChildren(tvBookTemplate);
     tvCalcValue = "book";
     document.querySelector("#tv-book-form").addEventListener("submit", onConvert);
     document.querySelector("#tvBook").style.display = "none";
-    document.getElementById("paper-view").addEventListener("click", tvPaperView);
-    document.getElementById("tv-weather-view").addEventListener("click", weatherView);
+    // document.getElementById("paper-view").addEventListener("click", tvPaperView);
+    // document.getElementById("tv-weather-view").addEventListener("click", weatherView);
     document.getElementById("calcBtnTvBook").addEventListener("click", onCalc);
     document.getElementById("resetCalcTvBook").addEventListener("click", onResetCalc);
     document.getElementById("rename").addEventListener("click", onTvRename);
@@ -1838,6 +1843,8 @@ function tvPaperView(event) {
     body.classList.remove("tv-book");
     root.classList.remove("weather");
     body.classList.remove("weather");
+    root.classList.remove("others");
+    body.classList.remove("others");
     root.replaceChildren(paperTemplate);
     tvCalcValue = "paper";
 }
@@ -1848,11 +1855,13 @@ function weatherView(event) {
     event.currentTarget.classList.add("isActive");
     root.classList.remove("tv-book");
     body.classList.remove("tv-book");
+    root.classList.remove("others");
+    body.classList.remove("others");
     root.classList.add("weather");
     body.classList.add("weather");
     root.replaceChildren(weatherTemplate);
-    document.getElementById("tv-book-view").addEventListener("click", tvBookView);
-    document.getElementById("paper-view").addEventListener("click", tvPaperView);
+    // document.getElementById("tv-book-view").addEventListener("click", tvBookView);
+    // document.getElementById("paper-view").addEventListener("click", tvPaperView);
     document.getElementById("getBtnBG").addEventListener("click", onWeatherConvert);
     document.querySelector("#exchangeRates").addEventListener("click", exchangeRates);
     document.getElementById("exchangeRatesInput").style.display = "none";
@@ -1883,6 +1892,42 @@ const jpyPref = currencyListArr[42].textContent;
 document.write("Централен курс на БНБ: " + usd + "= " + usdPref + "; " + gbp + "= " + gbpPref + "; " + chf + "= " + chfPref + "; " + jpy + "= " + jpyPref)</textarea>
     <button id="exchangeRates" class="copyCode">Code copy</button>
 `;
+
+function onOthersView(event) {
+    root.replaceChildren(othersTemplate);
+    const allHrefs = document.querySelectorAll("a");
+    allHrefs.forEach((x) => x.classList.remove("isActive"));
+    event.currentTarget.classList.add("isActive");
+    root.classList.add("others");
+    body.classList.add("others");
+
+    const selectPathInput = document.getElementById("dirPath");
+    const selectPathButton = document.getElementById("selectPath");
+    document.getElementById("findReplaceForm").addEventListener("submit", onFindAndReplace)
+
+    if (!isAddedSelectPath) {
+        selectPathButton.addEventListener("click", () => selectPathInput.click());
+        selectPathInput.addEventListener("change", () => addFileContent("inputBookArea", selectPathInput));
+        isAddedSelectPath = true;
+    };
+}
+
+const othersTemplate = document.createElement("div");
+othersTemplate.setAttribute("id", "others");
+othersTemplate.innerHTML = `   
+    <form class="othersForm" id="findReplaceForm">
+        <input type="file" name="dirPath" id="dirPath" style="display: none">
+        <button class="selectFile" id="selectPath">Select path</button>
+        <input type="text" name="find" id="find">
+        <input type="text" name="changeTo" id="changeTo">
+        <input type="text" name="extension" id="extension">
+        <button class="selectFile">Change</button>
+    </form>
+`;
+
+function onFindAndReplace(event) {
+    event.preventDefault();
+}
 
 function onWeatherConvert() {
     const inputEl = document.getElementById("input");

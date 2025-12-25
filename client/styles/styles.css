@@ -18,14 +18,22 @@ header {
     background-color: rgb(134, 221, 134);
 }
 
+.others {
+    background-color: rgb(192, 188, 188);
+}
+
+.othersForm {
+    margin-top: 30px;
+}
+
 .text {
     margin-top: 90px;
 }
 
 a {
     text-decoration: none;
-    margin-right: 30px;
-    margin-left: 30px;
+    margin-right: 15px;
+    margin-left: 15px;
     padding: 4px;
     color: bisque
 }
