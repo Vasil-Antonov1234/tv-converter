@@ -1784,7 +1784,7 @@ tvBookTemplate.innerHTML = `
             </div>
 
             <form id="tv-book-form" class="input">
-                <textarea name="tvText" id="inputBookArea" class="tvText" placeholder="Paste your text here"></textarea>
+                <textarea name="tvText" id="inputBookArea" class="tvText" placeholder="Paste your text here or click the 'Select File' button"></textarea>
                 <button type="submit" id="convertBtnTvBook">Convert</button>
                 <textarea name="output" id="outputArea" class="tvText" placeholder="The converted text will appear here"></textarea>
 
@@ -1888,7 +1888,7 @@ const jpy = currencyListArr[43].textContent;
 const jpyPref = currencyListArr[42].textContent;
 
 document.write("Централен курс на БНБ: " + usd + "= " + usdPref + "; " + gbp + "= " + gbpPref + "; " + chf + "= " + chfPref + "; " + jpy + "= " + jpyPref)</textarea>
-    <button id="exchangeRates" class="copyCode">Code copy</button>
+    <button id="exchangeRates" class="copyCode">Copy code/ exchange rates</button>
 `;
 
 function onOthersView(event) {
@@ -1921,6 +1921,7 @@ othersTemplate.innerHTML = `
         <button class="selectFile">Change</button>
         <span class="renamedTvMessage" id="renamedFilesMessage">Test</span>
     </form>
+    <hr>
 `;
 
 async function onFindAndReplace(event) {
