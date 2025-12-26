@@ -10,20 +10,22 @@ renameController.get("/tv", (req, res) => {
         res.send(JSON.stringify(`${response} files has been renamed!`));
     } catch (error) {
         res.send(JSON.stringify(error));
-    }
+    };
 
 });
 
 renameController.post("/files", (req, res) => {
     const data = req.body;
 
+    const { path, find, changeTo, extension } = data;
+
     try {
-        const response = renameServices.renameFiles({ ...data });
-        res.send(JSON.stringify(`${response} files has been renamed!`))
+    const response = renameServices.renameFiles(path, find, changeTo, extension);
+        res.send(JSON.stringify(`${response} files has been renamed!`));
     } catch (error) {
-        res.status("400");
+        res.status(400);
         res.send(JSON.stringify(error));
-    }
-})
+    };
+});
 
 export default renameController;

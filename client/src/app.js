@@ -1737,7 +1737,7 @@ function closeNotification() {
 };
 
 let isAddedGetFile = false;
-let isAddedSelectPath = false;
+// let isAddedSelectPath = false;
 
 function tvBookView(event) {
     const allHrefs = document.querySelectorAll("a");
@@ -1753,8 +1753,6 @@ function tvBookView(event) {
     tvCalcValue = "book";
     document.querySelector("#tv-book-form").addEventListener("submit", onConvert);
     document.querySelector("#tvBook").style.display = "none";
-    // document.getElementById("paper-view").addEventListener("click", tvPaperView);
-    // document.getElementById("tv-weather-view").addEventListener("click", weatherView);
     document.getElementById("calcBtnTvBook").addEventListener("click", onCalc);
     document.getElementById("resetCalcTvBook").addEventListener("click", onResetCalc);
     document.getElementById("rename").addEventListener("click", onTvRename);
@@ -1901,26 +1899,27 @@ function onOthersView(event) {
     root.classList.add("others");
     body.classList.add("others");
 
-    const selectPathInput = document.getElementById("dirPath");
-    const selectPathButton = document.getElementById("selectPath");
+    // const selectPathInput = document.getElementById("dirPath");
+    // const selectPathButton = document.getElementById("selectPath");
     document.getElementById("findReplaceForm").addEventListener("submit", onFindAndReplace)
 
-    if (!isAddedSelectPath) {
-        selectPathButton.addEventListener("click", () => selectPathInput.click());
-        selectPathInput.addEventListener("change", () => addFileContent("inputBookArea", selectPathInput));
-        isAddedSelectPath = true;
-    };
+    // if (!isAddedSelectPath) {
+    //     selectPathButton.addEventListener("click", () => selectPathInput.click());
+    //     selectPathInput.addEventListener("change", () => addFileContent("inputBookArea", selectPathInput));
+    //     isAddedSelectPath = true;
+    // };
 };
 
 const othersTemplate = document.createElement("div");
 othersTemplate.setAttribute("id", "others");
 othersTemplate.innerHTML = `   
     <form class="othersForm" id="findReplaceForm">
-        <input type="text" name="path">
-        <input type="text" name="find" id="find">
-        <input type="text" name="changeTo" id="changeTo">
-        <input type="text" name="extension" id="extension">
+        <input type="text" name="path" id="path" placeholder="Folder path*">
+        <input type="text" name="find" id="find" placeholder="Find*">
+        <input type="text" name="changeTo" id="changeTo" placeholder="Replace*">
+        <input type="text" name="extension" id="extension" placeholder="File extension (Optional)">
         <button class="selectFile">Change</button>
+        <span class="renamedTvMessage" id="renamedFilesMessage">Test</span>
     </form>
 `;
 
@@ -1930,6 +1929,18 @@ async function onFindAndReplace(event) {
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
 
+    if (!data.path) {
+        return alert("Folder path is required!");
+    };
+
+    if (!data.find) {
+        return alert("Find is required!");
+    };
+
+    if (!data.changeTo) {
+        return alert("Replace is required!");
+    };
+
     try {
        const response = await fetch("http://localhost:5000/rename/files", {
         method: "POST",
@@ -1938,11 +1949,16 @@ async function onFindAndReplace(event) {
         },
         body: JSON.stringify(data)
        })
-    } catch (error) {
-        console.log(error.message)
-    }
 
-    
+       const result = await response.json();
+
+       const message = document.getElementById("renamedFilesMessage");
+       message.textContent = result;
+       message.style.display = "inline-block";
+
+    } catch (error) {
+        alert(error.message);
+    }
 }
 
 function onWeatherConvert() {

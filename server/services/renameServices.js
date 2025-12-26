@@ -43,13 +43,32 @@ export default {
 
     },
 
-    renameFiles(inputPath, find, replaceTo, extension) {
+    renameFiles(path, find, changeTo, extension) {
 
         try {
-            const dir = fs.readdirSync(inputPath);
+            let dir = fs.readdirSync(path);
+            let result = 0;
+
+            if (extension) {
+                dir = dir.filter((file) => file.endsWith(`.${extension}`));
+            };
+
+            for (let file of dir) {
+
+                if (file.includes(find)) {
+                    const newFileName = file.replace(find, changeTo);
+
+                    fs.renameSync(`${path}/${file}`, `${path}/${newFileName}`);
+
+                    result++
+                }
+            }
+
+            return result;
+
 
         } catch (error) {
-            throw(error.message)
+            throw (error.message)
         }
 
     }
