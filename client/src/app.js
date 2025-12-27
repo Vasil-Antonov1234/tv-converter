@@ -24,6 +24,7 @@ const getFileElement = document.getElementById("listFile");
 const selectFileElement = document.getElementById("selectFile");
 getFileElement.addEventListener("click", () => selectFileElement.click());
 selectFileElement.addEventListener("change", () => addFileContent("inputArea", selectFileElement));
+const baseURL = "http://localhost:5000";
 
 const tvCalcConstants = {
     paper: 30,
@@ -1891,6 +1892,8 @@ document.write("Централен курс на БНБ: " + usd + "= " + usdPre
     <button id="exchangeRates" class="copyCode">Copy code/ exchange rates</button>
 `;
 
+let isPending = false;
+
 function onOthersView(event) {
     root.replaceChildren(othersTemplate);
     const allHrefs = document.querySelectorAll("a");
@@ -1901,7 +1904,14 @@ function onOthersView(event) {
 
     // const selectPathInput = document.getElementById("dirPath");
     // const selectPathButton = document.getElementById("selectPath");
-    document.getElementById("findReplaceForm").addEventListener("submit", onFindAndReplace)
+    document.getElementById("findReplaceForm").addEventListener("submit", onFindAndReplace);
+    document.getElementById("copyIssueForm").addEventListener("submit", onCopyIssue);
+    const message = document.getElementById("copyIssueMessage");
+
+    if (isPending) {
+        message.textContent = "Loading...";
+        message.style.display = "inline-block";
+    }
 
     // if (!isAddedSelectPath) {
     //     selectPathButton.addEventListener("click", () => selectPathInput.click());
@@ -1933,7 +1943,7 @@ othersTemplate.innerHTML = `
 
 async function onFindAndReplace(event) {
     event.preventDefault();
- 
+
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
 
@@ -1950,23 +1960,65 @@ async function onFindAndReplace(event) {
     };
 
     try {
-       const response = await fetch("http://localhost:5000/rename/files", {
-        method: "POST",
-        headers: {
-            "content-type": "application/json"
-        },
-        body: JSON.stringify(data)
-       })
+        const response = await fetch(`${baseURL}/rename/files`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
 
-       const result = await response.json();
+        const result = await response.json();
 
-       const message = document.getElementById("renamedFilesMessage");
-       message.textContent = result;
-       message.style.display = "inline-block";
+        const message = document.getElementById("renamedFilesMessage");
+        message.textContent = result;
+        message.style.display = "inline-block";
 
     } catch (error) {
         alert(error.message);
     }
+}
+
+async function onCopyIssue(event) {
+    event.preventDefault();
+
+    isPending = true;
+
+    const formData = new FormData(event.currentTarget);
+    const issue = formData.get("issue");
+
+    if (!issue) {
+        return alert("Issue is required!");
+    };
+
+    const message = document.getElementById("copyIssueMessage");
+
+    try {
+        const response = await fetch(`${baseURL}/copy/issue`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({ issue })
+        });
+
+        const result = await response.json();
+
+        if (isPending) {
+            message.textContent = "Loading...";
+            message.style.display = "inline-block";
+        };
+
+        message.textContent = result;
+        message.style.color = "green";
+
+        if (result !== "Done") {
+            message.style.color = "yellow";
+        }
+    } catch (error) {
+        message.textContent = error;
+        message.style.color = "red";
+    };
 }
 
 function onWeatherConvert() {
@@ -2052,7 +2104,7 @@ async function onTvRename(event) {
 
     try {
 
-        const response = await fetch("http://localhost:5000/rename/tv", {
+        const response = await fetch(`${baseURL}/rename/tv`, {
             method: "GET",
             headers: {
                 "content-type": "application/json"
@@ -2107,7 +2159,7 @@ async function onSubmitTvData(event) {
     const dataJSON = JSON.stringify(data);
 
     try {
-        const response = await fetch("http://localhost:5000/tv/add", {
+        const response = await fetch(`${baseURL}/tv/add`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
