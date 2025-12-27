@@ -1906,12 +1906,6 @@ function onOthersView(event) {
     // const selectPathButton = document.getElementById("selectPath");
     document.getElementById("findReplaceForm").addEventListener("submit", onFindAndReplace);
     document.getElementById("copyIssueForm").addEventListener("submit", onCopyIssue);
-    const message = document.getElementById("copyIssueMessage");
-
-    if (isPending) {
-        message.textContent = "Loading...";
-        message.style.display = "inline-block";
-    }
 
     // if (!isAddedSelectPath) {
     //     selectPathButton.addEventListener("click", () => selectPathInput.click());
@@ -1929,20 +1923,36 @@ othersTemplate.innerHTML = `
         <input type="text" name="find" id="find" placeholder="Find*">
         <input type="text" name="changeTo" id="changeTo" placeholder="Replace*">
         <input type="text" name="extension" id="extension" placeholder="File extension (Optional)">
-        <button class="selectFile">Change</button>
+        <button class="selectFile" id="findReplaceButton">Change</button>
         <span class="renamedTvMessage" id="renamedFilesMessage"></span>
     </form>
     <hr>
     <h2 class="subTitle">Copy issue</h2>
     <form class="othersForm" id="copyIssueForm">
         <input type="text" name="issue" id="issue" placeholder="Issue number*">
-        <button class="selectFile">Copy</button>
+        <button class="selectFile" id="copyIssue">Copy</button>
         <span class="renamedTvMessage" id="copyIssueMessage"></span>
     </form>
 `;
 
 async function onFindAndReplace(event) {
     event.preventDefault();
+
+    isPending = true;
+    const message = document.getElementById("renamedFilesMessage");
+
+    if (isPending) {
+        message.textContent = "Loading...";
+        message.style.color = "black";
+        message.style.display = "inline-block";
+    }
+
+    const findReplaceButton = document.getElementById("findReplaceButton");
+    findReplaceButton.setAttribute("disabled", true);
+
+    setTimeout(() => {
+        findReplaceButton.removeAttribute("disabled");
+    }, 1000);
 
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
@@ -1970,19 +1980,28 @@ async function onFindAndReplace(event) {
 
         const result = await response.json();
 
-        const message = document.getElementById("renamedFilesMessage");
         message.textContent = result;
         message.style.display = "inline-block";
+        message.style.color = "green";
 
     } catch (error) {
-        alert(error.message);
-    }
+        message.textContent = error;
+        message.style.color = "red";
+        message.style.display = "inline-block";
+    };
 }
 
 async function onCopyIssue(event) {
     event.preventDefault();
 
     isPending = true;
+
+    const copyIssueButton = document.getElementById("copyIssue");
+    copyIssueButton.setAttribute("disabled", true);
+
+    setTimeout(() => {
+        copyIssueButton.removeAttribute("disabled");
+    }, 1000);
 
     const formData = new FormData(event.currentTarget);
     const issue = formData.get("issue");
@@ -1992,6 +2011,12 @@ async function onCopyIssue(event) {
     };
 
     const message = document.getElementById("copyIssueMessage");
+
+    if (isPending) {
+        message.textContent = "Loading...";
+        message.style.color = "black";
+        message.style.display = "inline-block";
+    };
 
     try {
         const response = await fetch(`${baseURL}/copy/issue`, {
@@ -2004,11 +2029,6 @@ async function onCopyIssue(event) {
 
         const result = await response.json();
 
-        if (isPending) {
-            message.textContent = "Loading...";
-            message.style.display = "inline-block";
-        };
-
         message.textContent = result;
         message.style.color = "green";
 
@@ -2018,6 +2038,7 @@ async function onCopyIssue(event) {
     } catch (error) {
         message.textContent = error;
         message.style.color = "red";
+        message.style.display = "inline-block";
     };
 }
 
@@ -2097,6 +2118,14 @@ async function onTvRename(event) {
     const button = event.currentTarget;
 
     button.setAttribute("disabled", true);
+    const message = document.getElementById("renamedTvMessage");
+
+    isPending = true;
+
+    if (isPending) {
+        message.textContent = "Loading...";
+        message.style.display = "inline";
+    }
 
     setTimeout(() => {
         button.removeAttribute("disabled");
@@ -2111,17 +2140,23 @@ async function onTvRename(event) {
             }
         });
         const result = await response.json();
-        const message = document.getElementById("renamedTvMessage");
+
         message.textContent = result;
         message.style.display = "inline";
 
     } catch (error) {
+        message.textContent = "";
         alert(`${error.message} \nThe server is probably not working!`);
-    };
+    } finally {
+        isPending = false;
+    }
 }
 
 async function onSubmitTvData(event) {
     event.preventDefault();
+    isPending = true;
+
+    const message = document.getElementById("renamedTvMessage");
 
     const button = document.getElementById("submitAddTvDataBtv");
     button.setAttribute("disabled", true);
@@ -2143,7 +2178,7 @@ async function onSubmitTvData(event) {
     const match = data.date.match(regex);
 
     if (!match) {
-        return alert(`Ivalid date format! \n Should be: 'dd.mm.year' receive: '${data.date}'`);
+        return alert(`Invalid date format! \n Should be: 'dd.mm.year' receive: '${data.date}'`);
     };
 
     const dateTokens = data.date.split(".");
@@ -2155,6 +2190,11 @@ async function onSubmitTvData(event) {
     if (dateTokens[1] < 1 || dateTokens[1] > 12) {
         return alert(`Ivalid month! \n Should be between 1 and 12 receive: '${dateTokens[1]}'`);
     };
+
+    if (isPending) {
+        message.textContent = "Loading...";
+        message.style.display = "inline";
+    }
 
     const dataJSON = JSON.stringify(data);
 
@@ -2210,7 +2250,10 @@ async function onSubmitTvData(event) {
         }
 
         alert(error.message);
-    };
+    } finally {
+        message.textContent = "";
+        isPending = false;
+    }
 };
 
 function addFileContent(input, selectElememt) {
