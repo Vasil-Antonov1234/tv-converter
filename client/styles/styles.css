@@ -443,3 +443,13 @@ h1 {
 .reportMessageTitle1 {
     margin-left: 130px;
 }
+
+hr {
+    margin-top: 14px;
+    border: 1px solid white;
+}
+
+.subTitle {
+    font-family: monospace;
+    margin-bottom: -27px;
+}

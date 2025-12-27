@@ -1913,15 +1913,22 @@ function onOthersView(event) {
 const othersTemplate = document.createElement("div");
 othersTemplate.setAttribute("id", "others");
 othersTemplate.innerHTML = `   
+    <h2 class="subTitle">Find and replace multiple files</h2>
     <form class="othersForm" id="findReplaceForm">
         <input type="text" name="path" id="path" placeholder="Folder path*">
         <input type="text" name="find" id="find" placeholder="Find*">
         <input type="text" name="changeTo" id="changeTo" placeholder="Replace*">
         <input type="text" name="extension" id="extension" placeholder="File extension (Optional)">
         <button class="selectFile">Change</button>
-        <span class="renamedTvMessage" id="renamedFilesMessage">Test</span>
+        <span class="renamedTvMessage" id="renamedFilesMessage"></span>
     </form>
     <hr>
+    <h2 class="subTitle">Copy issue</h2>
+    <form class="othersForm" id="copyIssueForm">
+        <input type="text" name="issue" id="issue" placeholder="Issue number*">
+        <button class="selectFile">Copy</button>
+        <span class="renamedTvMessage" id="copyIssueMessage"></span>
+    </form>
 `;
 
 async function onFindAndReplace(event) {
