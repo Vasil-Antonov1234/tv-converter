@@ -1931,7 +1931,7 @@ othersTemplate.innerHTML = `
     <form class="othersForm" id="copyIssueForm">
         <input type="text" name="issue" id="issue" placeholder="Issue number*">
         <button class="selectFile" id="copyIssue">Copy</button>
-        <span class="renamedTvMessage" id="copyIssueMessage"></span>
+        <textarea id="copyIssueMessage" class="copyIssueMessage"></textarea>
     </form>
 `;
 
@@ -2013,9 +2013,7 @@ async function onCopyIssue(event) {
     const message = document.getElementById("copyIssueMessage");
 
     if (isPending) {
-        message.textContent = "Loading...";
-        message.style.color = "black";
-        message.style.display = "inline-block";
+        message.value = "Loading...";
     };
 
     try {
@@ -2029,16 +2027,15 @@ async function onCopyIssue(event) {
 
         const result = await response.json();
 
-        message.textContent = result;
+        message.value = result;
         message.style.color = "green";
 
         if (result !== "Done") {
-            message.style.color = "yellow";
+            message.style.color = "rgb(179, 121, 14)";
         }
     } catch (error) {
-        message.textContent = error;
+        message.value = error;
         message.style.color = "red";
-        message.style.display = "inline-block";
     };
 }
 

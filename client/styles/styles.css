@@ -282,6 +282,13 @@ h1 {
     display: none;
 }
 
+.copyIssueMessage {
+    position: absolute;
+    margin-left: 10px;
+    width: 280px;
+    height: 70px;
+}
+
 .clear1 {
     position: relative;
     margin-top: 10px;
