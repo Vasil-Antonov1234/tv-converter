@@ -1932,8 +1932,8 @@ othersTemplate.innerHTML = `
         <input type="text" name="issue" id="issue" placeholder="Issue number*">
         <button class="selectFile" id="copyIssue">Copy</button>
         <textarea id="copyIssueMessage" class="copyIssueMessage"></textarea>
-        <label for="weekend" class="weekendLabel">Weekend</label>
-        <input type="checkbox" id="weekend" class="weekend">
+        <label for="weekend" class="weekendLabel">Weekend (photos)</label>
+        <input type="text" id="weekend" class="weekend" name="weekend" placeholder="(Optional)">
     </form>
 `;
 
@@ -1954,7 +1954,7 @@ async function onFindAndReplace(event) {
 
     setTimeout(() => {
         findReplaceButton.removeAttribute("disabled");
-    }, 1000);
+    }, 2000);
 
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
@@ -1996,6 +1996,10 @@ async function onFindAndReplace(event) {
 async function onCopyIssue(event) {
     event.preventDefault();
 
+    const message = document.getElementById("copyIssueMessage");
+    message.value = "";
+    message.style.color = "black";
+
     isPending = true;
 
     const copyIssueButton = document.getElementById("copyIssue");
@@ -2003,16 +2007,15 @@ async function onCopyIssue(event) {
 
     setTimeout(() => {
         copyIssueButton.removeAttribute("disabled");
-    }, 1000);
+    }, 2000);
 
     const formData = new FormData(event.currentTarget);
     const issue = formData.get("issue");
+    const weekend = formData.get("weekend");
 
     if (!issue) {
         return alert("Issue is required!");
     };
-
-    const message = document.getElementById("copyIssueMessage");
 
     if (isPending) {
         message.value = "Loading...";
@@ -2024,7 +2027,7 @@ async function onCopyIssue(event) {
             headers: {
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ issue })
+            body: JSON.stringify({ issue, weekend })
         });
 
         const result = await response.json();
@@ -2128,7 +2131,7 @@ async function onTvRename(event) {
 
     setTimeout(() => {
         button.removeAttribute("disabled");
-    }, 1000)
+    }, 2000)
 
     try {
 
@@ -2162,7 +2165,7 @@ async function onSubmitTvData(event) {
 
     setTimeout(() => {
         button.removeAttribute("disabled");
-    }, 1000);
+    }, 2000);
 
     const formData = new FormData(event.currentTarget);
 
