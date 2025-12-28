@@ -289,6 +289,17 @@ h1 {
     height: 70px;
 }
 
+.weekend {
+    width: 20px;
+    height: 20px;
+}
+
+.weekendLabel {
+    margin-left: 310px;
+    font-family: cursive;
+    font-size: larger;
+}
+
 .clear1 {
     position: relative;
     margin-top: 10px;

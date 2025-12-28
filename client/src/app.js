@@ -1932,6 +1932,8 @@ othersTemplate.innerHTML = `
         <input type="text" name="issue" id="issue" placeholder="Issue number*">
         <button class="selectFile" id="copyIssue">Copy</button>
         <textarea id="copyIssueMessage" class="copyIssueMessage"></textarea>
+        <label for="weekend" class="weekendLabel">Weekend</label>
+        <input type="checkbox" id="weekend" class="weekend">
     </form>
 `;
 
