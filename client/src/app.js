@@ -1921,7 +1921,7 @@ othersTemplate.innerHTML = `
     <form class="othersForm" id="findReplaceForm">
         <input type="text" name="path" id="path" placeholder="Folder path*">
         <input type="text" name="find" id="find" placeholder="Find*">
-        <input type="text" name="changeTo" id="changeTo" placeholder="Replace*">
+        <input type="text" name="changeTo" id="changeTo" placeholder="Replace">
         <input type="text" name="extension" id="extension" placeholder="File extension (Optional)">
         <button class="selectFile" id="findReplaceButton">Change</button>
         <span class="renamedTvMessage" id="renamedFilesMessage"></span>
@@ -1961,9 +1961,9 @@ async function onFindAndReplace(event) {
         return alert("Find is required!");
     };
 
-    if (!data.changeTo) {
-        return alert("Replace is required!");
-    };
+    // if (!data.changeTo) {
+    //     return alert("Replace is required!");
+    // };
 
     if (isPending) {
         message.textContent = "Loading...";
