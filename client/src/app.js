@@ -1943,12 +1943,6 @@ async function onFindAndReplace(event) {
     isPending = true;
     const message = document.getElementById("renamedFilesMessage");
 
-    if (isPending) {
-        message.textContent = "Loading...";
-        message.style.color = "black";
-        message.style.display = "inline-block";
-    }
-
     const findReplaceButton = document.getElementById("findReplaceButton");
     findReplaceButton.setAttribute("disabled", true);
 
@@ -1970,6 +1964,12 @@ async function onFindAndReplace(event) {
     if (!data.changeTo) {
         return alert("Replace is required!");
     };
+
+    if (isPending) {
+        message.textContent = "Loading...";
+        message.style.color = "black";
+        message.style.display = "inline-block";
+    }
 
     try {
         const response = await fetch(`${baseURL}/rename/files`, {

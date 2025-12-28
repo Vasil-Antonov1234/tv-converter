@@ -8,6 +8,7 @@ header {
     background-color: rgb(129, 103, 103);
     border-radius: 14px;
     padding: 4px;
+    border: solid white 1px;
 }
 
 .tv-book {
@@ -469,4 +470,13 @@ hr {
 .subTitle {
     font-family: monospace;
     margin-bottom: -27px;
+}
+
+.tvRadio {
+    width: 20px;
+    height: 20px;
+}
+
+.tvRadioLable {
+    font-size: 24px
 }
