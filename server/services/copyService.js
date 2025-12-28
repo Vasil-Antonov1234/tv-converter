@@ -7,26 +7,41 @@ export default {
         const notCopiedFiles = [];
         let report = "Done";
 
-        const dirSource = await fsPromises.readdir(paths.readyFiles);
+        const dirFilesSource = await fsPromises.readdir(paths.readyFiles);
+        const dirPhotosSource = await fsPromises.readdir(paths.photos);
         const dirTelSite = await fsPromises.readdir(paths.telSite);
 
-        const dir = dirSource.filter((x) => x.endsWith(".txt") ||
+        const dirFiles = dirFilesSource.filter((x) => x.endsWith(".txt") ||
             x.endsWith(".doc") ||
             x.endsWith(".odt")
+        );
+
+        const dirPhotos = dirPhotosSource.filter((x) => x.endsWith(".jpg") ||
+                                                        x.endsWith(".jpeg") ||
+                                                        x.endsWith(".bmp") ||
+                                                        x.endsWith(".png") ||
+                                                        x.endsWith(".gif") ||
+                                                        x.endsWith(".webp")
         );
 
         if (!dirTelSite.includes(issue)) {
             await fsPromises.mkdir(`${paths.telSite}/${issue}`, { recursive: true });
         }
 
-        const outputDir = await fsPromises.readdir(`${paths.telSite}/${issue}`);
+        const outputDirFiles = await fsPromises.readdir(`${paths.telSite}/${issue}`);
+
+        if (!outputDirFiles.includes("JPG")) {
+            await fsPromises.mkdir(`${paths.telSite}/${issue}/JPG`);
+        };
+
+        const otputDirPhotos = await fsPromises.readdir(`${paths.telSite}/${issue}/JPG`)
 
 
         try {
 
-            await Promise.all(dir.map(async (file) => {
+            await Promise.all(dirFiles.map(async (file) => {
 
-                if (outputDir.includes(file)) {
+                if (outputDirFiles.includes(file)) {
                     notCopiedFiles.push(file);
                 } else {
                     const source = path.join(paths.readyFiles, file);
@@ -34,6 +49,19 @@ export default {
 
                     await fsPromises.copyFile(source, destination);
                 }
+            }))
+
+            await Promise.all(dirPhotos.map(async (photo) => {
+
+                if (otputDirPhotos.includes(photo)) {
+                    notCopiedFiles.push(photo);
+                } else {
+                    const source = path.join(paths.photos, photo);
+                    const destination = path.join(`${paths.telSite}/${issue}/JPG`, photo);
+
+                    await fsPromises.copyFile(source, destination);
+                }
+
             }))
 
             if (notCopiedFiles.length === 1) {
