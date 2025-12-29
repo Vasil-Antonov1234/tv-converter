@@ -1906,7 +1906,7 @@ function onOthersView(event) {
     // const selectPathButton = document.getElementById("selectPath");
     document.getElementById("findReplaceForm").addEventListener("submit", onFindAndReplace);
     document.getElementById("copyIssueForm").addEventListener("submit", onCopyIssue);
-    document.getElementById("application").addEventListener("change", onShowAppIssue);
+    document.getElementById("application").addEventListener("change", onShowIssue);
 
     // if (!isAddedSelectPath) {
     //     selectPathButton.addEventListener("click", () => selectPathInput.click());
@@ -1943,17 +1943,30 @@ othersTemplate.innerHTML = `
     </form>
 `;
 
-function onShowAppIssue() {
+function onShowIssue() {
     const applicationIssue = document.getElementById("weekend");
+    const currentIssue = document.getElementById("issue");
     const choice = document.getElementById("application").value;
 
     if (choice !== "currentIssue") {
+
+        if (choice !== "Weekend") {
+            currentIssue.setAttribute("disabled", true);
+            currentIssue.value = "";
+        }
+
         applicationIssue.style.display = "inline-block"
     };
 
     if (choice === "currentIssue") {
         applicationIssue.style.display = "none";
+        applicationIssue.value = "";
+        currentIssue.removeAttribute("disabled");
     };
+
+    if (choice === "Weekend") {
+        currentIssue.removeAttribute("disabled");
+    }
 }
 
 async function onFindAndReplace(event) {
