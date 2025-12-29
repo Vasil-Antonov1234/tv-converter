@@ -1932,8 +1932,12 @@ othersTemplate.innerHTML = `
         <input type="text" name="issue" id="issue" placeholder="Issue number*">
         <button class="selectFile" id="copyIssue">Copy</button>
         <textarea id="copyIssueMessage" class="copyIssueMessage"></textarea>
-        <label for="weekend" class="weekendLabel">Weekend (photos)</label>
-        <input type="text" id="weekend" class="weekend" name="weekend" placeholder="(Optional)">
+        <select name="application" id="application" class="weekendLabel">
+                <option value="Weekend" name="application">Weekend photos</option>
+                <option value="ZlatnoVreme" name="application">Zlatno vreme</option>
+                <option value="Agro" name="application">Agro</option>
+        </select>
+        <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="(Optional)">
     </form>
 `;
 
@@ -2010,8 +2014,15 @@ async function onCopyIssue(event) {
     }, 2000);
 
     const formData = new FormData(event.currentTarget);
+
     const issue = formData.get("issue");
-    const weekend = formData.get("weekend");
+    const application = formData.get("application");
+    const applicationIssue = formData.get("applicationIssue");
+
+    console.log(issue)
+    console.log(application)
+    console.log(applicationIssue)
+
 
     if (!issue) {
         return alert("Issue is required!");
@@ -2027,7 +2038,7 @@ async function onCopyIssue(event) {
             headers: {
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ issue, weekend })
+            body: JSON.stringify({ issue, weekend: application })
         });
 
         const result = await response.json();
