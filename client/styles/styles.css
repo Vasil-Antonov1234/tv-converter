@@ -292,6 +292,7 @@ h1 {
 
 .weekend {
     width: 100px;
+    display: none;
 }
 
 .weekendLabel {

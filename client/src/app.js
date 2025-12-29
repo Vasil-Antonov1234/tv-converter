@@ -1906,6 +1906,7 @@ function onOthersView(event) {
     // const selectPathButton = document.getElementById("selectPath");
     document.getElementById("findReplaceForm").addEventListener("submit", onFindAndReplace);
     document.getElementById("copyIssueForm").addEventListener("submit", onCopyIssue);
+    document.getElementById("application").addEventListener("change", onShowAppIssue);
 
     // if (!isAddedSelectPath) {
     //     selectPathButton.addEventListener("click", () => selectPathInput.click());
@@ -1933,6 +1934,7 @@ othersTemplate.innerHTML = `
         <button class="selectFile" id="copyIssue">Copy</button>
         <textarea id="copyIssueMessage" class="copyIssueMessage"></textarea>
         <select name="application" id="application" class="weekendLabel">
+                <option value="currentIssue" name="currentIssue">Current issue</option>        
                 <option value="Weekend" name="application">Weekend photos</option>
                 <option value="ZlatnoVreme" name="application">Zlatno vreme</option>
                 <option value="Agro" name="application">Agro</option>
@@ -1940,6 +1942,19 @@ othersTemplate.innerHTML = `
         <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="(Optional)">
     </form>
 `;
+
+function onShowAppIssue() {
+    const applicationIssue = document.getElementById("weekend");
+    const choice = document.getElementById("application").value;
+
+    if (choice !== "currentIssue") {
+        applicationIssue.style.display = "inline-block"
+    };
+
+    if (choice === "currentIssue") {
+        applicationIssue.style.display = "none";
+    };
+}
 
 async function onFindAndReplace(event) {
     event.preventDefault();
