@@ -2019,11 +2019,6 @@ async function onCopyIssue(event) {
     const application = formData.get("application");
     const applicationIssue = formData.get("applicationIssue");
 
-    console.log(issue)
-    console.log(application)
-    console.log(applicationIssue)
-
-
     if (!issue) {
         return alert("Issue is required!");
     };
@@ -2038,7 +2033,7 @@ async function onCopyIssue(event) {
             headers: {
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ issue, weekend: application })
+            body: JSON.stringify({ issue, application, applicationIssue })
         });
 
         const result = await response.json();

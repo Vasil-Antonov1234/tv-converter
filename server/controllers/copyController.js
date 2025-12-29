@@ -6,10 +6,11 @@ const copyController = Router();
 copyController.post("/issue", async (req, res) => {
 
     const issue = req.body.issue;
-    const weekend = req.body.weekend;
+    const application = req.body.application;
+    const applicationIssue = req.body.applicationIssue;
     
     try {
-        const result = await copyService.copyIssue(issue, weekend);
+        const result = await copyService.copyIssue(issue, application, applicationIssue);
         res.status(200);
         res.send(JSON.stringify(result));
     } catch (error) {

@@ -3,21 +3,29 @@ import path from "path";
 import paths from "../paths/paths.js";
 
 export default {
-    async copyIssue(issue, weekend) {
+    async copyIssue(issue, application, applicationIssue) {
         const notCopiedFiles = [];
         let report = "Done";
 
         let dirFilesSource = "";
         let dirPhotosSource = "";
 
-        if (weekend) {
-            dirFilesSource = await fsPromises.readdir(paths.weekendFiles);
-            dirPhotosSource = await fsPromises.readdir(`${paths.photos}WEEKEND${weekend}/OLD`);
-        };
-
-        if (!weekend) {
+        if (!applicationIssue) {
             dirFilesSource = await fsPromises.readdir(paths.readyFiles);
             dirPhotosSource = await fsPromises.readdir(paths.photos);
+        };
+
+        if (application === "Weekend") {
+            dirFilesSource = await fsPromises.readdir(paths.weekendFiles);
+            dirPhotosSource = await fsPromises.readdir(`${paths.photos}WEEKEND${applicationIssue}/OLD`);
+        };
+
+        if (application === "ZlatnoVreme" && applicationIssue) {
+            return "Zlatno";
+        };
+
+        if (application === "Agro" && application) {
+            return "Agro";
         };
 
         const dirTelSite = await fsPromises.readdir(paths.telSite);
@@ -59,11 +67,11 @@ export default {
                     let source = "";
                     const destination = path.join(`${paths.telSite}/${issue}`, file);
 
-                    if (weekend) {
+                    if (applicationIssue) {
                         source = path.join(paths.weekendFiles, file);
                     }
 
-                    if (!weekend) {
+                    if (!applicationIssue) {
                         source = path.join(paths.readyFiles, file);
                     }
 
@@ -79,11 +87,11 @@ export default {
                     let source = "";
                     const destination = path.join(`${paths.telSite}/${issue}/JPG`, photo);
 
-                    if (weekend) {
-                        source = path.join(`${paths.photos}WEEKEND${weekend}/OLD`, photo);
+                    if (applicationIssue) {
+                        source = path.join(`${paths.photos}WEEKEND${applicationIssue}/OLD`, photo);
                     };
 
-                    if (!weekend) {
+                    if (!applicationIssue) {
                         source = path.join(paths.photos, photo);
                     };
 
