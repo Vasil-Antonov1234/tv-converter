@@ -10,48 +10,34 @@ export default {
         let dirFilesSource = "";
         let dirPhotosSource = "";
 
-        if (issue === "currentIssue") {
-            try {
-                dirFilesSource = await fsPromises.readdir(paths.readyFiles);
-                dirPhotosSource = await fsPromises.readdir(paths.photos);
-            } catch (error) {
-                throw (`Error1: ${error.message}`)
-            }            
+        if (application === "currentIssue") {
+            dirFilesSource = await fsPromises.readdir(paths.readyFiles);
+            dirPhotosSource = await fsPromises.readdir(paths.photos);
         };
 
-        if (application === "Weekend" && applicationIssue) {
-            try {
-                dirFilesSource = await fsPromises.readdir(paths.weekendFiles);
-                dirPhotosSource = await fsPromises.readdir(`${paths.photos}WEEKEND${applicationIssue}/OLD`);
-            } catch (error) {
-                throw (`Error2: ${error.message}`)
-            }            
+        if (application === "Weekend") {
+            dirFilesSource = await fsPromises.readdir(paths.weekendFiles);
+            dirPhotosSource = await fsPromises.readdir(`${paths.photos}_WEEKEND${applicationIssue}/OLD`);
         };
 
-        if (application === "ZlatnoVreme" && applicationIssue) {
+        if (application === "ZlatnoVreme") {
             return "Zlatno";
         };
 
-        if (application === "Agro" && applicationIssue) {
+        if (application === "Agro") {
             return "Agro";
         };
 
-        let dirTelSite = "";
+        const dirTelSite = await fsPromises.readdir(paths.telSite);
 
-        try {
-            dirTelSite = await fsPromises.readdir(paths.telSite);
-        } catch (error) {
-            throw (`Error3: ${error.message}`);
-        };
-
-
-
-        const dirFiles = dirFilesSource.filter((x) => x.endsWith(".txt") ||
+        const dirFiles = dirFilesSource.filter((x) =>
+            x.endsWith(".txt") ||
             x.endsWith(".doc") ||
             x.endsWith(".odt")
         );
 
-        const dirPhotos = dirPhotosSource.filter((x) => x.endsWith(".jpg") ||
+        const dirPhotos = dirPhotosSource.filter((x) =>
+            x.endsWith(".jpg") ||
             x.endsWith(".jpeg") ||
             x.endsWith(".bmp") ||
             x.endsWith(".png") ||
@@ -60,60 +46,46 @@ export default {
         );
 
         if (!dirTelSite.includes(issue)) {
-            try {
-                await fsPromises.mkdir(`${paths.telSite}/${issue}`);
-            } catch (error) {
-                throw (`Error4: ${error.message}`);
-            };
-
+            await fsPromises.mkdir(`${paths.telSite}/${issue}`);
         }
 
-        let outputDirFiles = "";
-
-        try {
-            outputDirFiles = await fsPromises.readdir(`${paths.telSite}/${issue}`);
-        } catch (error) {
-            throw (`Error5: ${error.message}`);
-        };
+        const outputDirFiles = await fsPromises.readdir(`${paths.telSite}/${issue}`);
 
         if (!outputDirFiles.includes("JPG")) {
-
-            try {
-                await fsPromises.mkdir(`${paths.telSite}/${issue}/JPG`);
-            } catch (error) {
-                throw (`Error6: ${error.message}`);
-            };
-
+            await fsPromises.mkdir(`${paths.telSite}/${issue}/JPG`);
         };
 
-        let otputDirPhotos = "";
+        const currentIssue = await fsPromises.readdir(`${paths.pages}${issue}`)
 
-        try {
-            otputDirPhotos = await fsPromises.readdir(`${paths.telSite}/${issue}/JPG`)
-        } catch (error) {
-            throw (`Error7: ${error.message}`);
-        }
+        if (!currentIssue.includes("DOC")) {
+            await fsPromises.mkdir(`${paths.pages}${issue}/DOC`);
+        };
+
+        const otputDirPhotos = await fsPromises.readdir(`${paths.telSite}/${issue}/JPG`);
 
         try {
 
             await Promise.all(dirFiles.map(async (file) => {
 
+                let source = "";
+                const destination = path.join(`${paths.telSite}/${issue}`, file);
+
+                if (applicationIssue) {
+                    source = path.join(paths.weekendFiles, file);
+                }
+
+                if (!applicationIssue) {
+                    source = path.join(paths.readyFiles, file);
+                }
+
                 if (outputDirFiles.includes(file)) {
                     notCopiedFiles.push(file);
                 } else {
-
-                    let source = "";
-                    const destination = path.join(`${paths.telSite}/${issue}`, file);
-
-                    if (applicationIssue) {
-                        source = path.join(paths.weekendFiles, file);
-                    }
-
-                    if (!applicationIssue) {
-                        source = path.join(paths.readyFiles, file);
-                    }
-
                     await fsPromises.copyFile(source, destination);
+                }
+
+                if (application === "currentIssue" || application === "Weekend") {
+                    await fsPromises.copyFile(source, `${paths.pages}${issue}/DOC/${file}`);
                 }
             }))
 
@@ -126,7 +98,7 @@ export default {
                     const destination = path.join(`${paths.telSite}/${issue}/JPG`, photo);
 
                     if (applicationIssue) {
-                        source = path.join(`${paths.photos}WEEKEND${applicationIssue}/OLD`, photo);
+                        source = path.join(`${paths.photos}_WEEKEND${applicationIssue}/OLD`, photo);
                     };
 
                     if (!applicationIssue) {
@@ -148,7 +120,7 @@ export default {
             return report;
 
         } catch (error) {
-            throw (`Error8: ${error.message}`);
+            throw (error.message);
         };
     }
 };

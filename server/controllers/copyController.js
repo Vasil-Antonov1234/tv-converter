@@ -14,8 +14,7 @@ copyController.post("/issue", async (req, res) => {
         res.status(200);
         res.send(JSON.stringify(result));
     } catch (error) {
-        // res.status(406);
-        res.send(JSON.stringify(error));
+        res.send(JSON.stringify(`${error} -${error.message}-`));
     };
 
 });

@@ -1939,7 +1939,7 @@ othersTemplate.innerHTML = `
                 <option value="ZlatnoVreme" name="application">Zlatno vreme</option>
                 <option value="Agro" name="application">Agro</option>
         </select>
-        <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="(Optional)">
+        <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="Application isssue*">
     </form>
 `;
 
@@ -2028,6 +2028,7 @@ async function onFindAndReplace(event) {
 async function onCopyIssue(event) {
     event.preventDefault();
 
+    // const choice = document.getElementById("application").value;
     const message = document.getElementById("copyIssueMessage");
     message.value = "";
     message.style.color = "black";
@@ -2047,9 +2048,13 @@ async function onCopyIssue(event) {
     const application = formData.get("application");
     const applicationIssue = formData.get("applicationIssue");
 
-    if (!issue) {
+    if (!issue && (application === "currentIssue" || application === "Weekend")) {
         return alert("Issue is required!");
     };
+
+    if ((application !== "currentIssue") && !applicationIssue) {
+        return alert("Application isssue is required!")
+    }
 
     if (isPending) {
         message.value = "Loading...";
