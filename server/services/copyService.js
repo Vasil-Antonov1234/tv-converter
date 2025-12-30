@@ -12,12 +12,12 @@ export default {
 
         if (application === "currentIssue") {
             dirFilesSource = await fsPromises.readdir(paths.readyFiles);
-            dirPhotosSource = await fsPromises.readdir(paths.photos);
+            dirPhotosSource = await fsPromises.readdir(`${paths.photos}Telegraph_OLD/`);
         };
 
         if (application === "Weekend") {
             dirFilesSource = await fsPromises.readdir(paths.weekendFiles);
-            dirPhotosSource = await fsPromises.readdir(`${paths.photos}_WEEKEND${applicationIssue}/OLD`);
+            dirPhotosSource = await fsPromises.readdir(`${paths.photos}_WEEKEND${applicationIssue}/OLD/`);
         };
 
         if (application === "ZlatnoVreme") {
@@ -68,13 +68,13 @@ export default {
             await Promise.all(dirFiles.map(async (file) => {
 
                 let source = "";
-                const destination = path.join(`${paths.telSite}/${issue}`, file);
+                const destination = path.join(`${paths.telSite}/${issue}/`, file);
 
-                if (applicationIssue) {
+                if (application === "Weekend") {
                     source = path.join(paths.weekendFiles, file);
                 }
 
-                if (!applicationIssue) {
+                if (application === "currentIssue") {
                     source = path.join(paths.readyFiles, file);
                 }
 
@@ -95,14 +95,14 @@ export default {
                     notCopiedFiles.push(photo);
                 } else {
                     let source = "";
-                    const destination = path.join(`${paths.telSite}/${issue}/JPG`, photo);
+                    const destination = path.join(`${paths.telSite}/${issue}/JPG/`, photo);
 
-                    if (applicationIssue) {
-                        source = path.join(`${paths.photos}_WEEKEND${applicationIssue}/OLD`, photo);
+                    if (application === "Weekend") {
+                        source = path.join(`${paths.photos}_WEEKEND${applicationIssue}/OLD/`, photo);
                     };
 
-                    if (!applicationIssue) {
-                        source = path.join(paths.photos, photo);
+                    if (application === "currentIssue") {
+                        source = path.join(`${paths.photos}Telegraph_OLD/`, photo);
                     };
 
                     await fsPromises.copyFile(source, destination);
