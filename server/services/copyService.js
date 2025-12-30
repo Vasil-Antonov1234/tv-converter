@@ -25,7 +25,7 @@ export default {
         };
 
         if (application === "Agro") {
-            return "Agro";
+            dirFilesSource = await fsPromises.readdir(`${paths.agro}${applicationIssue}/old/`);
         };
 
         const dirTelSite = await fsPromises.readdir(paths.telSite);
