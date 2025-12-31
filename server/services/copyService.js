@@ -121,27 +121,21 @@ export default {
                     destination = path.join(`${paths.telSite}${issue}/`, file);
                 };
 
-                if (application === "Agro") {
-                    destination = path.join(`${paths.agroOutput}${applicationIssue}/`, file);
-                };
-
-                if (application === "ZlatnoVreme") {
-                    destination = path.join(`${paths.zlatnoOutput}${applicationIssue}/`, file);
-                };
-
                 if (application === "Weekend") {
                     source = path.join(paths.weekendFiles, file);
-                }
+                };
 
                 if (application === "currentIssue") {
                     source = path.join(paths.readyFiles, file);
-                }
+                };
 
                 if (application === "Agro") {
+                    destination = path.join(`${paths.agroOutput}${applicationIssue}/`, file);
                     source = path.join(`${paths.agro}${applicationIssue}/old/`, file);
                 };
 
                 if (application === "ZlatnoVreme") {
+                    destination = path.join(`${paths.zlatnoOutput}${applicationIssue}/`, file);
                     source = path.join(`${paths.zlatno}${applicationIssue}/`, file);
                 };
 
@@ -168,14 +162,6 @@ export default {
                         destination = path.join(`${paths.telSite}${issue}/JPG/`, photo);
                     };
 
-                    if (application === "Agro") {
-                        destination = path.join(`${paths.agroOutput}${applicationIssue}/JPG/`, photo);
-                    };
-
-                    if (application === "ZlatnoVreme") {
-                        destination = path.join(`${paths.zlatnoOutput}${applicationIssue}/JPG/`, photo);
-                    };
-
                     if (application === "Weekend") {
                         source = path.join(`${paths.photos}_WEEKEND${applicationIssue}/OLD/`, photo);
                     };
@@ -185,10 +171,12 @@ export default {
                     };
 
                     if (application === "Agro") {
+                        destination = path.join(`${paths.agroOutput}${applicationIssue}/JPG/`, photo);
                         source = path.join(`${paths.photos}_AGRO${applicationIssue}/OLD/`, photo);
                     };
 
                     if (application === "ZlatnoVreme") {
+                        destination = path.join(`${paths.zlatnoOutput}${applicationIssue}/JPG/`, photo);
                         source = path.join(`${paths.photos}_ZLATNO_VREME${applicationIssue}/OLD/`, photo);
                     };
 
