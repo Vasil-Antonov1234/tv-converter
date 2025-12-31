@@ -1941,6 +1941,12 @@ othersTemplate.innerHTML = `
         </select>
         <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="Application isssue*">
     </form>
+    <hr>
+    <h2 class="subTitle">Rename pdf files</h2>
+    <form class="othersForm" id="renamePdfFiles">
+        <input type="text" name="pathToPDF" id="pathToPDF" placeholder="Folder path*">
+        <button class="selectFile" id="renamePdf">Rename</button>
+    </form>
 `;
 
 function onShowIssue() {
