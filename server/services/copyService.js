@@ -24,7 +24,9 @@ export default {
         };
 
         if (application === "ZlatnoVreme") {
-            return "Zlatno";
+            dirFilesSource = await fsPromises.readdir(`${paths.zlatno}${applicationIssue}/`);
+            dirPhotosSource = await fsPromises.readdir(`${paths.photos}_ZLATNO_VREME${applicationIssue}/OLD/`);
+            dirTelSite = await fsPromises.readdir(paths.zlatnoOutput);
         };
 
         if (application === "Agro") {
@@ -32,7 +34,7 @@ export default {
             dirPhotosSource = await fsPromises.readdir(`${paths.photos}_AGRO${applicationIssue}/OLD/`);
             dirTelSite = await fsPromises.readdir(paths.agroOutput);
         };
-        
+
         const dirFiles = dirFilesSource.filter((x) =>
             x.endsWith(".txt") ||
             x.endsWith(".doc") ||
@@ -58,7 +60,9 @@ export default {
             await fsPromises.mkdir(`${paths.agroOutput}${applicationIssue}`);
         };
 
-        // TODO Zlatno
+        if (application === "ZlatnoVreme" && !dirTelSite.includes(applicationIssue)) {
+            await fsPromises.mkdir(`${paths.zlatnoOutput}${applicationIssue}`);
+        };
 
         let outputDirFiles = "";
 
@@ -70,7 +74,9 @@ export default {
             outputDirFiles = await fsPromises.readdir(`${paths.agroOutput}${applicationIssue}`);
         };
 
-        // TODO Zlatno
+        if (application === "ZlatnoVreme") {
+            outputDirFiles = await fsPromises.readdir(`${paths.zlatnoOutput}${applicationIssue}`);
+        };
 
         if (isPaperOrWeekend && !outputDirFiles.includes("JPG")) {
             await fsPromises.mkdir(`${paths.telSite}${issue}/JPG`);
@@ -80,7 +86,9 @@ export default {
             await fsPromises.mkdir(`${paths.agroOutput}${applicationIssue}/JPG`);
         };
 
-        // TODO Zlatno
+        if (application === "ZlatnoVreme" && !outputDirFiles.includes("JPG")) {
+            await fsPromises.mkdir(`${paths.zlatnoOutput}${applicationIssue}/JPG`);
+        };
 
         const currentIssue = isPaperOrWeekend ? await fsPromises.readdir(`${paths.pages}${issue}`) : null;
 
@@ -98,9 +106,8 @@ export default {
             outputDirPhotos = await fsPromises.readdir(`${paths.agroOutput}${applicationIssue}/JPG`);
         };
 
-        // TODO fill full path for outputDirPhotos
         if (application === "ZlatnoVreme") {
-            outputDirPhotos = await fsPromises.readdir(``);
+            outputDirPhotos = await fsPromises.readdir(`${paths.zlatnoOutput}${applicationIssue}/JPG`);
         };
 
         try {
@@ -118,7 +125,9 @@ export default {
                     destination = path.join(`${paths.agroOutput}${applicationIssue}/`, file);
                 };
 
-                // TODO Zlatno
+                if (application === "ZlatnoVreme") {
+                    destination = path.join(`${paths.zlatnoOutput}${applicationIssue}/`, file);
+                };
 
                 if (application === "Weekend") {
                     source = path.join(paths.weekendFiles, file);
@@ -132,7 +141,9 @@ export default {
                     source = path.join(`${paths.agro}${applicationIssue}/old/`, file);
                 };
 
-                // TODO Zlatno
+                if (application === "ZlatnoVreme") {
+                    source = path.join(`${paths.zlatno}${applicationIssue}/`, file);
+                };
 
                 if (outputDirFiles.includes(file)) {
                     notCopiedFiles.push(file);
@@ -161,7 +172,9 @@ export default {
                         destination = path.join(`${paths.agroOutput}${applicationIssue}/JPG/`, photo);
                     };
 
-                    // TODO Zlatno
+                    if (application === "ZlatnoVreme") {
+                        destination = path.join(`${paths.zlatnoOutput}${applicationIssue}/JPG/`, photo);
+                    };
 
                     if (application === "Weekend") {
                         source = path.join(`${paths.photos}_WEEKEND${applicationIssue}/OLD/`, photo);
@@ -175,7 +188,9 @@ export default {
                         source = path.join(`${paths.photos}_AGRO${applicationIssue}/OLD/`, photo);
                     };
 
-                    // TODO Zlatno
+                    if (application === "ZlatnoVreme") {
+                        source = path.join(`${paths.photos}_ZLATNO_VREME${applicationIssue}/OLD/`, photo);
+                    };
 
                     await fsPromises.copyFile(source, destination);
                 }
