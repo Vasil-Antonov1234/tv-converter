@@ -28,4 +28,18 @@ renameController.post("/files", (req, res) => {
     };
 });
 
+renameController.post("/pdf", async (req, res) => {
+    const path = req.body.path;
+    const number = req.body.number;
+
+    try {
+        const result = await renameServices.renamePDF(path, number);
+        res.status(200);
+        res.send(JSON.stringify({ result }));
+    } catch (error) {
+        res.status(400);
+        res.send(JSON.stringify(error));
+    }
+})
+
 export default renameController;

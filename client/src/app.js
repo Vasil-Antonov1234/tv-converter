@@ -1907,6 +1907,7 @@ function onOthersView(event) {
     document.getElementById("findReplaceForm").addEventListener("submit", onFindAndReplace);
     document.getElementById("copyIssueForm").addEventListener("submit", onCopyIssue);
     document.getElementById("application").addEventListener("change", onShowIssue);
+    document.getElementById("renamePdfFiles").addEventListener("submit", onRenamePdfFiles);
 
     // if (!isAddedSelectPath) {
     //     selectPathButton.addEventListener("click", () => selectPathInput.click());
@@ -1941,13 +1942,45 @@ othersTemplate.innerHTML = `
         </select>
         <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="Application isssue*">
     </form>
-    <hr>
+    <hr class="mt">
     <h2 class="subTitle">Rename pdf files</h2>
     <form class="othersForm" id="renamePdfFiles">
         <input type="text" name="pathToPDF" id="pathToPDF" placeholder="Folder path*">
+        <input type="text" name="currentDayNumber" id="currentDayNumber" placeholder="PDF files number*">
         <button class="selectFile" id="renamePdf">Rename</button>
     </form>
 `;
+
+async function onRenamePdfFiles(event) {
+    event.preventDefault();
+    const button = document.getElementById("renamePdf");
+    button.setAttribute("disabled", true);
+
+    setTimeout(() => {
+        button.removeAttribute("disabled");
+    }, 2000);
+
+    const formData = new FormData(event.currentTarget);
+    const path = formData.get("pathToPDF");
+    const number = formData.get("currentDayNumber");
+
+    try {
+        const response = await fetch(`${baseURL}/rename/pdf`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({ path, number })
+        });
+
+        const result = await response.json();
+
+        alert(result.result);
+    } catch (error) {
+        alert(error.message);
+    };
+
+}
 
 function onShowIssue() {
     const applicationIssue = document.getElementById("weekend");

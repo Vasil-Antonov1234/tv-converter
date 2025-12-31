@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import fsPromises from "node:fs/promises";
 import paths from "../paths/paths.js";
 
 const inputFilePath = paths.input;
@@ -70,6 +71,29 @@ export default {
         } catch (error) {
             throw (error.message)
         }
+
+    },
+
+    async renamePDF(path, number) {
+        let renamedFilesCount = 0;
+        const newNumber = number.split("").slice(0, number.length - 2).join("");
+
+        try {
+            const dir = await fsPromises.readdir(path);
+
+            dir.map(async (x) => {
+                let newName = x.slice(-6);
+                newName = newNumber + newName;
+
+                fs.renameSync(`${path}/${x}`, `${path}/${newName}`);
+                // await fsPromises.rename(`${path}/${x}`, `${path}/${newName}`);
+                renamedFilesCount++;
+            });
+
+            return `${renamedFilesCount} files have been renamed`
+        } catch (error) {
+            throw (error);
+        };
 
     }
 }
