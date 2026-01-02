@@ -2197,6 +2197,7 @@ async function onTvRename(event) {
     if (isPending) {
         message.textContent = "Loading...";
         message.style.display = "inline";
+        message.style.color = "black";
     }
 
     try {
@@ -2211,10 +2212,11 @@ async function onTvRename(event) {
 
         message.textContent = result;
         message.style.display = "inline";
+        message.style.color = "green";
 
     } catch (error) {
-        message.textContent = "";
-        alert(`${error.message} \nThe server is probably not working!`);
+        message.textContent = error.message;
+        message.style.color = "red";
     } finally {
         isPending = false;
         renameTvButton.removeAttribute("disabled");
@@ -2260,6 +2262,7 @@ async function onSubmitTvData(event) {
     if (isPending) {
         message.textContent = "Loading...";
         message.style.display = "inline";
+        message.style.color = "black";
     }
 
     const dataJSON = JSON.stringify(data);
@@ -2309,15 +2312,21 @@ async function onSubmitTvData(event) {
         missingFilesMessage.value = reportMissingFilesMessage.join("\n");
         missingDataMessage.value = reportMissingDataMessage.join("\n");
 
+        message.textContent = "Done";
+        message.style.color = "green";
+
     } catch (error) {
 
         if (error.message === "Failed to fetch") {
-            return alert(`${error.message}. \nThe server is probably not working!`);
+            message.textContent = `${error.message}. \nThe server is probably not working!`;
+            message.style.display = "block-inline";
+            message.style.color = "red";
+            return;
         }
 
-        alert(error.message);
+        message.textContent = error.message;
     } finally {
-        message.textContent = "";
+        // message.textContent = "";
         isPending = false;
         submitTvDataButton.removeAttribute("disabled");
     }
