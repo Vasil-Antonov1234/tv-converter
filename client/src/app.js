@@ -1955,11 +1955,7 @@ async function onRenamePdfFiles(event) {
     event.preventDefault();
     const button = document.getElementById("renamePdf");
     button.setAttribute("disabled", true);
-
-    setTimeout(() => {
-        button.removeAttribute("disabled");
-    }, 2000);
-
+    
     const formData = new FormData(event.currentTarget);
     const path = formData.get("pathToPDF");
     const number = formData.get("currentDayNumber");
@@ -1978,6 +1974,8 @@ async function onRenamePdfFiles(event) {
         alert(result.result);
     } catch (error) {
         alert(error.message);
+    } finally {
+        button.removeAttribute("disabled");
     };
 
 }
@@ -2015,11 +2013,6 @@ async function onFindAndReplace(event) {
     const message = document.getElementById("renamedFilesMessage");
 
     const findReplaceButton = document.getElementById("findReplaceButton");
-    findReplaceButton.setAttribute("disabled", true);
-
-    setTimeout(() => {
-        findReplaceButton.removeAttribute("disabled");
-    }, 2000);
 
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
@@ -2032,9 +2025,7 @@ async function onFindAndReplace(event) {
         return alert("Find is required!");
     };
 
-    // if (!data.changeTo) {
-    //     return alert("Replace is required!");
-    // };
+    findReplaceButton.setAttribute("disabled", true);
 
     if (isPending) {
         message.textContent = "Loading...";
@@ -2061,6 +2052,8 @@ async function onFindAndReplace(event) {
         message.textContent = error;
         message.style.color = "red";
         message.style.display = "inline-block";
+    } finally {
+        findReplaceButton.removeAttribute("disabled");
     };
 }
 
@@ -2075,11 +2068,6 @@ async function onCopyIssue(event) {
     isPending = true;
 
     const copyIssueButton = document.getElementById("copyIssue");
-    copyIssueButton.setAttribute("disabled", true);
-
-    setTimeout(() => {
-        copyIssueButton.removeAttribute("disabled");
-    }, 2000);
 
     const formData = new FormData(event.currentTarget);
 
@@ -2094,6 +2082,8 @@ async function onCopyIssue(event) {
     if ((application !== "currentIssue") && !applicationIssue) {
         return alert("Application isssue is required!")
     }
+
+    copyIssueButton.setAttribute("disabled", true);
 
     if (isPending) {
         message.value = "Loading...";
@@ -2119,6 +2109,8 @@ async function onCopyIssue(event) {
     } catch (error) {
         message.value = error;
         message.style.color = "red";
+    } finally {
+        copyIssueButton.removeAttribute("disabled");
     };
 }
 
@@ -2195,9 +2187,9 @@ function replaceSpaces(text) {
 
 async function onTvRename(event) {
 
-    const button = event.currentTarget;
+    const renameTvButton = event.currentTarget;
 
-    button.setAttribute("disabled", true);
+    renameTvButton.setAttribute("disabled", true);
     const message = document.getElementById("renamedTvMessage");
 
     isPending = true;
@@ -2206,10 +2198,6 @@ async function onTvRename(event) {
         message.textContent = "Loading...";
         message.style.display = "inline";
     }
-
-    setTimeout(() => {
-        button.removeAttribute("disabled");
-    }, 2000)
 
     try {
 
@@ -2229,6 +2217,7 @@ async function onTvRename(event) {
         alert(`${error.message} \nThe server is probably not working!`);
     } finally {
         isPending = false;
+        renameTvButton.removeAttribute("disabled");
     }
 }
 
@@ -2238,12 +2227,7 @@ async function onSubmitTvData(event) {
 
     const message = document.getElementById("renamedTvMessage");
 
-    const button = document.getElementById("submitAddTvDataBtv");
-    button.setAttribute("disabled", true);
-
-    setTimeout(() => {
-        button.removeAttribute("disabled");
-    }, 2000);
+    const submitTvDataButton = document.getElementById("submitAddTvDataBtv");    
 
     const formData = new FormData(event.currentTarget);
 
@@ -2270,6 +2254,8 @@ async function onSubmitTvData(event) {
     if (dateTokens[1] < 1 || dateTokens[1] > 12) {
         return alert(`Ivalid month! \n Should be between 1 and 12 receive: '${dateTokens[1]}'`);
     };
+
+    submitTvDataButton.setAttribute("disabled", true);
 
     if (isPending) {
         message.textContent = "Loading...";
@@ -2333,6 +2319,7 @@ async function onSubmitTvData(event) {
     } finally {
         message.textContent = "";
         isPending = false;
+        submitTvDataButton.removeAttribute("disabled");
     }
 };
 
