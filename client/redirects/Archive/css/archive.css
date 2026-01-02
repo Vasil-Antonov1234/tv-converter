@@ -72,9 +72,11 @@ a {
 
   .date-issue {
     color: white;
+    display: none;
   }
 
   .date-and-issue {
     color: white;
     font-size: 34px;
+    display: none;
   }

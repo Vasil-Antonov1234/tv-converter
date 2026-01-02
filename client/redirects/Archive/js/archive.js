@@ -5,18 +5,16 @@ document.getElementById("button").onclick = function archive() {
     // let dateDay = arrDate.splice(0, 1);
     // arrDate.splice(1, 0, dateDay[0]);
     // inputDate = arrDate.join(" ");
+    const message = document.getElementById("issue");
+    const issueSign = document.getElementById("date-and-issue");
+    const error = document.getElementById("error");
+    error.style.display = "none";
+    message.style.display = "none";
+    issueSign.style.display = "none";
 
     if (!inputDate) {
         return;
     };
-
-    // const issueEl = document.getElementById("issue");
-    // issueEl.textContent = "";
-
-    // if (outputContainer) {
-    //     outputContainer.remove();
-    // };
-
 
     const minute = 1000 * 60;
     const hour = minute * 60;
@@ -25,9 +23,6 @@ document.getElementById("button").onclick = function archive() {
     const firstIssue = new Date("11 25 2002");
     let firstIssueMilissec = Date.parse(firstIssue);
     let firstIssueDays = Math.round(firstIssueMilissec / day);
-    // console.log(inputDate);
-    // console.log(firstIssue);
-
 
     let now = Date.now();
     let nowDate = new Date(now);
@@ -39,24 +34,13 @@ document.getElementById("button").onclick = function archive() {
 
     let issueDate = new Date(inputDate);
     let issueDateMillisec = Date.parse(issueDate);
-    // let dateIssueMillisec1 = new Date(inputDate).getTime();
     let issueInputDateDays = Math.round(issueDateMillisec / day);
-    // console.log(issueDate);
-    // console.log(string);
-
-    const section = document.querySelector(".output-content");
-
-    check()
 
     if (issueInputDateDays > nowDateDays + 1) {
-        
-        
-        const wrongDateEl = document.createElement("p");
-        wrongDateEl.classList.add("date-and-issue");
-        wrongDateEl.textContent = "The input date must be in the past!";
-        section.appendChild(wrongDateEl);
-        // document.getElementById("date-and-issue").textContent = "The input date must be in the past!";
+
+        error.style.display = "block";
         return;
+
     }
 
     let diff = nowDateDays - issueInputDateDays;
@@ -68,7 +52,7 @@ document.getElementById("button").onclick = function archive() {
         "04 16 2023", "04 17 2023", "05 07 2023", "12 24 2023", "12 25 2023",
         "12 26 2023", "12 31 2023", "01 01 2024", "05 05 2024", "05 06 2024",
         "12 25 2024", "12 26 2024", "01 01 2025", "04 20 2025", "04 21 2025", "07 09 2025",
-        "12 25 2025", "12 26 2025"
+        "12 25 2025", "12 26 2025", "01 01 2026", "01 02 2026"
     ];
     let holidaysDays = [];
     let counterHolidays = 0;
@@ -79,80 +63,36 @@ document.getElementById("button").onclick = function archive() {
         let currentDateDays = Math.round(currentDateMillisec / day);
         holidaysDays.push(currentDateDays);
     }
-    // console.log(holidaysDays);
-    // console.log(issueInputDateDays);
 
     if (holidaysDays.includes(issueInputDateDays)) {
-        document.getElementById("issue").textContent = `Holiday`;
+
+        message.textContent = "Holiday! Try another date.";
+        message.style.display = "block";
         return;
+
     }
 
     for (let el of holidaysDays) {
 
         if (el >= issueInputDateDays && el <= nowDateDays) {
             counterHolidays++;
-            // console.log(el);
-        }
+        };
 
-    }
+    };
 
     daysFromFirstIssueToNow -= 1033;
     daysFromFirstIssueToNow -= holidays.length;
 
     diff -= counterHolidays;
     issue = daysFromFirstIssueToNow - diff - 1;
-    // console.log(counterHolidays);
-    // console.log(daysFromFirstIssueToNow);
 
     if (issue < 0) {
         issue = 0;
     }
 
-    
-    
-    // const section = document.querySelector(".output-content");
+    issueSign.style.display = "block";
+    message.textContent = `${issue}`;
+    message.style.display = "block";
 
-    // let currentDiv = section.querySelector("div");
-
-    // if (currentDiv) {
-    //     currentDiv.remove();
-    // };
-
-    const outputContainer = document.createElement("div");
-    outputContainer.classList.add("output-content");
-
-
-    section.prepend(outputContainer);
-
-    // const issueTxtEl = document.getElementById("date-and-issue");
-
-    const issueTxtEl = document.createElement("p");
-    issueTxtEl.classList.add("date-issue");
-
-    const issueEl = document.createElement("h3");
-    issueEl.classList.add("issue-number");
-
-    outputContainer.appendChild(issueTxtEl);
-    outputContainer.appendChild(issueEl);
-
-    issueTxtEl.textContent = "issue number:";
-    issueEl.textContent = ` ${issue}`;
     return;
-
-    function check() {
-        // const section = document.querySelector(".output-content");
-
-        let currentDiv = section.querySelector("div");
-
-        if (currentDiv) {
-            currentDiv.remove();
-        };
-
-        let currentP = section.querySelector("p");
-
-        
-        if (currentP) {
-            currentP.remove();    
-        };
-    }
 }
