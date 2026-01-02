@@ -79,16 +79,15 @@ export default {
         const newNumber = number.split("").slice(0, number.length - 2).join("");
 
         try {
-            const dir = await fsPromises.readdir(path);
+            const dir = (await fsPromises.readdir(path)).filter((x) => x.endsWith(".pdf"))
 
-            dir.map(async (x) => {
+            await Promise.all(dir.map(async (x) => {
                 let newName = x.slice(-6);
                 newName = newNumber + newName;
 
-                fs.renameSync(`${path}/${x}`, `${path}/${newName}`);
-                // await fsPromises.rename(`${path}/${x}`, `${path}/${newName}`);
+                await fsPromises.rename(`${path}/${x}`, `${path}/${newName}`);
                 renamedFilesCount++;
-            });
+            }));
 
             return `${renamedFilesCount} files have been renamed`
         } catch (error) {
