@@ -1803,7 +1803,7 @@ function tvBookView(event) {
     body.classList.remove("weather");
     root.classList.remove("others");
     body.classList.remove("others");
-    root.classList.add("tv-book");
+    // root.classList.add("tv-book");
     body.classList.add("tv-book");
     root.replaceChildren(tvBookTemplate);
     tvCalcValue = "book";
@@ -1911,11 +1911,9 @@ function weatherView(event) {
     body.classList.remove("tv-book");
     root.classList.remove("others");
     body.classList.remove("others");
-    root.classList.add("weather");
+    // root.classList.add("weather");
     body.classList.add("weather");
     root.replaceChildren(weatherTemplate);
-    // document.getElementById("tv-book-view").addEventListener("click", tvBookView);
-    // document.getElementById("paper-view").addEventListener("click", tvPaperView);
     document.getElementById("getBtnBG").addEventListener("click", onWeatherConvert);
     document.querySelector("#exchangeRates").addEventListener("click", exchangeRates);
     document.getElementById("exchangeRatesInput").style.display = "none";
