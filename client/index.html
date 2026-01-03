@@ -17,7 +17,6 @@
         <a href="javascript:void(0)" id="tv-weather-view">Weather</a>
         <a href="./redirects/Archive/archive.html" id="archive">Archive</a>
         <a href="javascript:void(0)" id="others-view">Utils</a>
-
     </header>
     <div id="root">
         <div id="main-container">
@@ -37,12 +36,18 @@
                             placeholder="The converted text will appear here"></textarea>
 
                         <div class="radio-container">
-                            <input type="radio" id="tvWeek" name="tv-radio" value="week" class="tvRadio">
+                            <select name="tv-radio" id="tvWeek">
+                                <option value="nothing">Optional</option>
+                                <option value="week">Понеделник-Петък</option>
+                                <option value="saturday">Събота</option>
+                                <option value="sunday">Неделя</option>
+                            </select>
+                            <!-- <input type="radio" id="tvWeek" name="tv-radio" value="week" class="tvRadio">
                             <label for="tvWeek" class="tvRadioLable">Paper</label>
                             <input type="radio" id="tvSaturday" name="tv-radio" value="saturday" class="tvRadio">
                             <label for="tvSaturday" class="tvRadioLable">Saturday</label>
                             <input type="radio" id="tvSunday" name="tv-radio" value="sunday" class="tvRadio">
-                            <label for="tvSunday" class="tvRadioLable">Sunday</label>
+                            <label for="tvSunday" class="tvRadioLable">Sunday</label> -->
                         </div>
                     </form>
 

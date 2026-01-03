@@ -194,8 +194,8 @@ h1 {
 
 .notify {
     position: absolute;
-    left: 60%;
-    top: 7%;
+    left: 50rem;
+    top: 5.5rem;;
     background: red;
     color: white;
     font-family: cursive;
@@ -208,8 +208,8 @@ h1 {
 
 .close {
     position: absolute;
-    left: 59.3%;
-    top: 4.6%;
+    left: 49rem;
+    top: 4.1rem;
     color: white;
     font-family: cursive;
     padding: 10px;
