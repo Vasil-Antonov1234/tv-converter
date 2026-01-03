@@ -671,12 +671,28 @@ function onConvert(e) {
         outputBook.value = "";
     };
 
+    const isCorrectDayInput = isCorrectDayInputHandler(matchArr);
+
     if (dateElBookContainer) {
         dateElBookContainer.style.display = "inline";
-        dateElBook.textContent = tvArr[1];
+
+        if (isCorrectDayInput) {
+            dateElBook.textContent = matchArr;
+        };
+
+        if (!isCorrectDayInput) {
+            dateElBook.textContent = "Day: undefined!"
+        };        
     }
 
-    dateEl.textContent = tvArr[1];
+    if (isCorrectDayInput) {
+        dateEl.textContent = matchArr;
+    };
+
+    if (!isCorrectDayInput) {
+        dateEl.textContent = "Day: undefined!"
+    };
+
     dateContainer.style.display = "inline";
 }
 
@@ -2410,13 +2426,28 @@ function selectionChoiceHandler(radio, weekMatch, saturdayMatch, sundayMatch) {
 }
 
 function isMatchHandler(radio, weekMatch, saturdayMatch, sundayMatch) {
-        if (radio === "tvBook" ||
-            radio === "nothing" ||
-            (radio === "week" && weekMatch) ||
-            (radio === "saturday" && saturdayMatch) ||
-            (radio === "sunday" && sundayMatch)) {
-            return true;
-        }
-
-        return false;
+    if (radio === "tvBook" ||
+        radio === "nothing" ||
+        (radio === "week" && weekMatch) ||
+        (radio === "saturday" && saturdayMatch) ||
+        (radio === "sunday" && sundayMatch)) {
+        return true;
     }
+
+    return false;
+}
+
+function isCorrectDayInputHandler(matchArr) {
+    if ((matchArr.startsWith("Понеделник") ||
+        matchArr.startsWith("Вторник") ||
+        matchArr.startsWith("Сряда") ||
+        matchArr.startsWith("Четвъртък") ||
+        matchArr.startsWith("Петък") ||
+        matchArr.startsWith("Събота") ||
+        matchArr.startsWith("Неделя")
+        && matchArr.length < 30)) {
+        return true;
+    };
+
+    return false;
+};
