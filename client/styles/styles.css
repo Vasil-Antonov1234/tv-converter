@@ -416,6 +416,7 @@ h1 {
     display: inline;
     position: absolute;
     top: -100px;
+    left: 70rem;
 }
 
 .radio-container-notify {
@@ -425,6 +426,47 @@ h1 {
     /* left: 72.55%; */
     border: solid 3px red;
     /* padding: 10px; */
+}
+
+summary {
+    color: white;
+    font-family: serif;
+    font-style: oblique;
+}
+
+.summary {
+    margin-top: 3px;
+    background-color: aliceblue;
+    width: 24rem;
+    padding: 4px;
+    border-radius: 3px;
+    font-family: cursive;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+select {
+    background-color: antiquewhite;
+    font-family: cursive;
+    font-size: 14px;
+    font-weight: bolder;
+    padding: 1px;
+    border-radius: 4px;
+    border: solid rgb(129, 103, 103) 1px;
+    color: #55411b;
+    box-shadow: 3px 3px 5px gray;
+}
+
+div.radio-container span {
+    font-family: cursive;
+    color: rgb(250, 241, 227);
+}
+
+div.radio-container span span {
+    color: brown;
+    font-weight: bolder;
+    /* text-transform: uppercase; */
 }
 
 .responseMessage {

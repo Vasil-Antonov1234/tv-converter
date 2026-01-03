@@ -29,19 +29,24 @@
                 <div class="input-container">
                     <form id="main-form" class="input">
                         <textarea name="tvText" id="inputArea" class="tvText"
-                            placeholder="Paste your text here or click the 'Select file' button"></textarea>
+                            placeholder="Paste your text here or click the 'Select file' button to choose"></textarea>
                         <button type="submit" id="convertBtn">Convert</button>
                         <!-- <img src="./images/arrow.png" class="arrow"> -->
                         <textarea name="output" id="outputArea" class="tvText"
                             placeholder="The converted text will appear here"></textarea>
-
                         <div class="radio-container">
+                            <span>Choose a day <span>(optionaly):</span></span>
                             <select name="tv-radio" id="tvWeek">
-                                <option value="nothing">Optional</option>
+                                <option value="nothing">Day selection</option>
                                 <option value="week">Понеделник-Петък</option>
                                 <option value="saturday">Събота</option>
                                 <option value="sunday">Неделя</option>
                             </select>
+                            <details>
+                                <summary>Show more...</summary>
+                                <div class="summary">The selected day option has the highest priority and overwrites the
+                                    automatically detected!</div>
+                            </details>
                             <!-- <input type="radio" id="tvWeek" name="tv-radio" value="week" class="tvRadio">
                             <label for="tvWeek" class="tvRadioLable">Paper</label>
                             <input type="radio" id="tvSaturday" name="tv-radio" value="saturday" class="tvRadio">
