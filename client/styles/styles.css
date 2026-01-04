@@ -528,3 +528,11 @@ hr {
 .mt {
     margin-top: 54px;
 }
+
+textarea:focus {
+   background-color: white; 
+}
+
+input:focus {
+    background-color: rgb(245, 234, 221);
+}
