@@ -40,12 +40,12 @@ a {
     color: bisque
 }
 
-a:hover {
-    color: rgb(118, 198, 245);
+.isActive {
+    color: white;
 }
 
-.isActive {
-    color: rgb(118, 198, 245);
+a:hover {
+    color: white;
 }
 
 #paper-view {
@@ -196,7 +196,8 @@ h1 {
 .notify {
     position: absolute;
     left: 50rem;
-    top: 5.5rem;;
+    top: 5.5rem;
+    ;
     background: red;
     color: white;
     font-family: cursive;
@@ -437,7 +438,7 @@ summary {
 
 .summary {
     margin-top: 3px;
-    background-color: aliceblue;
+    background-color: bisque;
     width: 24rem;
     padding: 4px;
     border-radius: 3px;
@@ -445,6 +446,7 @@ summary {
     font-size: 14px;
     font-style: italic;
     font-weight: bold;
+    border: 1px solid brown;
 }
 
 select {
