@@ -1,6 +1,9 @@
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import paths from "../paths/paths.js";
+import iconv from "iconv-lite";
+import jschardet from "jschardet";
+import { EOL } from "os";
 
 const inputFilePath = paths.input;
 const regex = /-\d\d.txt/
@@ -26,22 +29,54 @@ export default {
 
                     let fileName = el.replace(regex, ".txt");
 
-                    fs.rename(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`, (error) => {
+                    // fs.rename(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`, (error) => {
 
-                        if (error) {
-                            console.log(error)
-                        }
-                    });
+                    //     if (error) {
+                    //         throw error;
+                    //     };
+                    // });
+
+                    fs.renameSync(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`);
                 };
             };
+
+            const renamedDir = fs.readdirSync(inputFilePath);
+
+            for (let tv of renamedDir) {
+
+                if (tv === "dizi.txt" || "FilmBox Basic.txt") {
+
+                    try {
+                        const buffer = fs.readFileSync(`${inputFilePath}${tv}`);
+                        let charSet = jschardet.detect(buffer).encoding;
+
+                        if (charSet === "x-mac-cyrillic") {
+                            charSet = "windows-1251";
+                        };
+
+                        let encodedTV = "";
+
+                        encodedTV = iconv.decode(buffer, charSet);
+
+                        encodedTV = encodedTV.replaceAll("---", EOL);
+
+                        const outputDir = paths.input;
+
+                        const outputFile = `${outputDir}dizi.txt`;
+
+                        fs.writeFileSync(outputFile, encodedTV, { encoding: "utf-8" });
+
+                    } catch (error) {
+                        throw error;
+                    }
+                }
+            }
 
             return result;
         } catch (error) {
             console.log(error.message);
             throw (error.message);
         }
-
-
     },
 
     renameFiles(path, find, changeTo, extension) {
