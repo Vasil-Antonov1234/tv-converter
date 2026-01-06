@@ -24,7 +24,7 @@ const getFileElement = document.getElementById("listFile");
 const selectFileElement = document.getElementById("selectFile");
 getFileElement.addEventListener("click", () => selectFileElement.click());
 selectFileElement.addEventListener("change", () => addFileContent("inputArea", selectFileElement));
-const baseURL = "http://localhost:5000";
+const baseURL = "http://192.168.55.4:5000";
 
 const tvCalcConstants = {
     paper: 30,
@@ -1932,14 +1932,14 @@ weatherTemplate.innerHTML = `
     <textarea name="currency" value="test" id="exchangeRatesInput">const currencyList = document.querySelectorAll(".center");
 const currencyListArr = Array.from(currencyList);
 
-const usd = currencyListArr[85].textContent;
-const usdPref = currencyListArr[84].textContent;
-const gbp = currencyListArr[22].textContent;
-const gbpPref = currencyListArr[21].textContent;
-const chf = currencyListArr[10].textContent;
-const chfPref = currencyListArr[9].textContent;
-const jpy = currencyListArr[43].textContent;
-const jpyPref = currencyListArr[42].textContent;
+const usd = currencyListArr[1].textContent;
+const usdPref = currencyListArr[0].textContent;
+const gbp = currencyListArr[13].textContent;
+const gbpPref = currencyListArr[12].textContent;
+const chf = currencyListArr[28].textContent;
+const chfPref = currencyListArr[27].textContent;
+const jpy = currencyListArr[4].textContent;
+const jpyPref = currencyListArr[3].textContent;
 
 document.write("Централен курс на БНБ: " + usd + "= " + usdPref + "; " + gbp + "= " + gbpPref + "; " + chf + "= " + chfPref + "; " + jpy + "= " + jpyPref)</textarea>
     <button id="exchangeRates" class="copyCode">Copy code/ exchange rates</button>
