@@ -60,12 +60,8 @@ export default {
                         encodedTV = iconv.decode(buffer, charSet);
 
                         const result = handleFixTv(encodedTV, tv);
-
-                        // encodedTV = encodedTV.replaceAll("---", EOL);
-
                         const outputDir = paths.input;
-
-                        const outputFile = `${outputDir}dizi.txt`;
+                        const outputFile = `${outputDir}${tv}`;
 
                         fs.writeFileSync(outputFile, result, { encoding: "utf-8" });
 
