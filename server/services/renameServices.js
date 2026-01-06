@@ -4,6 +4,7 @@ import paths from "../paths/paths.js";
 import iconv from "iconv-lite";
 import jschardet from "jschardet";
 import { EOL } from "os";
+import { handleFixTv } from "../utils/handleFixTV.js";
 
 const inputFilePath = paths.input;
 const regex = /-\d\d.txt/
@@ -44,7 +45,7 @@ export default {
 
             for (let tv of renamedDir) {
 
-                if (tv === "dizi.txt" || "FilmBox Basic.txt") {
+                if (tv === "dizi.txt" || tv === "FilmBox Basic.txt") {
 
                     try {
                         const buffer = fs.readFileSync(`${inputFilePath}${tv}`);
@@ -58,13 +59,15 @@ export default {
 
                         encodedTV = iconv.decode(buffer, charSet);
 
-                        encodedTV = encodedTV.replaceAll("---", EOL);
+                        const result = handleFixTv(encodedTV, tv);
+
+                        // encodedTV = encodedTV.replaceAll("---", EOL);
 
                         const outputDir = paths.input;
 
                         const outputFile = `${outputDir}dizi.txt`;
 
-                        fs.writeFileSync(outputFile, encodedTV, { encoding: "utf-8" });
+                        fs.writeFileSync(outputFile, result, { encoding: "utf-8" });
 
                     } catch (error) {
                         throw error;
