@@ -10,6 +10,8 @@ header {
     padding: 4px;
     border: solid white 1px;
     box-shadow: 3px 3px 5px black;
+    display: flex;
+    gap: 30px;
 }
 
 .tv-book {
@@ -36,7 +38,7 @@ a {
     text-decoration: none;
     margin-right: 15px;
     margin-left: 15px;
-    padding: 4px;
+    /* padding: 4px; */
     color: bisque
 }
 
