@@ -9,7 +9,7 @@ export function handleFixTv(encodedTV, tv) {
             result = encodedTV.replaceAll("---", EOL);
             break;
         case "FilmBox Basic.txt":
-            result = `FilmBox Basic${EOL}${encodedTV}`;
+            result = `FilmBox Basic${EOL}${EOL}${encodedTV}`;
             break;
     }
 
