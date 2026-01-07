@@ -104,4 +104,9 @@ export const days = [
     "Петък",
     "Събота",
     "Неделя"
-]
+];
+
+export const tvForFix = [
+    "dizi.txt",
+    "FilmBox Basic.txt"
+];

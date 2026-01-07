@@ -6,7 +6,7 @@ export function handleFixTv(encodedTV, tv) {
 
     switch (tv) {
         case "dizi.txt":
-            result = encodedTV.replaceAll("---", EOL);
+            result = encodedTV.replaceAll("---", "");
             break;
         case "FilmBox Basic.txt":
             result = `FilmBox Basic${EOL}${EOL}${encodedTV}`;

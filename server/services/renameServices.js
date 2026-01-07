@@ -3,8 +3,8 @@ import fsPromises from "node:fs/promises";
 import paths from "../paths/paths.js";
 import iconv from "iconv-lite";
 import jschardet from "jschardet";
-import { EOL } from "os";
 import { handleFixTv } from "../utils/handleFixTV.js";
+import { tvForFix } from "../data/tvNames.js";
 
 const inputFilePath = paths.input;
 const regex = /-\d\d.txt/
@@ -30,13 +30,6 @@ export default {
 
                     let fileName = el.replace(regex, ".txt");
 
-                    // fs.rename(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`, (error) => {
-
-                    //     if (error) {
-                    //         throw error;
-                    //     };
-                    // });
-
                     fs.renameSync(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`);
                 };
             };
@@ -45,7 +38,7 @@ export default {
 
             for (let tv of renamedDir) {
 
-                if (tv === "dizi.txt" || tv === "FilmBox Basic.txt") {
+                if (tvForFix.includes(tv)) {
 
                     try {
                         const buffer = fs.readFileSync(`${inputFilePath}${tv}`);
@@ -66,15 +59,14 @@ export default {
                         fs.writeFileSync(outputFile, result, { encoding: "utf-8" });
 
                     } catch (error) {
-                        throw error;
+                        throw error.message;
                     }
                 }
             }
 
             return result;
         } catch (error) {
-            console.log(error.message);
-            throw (error.message);
+            throw error.message;
         }
     },
 
