@@ -485,6 +485,8 @@ function onConvert(e) {
     separatedTv.discovery = deleteByHours(separatedTv.discovery, rows.discovery[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
     separatedTv.discovery = replaceTextForce(separatedTv.discovery, "_==", " ");
     separatedTv.discovery = replaceTextForce(separatedTv.discovery, ":", " -")
+    separatedTv.discovery = replaceTextForce(separatedTv.discovery, "(", "")
+    separatedTv.discovery = replaceTextForce(separatedTv.discovery, ")", "")
     separatedTv.discovery = deleteIncluding(separatedTv.discovery, rows.discovery[daySelection], "-", tvCalcConstants[tvCalcValue]);
     separatedTv.nationalG = deleteByHours(separatedTv.nationalG, rows.nationalG[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
     separatedTv.ngWild = deleteByHours(separatedTv.ngWild, rows.ngWild[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
