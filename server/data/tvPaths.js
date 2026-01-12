@@ -7,7 +7,7 @@ export const allTv = [
     "bnt4.txt",
     "skat.txt",
     "df.txt",
-    "bulgariaonair.txt",
+    "bgonair.txt",
     "btvaction.txt",
     "btvcomedy.txt",
     "btvcinema.txt",
