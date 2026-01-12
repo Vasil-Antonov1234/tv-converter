@@ -1,6 +1,7 @@
 import fsPromises from "fs/promises";
 import path from "path";
 import paths from "../paths/paths.js";
+import { handleAgroZlatnoIssue } from "../utils/handleAgroZlatnoIssue.js";
 
 export default {
     async copyIssue(issue, application, applicationIssue) {
@@ -10,6 +11,11 @@ export default {
         let dirFilesSource = "";
         let dirPhotosSource = "";
         let dirTelSite = "";
+
+        const photoIssue = handleAgroZlatnoIssue(applicationIssue);
+
+        console.log(photoIssue)
+        console.log(typeof(photoIssue))
 
         if (application === "currentIssue") {
             dirFilesSource = await fsPromises.readdir(paths.readyFiles);
@@ -25,13 +31,13 @@ export default {
 
         if (application === "ZlatnoVreme") {
             dirFilesSource = await fsPromises.readdir(`${paths.zlatno}${applicationIssue}/`);
-            dirPhotosSource = await fsPromises.readdir(`${paths.photos}_ZLATNO_VREME${applicationIssue}/OLD/`);
+            dirPhotosSource = await fsPromises.readdir(`${paths.photos}_ZLATNO_VREME${photoIssue}/OLD/`);
             dirTelSite = await fsPromises.readdir(paths.zlatnoOutput);
         };
 
         if (application === "Agro") {
             dirFilesSource = await fsPromises.readdir(`${paths.agro}${applicationIssue}/old/`);
-            dirPhotosSource = await fsPromises.readdir(`${paths.photos}_AGRO${applicationIssue}/OLD/`);
+            dirPhotosSource = await fsPromises.readdir(`${paths.photos}_AGRO${photoIssue}/OLD/`);
             dirTelSite = await fsPromises.readdir(paths.agroOutput);
         };
 
@@ -172,12 +178,12 @@ export default {
 
                     if (application === "Agro") {
                         destination = path.join(`${paths.agroOutput}${applicationIssue}/JPG/`, photo);
-                        source = path.join(`${paths.photos}_AGRO${applicationIssue}/OLD/`, photo);
+                        source = path.join(`${paths.photos}_AGRO${photoIssue}/OLD/`, photo);
                     };
 
                     if (application === "ZlatnoVreme") {
                         destination = path.join(`${paths.zlatnoOutput}${applicationIssue}/JPG/`, photo);
-                        source = path.join(`${paths.photos}_ZLATNO_VREME${applicationIssue}/OLD/`, photo);
+                        source = path.join(`${paths.photos}_ZLATNO_VREME${photoIssue}/OLD/`, photo);
                     };
 
                     await fsPromises.copyFile(source, destination);
