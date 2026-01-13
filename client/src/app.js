@@ -38,7 +38,7 @@ let isError = false;
 let message = "error";
 
 const movies = ["криминален", "документален", "драма", "криминален", "екшън", "приключенски", "ужаси", "комедия",
-    "романтичен", "романтика", "фантастика", "трилър", "хорър", "семеен", "уестърн", "мюзикъл"];
+    "романтичен", "романтика", "фантастика", "трилър", "хорър", "семеен", "уестърн", "мюзикъл", "анимация"];
 const episodePattern = /еп. \d+|еп.\d+|епизод \d+|епизод\d+/;
 const hourPattern = /\d.\d\d /;
 
@@ -126,8 +126,8 @@ function onConvert(e) {
             "sunday": 17,
             "tvBook": 23
         },
-        bnt3: {
-            "tvBook": 41
+        hbo3: {
+            "tvBook": 23
         },
         axn: {
             "week": 22,
@@ -183,11 +183,14 @@ function onConvert(e) {
             "sunday": 17,
             "tvBook": 28
         },
+        cinemax2: {
+            "tvBook": 28
+        },
         cinemax: {
             "week": 21,
             "saturday": 23,
             "sunday": 21,
-            "tvBook": 35
+            "tvBook": 39
         },
         starChanel: {
             "week": 21,
@@ -204,7 +207,7 @@ function onConvert(e) {
         hbo2: {
             "tvBook": 30
         },
-        discovery: {
+        bnt3: {
             "tvBook": 28
         },
         nationalG: {
@@ -216,13 +219,10 @@ function onConvert(e) {
         viasatNature: {
             "tvBook": 36
         },
-        disneyChannel: {
-            "tvBook": 36
-        },
         epicDrama: {
             "tvBook": 36
         },
-        theVoice: {
+        discovery: {
             "tvBook": 17
         },
         viasatExplorer: {
@@ -413,6 +413,12 @@ function onConvert(e) {
     separatedTv.diema = deleteGenre(separatedTv.diema, rows.diema[daySelection]);
     separatedTv.diema = deleteByHours(separatedTv.diema, rows.diema[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
     separatedTv.diema = deleteEndComma(separatedTv.diema);
+    separatedTv.hbo3 = replaceTextForce(separatedTv.hbo3, "„", "");
+    separatedTv.hbo3 = replaceTextForce(separatedTv.hbo3, "”", "");
+    separatedTv.hbo3 = deleteByHours(separatedTv.hbo3, rows.hbo3[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
+    separatedTv.hbo3 = deleteGenre(separatedTv.hbo3, rows.hbo3[daySelection]);
+    separatedTv.hbo3 = deleteEndComma(separatedTv.hbo3);
+    separatedTv.hbo3 = deleteExcluding(separatedTv.hbo3, rows.hbo3[daySelection], "еп.", tvCalcConstants[tvCalcValue]);    
     separatedTv.btvAction = deleteGenre(separatedTv.btvAction, rows.btvAction[daySelection]);
     separatedTv.btvAction = deleteByHours(separatedTv.btvAction, rows.btvAction[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
     separatedTv.btvAction = deleteExcludingForce(separatedTv.btvAction, rows.btvAction[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
@@ -444,10 +450,6 @@ function onConvert(e) {
     separatedTv.starLife = deletePatternIncluding(separatedTv.starLife, rows.starLife[daySelection], /еп. \d+/);
     separatedTv.starLife = deleteRepetedRows1(separatedTv.starLife, rows.starLife[daySelection]);
     separatedTv.starLife = deleteEndComma(separatedTv.starLife);
-    separatedTv.viasatKino = replaceTextForce(separatedTv.viasatKino, "/", " ");
-    separatedTv.viasatKino = deleteGenre(separatedTv.viasatKino, rows.viasatKino[daySelection]);
-    separatedTv.viasatKino = deleteByHours(separatedTv.viasatKino, rows.viasatKino[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "00"]);
-    separatedTv.viasatKino = replaceTextForce(separatedTv.viasatKino, "TV 1000", "Viasat Kino");
     separatedTv.ring = replaceText(separatedTv.ring, rows.ring[daySelection], "документална поредица", "поредица");
     separatedTv.ring = replaceText(separatedTv.ring, rows.ring[daySelection], "ПРЯКО", "");
     separatedTv.ring = deleteExcluding(separatedTv.ring, rows.ring[daySelection], "обзор", tvCalcConstants[tvCalcValue]);
@@ -456,6 +458,10 @@ function onConvert(e) {
     separatedTv.cinemax = deleteGenre(separatedTv.cinemax, rows.cinemax[daySelection]);
     separatedTv.cinemax = deleteByHours(separatedTv.cinemax, rows.cinemax[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08"])
     separatedTv.cinemax = deleteEndComma(separatedTv.cinemax);
+    separatedTv.viasatKino = replaceTextForce(separatedTv.viasatKino, "/", " ");
+    separatedTv.viasatKino = deleteGenre(separatedTv.viasatKino, rows.viasatKino[daySelection]);
+    separatedTv.viasatKino = deleteByHours(separatedTv.viasatKino, rows.viasatKino[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "00"]);
+    separatedTv.viasatKino = replaceTextForce(separatedTv.viasatKino, "TV 1000", "Viasat Kino");
     separatedTv.starChanel = replaceTextForce(separatedTv.starChanel, "еп.", "сер.");
     separatedTv.starChanel = deleteExcludingForce(separatedTv.starChanel, rows.starChanel[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
     // separatedTv.starChanel = deleteRepetedRows1(separatedTv.starChanel, rows.starChanel[daySelection]);
@@ -491,11 +497,8 @@ function onConvert(e) {
     separatedTv.nationalG = deleteByHours(separatedTv.nationalG, rows.nationalG[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
     separatedTv.ngWild = deleteByHours(separatedTv.ngWild, rows.ngWild[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
     separatedTv.viasatNature = deleteByHours(separatedTv.viasatNature, rows.viasatNature[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.disneyChannel = deleteByHours(separatedTv.disneyChannel, rows.disneyChannel[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.disneyChannel = deleteRepetedRows1(separatedTv.disneyChannel, rows.disneyChannel[daySelection]);
     separatedTv.epicDrama = deleteByHours(separatedTv.epicDrama, rows.epicDrama[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
     separatedTv.epicDrama = deletePatternIncluding(separatedTv.epicDrama, rows.epicDrama[daySelection], /еп. \d+/);
-    separatedTv.theVoice = deleteByHours(separatedTv.theVoice, rows.theVoice[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
     separatedTv.viasatExplorer = deleteByHours(separatedTv.viasatExplorer, rows.viasatExplorer[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
     separatedTv.history = deleteByHours(separatedTv.history, rows.history[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
     separatedTv.kitchen24 = deleteByHours(separatedTv.kitchen24, rows.kitchen24[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
@@ -630,7 +633,7 @@ function onConvert(e) {
             + separatedTv.btvStory.join("\n") + "\n\n"
             + separatedTv.dizi.join("\n") + "\n\n"
             + separatedTv.kinoNova.join("\n") + "\n\n"
-            + separatedTv.diema.join("\n") + "\n\n"
+            + separatedTv.hbo3.join("\n") + "\n\n"
             + separatedTv.bnt3.join("\n") + "\n\n"
             + separatedTv.axn.join("\n") + "\n\n"
             + separatedTv.starChanel.join("\n") + "\n\n"
@@ -640,13 +643,13 @@ function onConvert(e) {
             + separatedTv.hbo2.join("\n") + "\n\n"
             + separatedTv.cinemax.join("\n") + "\n\n"
             + separatedTv.viasatKino.join("\n") + "\n\n"
-            + separatedTv.discovery.join("\n") + "\n\n"
+            + separatedTv.cinemax2.join("\n") + "\n\n"
             + separatedTv.nationalG.join("\n") + "\n\n"
             + separatedTv.ngWild.join("\n") + "\n\n"
             + separatedTv.viasatNature.join("\n") + "\n\n"
-            + separatedTv.disneyChannel.join("\n") + "\n\n"
+            + separatedTv.bnt3.join("\n") + "\n\n"
             + separatedTv.epicDrama.join("\n") + "\n\n"
-            + separatedTv.theVoice.join("\n") + "\n\n"
+            + separatedTv.discovery.join("\n") + "\n\n"
             + separatedTv.viasatExplorer.join("\n") + "\n\n"
             + separatedTv.history.join("\n") + "\n\n"
             + separatedTv.kitchen24.join("\n") + "\n\n"
@@ -684,7 +687,7 @@ function onConvert(e) {
 
         if (!isCorrectDayInput) {
             dateElBook.textContent = "Day: undefined!"
-        };        
+        };
     }
 
     if (isCorrectDayInput) {
@@ -1179,7 +1182,7 @@ function separateTv(arr) {
         dizi: [],
         kinoNova: [],
         diema: [],
-        bnt3: [],
+        hbo3: [],
         axn: [],
         starChanel: [],
         starLife: [],
@@ -1188,13 +1191,13 @@ function separateTv(arr) {
         hbo2: [],
         cinemax: [],
         viasatKino: [],
-        discovery: [],
+        cinemax2: [],
         nationalG: [],
         ngWild: [],
         viasatNature: [],
-        disneyChannel: [],
+        bnt3: [],
         epicDrama: [],
-        theVoice: [],
+        discovery: [],
         viasatExplorer: [],
         viasatHistory: [],
         history: [],
@@ -1282,6 +1285,10 @@ function separateTv(arr) {
             currentTV = "bnt3";
         };
 
+        if (el.startsWith("HBO 3") && el.endsWith("HBO 3")) {
+            currentTV = "hbo3";
+        };
+
         if (el.startsWith("AXN") && el.endsWith("AXN")) {
             currentTV = "axn";
         };
@@ -1314,6 +1321,10 @@ function separateTv(arr) {
             currentTV = "viasatKino";
         };
 
+        if (el.startsWith("Cinemax 2") && el.endsWith("Cinemax 2")) {
+            currentTV = "cinemax2";
+        };
+
         if (el.startsWith("Discovery") && el.endsWith("Discovery")) {
             currentTV = "discovery";
         };
@@ -1330,16 +1341,8 @@ function separateTv(arr) {
             currentTV = "viasatNature";
         };
 
-        if (el.startsWith("Disney channel") && el.endsWith("Disney channel")) {
-            currentTV = "disneyChannel";
-        };
-
         if (el.startsWith("Epic Drama") && el.endsWith("Epic Drama")) {
             currentTV = "epicDrama";
-        };
-
-        if (el.startsWith("The Voice") && el.endsWith("The Voice")) {
-            currentTV = "theVoice";
         };
 
         if (el.startsWith("Viasat Explorer") && el.endsWith("Viasat Explorer")) {
