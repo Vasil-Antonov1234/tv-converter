@@ -15,7 +15,7 @@ export const allTvNames = [
     "Dizi",
     "KINO NOVA",
     "Diema",
-    "БНТ 3",
+    "HBO 3",
     "AXN",
     "Star Channel",
     "Star Life",
@@ -24,13 +24,13 @@ export const allTvNames = [
     "HBO 2",
     "Cinemax",
     "TV 1000",
-    "Discovery",
+    "Cinemax 2",
     "National G",
     "NG wild",
     "Viasat Nature",
-    "Disney channel",
+    "БНТ 3",
     "Epic Drama",
-    "The Voice",
+    "Discovery",
     "Viasat Explorer",
     "History",
     "24kitchen",
@@ -107,6 +107,5 @@ export const days = [
 ];
 
 export const tvForFix = [
-    "dizi.txt",
-    "FilmBox Basic.txt"
+    "dizi.txt"
 ];
