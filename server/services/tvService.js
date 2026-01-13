@@ -24,7 +24,7 @@ export default {
 
                 if (!dir.includes(allTv[i])) {
                     tvArr.push(`${allTvNames[i]}${EOL}${day} ${date}${EOL}`);
-                    response.push(`${allTv[i]} - File is missing! ❌`)
+                    response.push(`${allTv[i]} (${allTvNames[i]}) - File is missing! ❌`)
                     continue;
                 }
 
