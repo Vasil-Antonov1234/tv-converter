@@ -62,6 +62,55 @@ function onConvert(e) {
         return;
     };
 
+    const allTvNames = {
+    "БНТ 1": "bnt1",
+    "bTV": "btv",
+    "NOVA TV": "novaTv",
+    "NOVA NEWS": "novaNews",
+    "БНТ 2": "bnt2",
+    "БНТ 4": "bnt4",
+    "skat": "skat",
+    "Diema family": "diemaFemily",
+    "Bulgaria on air": "bulgariaOnAir",
+    "bTV action": "btvAction",
+    "bTV comedy": "btvComedy",
+    "bTV cinema": "btvCinema",
+    "bTV Story": "btvStory",
+    "Dizi": "dizi",
+    "Diema": "diema",
+    "KINO NOVA": "kinoNova",
+    "БНТ 3": "bnt3",
+    "HBO 3": "hbo3",
+    "AXN": "axn",
+    "Star Channel": "starChanel",
+    "Star Life": "starLife",
+    "Star Crime": "starCrime",
+    "HBO": "hbo",
+    "HBO 2": "hbo2",
+    "Cinemax": "cinemax",
+    "Viasat Kino (TV 1000)": "viasatKino",
+    "Cinemax 2": "cinemax2",
+    "Discovery": "discovery",
+    "National G": "nationalG",
+    "NG wild": "ngWild",
+    "Viasat Nature": "viasatNature",
+    "Epic Drama": "epicDrama",
+    "Viasat Explorer": "viasatExplorer",
+    "Viasat History": "viasatHistory",
+    "History": "history",
+    "24kitchen": "kitchen24",
+    "Diema sport": "diemaSport",
+    "Diema sport2": "diemaSport2",
+    "Diema sport3": "diemaSport3",
+    "Nova sport": "novaSport",
+    "Ring": "ring",
+    "Eurosport": "eurosport",
+    "Eurosport 2": "eurosport2",
+    "Max Sport 1": "maxSport1",
+    "Max Sport 2": "maxSport2",
+    "Max Sport 3": "maxSport3",
+    "Max Sport 4": "maxSport4"
+}
 
     // if (typeof (radio) === "object") {
     //     radioContainerElement.classList.add("radio-container-notify");
@@ -272,7 +321,9 @@ function onConvert(e) {
     let tvArr = input.split("\n");
     const matchArr = tvArr[1];
 
-    const separatedTv = separateTv(tvArr);
+    const separatedTv = separateTv(tvArr, allTvNames);
+
+    console.log(separatedTv);
 
     const weekMatch = (matchArr && (matchArr.includes("Понеделник") || matchArr.includes("Вторник")
         || matchArr.includes("Сряда") || matchArr.includes("Четвъртък")
@@ -1165,7 +1216,7 @@ function calcReturnsCount1(arr, value) {
     return rowsCount;
 }
 
-function separateTv(arr) {
+function separateTv(arr, allTvNames) {
     let separatedTv = {
         bnt1: [],
         btv: [],
@@ -1217,199 +1268,16 @@ function separateTv(arr) {
     };
     let currentTV = "";
 
-    for (let el of arr) {
-        if (el.startsWith("БНТ 1") && el.endsWith("БНТ 1")) {
-            currentTV = "bnt1";
-        };
-
-        if (el.startsWith("bTV") && el.endsWith("bTV")) {
-            currentTV = "btv";
-        };
-
-        if (el.startsWith("NOVA TV") && el.endsWith("NOVA TV")) {
-            currentTV = "novaTv";
-        };
-
-        if (el.startsWith("NOVA NEWS") && el.endsWith("NOVA NEWS")) {
-            currentTV = "novaNews";
-        };
-
-        if (el.startsWith("БНТ 2") && el.endsWith("БНТ 2")) {
-            currentTV = "bnt2";
-        };
-
-        if (el.startsWith("БНТ 4") && el.endsWith("БНТ 4")) {
-            currentTV = "bnt4";
-        };
-
-        if (el.startsWith("skat") && el.endsWith("skat")) {
-            currentTV = "skat";
-        };
-
-        if (el.startsWith("Diema family") && el.endsWith("Diema family")) {
-            currentTV = "diemaFemily";
-        };
-
-        if (el.startsWith("Bulgaria on air") && el.endsWith("Bulgaria on air")) {
-            currentTV = "bulgariaOnAir";
-        };
-
-        if (el.startsWith("bTV action") && el.endsWith("bTV action")) {
-            currentTV = "btvAction";
-        };
-
-        if (el.startsWith("bTV comedy") && el.endsWith("bTV comedy")) {
-            currentTV = "btvComedy";
-        };
-
-        if (el.startsWith("bTV cinema") && el.endsWith("bTV cinema")) {
-            currentTV = "btvCinema";
-        };
-
-        if (el.startsWith("bTV Story") && el.endsWith("bTV Story")) {
-            currentTV = "btvStory";
-        };
-
-        if (el.startsWith("Dizi") && el.endsWith("Dizi")) {
-            currentTV = "dizi";
-        };
-
-        if (el.startsWith("Diema") && el.endsWith("Diema")) {
-            currentTV = "diema";
-        };
-
-        if (el.startsWith("KINO NOVA") && el.endsWith("KINO NOVA")) {
-            currentTV = "kinoNova";
-        };
-
-        if (el.startsWith("БНТ 3") && el.endsWith("БНТ 3")) {
-            currentTV = "bnt3";
-        };
-
-        if (el.startsWith("HBO 3") && el.endsWith("HBO 3")) {
-            currentTV = "hbo3";
-        };
-
-        if (el.startsWith("AXN") && el.endsWith("AXN")) {
-            currentTV = "axn";
-        };
-
-        if (el.startsWith("Star Channel") && el.endsWith("Star Channel")) {
-            currentTV = "starChanel";
-        };
-
-        if (el.startsWith("Star Life") && el.endsWith("Star Life")) {
-            currentTV = "starLife";
-        };
-
-        if (el.startsWith("Star Crime") && el.endsWith("Star Crime")) {
-            currentTV = "starCrime";
-        };
-
-        if (el.startsWith("HBO") && el.endsWith("HBO")) {
-            currentTV = "hbo";
-        };
-
-        if (el.startsWith("HBO 2") && el.endsWith("HBO 2")) {
-            currentTV = "hbo2";
-        };
-
-        if (el.startsWith("Cinemax") && el.endsWith("Cinemax")) {
-            currentTV = "cinemax";
-        };
-
-        if (el.startsWith("Viasat Kino (TV 1000)") && el.endsWith("Viasat Kino (TV 1000)")) {
-            currentTV = "viasatKino";
-        };
-
-        if (el.startsWith("Cinemax 2") && el.endsWith("Cinemax 2")) {
-            currentTV = "cinemax2";
-        };
-
-        if (el.startsWith("Discovery") && el.endsWith("Discovery")) {
-            currentTV = "discovery";
-        };
-
-        if (el.startsWith("National G") && el.endsWith("National G")) {
-            currentTV = "nationalG";
-        };
-
-        if (el.startsWith("NG wild") && el.endsWith("NG wild")) {
-            currentTV = "ngWild";
-        };
-
-        if (el.startsWith("Viasat Nature") && el.endsWith("Viasat Nature")) {
-            currentTV = "viasatNature";
-        };
-
-        if (el.startsWith("Epic Drama") && el.endsWith("Epic Drama")) {
-            currentTV = "epicDrama";
-        };
-
-        if (el.startsWith("Viasat Explorer") && el.endsWith("Viasat Explorer")) {
-            currentTV = "viasatExplorer";
-        };
-
-        if (el.startsWith("Viasat History") && el.endsWith("Viasat History")) {
-            currentTV = "viasatHistory";
-        };
-
-        if (el.startsWith("History") && el.endsWith("History")) {
-            currentTV = "history";
-        };
-
-        if (el.startsWith("24kitchen") && el.endsWith("24kitchen")) {
-            currentTV = "kitchen24";
-        };
-
-        if (el.startsWith("Diema sport") && el.endsWith("Diema sport")) {
-            currentTV = "diemaSport";
-        };
-
-        if (el.startsWith("Diema sport2") && el.endsWith("Diema sport2")) {
-            currentTV = "diemaSport2";
-        };
-
-        if (el.startsWith("Diema sport3") && el.endsWith("Diema sport3")) {
-            currentTV = "diemaSport3";
-        };
-
-        if (el.startsWith("Nova sport") && el.endsWith("Nova sport")) {
-            currentTV = "novaSport";
-        };
-
-        if (el.startsWith("Ring") && el.endsWith("Ring")) {
-            currentTV = "ring";
-        };
-
-        if (el.startsWith("Eurosport") && el.endsWith("Eurosport")) {
-            currentTV = "eurosport";
-        };
-
-        if (el.startsWith("Eurosport 2") && el.endsWith("Eurosport 2")) {
-            currentTV = "eurosport2";
-        };
-
-        if (el.startsWith("Max Sport 1") && el.endsWith("Max Sport 1")) {
-            currentTV = "maxSport1";
-        };
-
-        if (el.startsWith("Max Sport 2") && el.endsWith("Max Sport 2")) {
-            currentTV = "maxSport2";
-        };
-
-        if (el.startsWith("Max Sport 3") && el.endsWith("Max Sport 3")) {
-            currentTV = "maxSport3";
-        };
-
-        if (el.startsWith("Max Sport 4") && el.endsWith("Max Sport 4")) {
-            currentTV = "maxSport4";
-        };
+    for (let currentRow of arr) {
+        
+        if (Object.keys(allTvNames).includes(currentRow)) {
+            currentTV = allTvNames[currentRow]
+        }
 
         if (currentTV === "") {
             isError = true;
         } else {
-            separatedTv[currentTV].push(el);
+            separatedTv[currentTV].push(currentRow);
         };
 
     };
