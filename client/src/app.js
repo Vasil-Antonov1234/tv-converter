@@ -490,6 +490,14 @@ function onConvert(e) {
     separatedTv.btvComedy = replaceTextForce(separatedTv.btvComedy, "Премиера: ", "");
     separatedTv.btvComedy = deleteByHours(separatedTv.btvComedy, rows.btvComedy[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
     separatedTv.btvComedy = replaceText(separatedTv.btvComedy, rows.btvComedy[daySelection], "сериал,", "");
+    separatedTv.btvComedy = replacePattern(separatedTv.btvComedy, rows.btvComedy[daySelection], /с\.\d,/, "");
+    separatedTv.btvComedy = replacePattern(separatedTv.btvComedy, rows.btvComedy[daySelection], /с\.\d\d,/, "");
+    separatedTv.btvComedy = deleteAfterEpisode(separatedTv.btvComedy, rows.btvComedy[daySelection]);
+    separatedTv.btvComedy = replacePattern(separatedTv.btvComedy, rows.btvComedy[daySelection], /еп\.\d\d/, "сер.");
+    separatedTv.btvComedy = replacePattern(separatedTv.btvComedy, rows.btvComedy[daySelection], /еп\.\d/, "сер.");
+    separatedTv.btvComedy = replaceText(separatedTv.btvComedy, rows.btvComedy[daySelection], "  ", " ");
+    separatedTv.btvComedy = deleteRepetedRows1(separatedTv.btvComedy, rows.btvComedy[daySelection]);
+    separatedTv.btvComedy = deleteEndComma(separatedTv.btvComedy);
     separatedTv.btvCinema = deleteGenre(separatedTv.btvCinema, rows.btvCinema[daySelection]);
     separatedTv.btvCinema = deleteByHours(separatedTv.btvCinema, rows.btvCinema[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
     separatedTv.btvCinema = deleteExcludingForce(separatedTv.btvCinema, rows.btvCinema[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
@@ -541,8 +549,7 @@ function onConvert(e) {
     separatedTv.btvStory = replaceTextForce(separatedTv.btvStory, "Премиера: ", "");
     separatedTv.btvStory = deleteRepetedRows1(separatedTv.btvStory, rows.btvStory[daySelection]);
     separatedTv.btvStory = deleteGenre(separatedTv.btvStory, rows.btvStory[daySelection]);
-    separatedTv.btvStory = replaceText(separatedTv.btvStory, rows.btvStory[daySelection], "сериал,", "")
-    
+    separatedTv.btvStory = replaceText(separatedTv.btvStory, rows.btvStory[daySelection], "сериал,", "");
     separatedTv.starChanel = deleteByHours(separatedTv.starChanel, rows.starChanel[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
     separatedTv.hbo2 = deleteByHours(separatedTv.hbo2, rows.hbo2[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
     separatedTv.hbo2 = deletePatternIncluding(separatedTv.hbo2, rows.hbo2[daySelection], /\[\d\d\+\]/);
@@ -921,7 +928,7 @@ function replacePattern(arr, rows, pattern, newText) {
             const match = row.match(pattern)
 
             if (match) {
-                row = row.split(match).join("")
+                row = row.split(match).join(newText)
                 result.splice(i, 1, row);
                 returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue])
             }
