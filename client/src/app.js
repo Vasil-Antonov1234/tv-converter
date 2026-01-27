@@ -391,6 +391,7 @@ function onConvert(e) {
     };
 
     separatedTv.bnt1 = replaceTextForce(separatedTv.bnt1, "документален", "док.");
+    separatedTv.bnt1 = addLeadingZero(separatedTv.bnt1, /^\d.\d\d /);
     separatedTv.bnt1 = deleteByHours(separatedTv.bnt1, rows.bnt1[daySelection], ["00", "01", "02", "03", "04"]);
     separatedTv.bnt1 = convertAll(separatedTv.bnt1, rows.bnt1[daySelection], tvCalcConstants[tvCalcValue]);
     separatedTv.bnt1 = deleteGenre(separatedTv.bnt1, rows.bnt1[daySelection]);
@@ -507,6 +508,10 @@ function onConvert(e) {
     separatedTv.dizi = deleteGenre(separatedTv.dizi, rows.dizi[daySelection]);
     separatedTv.dizi = replaceText(separatedTv.dizi, rows.dizi[daySelection], "Епизод", "ep.");
     separatedTv.dizi = replacePattern(separatedTv.dizi, rows.dizi[daySelection], /Сезон \d -/, "");
+    separatedTv.starLife = replaceTextForce(separatedTv.starLife, " Drama ", " драма ");
+    separatedTv.starLife = replaceTextForce(separatedTv.starLife, " Crime ", " криминален ");
+    separatedTv.starLife = replaceTextForce(separatedTv.starLife, " Comedy ", " комедия ");
+    separatedTv.starLife = replaceTextForce(separatedTv.starLife, " Romance ", " романтичен ");
     separatedTv.starLife = deleteByHours(separatedTv.starLife, rows.starLife[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
     separatedTv.starLife = deleteAfterEpisode(separatedTv.starLife, rows.starLife[daySelection]);
     separatedTv.starLife = deletePatternIncluding(separatedTv.starLife, rows.starLife[daySelection], /еп. \d+/);
@@ -530,6 +535,10 @@ function onConvert(e) {
     separatedTv.starChanel = deleteExcludingForce(separatedTv.starChanel, rows.starChanel[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
     // separatedTv.starChanel = deleteRepetedRows1(separatedTv.starChanel, rows.starChanel[daySelection]);
     separatedTv.starChanel = deleteByHours(separatedTv.starChanel, rows.starChanel[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08"]);
+    separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, " Drama ", " драма ");
+    separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, " Crime ", " криминален ");
+    separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, " Comedy ", " комедия ");
+    separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, " Romance ", " романтичен ");
     separatedTv.starCrime = deleteByHours(separatedTv.starCrime, rows.starCrime[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08"]);
     separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, "еп.", "сер.");
     separatedTv.starCrime = deleteRepetedRows1(separatedTv.starCrime, rows.starCrime[daySelection]);
@@ -941,6 +950,23 @@ function replacePattern(arr, rows, pattern, newText) {
 
     return result;
 }
+
+function addLeadingZero(arr, pattern) {
+    let result = arr;
+
+    for (let i = 0; i < result.length; i++) {
+
+        let row = result[i];
+        const match = row.match(pattern);
+
+        if (match) {
+            row = `0${row}`;
+            result.splice(i, 1, row);
+        };
+    };
+
+    return result;
+};
 
 function replaceTextForce(arr, text, newText) {
     let result = [];
