@@ -45,7 +45,7 @@ export default {
             x.endsWith(".txt") ||
             x.endsWith(".doc") ||
             x.endsWith(".odt") ||
-            x.endsWith(".doxc")
+            x.endsWith(".docx")
         );
 
         const dirPhotos = dirPhotosSource.filter((x) =>
