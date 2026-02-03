@@ -14,8 +14,8 @@ export default {
 
         const photoIssue = handleAgroZlatnoIssue(applicationIssue);
 
-        console.log(photoIssue)
-        console.log(typeof(photoIssue))
+        // console.log(photoIssue)
+        // console.log(typeof(photoIssue))
 
         if (application === "currentIssue") {
             dirFilesSource = await fsPromises.readdir(paths.readyFiles);
@@ -44,7 +44,8 @@ export default {
         const dirFiles = dirFilesSource.filter((x) =>
             x.endsWith(".txt") ||
             x.endsWith(".doc") ||
-            x.endsWith(".odt")
+            x.endsWith(".odt") ||
+            x.endsWith(".doxc")
         );
 
         const dirPhotos = dirPhotosSource.filter((x) =>
