@@ -224,7 +224,7 @@ function onConvert(e) {
             "week": 23,
             "saturday": 19,
             "sunday": 17,
-            "tvBook": 24
+            "tvBook": 31
         },
         viasatKino: {
             "week": 23,
@@ -245,7 +245,7 @@ function onConvert(e) {
             "week": 21,
             "saturday": 19,
             "sunday": 19,
-            "tvBook": 26
+            "tvBook": 30
         },
         starCrime: {
             "week": 21,
@@ -530,11 +530,8 @@ function onConvert(e) {
     separatedTv.viasatKino = deleteByHours(separatedTv.viasatKino, rows.viasatKino[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "00"]);
     separatedTv.cinemax2 = deletePatternIncluding(separatedTv.cinemax2, rows.cinemax2[daySelection], /, \d\d\d\d;/);
     separatedTv.cinemax2 = deleteAfterEpisode(separatedTv.cinemax2, rows.cinemax2[daySelection]);
-    // separatedTv.viasatKino = replaceTextForce(separatedTv.viasatKino, "TV 1000", "Viasat Kino");
-    separatedTv.starChanel = replaceTextForce(separatedTv.starChanel, "еп.", "сер.");
-    separatedTv.starChanel = deleteExcludingForce(separatedTv.starChanel, rows.starChanel[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
-    // separatedTv.starChanel = deleteRepetedRows1(separatedTv.starChanel, rows.starChanel[daySelection]);
     separatedTv.starChanel = deleteByHours(separatedTv.starChanel, rows.starChanel[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08"]);
+    separatedTv.starChanel = equalization(separatedTv.starChanel, rows.starChanel[daySelection], "еп.", "сериен игрален филм еп.");
     separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, " Drama ", " драма ");
     separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, " Crime ", " криминален ");
     separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, " Comedy ", " комедия ");
@@ -559,7 +556,6 @@ function onConvert(e) {
     separatedTv.btvStory = deleteRepetedRows1(separatedTv.btvStory, rows.btvStory[daySelection]);
     separatedTv.btvStory = deleteGenre(separatedTv.btvStory, rows.btvStory[daySelection]);
     separatedTv.btvStory = replaceText(separatedTv.btvStory, rows.btvStory[daySelection], "сериал,", "");
-    separatedTv.starChanel = deleteByHours(separatedTv.starChanel, rows.starChanel[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
     separatedTv.hbo2 = deleteByHours(separatedTv.hbo2, rows.hbo2[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
     separatedTv.hbo2 = deletePatternIncluding(separatedTv.hbo2, rows.hbo2[daySelection], /\[\d\d\+\]/);
     separatedTv.hbo2 = deleteGenre(separatedTv.hbo2, rows.hbo2[daySelection]);
@@ -1692,7 +1688,8 @@ function deleteRow(arr, rows, text) {
 }
 
 function equalization(arr, rows, text, newText) {
-    let result = arr
+    let result = arr;
+    result = result.filter((x) => x !== "");
     let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
     if (returnsCount < rows) {
