@@ -517,6 +517,7 @@ function onConvert(e) {
     separatedTv.starLife = deletePatternIncluding(separatedTv.starLife, rows.starLife[daySelection], /еп. \d+/);
     separatedTv.starLife = deleteRepetedRows1(separatedTv.starLife, rows.starLife[daySelection]);
     separatedTv.starLife = deleteEndComma(separatedTv.starLife);
+    separatedTv.starLife = equalization(separatedTv.starLife, rows.starLife[daySelection], "еп.", "сериен игрален филм еп.");
     separatedTv.ring = replaceText(separatedTv.ring, rows.ring[daySelection], "документална поредица", "поредица");
     separatedTv.ring = replaceText(separatedTv.ring, rows.ring[daySelection], "ПРЯКО", "");
     separatedTv.ring = deleteExcluding(separatedTv.ring, rows.ring[daySelection], "обзор", tvCalcConstants[tvCalcValue]);
