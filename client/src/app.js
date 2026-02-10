@@ -1819,7 +1819,7 @@ tvBookTemplate.innerHTML = `
                 <option value="Събота" name="day">Събота</option>
                 <option value="Неделя" name="day">Неделя</option>
             </select>
-            <input type="text" name="date">
+            <input type="text" name="date" placeholder="examle: 01.01.2024">
             <button class="submitAddTvData" id="submitAddTvDataBtv">submit</button>
         </form>
     
