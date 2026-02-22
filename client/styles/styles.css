@@ -378,7 +378,7 @@ textarea {
     cursor: pointer;
 }
 
-#calcBtn {
+.calcBtn {
     padding: 10px;
     font-weight: 700;
     border-radius: 10px;
@@ -386,12 +386,12 @@ textarea {
     color: #a37521;
 }
 
-#calcBtn:hover {
+.calcBtn:hover {
     background-color: #55411b;
     color: antiquewhite;
 }
 
-#resetCalc {
+.calcReset {
     padding: 10px;
     font-weight: 700;
     border-radius: 10px;
@@ -399,7 +399,7 @@ textarea {
     color: #a37521;
 }
 
-#resetCalc:hover {
+.calcReset:hover {
     background-color: #55411b;
     color: antiquewhite;
 }
