@@ -1865,7 +1865,7 @@ const weatherTemplate = document.createElement("div");
 weatherTemplate.setAttribute("id", "weather");
 weatherTemplate.innerHTML = `
     <div class="weather-container">
-        <textarea name="input" id=input class="text"></textarea>
+        <textarea name="input" id=input class="text tvText"></textarea>
         <div id="buttons-container">
           <button id="getBtnBG" class="reset button">Convert</button>
         </div>
@@ -1884,7 +1884,7 @@ const jpy = currencyListArr[4].textContent;
 const jpyPref = currencyListArr[3].textContent;
 
 document.write("Централен курс на БНБ: " + usd + "= " + usdPref + "; " + gbp + "= " + gbpPref + "; " + chf + "= " + chfPref + "; " + jpy + "= " + jpyPref)</textarea>
-    <button id="exchangeRates" class="copyCode">Copy code/ exchange rates</button>
+    <button id="exchangeRates" class="copyCode button">Copy code/ exchange rates</button>
 `;
 
 let isPending = false;
