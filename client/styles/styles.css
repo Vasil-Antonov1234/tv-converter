@@ -156,7 +156,7 @@ h1 {
     margin-left: 200px;
 }
 
-#convertBtn {
+.convertBtn {
     z-index: 100;
     position: absolute;
     margin-top: 14%;
@@ -171,11 +171,18 @@ h1 {
 }
 
 
-#convertBtn:hover {
+.convertBtn:hover {
     background-color: brown;
     color: bisque;
 }
 
+.button {
+    transition: all 0.8s ease;
+}
+
+textarea {
+    resize: none;
+}
 
 #convertBtnTvBook {
     z-index: 100;
@@ -533,7 +540,7 @@ hr {
 }
 
 textarea:focus {
-   background-color: white; 
+    background-color: white;
 }
 
 input:focus {
