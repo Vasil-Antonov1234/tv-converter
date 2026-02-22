@@ -1,14 +1,20 @@
-.text {
+.weather-container .text {
   width: 400px;
   height: 400px;
-  border-bottom-left-radius: 100px;
-  border-top-right-radius: 100px;
+  border-radius: 40px;
   border: solid #a0a0e1 1px;
+  margin: 90px auto 0 auto;
 }
 
 #buttons-container {
   margin: auto;
   width: 20%;
+  display: flex;
+  justify-content: center;
+}
+
+#getBtnBG {
+  left: 0;
 }
 
 #getBtnBG {
