@@ -15,7 +15,7 @@
         <a href="javascript:void(0)" id="paper-view">Paper</a>
         <a href="javascript:void(0)" id="tv-book-view">TV Book</a>
         <a href="javascript:void(0)" id="tv-weather-view">Weather</a>
-        <a href="./redirects/Archive/archive.html" id="archive" target="_blank">Archive</a>
+        <a href="./redirects/Archive/archive.html" id="archive">Archive</a>
         <a href="javascript:void(0)" id="others-view">Utils</a>
     </header>
     <div id="root">
@@ -30,7 +30,7 @@
                     <form id="main-form" class="input">
                         <textarea name="tvText" id="inputArea" class="tvText"
                             placeholder="Paste your text here or click the 'Select file' button to choose"></textarea>
-                        <button type="submit" id="convertBtn">Convert</button>
+                        <button type="submit" id="convertBtn" class="convertBtn button">Convert</button>
                         <!-- <img src="./images/arrow.png" class="arrow"> -->
                         <textarea name="output" id="outputArea" class="tvText"
                             placeholder="The converted text will appear here"></textarea>
@@ -61,22 +61,22 @@
                         <h1 id="calcChars">Characters count: 0</h1>
                         <h1 id="calcRows">Rows count: 0</h1>
                         <textarea name="calc" id="calcArea" class="calcText"></textarea>
-                        <button id="calcBtn">Calculate chars</button>
-                        <button class="calcReset" id="resetCalc">Clear</button>
+                        <button class="button" id="calcBtn">Calculate chars</button>
+                        <button class="calcReset button" id="resetCalc">Clear</button>
                     </div>
                 </div>
             </section>
 
             <section class="buttons">
                 <div class="buttons-container">
-                    <button class="clear1" id="resetInput">Clear</button>
-                    <button class="clear2" id="resetOutput">Clear</button>
+                    <button class="clear1 button" id="resetInput">Clear</button>
+                    <button class="clear2 button" id="resetOutput">Clear</button>
                 </div>
             </section>
 
             <div>
-                <button class="reset-all" id="resetAll">Clear All</button>
-                <button class="selectFile" id="listFile">Select file</button>
+                <button class="reset-all button" id="resetAll">Clear All</button>
+                <button class="selectFile button" id="listFile">Select file</button>
                 <input type="file" id="selectFile" accept=".txt" style="display: none">
             </div>
 
