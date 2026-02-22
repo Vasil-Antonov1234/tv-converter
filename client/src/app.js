@@ -1777,13 +1777,13 @@ tvBookTemplate.innerHTML = `
         <div class="input-container">
 
             <div>
-                <button class="selectFileBook" id="listFileBook">Select file</button>
+                <button class="selectFileBook button" id="listFileBook">Select file</button>
                 <input type="file" id="selectFileBook" accept=".txt" style="display: none">
             </div>
 
             <form id="tv-book-form" class="input">
                 <textarea name="tvText" id="inputBookArea" class="tvText" placeholder="Paste your text here or click the 'Select File' button to choose"></textarea>
-                <button type="submit" id="convertBtnTvBook">Convert</button>
+                <button type="submit" class="button" id="convertBtnTvBook">Convert</button>
                 <textarea name="output" id="outputArea" class="tvText" placeholder="The converted text will appear here"></textarea>
 
                 <div class="radio-container">
@@ -1795,11 +1795,11 @@ tvBookTemplate.innerHTML = `
                 <h1 id="calcCharsTvBook">Characters count: 0</h1>
                 <h1 id="calcRowsTvBook">Rows count: 0</h1>
                 <textarea name="calc" id="calcAreaBook" class="calcText"></textarea>
-                <button id="calcBtnTvBook">Calculate chars</button>
-                <button class="calcReset" id="resetCalcTvBook">Clear</button>
+                <button class="calcBtn button" id="calcBtnTvBook">Calculate chars</button>
+                <button class="calcReset button" id="resetCalcTvBook">Clear</button>
             </div>
         </div>
-        <button id="rename" class="tvRename">TV-rename</button>
+        <button id="rename" class="tvRename button">TV-rename</button>
         <span class="renamedTvMessage" id="renamedTvMessage"></span>
 
         <div class="reportMessageTitleContainer">
@@ -1818,7 +1818,7 @@ tvBookTemplate.innerHTML = `
                 <option value="Неделя" name="day">Неделя</option>
             </select>
             <input type="text" name="date" placeholder="examle: 01.01.2024">
-            <button class="submitAddTvData" id="submitAddTvDataBtv">submit</button>
+            <button class="submitAddTvData button" id="submitAddTvDataBtv">submit</button>
         </form>
     
         <div>
@@ -1867,7 +1867,7 @@ weatherTemplate.innerHTML = `
     <div class="weather-container">
         <textarea name="input" id=input class="text"></textarea>
         <div id="buttons-container">
-          <button id="getBtnBG" Class="reset">Convert</button>
+          <button id="getBtnBG" class="reset button">Convert</button>
         </div>
     </div>
 
@@ -1920,14 +1920,14 @@ othersTemplate.innerHTML = `
         <input type="text" name="find" id="find" placeholder="Find*">
         <input type="text" name="changeTo" id="changeTo" placeholder="Replace">
         <input type="text" name="extension" id="extension" placeholder="File extension (Optional)">
-        <button class="selectFile" id="findReplaceButton">Change</button>
+        <button class="selectFile button" id="findReplaceButton">Change</button>
         <span class="renamedTvMessage" id="renamedFilesMessage"></span>
     </form>
     <hr>
     <h2 class="subTitle">Copy issue</h2>
     <form class="othersForm" id="copyIssueForm">
         <input type="text" name="issue" id="issue" placeholder="Issue number*">
-        <button class="selectFile" id="copyIssue">Copy</button>
+        <button class="selectFile button" id="copyIssue">Copy</button>
         <textarea id="copyIssueMessage" class="copyIssueMessage"></textarea>
         <select name="application" id="application" class="weekendLabel">
                 <option value="currentIssue" name="currentIssue">Current issue</option>        
@@ -1942,7 +1942,7 @@ othersTemplate.innerHTML = `
     <form class="othersForm" id="renamePdfFiles">
         <input type="text" name="pathToPDF" id="pathToPDF" placeholder="Folder path*">
         <input type="text" name="currentDayNumber" id="currentDayNumber" placeholder="PDF files number*">
-        <button class="selectFile" id="renamePdf">Rename</button>
+        <button class="selectFile button" id="renamePdf">Rename</button>
     </form>
 `;
 
