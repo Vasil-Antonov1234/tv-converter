@@ -4,14 +4,21 @@ body {
     background-color: rgb(228, 168, 95);
 }
 
-header {
+.navigation {
     background-color: rgb(129, 103, 103);
     border-radius: 14px;
-    padding: 4px;
+    padding: 4px 8px;
     border: solid white 1px;
     box-shadow: 3px 3px 5px black;
     display: flex;
-    gap: 30px;
+    /* gap: 30px; */
+    justify-content: space-evenly;
+    align-items: center;
+    max-width: 900px;
+    font-family: cursive;
+    font-size: xx-large;
+    text-decoration: none;
+    margin: 0 auto;
 }
 
 .tv-book {
@@ -95,13 +102,6 @@ a:hover {
     opacity: 0.3;
 }
 
-header {
-    justify-self: center;
-    font-family: cursive;
-    font-size: xx-large;
-    text-decoration: none;
-}
-
 .input-wraper {
     width: 100%;
     display: block;
@@ -170,10 +170,7 @@ h1 {
     height: 70px;
     border-radius: 14px;
     cursor: pointer;
-    font-family: fantasy;
-    font-size: xxx-large;
     color: brown;
-    /* background-image: url(../images/arrow.png); */
 }
 
 
@@ -184,6 +181,11 @@ h1 {
 
 .button {
     transition: all 0.8s ease;
+}
+
+.mainBtn {
+    font-family: "Titan One", sans-serif;
+    font-size: 40px;
 }
 
 textarea {
@@ -199,8 +201,6 @@ textarea {
     height: 70px;
     border-radius: 14px;
     cursor: pointer;
-    font-family: fantasy;
-    font-size: xxx-large;
     color: rgb(61, 42, 165);
     cursor: pointer;
 }
@@ -417,8 +417,8 @@ textarea {
     border-radius: 70px;
     background: brown;
     color: white;
-    font-family: fantasy;
-    font-size: xx-large;
+    font-family: "Titan One", sans-serif;
+    font-size: 28px;
     border: solid;
     margin-right: 440px;
 }
