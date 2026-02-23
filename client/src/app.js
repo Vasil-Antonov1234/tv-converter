@@ -1783,7 +1783,7 @@ tvBookTemplate.innerHTML = `
 
             <form id="tv-book-form" class="input">
                 <textarea name="tvText" id="inputBookArea" class="tvText" placeholder="Paste your text here or click the 'Select File' button to choose"></textarea>
-                <button type="submit" class="button" id="convertBtnTvBook">Convert</button>
+                <button type="submit" class="button mainBtn" id="convertBtnTvBook">Convert</button>
                 <textarea name="output" id="outputArea" class="tvText" placeholder="The converted text will appear here"></textarea>
 
                 <div class="radio-container">
