@@ -11,7 +11,8 @@ document.getElementById("resetOutput").addEventListener("click", onResetOtput);
 document.getElementById("resetCalc").addEventListener("click", onResetCalc);
 document.getElementById("resetAll").addEventListener("click", onResetAll);
 const radioContainerElement = document.querySelector(".radio-container");
-const spanNotify = document.querySelector(".notify");
+const notifyContainer = document.querySelector("#notify-contayner");
+const errorContainer = document.querySelector("#error");
 const spanClose = document.querySelector(".close");
 spanClose.addEventListener("click", closeNotification);
 document.getElementById("paper-view").addEventListener("click", tvPaperView);
@@ -54,63 +55,63 @@ function onConvert(e) {
     radio = formData.get("tv-radio");
 
     if (!input) {
-        spanNotify.textContent = "There is nothing to convert!";
-        spanNotify.style.display = "block";
-        spanClose.style.display = "block";
+        errorContainer.textContent = "There is nothing to convert!";
+        notifyContainer.style.display = "flex";
+        spanClose.style.display = "flex";
         inputEl.classList.add("radio-container-notify");
         setTimeout(hideNotification, 3000);
         return;
-    };
+    };    
 
     const allTvNames = {
-    "БНТ 1": "bnt1",
-    "bTV": "btv",
-    "NOVA TV": "novaTv",
-    "NOVA NEWS": "novaNews",
-    "БНТ 2": "bnt2",
-    "БНТ 4": "bnt4",
-    "skat": "skat",
-    "Diema family": "diemaFemily",
-    "Bulgaria on air": "bulgariaOnAir",
-    "bTV action": "btvAction",
-    "bTV comedy": "btvComedy",
-    "bTV cinema": "btvCinema",
-    "bTV Story": "btvStory",
-    "Dizi": "dizi",
-    "Diema": "diema",
-    "KINO NOVA": "kinoNova",
-    "БНТ 3": "bnt3",
-    "HBO 3": "hbo3",
-    "AXN": "axn",
-    "Star Channel": "starChanel",
-    "Star Life": "starLife",
-    "Star Crime": "starCrime",
-    "HBO": "hbo",
-    "HBO 2": "hbo2",
-    "Cinemax": "cinemax",
-    "Viasat Kino (TV 1000)": "viasatKino",
-    "Cinemax 2": "cinemax2",
-    "Discovery": "discovery",
-    "National G": "nationalG",
-    "NG wild": "ngWild",
-    "Viasat Nature": "viasatNature",
-    "Epic Drama": "epicDrama",
-    "Viasat Explorer": "viasatExplorer",
-    "Viasat History": "viasatHistory",
-    "History": "history",
-    "24kitchen": "kitchen24",
-    "Diema sport": "diemaSport",
-    "Diema sport2": "diemaSport2",
-    "Diema sport3": "diemaSport3",
-    "Nova sport": "novaSport",
-    "Ring": "ring",
-    "Eurosport": "eurosport",
-    "Eurosport 2": "eurosport2",
-    "Max Sport 1": "maxSport1",
-    "Max Sport 2": "maxSport2",
-    "Max Sport 3": "maxSport3",
-    "Max Sport 4": "maxSport4"
-}
+        "БНТ 1": "bnt1",
+        "bTV": "btv",
+        "NOVA TV": "novaTv",
+        "NOVA NEWS": "novaNews",
+        "БНТ 2": "bnt2",
+        "БНТ 4": "bnt4",
+        "skat": "skat",
+        "Diema family": "diemaFemily",
+        "Bulgaria on air": "bulgariaOnAir",
+        "bTV action": "btvAction",
+        "bTV comedy": "btvComedy",
+        "bTV cinema": "btvCinema",
+        "bTV Story": "btvStory",
+        "Dizi": "dizi",
+        "Diema": "diema",
+        "KINO NOVA": "kinoNova",
+        "БНТ 3": "bnt3",
+        "HBO 3": "hbo3",
+        "AXN": "axn",
+        "Star Channel": "starChanel",
+        "Star Life": "starLife",
+        "Star Crime": "starCrime",
+        "HBO": "hbo",
+        "HBO 2": "hbo2",
+        "Cinemax": "cinemax",
+        "Viasat Kino (TV 1000)": "viasatKino",
+        "Cinemax 2": "cinemax2",
+        "Discovery": "discovery",
+        "National G": "nationalG",
+        "NG wild": "ngWild",
+        "Viasat Nature": "viasatNature",
+        "Epic Drama": "epicDrama",
+        "Viasat Explorer": "viasatExplorer",
+        "Viasat History": "viasatHistory",
+        "History": "history",
+        "24kitchen": "kitchen24",
+        "Diema sport": "diemaSport",
+        "Diema sport2": "diemaSport2",
+        "Diema sport3": "diemaSport3",
+        "Nova sport": "novaSport",
+        "Ring": "ring",
+        "Eurosport": "eurosport",
+        "Eurosport 2": "eurosport2",
+        "Max Sport 1": "maxSport1",
+        "Max Sport 2": "maxSport2",
+        "Max Sport 3": "maxSport3",
+        "Max Sport 4": "maxSport4"
+    }
 
     // if (typeof (radio) === "object") {
     //     radioContainerElement.classList.add("radio-container-notify");
@@ -341,8 +342,8 @@ function onConvert(e) {
     if (isError && radio === "nothing") {
         message = "Wrong input format!";
 
-        spanNotify.textContent = message;
-        spanNotify.style.display = "block";
+        notifyContainer.textContent = message;
+        notifyContainer.style.display = "block";
         spanClose.style.display = "inline";
         inputEl.classList.add("radio-container-notify")
 
@@ -470,7 +471,7 @@ function onConvert(e) {
     separatedTv.hbo3 = deleteByHours(separatedTv.hbo3, rows.hbo3[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
     separatedTv.hbo3 = deleteGenre(separatedTv.hbo3, rows.hbo3[daySelection]);
     separatedTv.hbo3 = deleteEndComma(separatedTv.hbo3);
-    separatedTv.hbo3 = deleteExcluding(separatedTv.hbo3, rows.hbo3[daySelection], "еп.", tvCalcConstants[tvCalcValue]);    
+    separatedTv.hbo3 = deleteExcluding(separatedTv.hbo3, rows.hbo3[daySelection], "еп.", tvCalcConstants[tvCalcValue]);
     separatedTv.btvAction = deleteGenre(separatedTv.btvAction, rows.btvAction[daySelection]);
     separatedTv.btvAction = deleteByHours(separatedTv.btvAction, rows.btvAction[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
     separatedTv.btvAction = deleteExcludingForce(separatedTv.btvAction, rows.btvAction[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
@@ -922,7 +923,7 @@ function replaceText(arr, rows, text, newText) {
 }
 
 function replacePattern(arr, rows, pattern, newText) {
-        
+
     let result = arr;
     let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
@@ -1336,7 +1337,7 @@ function separateTv(arr, allTvNames) {
     let currentTV = "";
 
     for (let currentRow of arr) {
-        
+
         if (Object.keys(allTvNames).includes(currentRow)) {
             currentTV = allTvNames[currentRow]
         }
@@ -1718,19 +1719,19 @@ function hideNotification() {
     inputEl.classList.remove("tvTextWrong");
     inputEl.classList.remove("radio-container-notify");
     inputEl.classList.add("tvText");
-    spanNotify.style.display = "none";
+    notifyContainer.style.display = "none";
     spanClose.style.display = "none";
 }
 
 function hideNotificationInput() {
     inputEl.classList.remove("radio-container-notify");
     inputEl.classList.add("tvText");
-    spanNotify.style.display = "none";
+    notifyContainer.style.display = "none";
     spanClose.style.display = "none";
 }
 
 function closeNotification() {
-    spanNotify.style.display = "none";
+    notifyContainer.style.display = "none";
     spanClose.style.display = "none";
 };
 

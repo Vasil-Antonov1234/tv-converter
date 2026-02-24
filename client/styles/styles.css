@@ -214,27 +214,47 @@ textarea {
     position: absolute;
     left: 50rem;
     top: 5.5rem;
-    ;
     background: red;
     color: white;
     font-family: cursive;
     text-transform: uppercase;
-    padding: 10px;
+    padding: 5px 10px;
     display: none;
-    border: solid 2px;
+    border: solid 2px white;
     border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transform: translate(30px);
+    animation: fadeInMove 1s ease-out forwards;
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeInMove {
+    to {
+        opacity: 1;
+        transform: translateX(-70px)
+    }
 }
 
 .close {
-    position: absolute;
-    left: 49rem;
-    top: 4.1rem;
-    color: white;
-    font-family: cursive;
     padding: 10px;
-    display: none;
-    font-size: 23px;
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    background-color: white;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close span {
     cursor: pointer;
+    font-size: 23px;
+    color: red;
+    font-family: cursive;
 }
 
 .arrow-container {
