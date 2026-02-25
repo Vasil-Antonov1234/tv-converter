@@ -55,13 +55,15 @@ function onConvert(e) {
     radio = formData.get("tv-radio");
 
     if (!input) {
-        errorContainer.textContent = "There is nothing to convert!";
-        notifyContainer.style.display = "flex";
-        spanClose.style.display = "flex";
-        inputEl.classList.add("radio-container-notify");
-        setTimeout(hideNotification, 3000);
+        // errorContainer.textContent = "There is nothing to convert!";
+        // notifyContainer.style.display = "flex";
+        // spanClose.style.display = "flex";
+        // inputEl.classList.add("radio-container-notify");
+        // setTimeout(hideNotification, 3000);
+        message = "There is nothing to convert!";
+        errorMessageHandler(message);
         return;
-    };    
+    };
 
     const allTvNames = {
         "БНТ 1": "bnt1",
@@ -341,13 +343,7 @@ function onConvert(e) {
     // (isError && typeof (radio) === "string")
     if (isError && radio === "nothing") {
         message = "Wrong input format!";
-
-        notifyContainer.textContent = message;
-        notifyContainer.style.display = "block";
-        spanClose.style.display = "inline";
-        inputEl.classList.add("radio-container-notify")
-
-        setTimeout(hideNotificationInput, 3000);
+        errorMessageHandler(message);
         return;
     };
 
@@ -2392,3 +2388,11 @@ function isCorrectDayInputHandler(matchArr) {
 
     return false;
 };
+
+function errorMessageHandler(message) {
+    errorContainer.textContent = message;
+    notifyContainer.style.display = "flex";
+    spanClose.style.display = "flex";
+    inputEl.classList.add("radio-container-notify");
+    setTimeout(hideNotification, 3000);
+}
