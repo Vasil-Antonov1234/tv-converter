@@ -462,13 +462,25 @@ textarea {
     left: 70rem;
 }
 
+@keyframes notifyBorderAnimation {
+    0% {border-color: rgb(252, 175, 175);}
+    10% {border-color: red;}
+    20% {border-color: rgb(252, 175, 175);}
+    30% {border-color: red;}
+    40% {border-color: rgb(252, 175, 175);}
+    50% {border-color: red;}
+    60% {border-color: rgb(252, 175, 175);}
+    70% {border-color: red;}
+    80% {border-color: rgb(252, 175, 175);}
+    90% {border-color: red;}
+    95% {border-color: rgb(252, 175, 175);}
+    100% {border-color: red;}
+}
+
 .radio-container-notify {
-    /* display: inline; */
-    /* position: absolute; */
-    /* top: -153px; */
-    /* left: 72.55%; */
     border: solid 3px red;
-    /* padding: 10px; */
+    animation-name: notifyBorderAnimation;
+    animation-duration: 1s;
 }
 
 summary {
