@@ -1710,7 +1710,7 @@ function equalization(arr, rows, text, newText) {
 
 
 function hideNotification(currentElement) {
-    document.getElementById(currentElement).classList.remove("radio-container-notify");
+    document.getElementById(currentElement)?.classList.remove("radio-container-notify");
     // radioContainerElement.classList.remove("radio-container-notify");
     radioContainerElement.classList.add("radio-container");
     inputEl.classList.remove("tvTextWrong");
@@ -1954,10 +1954,16 @@ async function onRenamePdfFiles(event) {
     const number = formData.get("currentDayNumber");
 
     if (!path) {
-        errorMessageHandler("PDF's path folder is reqiured", "red", "pathToPDF");
+        errorMessageHandler("PDF's path folder is reqiured!", "red", "pathToPDF");
         button.removeAttribute("disabled");
-        return
-    }
+        return;
+    };
+
+    if (!number) {
+        errorMessageHandler("PDF's file number is required!", "red", "currentDayNumber");
+        button.removeAttribute("disabled");
+        return;
+    };
 
     try {
         const response = await fetch(`${baseURL}/rename/pdf`, {
@@ -2399,8 +2405,7 @@ function isCorrectDayInputHandler(matchArr) {
 };
 
 function errorMessageHandler(message, color, currentElement) {
-    console.log(currentElement)
-    document.getElementById(currentElement).classList.add("radio-container-notify");
+    document.getElementById(currentElement)?.classList.add("radio-container-notify");
     errorContainer.textContent = message;
     notifyContainer.style.display = "flex";
     notifyContainer.style.background = color;
