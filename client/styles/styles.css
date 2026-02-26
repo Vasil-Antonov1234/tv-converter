@@ -212,11 +212,12 @@ textarea {
 
 .notify {
     position: absolute;
-    left: 50rem;
-    top: 5.5rem;
+    left: 40%;
+    top: 50%;
     /* background: red; */
     color: white;
     font-family: cursive;
+    font-size: 1.4rem;
     text-transform: uppercase;
     padding: 5px 10px;
     display: none;
@@ -229,6 +230,7 @@ textarea {
     transform: translate(30px);
     animation: fadeInMove 1s ease-out forwards;
     animation-delay: 0.3s;
+    z-index: 100;
 }
 
 @keyframes fadeInMove {

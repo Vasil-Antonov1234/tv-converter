@@ -1815,7 +1815,7 @@ tvBookTemplate.innerHTML = `
                 <option value="Събота" name="day">Събота</option>
                 <option value="Неделя" name="day">Неделя</option>
             </select>
-            <input type="text" name="date" placeholder="examle: 01.01.2024">
+            <input type="text" name="date" id="tvBookInputDate" placeholder="examle: 01.01.2024">
             <button class="submitAddTvData button" id="submitAddTvDataBtv">submit</button>
         </form>
     
@@ -1976,10 +1976,8 @@ async function onRenamePdfFiles(event) {
 
         const result = await response.json();
 
-        // alert(result.result);
         errorMessageHandler(result.result, "green");
     } catch (error) {
-        // alert(error.message);
         errorMessageHandler(error.message, "red");
     } finally {
         button.removeAttribute("disabled");
@@ -2221,9 +2219,13 @@ async function onTvRename(event) {
         message.style.display = "inline";
         message.style.color = "green";
 
+        errorMessageHandler(result, "green");
+
     } catch (error) {
         message.textContent = error.message;
         message.style.color = "red";
+
+        errorMessageHandler(error.message, "red")
     } finally {
         isPending = false;
         renameTvButton.removeAttribute("disabled");
@@ -2243,7 +2245,7 @@ async function onSubmitTvData(event) {
     const data = Object.fromEntries(formData);
 
     if (!data.day || !data.date) {
-        return alert("Day and date is required!");
+        return errorMessageHandler("Day and date is required!", "red", "tvBookInputDate");
     };
 
     const regex = /^\d\d.\d\d.\d\d\d\d$/
@@ -2251,17 +2253,20 @@ async function onSubmitTvData(event) {
     const match = data.date.match(regex);
 
     if (!match) {
-        return alert(`Invalid date format! \n Should be: 'dd.mm.year' receive: '${data.date}'`);
+        // return alert(`Invalid date format! \n Should be: 'dd.mm.year' receive: '${data.date}'`);
+        return errorMessageHandler(`Invalid date format! Should be: 'dd.mm.year' receive: '${data.date}'`, "red", "tvBookInputDate");
     };
 
     const dateTokens = data.date.split(".");
 
     if (dateTokens[0] < 1 || dateTokens[0] > 31) {
-        return alert(`Invalid day! \n Should be between 1 and 31 receive" '${dateTokens[0]}'`);
+        // return alert(`Invalid day! \n Should be between 1 and 31 receive" '${dateTokens[0]}'`);
+        return errorMessageHandler(`Invalid day! \n Should be between 1 and 31 receive" '${dateTokens[0]}'`, "red", "tvBookInputDate");
     };
 
     if (dateTokens[1] < 1 || dateTokens[1] > 12) {
-        return alert(`Ivalid month! \n Should be between 1 and 12 receive: '${dateTokens[1]}'`);
+        // return alert(`Ivalid month! \n Should be between 1 and 12 receive: '${dateTokens[1]}'`);
+        return errorMessageHandler(`Ivalid month! \n Should be between 1 and 12 receive: '${dateTokens[1]}'`, "red", "tvBookInputDate");
     };
 
     submitTvDataButton.setAttribute("disabled", true);
@@ -2286,7 +2291,8 @@ async function onSubmitTvData(event) {
         const result = await response.json();
 
         if (typeof (result) === "string") {
-            return alert(result);
+            // return alert(result);
+            return errorMessageHandler(result, "green");
         };
 
         const reportMessage = result.join("\n");
@@ -2321,6 +2327,8 @@ async function onSubmitTvData(event) {
 
         message.textContent = "Done";
         message.style.color = "green";
+
+        errorMessageHandler("Done", "green");
 
     } catch (error) {
 
