@@ -2023,7 +2023,8 @@ async function onFindAndReplace(event) {
     const data = Object.fromEntries(formData);
 
     if (!data.path) {
-        return alert("Folder path is required!");
+        return errorMessageHandler("Folder path is required!", "rgb(134, 10, 10)", "path");
+        // return alert("Folder path is required!");
     };
 
     if (!data.find) {
