@@ -614,9 +614,9 @@ input:focus {
     width: 24px;
     height: 24px;
     border-top: 3px solid rgb(241, 151, 40);
-    border-right: 3px solid white;
-    border-bottom: 3px solid rgb(241, 151, 40);
-    border-left: 3px solid white;
+    border-right: 3px solid rgba(255, 255, 255, 0);
+    border-bottom: 3px solid white;
+    border-left: 3px solid rgba(255, 255, 255, 0);
     border-radius: 15px;
     animation: spin 15s linear infinite;
     display: flex;
