@@ -38,6 +38,9 @@ let radio;
 let isError = false;
 let message = "error";
 
+const red = "rgb(134, 10, 10)";
+const green = "rgb(3, 82, 3)";
+
 const movies = ["криминален", "документален", "драма", "криминален", "екшън", "приключенски", "ужаси", "комедия",
     "романтичен", "романтика", "фантастика", "трилър", "хорър", "семеен", "уестърн", "мюзикъл", "анимация"];
 const episodePattern = /еп. \d+|еп.\d+|епизод \d+|епизод\d+/;
@@ -61,7 +64,7 @@ function onConvert(e) {
         // inputEl.classList.add("radio-container-notify");
         // setTimeout(hideNotification, 3000);
         message = "There is nothing to convert!";
-        errorMessageHandler(message, "rgb(134, 10, 10)", "inputArea");
+        errorMessageHandler(message, red, "inputArea");
         return;
     };
 
@@ -343,7 +346,7 @@ function onConvert(e) {
     // (isError && typeof (radio) === "string")
     if (isError && radio === "nothing") {
         message = "Wrong input format!";
-        errorMessageHandler(message, "rgb(134, 10, 10)", "inputArea");
+        errorMessageHandler(message, red, "inputArea");
         return;
     };
 
@@ -1954,13 +1957,13 @@ async function onRenamePdfFiles(event) {
     const number = formData.get("currentDayNumber");
 
     if (!path) {
-        errorMessageHandler("PDF's path folder is reqiured!", "rgb(134, 10, 10)", "pathToPDF");
+        errorMessageHandler("PDF's path folder is reqiured!", red, "pathToPDF");
         button.removeAttribute("disabled");
         return;
     };
 
     if (!number) {
-        errorMessageHandler("PDF's file number is required!", "rgb(134, 10, 10)", "currentDayNumber");
+        errorMessageHandler("PDF's file number is required!", red, "currentDayNumber");
         button.removeAttribute("disabled");
         return;
     };
@@ -1976,9 +1979,9 @@ async function onRenamePdfFiles(event) {
 
         const result = await response.json();
 
-        errorMessageHandler(result.result, "rgb(3, 82, 3)");
+        errorMessageHandler(result.result, green);
     } catch (error) {
-        errorMessageHandler(error.message, "rgb(134, 10, 10)");
+        errorMessageHandler(error.message, red);
     } finally {
         button.removeAttribute("disabled");
     };
@@ -2023,12 +2026,11 @@ async function onFindAndReplace(event) {
     const data = Object.fromEntries(formData);
 
     if (!data.path) {
-        return errorMessageHandler("Folder path is required!", "rgb(134, 10, 10)", "path");
-        // return alert("Folder path is required!");
+        return errorMessageHandler("Folder path is required!", red, "path");
     };
 
     if (!data.find) {
-        return alert("Find is required!");
+        return errorMessageHandler("Find is required!", red, "find");
     };
 
     findReplaceButton.setAttribute("disabled", true);
@@ -2052,12 +2054,15 @@ async function onFindAndReplace(event) {
 
         message.textContent = result;
         message.style.display = "inline-block";
-        message.style.color = "rgb(3, 82, 3)";
+        message.style.color = green;
 
+        errorMessageHandler(result, green)
     } catch (error) {
         message.textContent = error;
-        message.style.color = "rgb(134, 10, 10)";
+        message.style.color = red;
         message.style.display = "inline-block";
+
+        errorMessageHandler(error, red)
     } finally {
         findReplaceButton.removeAttribute("disabled");
     };
@@ -2082,12 +2087,12 @@ async function onCopyIssue(event) {
     const applicationIssue = formData.get("applicationIssue");
 
     if (!issue && (application === "currentIssue" || application === "Weekend")) {
-        return alert("Issue is required!");
+        return errorMessageHandler("Issue number is required!", red, "issue");
     };
 
     if ((application !== "currentIssue") && !applicationIssue) {
-        return alert("Application isssue is required!")
-    }
+        errorMessageHandler("Application isssue is required!", red, "weekend");
+    };
 
     copyIssueButton.setAttribute("disabled", true);
 
@@ -2107,14 +2112,14 @@ async function onCopyIssue(event) {
         const result = await response.json();
 
         message.value = result;
-        message.style.color = "rgb(3, 82, 3)";
+        message.style.color = green;
 
         if (result !== "Done") {
             message.style.color = "rgb(179, 121, 14)";
         }
     } catch (error) {
         message.value = error;
-        message.style.color = "rgb(134, 10, 10)";
+        message.style.color = red;
     } finally {
         copyIssueButton.removeAttribute("disabled");
     };
@@ -2218,15 +2223,15 @@ async function onTvRename(event) {
 
         message.textContent = result;
         message.style.display = "inline";
-        message.style.color = "rgb(3, 82, 3)";
+        message.style.color = green;
 
-        errorMessageHandler(result, "rgb(3, 82, 3)");
+        errorMessageHandler(result, green);
 
     } catch (error) {
         message.textContent = error.message;
-        message.style.color = "rgb(134, 10, 10)";
+        message.style.color = red;
 
-        errorMessageHandler(error.message, "rgb(134, 10, 10)")
+        errorMessageHandler(error.message, red)
     } finally {
         isPending = false;
         renameTvButton.removeAttribute("disabled");
@@ -2246,7 +2251,7 @@ async function onSubmitTvData(event) {
     const data = Object.fromEntries(formData);
 
     if (!data.day || !data.date) {
-        return errorMessageHandler("Day and date is required!", "rgb(134, 10, 10)", "tvBookInputDate");
+        return errorMessageHandler("Day and date is required!", red, "tvBookInputDate");
     };
 
     const regex = /^\d\d.\d\d.\d\d\d\d$/
@@ -2254,20 +2259,17 @@ async function onSubmitTvData(event) {
     const match = data.date.match(regex);
 
     if (!match) {
-        // return alert(`Invalid date format! \n Should be: 'dd.mm.year' receive: '${data.date}'`);
-        return errorMessageHandler(`Invalid date format! Should be: 'dd.mm.year' receive: '${data.date}'`, "rgb(134, 10, 10)", "tvBookInputDate");
+        return errorMessageHandler(`Invalid date format! Should be: 'dd.mm.year' receive: '${data.date}'`, red, "tvBookInputDate");
     };
 
     const dateTokens = data.date.split(".");
 
     if (dateTokens[0] < 1 || dateTokens[0] > 31) {
-        // return alert(`Invalid day! \n Should be between 1 and 31 receive" '${dateTokens[0]}'`);
-        return errorMessageHandler(`Invalid day! \n Should be between 1 and 31 receive" '${dateTokens[0]}'`, "rgb(134, 10, 10)", "tvBookInputDate");
+        return errorMessageHandler(`Invalid day! \n Should be between 1 and 31 receive" '${dateTokens[0]}'`, red, "tvBookInputDate");
     };
 
     if (dateTokens[1] < 1 || dateTokens[1] > 12) {
-        // return alert(`Ivalid month! \n Should be between 1 and 12 receive: '${dateTokens[1]}'`);
-        return errorMessageHandler(`Ivalid month! \n Should be between 1 and 12 receive: '${dateTokens[1]}'`, "rgb(134, 10, 10)", "tvBookInputDate");
+        return errorMessageHandler(`Ivalid month! \n Should be between 1 and 12 receive: '${dateTokens[1]}'`, red, "tvBookInputDate");
     };
 
     submitTvDataButton.setAttribute("disabled", true);
@@ -2292,8 +2294,7 @@ async function onSubmitTvData(event) {
         const result = await response.json();
 
         if (typeof (result) === "string") {
-            // return alert(result);
-            return errorMessageHandler(result, "rgb(3, 82, 3)");
+            return errorMessageHandler(result, green);
         };
 
         const reportMessage = result.join("\n");
@@ -2311,15 +2312,15 @@ async function onSubmitTvData(event) {
         missingDataCount.textContent = `Missing data: ${reportMissingDataMessage.length}`;
 
         if (reportMissingFilesMessage.length > 0) {
-            missingFilesCount.style.color = "rgb(134, 10, 10)";
+            missingFilesCount.style.color = red;
         } else {
-            missingFilesCount.style.color = "rgb(3, 82, 3)";
+            missingFilesCount.style.color = green;
         }
 
         if (reportMissingDataMessage.length > 0) {
-            missingDataCount.style.color = "rgb(134, 10, 10)";
+            missingDataCount.style.color = red;
         } else {
-            missingDataCount.style.color = "rgb(3, 82, 3)";
+            missingDataCount.style.color = green;
         };
 
         tvMessage.value = reportMessage;
@@ -2327,16 +2328,16 @@ async function onSubmitTvData(event) {
         missingDataMessage.value = reportMissingDataMessage.join("\n");
 
         message.textContent = "Done";
-        message.style.color = "rgb(3, 82, 3)";
+        message.style.color = green;
 
-        errorMessageHandler("Done", "rgb(3, 82, 3)");
+        errorMessageHandler("Done", green);
 
     } catch (error) {
 
         if (error.message === "Failed to fetch") {
             message.textContent = `${error.message}. \nThe server is probably not working!`;
             message.style.display = "block-inline";
-            message.style.color = "rgb(134, 10, 10)";
+            message.style.color = red;
             return;
         }
 
