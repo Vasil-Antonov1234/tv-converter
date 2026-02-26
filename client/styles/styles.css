@@ -219,10 +219,11 @@ textarea {
     font-family: cursive;
     font-size: 1.4rem;
     text-transform: uppercase;
-    padding: 5px 10px;
+    padding: 10px 15px;
     display: none;
-    border: solid 2px white;
-    border-radius: 10px;
+    border: solid 0.5px white;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.5);
     justify-content: space-between;
     align-items: center;
     gap: 10px;
@@ -242,9 +243,9 @@ textarea {
 
 .close {
     padding: 10px;
-    width: 15px;
-    height: 15px;
-    border-radius: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
     background-color: white;
     border: 1px solid gray;
     display: flex;
@@ -466,21 +467,21 @@ textarea {
 
 @keyframes notifyBorderAnimation {
     0% {border-color: rgb(252, 175, 175); background-color: rgb(248, 158, 158);}
-    10% {border-color: red; background-color: white;}
+    10% {border-color: rgb(134, 10, 10); background-color: white;}
     20% {border-color: rgb(252, 175, 175); background-color: rgb(248, 158, 158);}
-    30% {border-color: red; background-color: white;}
+    30% {border-color: rgb(134, 10, 10); background-color: white;}
     40% {border-color: rgb(252, 175, 175);}
-    50% {border-color: red;}
+    50% {border-color: rgb(134, 10, 10);}
     60% {border-color: rgb(252, 175, 175);}
-    70% {border-color: red;}
+    70% {border-color: rgb(134, 10, 10);}
     80% {border-color: rgb(252, 175, 175);}
-    90% {border-color: red;}
+    90% {border-color: rgb(134, 10, 10);}
     95% {border-color: rgb(252, 175, 175);}
-    100% {border-color: red;}
+    100% {border-color: rgb(134, 10, 10);}
 }
 
 .radio-container-notify {
-    border: solid 3px red;
+    border: solid 3px rgb(134, 10, 10);
     animation-name: notifyBorderAnimation;
     animation-duration: 1s;
 }
@@ -550,7 +551,7 @@ div.radio-container span span {
 .reportMessageTitle1 {
     font-size: 30px;
     font-family: cursive;
-    color: green;
+    color: rgb(3, 82, 3);
 }
 
 .reportMessageTitle {
