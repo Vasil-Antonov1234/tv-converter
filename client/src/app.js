@@ -41,6 +41,9 @@ let message = "error";
 const red = "rgb(134, 10, 10)";
 const green = "rgb(3, 82, 3)";
 
+const spinner = document.createElement("div");
+spinner.classList.add("spinner");
+
 const movies = ["криминален", "документален", "драма", "криминален", "екшън", "приключенски", "ужаси", "комедия",
     "романтичен", "романтика", "фантастика", "трилър", "хорър", "семеен", "уестърн", "мюзикъл", "анимация"];
 const episodePattern = /еп. \d+|еп.\d+|епизод \d+|епизод\d+/;
@@ -1800,8 +1803,10 @@ tvBookTemplate.innerHTML = `
                 <button class="calcReset button" id="resetCalcTvBook">Clear</button>
             </div>
         </div>
-        <button id="rename" class="tvRename button">TV-rename</button>
-        <span class="renamedTvMessage" id="renamedTvMessage"></span>
+        <div id="tvRenameContainer">
+            <button id="rename" class="tvRename button">TV-rename</button>
+            <span class="renamedTvMessage" id="renamedTvMessage"></span>
+        </div>
 
         <div class="reportMessageTitleContainer">
             <span class="reportMessageTitle" id="missingFilesCount">Missing files: 0</span>
@@ -1923,6 +1928,7 @@ othersTemplate.innerHTML = `
         <input type="text" name="extension" id="extension" placeholder="File extension (Optional)">
         <button class="selectFile button" id="findReplaceButton">Change</button>
         <span class="renamedTvMessage" id="renamedFilesMessage"></span>
+        <div class="spinner" id="spinner"></div>
     </form>
     <hr>
     <h2 class="subTitle">Copy issue</h2>
@@ -2039,6 +2045,9 @@ async function onFindAndReplace(event) {
         message.textContent = "Loading...";
         message.style.color = "black";
         message.style.display = "inline-block";
+
+        document.getElementById("findReplaceForm").appendChild(spinner);
+        spinner.style.display = "inline-block";
     }
 
     try {
@@ -2065,6 +2074,7 @@ async function onFindAndReplace(event) {
         errorMessageHandler(error, red)
     } finally {
         findReplaceButton.removeAttribute("disabled");
+        spinner.remove();
     };
 }
 
@@ -2098,6 +2108,8 @@ async function onCopyIssue(event) {
 
     if (isPending) {
         message.value = "Loading...";
+        document.getElementById("copyIssueForm").appendChild(spinner);
+        spinner.style.display = "inline-block";
     };
 
     try {
@@ -2113,15 +2125,19 @@ async function onCopyIssue(event) {
 
         message.value = result;
         message.style.color = green;
+        errorMessageHandler(result, green);
 
         if (result !== "Done") {
-            message.style.color = "rgb(179, 121, 14)";
+            message.style.color = red;
         }
     } catch (error) {
         message.value = error;
         message.style.color = red;
+
+        errorMessageHandler(error, red);
     } finally {
         copyIssueButton.removeAttribute("disabled");
+        spinner.remove();
     };
 }
 
@@ -2209,6 +2225,9 @@ async function onTvRename(event) {
         message.textContent = "Loading...";
         message.style.display = "inline";
         message.style.color = "black";
+
+        document.getElementById("tvRenameContainer").appendChild(spinner);
+        spinner.style.display = "inline-block";
     }
 
     try {
@@ -2235,6 +2254,7 @@ async function onTvRename(event) {
     } finally {
         isPending = false;
         renameTvButton.removeAttribute("disabled");
+        spinner.remove();
     }
 }
 
@@ -2278,6 +2298,9 @@ async function onSubmitTvData(event) {
         message.textContent = "Loading...";
         message.style.display = "inline";
         message.style.color = "black";
+
+        document.getElementById("tvRenameContainer").appendChild(spinner);
+        spinner.style.display = "inline-block";
     }
 
     const dataJSON = JSON.stringify(data);
@@ -2346,6 +2369,7 @@ async function onSubmitTvData(event) {
         // message.textContent = "";
         isPending = false;
         submitTvDataButton.removeAttribute("disabled");
+        spinner.remove();
     }
 };
 
