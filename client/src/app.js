@@ -61,7 +61,7 @@ function onConvert(e) {
         // inputEl.classList.add("radio-container-notify");
         // setTimeout(hideNotification, 3000);
         message = "There is nothing to convert!";
-        errorMessageHandler(message);
+        errorMessageHandler(message, "red", "inputArea");
         return;
     };
 
@@ -343,7 +343,7 @@ function onConvert(e) {
     // (isError && typeof (radio) === "string")
     if (isError && radio === "nothing") {
         message = "Wrong input format!";
-        errorMessageHandler(message);
+        errorMessageHandler(message, "red", "inputArea");
         return;
     };
 
@@ -1709,8 +1709,9 @@ function equalization(arr, rows, text, newText) {
 }
 
 
-function hideNotification() {
-    radioContainerElement.classList.remove("radio-container-notify");
+function hideNotification(currentElement) {
+    document.getElementById(currentElement).classList.remove("radio-container-notify");
+    // radioContainerElement.classList.remove("radio-container-notify");
     radioContainerElement.classList.add("radio-container");
     inputEl.classList.remove("tvTextWrong");
     inputEl.classList.remove("radio-container-notify");
@@ -1935,7 +1936,7 @@ othersTemplate.innerHTML = `
         <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="Application isssue*">
     </form>
     <hr class="mt">
-    <h2 class="subTitle">Rename pdf files</h2>
+    <h2 class="subTitle">Rename PDF files</h2>
     <form class="othersForm" id="renamePdfFiles">
         <input type="text" name="pathToPDF" id="pathToPDF" placeholder="Folder path*">
         <input type="text" name="currentDayNumber" id="currentDayNumber" placeholder="PDF files number*">
@@ -1952,6 +1953,12 @@ async function onRenamePdfFiles(event) {
     const path = formData.get("pathToPDF");
     const number = formData.get("currentDayNumber");
 
+    if (!path) {
+        errorMessageHandler("PDF's path folder is reqiured", "red", "pathToPDF");
+        button.removeAttribute("disabled");
+        return
+    }
+
     try {
         const response = await fetch(`${baseURL}/rename/pdf`, {
             method: "POST",
@@ -1963,9 +1970,11 @@ async function onRenamePdfFiles(event) {
 
         const result = await response.json();
 
-        alert(result.result);
+        // alert(result.result);
+        errorMessageHandler(result.result, "green");
     } catch (error) {
-        alert(error.message);
+        // alert(error.message);
+        errorMessageHandler(error.message, "red");
     } finally {
         button.removeAttribute("disabled");
     };
@@ -2389,10 +2398,13 @@ function isCorrectDayInputHandler(matchArr) {
     return false;
 };
 
-function errorMessageHandler(message) {
+function errorMessageHandler(message, color, currentElement) {
+    console.log(currentElement)
+    document.getElementById(currentElement).classList.add("radio-container-notify");
     errorContainer.textContent = message;
     notifyContainer.style.display = "flex";
+    notifyContainer.style.background = color;
     spanClose.style.display = "flex";
-    inputEl.classList.add("radio-container-notify");
-    setTimeout(hideNotification, 3000);
+    // inputEl.classList.add("radio-container-notify");
+    setTimeout(() => hideNotification(currentElement), 3000);
 }
