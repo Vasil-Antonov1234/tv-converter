@@ -214,6 +214,7 @@ textarea {
     position: absolute;
     left: 40%;
     top: 50%;
+    max-width: 30%;
     color: white;
     font-family: cursive;
     font-size: 1.4rem;

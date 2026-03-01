@@ -50,6 +50,7 @@ export default {
 
         const dirPhotos = dirPhotosSource.filter((x) =>
             x.endsWith(".jpg") ||
+            x.endsWith(".JPG") ||
             x.endsWith(".jpeg") ||
             x.endsWith(".bmp") ||
             x.endsWith(".png") ||

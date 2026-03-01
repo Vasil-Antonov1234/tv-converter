@@ -40,6 +40,7 @@ let message = "error";
 
 const red = "rgb(134, 10, 10)";
 const green = "rgb(3, 82, 3)";
+const yellow = "rgb(226, 187, 100)";
 
 const spinner = document.createElement("div");
 spinner.classList.add("spinner");
@@ -2129,7 +2130,8 @@ async function onCopyIssue(event) {
         errorMessageHandler(result, green);
 
         if (result !== "Done") {
-            message.style.color = red;
+            message.style.color = "darkgoldenrod";
+            errorMessageHandler(result, yellow);
         }
     } catch (error) {
         message.value = error;
