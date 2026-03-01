@@ -52,8 +52,14 @@ const hourPattern = /\d.\d\d /;
 function onConvert(e) {
     e.preventDefault();
 
+    addClass(outputEl, "convert", 1500);
+    
     const tvBookOutput = document.querySelectorAll("#tv-book-form textarea")[1];
 
+    if (tvBookOutput) {
+        addClass(tvBookOutput, "convert", 1500);
+    }
+    
     isError = false;
 
     const formData = new FormData(e.currentTarget);
@@ -61,11 +67,6 @@ function onConvert(e) {
     radio = formData.get("tv-radio");
 
     if (!input) {
-        // errorContainer.textContent = "There is nothing to convert!";
-        // notifyContainer.style.display = "flex";
-        // spanClose.style.display = "flex";
-        // inputEl.classList.add("radio-container-notify");
-        // setTimeout(hideNotification, 3000);
         message = "There is nothing to convert!";
         errorMessageHandler(message, red, "inputArea");
         return;
@@ -2446,4 +2447,12 @@ function errorMessageHandler(message, color, currentElement) {
     spanClose.style.display = "flex";
     // inputEl.classList.add("radio-container-notify");
     setTimeout(() => hideNotification(currentElement), 5000);
+}
+
+function addClass (element, className, time) {
+    element.classList.add(className);
+
+    setTimeout(() => {
+        element.classList.remove(className)
+    }, time);
 }
