@@ -660,12 +660,12 @@ input:focus {
 }
 
 .logo {
-    width: 24px;
-    height: 24px;
+    width: 34px;
+    height: 34px;
     border-top: 3px solid rgb(241, 151, 40);
     border-bottom: 3px solid rgb(241, 151, 40);
     border-radius: 15px;
-    animation: spin 10s linear infinite;
+    animation: spin 5s linear infinite;
 }
 
 .logo1 {
@@ -689,4 +689,21 @@ input:focus {
     height: 50%;
     border-radius: 50%;
     background-color: white;
+}
+
+.convert {
+    animation: onConvertAnimation 1s ease-out forwards;
+    animation-duration: 0.5s;
+}
+
+@keyframes onConvertAnimation {
+
+    10% {
+        transform: rotate3d(3, 4, 1, 10deg);
+    }
+
+    100% {
+        transform: rotate3d(0 0 0 0deg);
+    }
+
 }
