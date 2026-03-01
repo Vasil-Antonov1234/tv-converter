@@ -53,14 +53,14 @@ const hourPattern = /\d.\d\d /;
 function onConvert(e) {
     e.preventDefault();
 
-    addClass(outputEl, "convert", 1500);
-    
     const tvBookOutput = document.querySelectorAll("#tv-book-form textarea")[1];
+    const convertButton = document.getElementById("convertBtn");
+    convertButton?.setAttribute("disabled", true);
 
-    if (tvBookOutput) {
-        addClass(tvBookOutput, "convert", 1500);
-    }
-    
+    setTimeout(() => {
+        convertButton?.removeAttribute("disabled");
+    }, 1000);
+
     isError = false;
 
     const formData = new FormData(e.currentTarget);
@@ -70,6 +70,7 @@ function onConvert(e) {
     if (!input) {
         message = "There is nothing to convert!";
         errorMessageHandler(message, red, "inputArea");
+        convertButton?.removeAttribute("disabled");
         return;
     };
 
@@ -352,8 +353,16 @@ function onConvert(e) {
     if (isError && radio === "nothing") {
         message = "Wrong input format!";
         errorMessageHandler(message, red, "inputArea");
+        convertButton.removeAttribute("disabled");
         return;
     };
+
+    addClass(outputEl, "convert", 1500);
+
+    if (tvBookOutput) {
+        addClass(tvBookOutput, "convert", 1500);
+    }
+
 
     // const weekMatch = (matchArr.includes("Понеделник") && radio === "week" || matchArr.includes("Вторник") && radio === "week"
     //     || matchArr.includes("Сряда") && radio === "week" || matchArr.includes("Четвъртък") && radio === "week"
@@ -373,6 +382,7 @@ function onConvert(e) {
         const choice = confirm("The day doesn't match! Ary you sure you want to continue?");
 
         if (!choice) {
+            convertButton.removeAttribute("disabled");
             return;
         };
     };
@@ -2427,7 +2437,7 @@ function isMatchHandler(radio, weekMatch, saturdayMatch, sundayMatch) {
 }
 
 function isCorrectDayInputHandler(matchArr) {
-    if ((matchArr.startsWith("Понеделник") ||
+    if (matchArr && (matchArr.startsWith("Понеделник") ||
         matchArr.startsWith("Вторник") ||
         matchArr.startsWith("Сряда") ||
         matchArr.startsWith("Четвъртък") ||
@@ -2451,7 +2461,7 @@ function errorMessageHandler(message, color, currentElement) {
     setTimeout(() => hideNotification(currentElement), 5000);
 }
 
-function addClass (element, className, time) {
+function addClass(element, className, time) {
     element.classList.add(className);
 
     setTimeout(() => {
