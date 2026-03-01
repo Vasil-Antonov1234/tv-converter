@@ -70,6 +70,7 @@ function onConvert(e) {
     if (!input) {
         message = "There is nothing to convert!";
         errorMessageHandler(message, red, "inputArea");
+        errorMessageHandler(message, red, "inputBookArea");
         convertButton?.removeAttribute("disabled");
         return;
     };
@@ -2457,7 +2458,6 @@ function errorMessageHandler(message, color, currentElement) {
     notifyContainer.style.display = "flex";
     notifyContainer.style.background = color;
     spanClose.style.display = "flex";
-    // inputEl.classList.add("radio-container-notify");
     setTimeout(() => hideNotification(currentElement), 5000);
 }
 
