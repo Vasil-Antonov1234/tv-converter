@@ -700,23 +700,38 @@ input:focus {
 @keyframes onConvertAnimation {
 
     0% {
-        transform: rotate3d(3, 4, 1, 10deg);
+        transform: rotate3d(4, 5, 2, 10deg);
     }
 
     25% {
-        transform: rotate3d(-3, -4, -1, 10deg);
+        transform: rotate3d(-4, -5, -2, 10deg);
     }
 
     50% {
-        transform: rotate3d(1.5, 2, 0.5, 5deg);
+        transform: rotate3d(2, 2.5, 1, 5deg);
     }
 
     75% {
-        transform: rotate3d(-1.5, -2, -0.5, 5deg);
+        transform: rotate3d(-2, -2.5, -1, 5deg);
     }
 
     100% {
         transform: rotate3d(0 0 0 0deg);
     }
 
+}
+
+@keyframes onConvertWeatherAnimation {
+    to {
+        transform: rotateX(360deg)
+    }
+
+    50% {
+        background-color: black;
+    }
+}
+
+.rotate {
+    animation: onConvertWeatherAnimation 1s ease-out forwards;
+    animation-duration: 1s;
 }

@@ -2163,6 +2163,8 @@ function onWeatherConvert() {
 
     const result = [];
 
+    addClass(inputEl, "rotate", 1000);
+
     if (inputArr[0].startsWith("София")) {
 
         for (let i = 0; i < inputArr.length; i++) {
