@@ -447,15 +447,16 @@ function onConvert(e) {
     separatedTv.btv = deleteGenre(separatedTv.btv, rows.btv[daySelection]);
     separatedTv.btv = deletePatternIncluding(separatedTv.btv, rows.btv[daySelection], /с водеща |с водещи |с водещ /);
     separatedTv.btv = deleteEndComma(separatedTv.btv);
-    separatedTv.novaTv = deleteByHours(separatedTv.novaTv, rows.novaTv[daySelection], ["01", "02", "03", "04", "05"]);
+    separatedTv.novaTv = deleteByHours(separatedTv.novaTv, rows.novaTv[daySelection], ["00", "01", "02", "03", "04", "05"]);
     separatedTv.novaTv = convertAll(separatedTv.novaTv, rows.novaTv[daySelection], tvCalcConstants[tvCalcValue]);
     separatedTv.novaTv = replaceText(separatedTv.novaTv, rows.novaTv[daySelection], "(премиера)", "");
     separatedTv.novaTv = replaceText(separatedTv.novaTv, rows.novaTv[daySelection], "с уч.", "игрален филм с уч.");
     separatedTv.novaTv = deleteExcluding(separatedTv.novaTv, rows.novaTv[daySelection], "игрален филм", tvCalcConstants[tvCalcValue]);
     separatedTv.novaTv = equalization(separatedTv.novaTv, rows.novaTv[daySelection], "сер.", "сериен телевизионен филм");
     separatedTv.novaTv = deleteShortShow(separatedTv.novaTv, rows.novaTv[daySelection], 5);
-    separatedTv.novaTv = novaFix(separatedTv.novaTv, rows.novaTv[daySelection], "Като две капки вода", "предаване по NOVA");
-    // debugger
+    separatedTv.novaTv = novaAll(separatedTv.novaTv, rows.novaTv[daySelection]);
+    // separatedTv.novaTv = novaFix(separatedTv.novaTv, rows.novaTv[daySelection], "Като две капки вода", "предаване по NOVA");
+
     separatedTv.novaNews = convertAll(separatedTv.novaNews, rows.novaNews[daySelection], tvCalcConstants[tvCalcValue]);
     separatedTv.novaNews = deleteByHours(separatedTv.novaNews, rows.novaNews[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "23", "00"]);
     separatedTv.novaNews = deleteByHourAndText(separatedTv.novaNews, rows.novaNews[daySelection], ["11.00", "13.00", "15.00", "16.00", "18.00", "21.00"], "Новините");
@@ -1795,6 +1796,12 @@ function novaFix(novaTvArr, rows, fraze, description) {
         };
 
         if (row.includes(fraze)) {
+            const checkShowName = row.split(" ")[1];
+
+            if (!fraze.startsWith(checkShowName)) {
+                continue;
+            }
+
             let newFraze = row.split(" ")[0];
             row = `${newFraze} ${fraze} - ${description}`;
             result.splice(i, 1, row)
@@ -1803,6 +1810,88 @@ function novaFix(novaTvArr, rows, fraze, description) {
 
     return result;
 };
+
+function novaTvSeriesHandler(novaTvArr, rows) {
+    let result = novaTvArr;
+
+    result = result.filter((x) => x !== "");
+    let returnsCount = 0;
+
+    for (let i = 0; i < result.length; i++) {
+        let row = result[i];
+
+        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+        if (returnsCount <= rows) {
+            return result;
+        };
+
+        if (
+            row.includes("Сериалът") ||
+            row.includes("сериалът") ||
+            row.includes("сезон") ||
+            row.includes("епизод")) {
+
+            let newRow = row.split(" - ")[0];
+            newRow = `${newRow} - сериал`;
+            result.splice(i, 1, newRow);
+        }
+    }
+
+    return result;
+}
+
+function novaMovieHandler(novaTvArr, rows) {
+    let result = novaTvArr;
+
+    result = result.filter((x) => x !== "");
+    let returnsCount = 0;
+
+    for (let i = 0; i < result.length; i++) {
+        let row = result[i];
+
+        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+        if (returnsCount <= rows) {
+            return result;
+        };
+
+        if (row.length > 85) {
+            let newRow = row.split(" - ")[0];
+            newRow = `${newRow} - игрален филм`;
+
+            result.splice(i, 1, newRow);
+        }
+    }
+
+    return result;
+}
+
+function novaAll(novaTvArr, rows) {
+    let result = novaFix(novaTvArr, rows, "Като две капки вода", "предаване на NOVA");
+    result = novaFix(result, rows, "Сделка или не", "предаване на NOVA");
+    result = novaFix(result, rows, "Семейни войни", "предаване на NOVA");
+    result = novaFix(result, rows, "Пресечна точка", "публицистичното предаване");
+    result = novaFix(result, rows, "Hell’s Kitchen", "риалити");
+    result = novaFix(result, rows, "Кошмари в кухнята", "риалити");
+    result = novaFix(result, rows, "Шеф под прикритие", "риалити");
+    result = novaFix(result, rows, "Събуди се", "предаване на NOVA");
+    result = novaFix(result, rows, "Съдебен спор", "съдебно шоу");
+    result = novaFix(result, rows, "Изживей България", "предаване на NOVA");
+    result = novaFix(result, rows, "Ничия земя", "предаване на NOVA");
+    result = novaFix(result, rows, "Темата на NOVA", "предаване на NOVA");
+    result = novaFix(result, rows, "Борба до ключ", "риалити");
+    result = novaFix(result, rows, "Да хванеш гората", "предаване на NOVA");
+    result = novaFix(result, rows, "На фокус с Лора Крумова", "предаване на NOVA");
+    result = novaFix(result, rows, "На фокус след новините", "предаване на NOVA");
+    result = novaFix(result, rows, "The Floor", "телевизионна игра");
+    result = novaFix(result, rows, "Иконостас", "Православно предаване");
+    result = novaTvSeriesHandler(result, rows);
+    // debugger
+    result = novaMovieHandler(result, rows);
+
+    return result;
+}
 
 // Other functionality
 
