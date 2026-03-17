@@ -453,6 +453,9 @@ function onConvert(e) {
     separatedTv.novaTv = replaceText(separatedTv.novaTv, rows.novaTv[daySelection], "с уч.", "игрален филм с уч.");
     separatedTv.novaTv = deleteExcluding(separatedTv.novaTv, rows.novaTv[daySelection], "игрален филм", tvCalcConstants[tvCalcValue]);
     separatedTv.novaTv = equalization(separatedTv.novaTv, rows.novaTv[daySelection], "сер.", "сериен телевизионен филм");
+    separatedTv.novaTv = deleteShortShow(separatedTv.novaTv, rows.novaTv[daySelection], 5);
+    separatedTv.novaTv = novaFix(separatedTv.novaTv, rows.novaTv[daySelection], "Като две капки вода", "предаване по NOVA");
+    // debugger
     separatedTv.novaNews = convertAll(separatedTv.novaNews, rows.novaNews[daySelection], tvCalcConstants[tvCalcValue]);
     separatedTv.novaNews = deleteByHours(separatedTv.novaNews, rows.novaNews[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "23", "00"]);
     separatedTv.novaNews = deleteByHourAndText(separatedTv.novaNews, rows.novaNews[daySelection], ["11.00", "13.00", "15.00", "16.00", "18.00", "21.00"], "Новините");
@@ -1727,6 +1730,81 @@ function equalization(arr, rows, text, newText) {
     return result
 }
 
+function deleteShortShow(tvArr, rows, time) {
+    let result = tvArr;
+
+    result = result.filter((x) => x !== "");
+    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+    if (returnsCount > rows) {
+        for (let i = 0; i < result.length; i++) {
+
+            returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+            if (returnsCount <= rows) {
+                return result;
+            }
+
+            let rowFirst = result[i];
+            const rowArrFirs = rowFirst.split(" ");
+            const hourFirst = rowArrFirs[0];
+
+            const hoursFirst = Number(hourFirst.split(".")[0]);
+            const minutesFirst = Number(hourFirst.split(".")[1]);
+
+            const timeStampFirst = (hoursFirst * 60) + minutesFirst;
+
+            let rowSecond = result[i + 1];
+
+            if (rowSecond) {
+                const rowArrSecond = rowSecond.split(" ");
+                const hourSecond = rowArrSecond[0];
+
+                const hoursSecond = Number(hourSecond.split(".")[0]);
+                const minutesSecond = Number(hourSecond.split(".")[1]);
+
+                const timeStampSecond = (hoursSecond * 60) + minutesSecond;
+
+                const diff = timeStampSecond - timeStampFirst;
+
+                if (diff <= time) {
+                    result.splice(i, 1);
+                };
+
+            }
+        };
+    };
+
+    return result;
+};
+
+function novaFix(novaTvArr, rows, fraze, description) {
+    let result = novaTvArr;
+
+    result = result.filter((x) => x !== "");
+    let returnsCount = 0;
+
+
+    for (let i = 0; i < result.length; i++) {
+        let row = result[i];
+
+        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+        if (returnsCount <= rows) {
+            return result;
+        };
+
+        if (row.includes(fraze)) {
+            let newFraze = row.split(" ")[0];
+            row = `${newFraze} ${fraze} - ${description}`;
+            result.splice(i, 1, row)
+        };
+    };
+
+    return result;
+};
+
+// Other functionality
 
 function hideNotification(currentElement) {
     document.getElementById(currentElement)?.classList.remove("radio-container-notify");
