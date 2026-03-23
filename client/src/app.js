@@ -455,7 +455,6 @@ function onConvert(e) {
     separatedTv.novaTv = equalization(separatedTv.novaTv, rows.novaTv[daySelection], "сер.", "сериен телевизионен филм");
     separatedTv.novaTv = deleteShortShow(separatedTv.novaTv, rows.novaTv[daySelection], 5);
     separatedTv.novaTv = novaAll(separatedTv.novaTv, rows.novaTv[daySelection]);
-
     separatedTv.novaNews = convertAll(separatedTv.novaNews, rows.novaNews[daySelection], tvCalcConstants[tvCalcValue]);
     separatedTv.novaNews = deleteByHours(separatedTv.novaNews, rows.novaNews[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "23", "00"]);
     separatedTv.novaNews = deleteByHourAndText(separatedTv.novaNews, rows.novaNews[daySelection], ["11.00", "13.00", "15.00", "16.00", "18.00", "21.00"], "Новините");
@@ -532,6 +531,9 @@ function onConvert(e) {
     separatedTv.dizi = deleteGenre(separatedTv.dizi, rows.dizi[daySelection]);
     separatedTv.dizi = replaceText(separatedTv.dizi, rows.dizi[daySelection], "Епизод", "ep.");
     separatedTv.dizi = replacePattern(separatedTv.dizi, rows.dizi[daySelection], /Сезон \d -/, "");
+    separatedTv.dizi = replaceMultipleSpaces(separatedTv.dizi);
+    separatedTv.dizi = replaceTextForce(separatedTv.dizi, "\t", " ");
+    separatedTv.dizi = deleteEndComma(separatedTv.dizi);
     separatedTv.starLife = replaceTextForce(separatedTv.starLife, " Drama ", " драма ");
     separatedTv.starLife = replaceTextForce(separatedTv.starLife, " Crime ", " криминален ");
     separatedTv.starLife = replaceTextForce(separatedTv.starLife, " Comedy ", " комедия ");
@@ -993,8 +995,8 @@ function replaceTextForce(arr, text, newText) {
     let result = [];
 
     for (let row of arr) {
-        row = row.replace(text, newText);
-        row = row.replace("  ", " ");
+        row = row.replaceAll(text, newText);
+        row = row.replaceAll("  ", " ");
         result.push(row);
     };
 
@@ -1919,6 +1921,17 @@ function novaAll(novaTvArr, rows) {
     result = novaFix(result, rows, "Офанзива с Любо Огнянов", "предаване");
     result = novaTvSeriesHandler(result, rows);
     result = novaMovieHandler(result, rows);
+
+    return result;
+}
+
+function replaceMultipleSpaces(arr) {
+    // debugger
+    
+    let result = arr.join("/n");
+
+    result = result.split("  ").filter((x) => x !== "").join("").split("/n");
+    // resultArr = resultArr.filter((x) => x !== "")
 
     return result;
 }
