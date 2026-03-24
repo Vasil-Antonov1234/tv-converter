@@ -55,8 +55,6 @@ export default {
 
                         const filename = tv.split(".")[0].toLocaleLowerCase();
 
-                        console.log(filename)
-
                         const outputFile = `${outputDir}${filename}.txt`
 
                         fs.writeFileSync(outputFile, result, { encoding: "utf-8" })
