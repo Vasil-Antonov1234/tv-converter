@@ -5,9 +5,10 @@ import iconv from "iconv-lite";
 import jschardet from "jschardet";
 import { handleFixTv } from "../utils/handleFixTV.js";
 import { tvForFix } from "../data/tvNames.js";
+import fileExtensionHandler from "../utils/fileExtensionHandler.js";
 
 const inputFilePath = paths.input;
-const regex = /-\d\d.txt/
+const regex = /-\d\d.txt$|-\d\d.docx$/
 
 export default {
     renameAllTv() {
@@ -22,13 +23,15 @@ export default {
 
                     const match = el.match(regex);
 
-                    if (!match || !el.endsWith(".txt")) {
+                    if (!match || (!el.endsWith(".txt") && !el.endsWith(".docx"))) {
                         continue;
                     };
 
+                    const fileExtension = fileExtensionHandler(el); 
+
                     result++;
 
-                    let fileName = el.replace(regex, ".txt");
+                    let fileName = el.replace(regex, fileExtension);
 
                     fs.renameSync(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`);
                 };
