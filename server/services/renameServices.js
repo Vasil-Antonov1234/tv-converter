@@ -53,7 +53,9 @@ export default {
                         const result = handleFixTv(encodedTv, tv);
                         let outputDir = paths.input;
 
-                        const filename = tv.split(".")[0]
+                        const filename = tv.split(".")[0].toLocaleLowerCase();
+
+                        console.log(filename)
 
                         const outputFile = `${outputDir}${filename}.txt`
 
