@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
+import mammoth from "mammoth";
 import paths from "../paths/paths.js";
 import iconv from "iconv-lite";
 import jschardet from "jschardet";
@@ -11,7 +12,7 @@ const inputFilePath = paths.input;
 const regex = /-\d\d.txt$|-\d\d.docx$/
 
 export default {
-    renameAllTv() {
+    async renameAllTv() {
 
         try {
             const dir = fs.readdirSync(inputFilePath);
@@ -27,7 +28,7 @@ export default {
                         continue;
                     };
 
-                    const fileExtension = fileExtensionHandler(el); 
+                    const fileExtension = fileExtensionHandler(el);
 
                     result++;
 
@@ -43,33 +44,44 @@ export default {
 
                 if (tvForFix.includes(tv)) {
 
-                    try {
-                        const buffer = fs.readFileSync(`${inputFilePath}${tv}`);
+                    const buffer = fs.readFileSync(`${inputFilePath}${tv}`);
+
+                    if (tv.endsWith(".docx")) {
+                        const encodedBuffer = await mammoth.extractRawText({ buffer });
+                        const encodedTv = encodedBuffer.value;
+
+                        const result = handleFixTv(encodedTv, tv);
+                        let outputDir = paths.input;
+
+                        const filename = tv.split(".")[0]
+
+                        const outputFile = `${outputDir}${filename}.txt`
+
+                        fs.writeFileSync(outputFile, result, { encoding: "utf-8" })
+                    }
+
+                    if (tv.endsWith(".txt")) {
+                        let encodedTV = "";
                         let charSet = jschardet.detect(buffer).encoding;
 
                         if (charSet === "x-mac-cyrillic") {
                             charSet = "windows-1251";
                         };
 
-                        let encodedTV = "";
-
                         encodedTV = iconv.decode(buffer, charSet);
 
                         const result = handleFixTv(encodedTV, tv);
-                        const outputDir = paths.input;
-                        const outputFile = `${outputDir}${tv}`;
+                        let outputDir = paths.input;
+                        let outputFile = `${outputDir}${tv}`
 
                         fs.writeFileSync(outputFile, result, { encoding: "utf-8" });
-
-                    } catch (error) {
-                        throw error.message;
                     }
                 }
             }
 
             return result;
         } catch (error) {
-            throw error.message;
+            throw error;
         }
     },
 
@@ -98,7 +110,7 @@ export default {
 
 
         } catch (error) {
-            throw (error.message)
+            throw (error)
         }
 
     },

@@ -107,5 +107,10 @@ export const days = [
 ];
 
 export const tvForFix = [
-    "dizi.txt"
+    "dizi.txt",
+    "HBO.docx",
+    "HBO2.docx",
+    "HBO3.docx",
+    "Cinemax.docx",
+    "Cinemax2.docx"
 ];
