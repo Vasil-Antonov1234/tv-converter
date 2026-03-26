@@ -18,6 +18,22 @@ export default {
             const dir = fs.readdirSync(inputFilePath);
             let result = 0;
 
+            const onlyDocx = dir.filter((tv) => tv.endsWith(".docx"))
+
+            for (let tv of onlyDocx) {
+                
+                if (!tv.includes("_")) {
+                    continue;
+                }
+                
+                result++;
+
+                let fileName = tv.split("_")[0];
+                fileName = `${fileName}.docx`;
+
+                fs.renameSync(`${inputFilePath}${tv}`, `${inputFilePath}${fileName}`);
+            }
+
             if (dir.find((x) => x.includes("-"))) {
 
                 for (let el of dir) {
@@ -42,7 +58,7 @@ export default {
 
             for (let tv of renamedDir) {
 
-                if (tvForFix.includes(tv)) {
+                if (tvForFix.includes(tv) || tv.endsWith(".docx")) {
 
                     const buffer = fs.readFileSync(`${inputFilePath}${tv}`);
 
