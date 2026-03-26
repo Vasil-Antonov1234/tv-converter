@@ -19,6 +19,16 @@ export default function fixDateDoxcHandler(textTv) {
         "ДЕКЕМВРИ": 12
     }
 
+    const weekDays = {
+        1: "Понеделник",
+        2: "Вторник",
+        3: "Сряда",
+        4: "Четвъртък",
+        5: "Петък",
+        6: "Събота",
+        7: "Неделя"
+    }
+
     for (let i = 0; i < arrTv.length; i++) {
         const row = arrTv[i];
         const match = row.match(regex);
@@ -58,6 +68,28 @@ export default function fixDateDoxcHandler(textTv) {
 
         if (row.length > 20 && row.match(regexType1)) {
             arrTv.splice(i, 1)
+        }
+
+        if (row.match(regexType1)) {
+            const date = new Date(row);
+
+            const year = date.getFullYear();
+            let month = String(date.getMonth() + 1);
+            let day = String(date.getDate());
+            const weekDay = weekDays[date.getDay()]
+
+            if (month.length === 1) {
+                month = `0${month}`
+            }
+
+            
+            if (day.length === 1) {
+                day = `0${day}`
+            }
+
+            const fullDate = `${weekDay} ${day}.${month}.${year}`;
+            console.log(fullDate);
+
         }
 
     }
