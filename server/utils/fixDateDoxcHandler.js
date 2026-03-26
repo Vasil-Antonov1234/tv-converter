@@ -2,6 +2,8 @@ export default function fixDateDoxcHandler(textTv) {
 
     const arrTv = textTv.split("\n")
     const regex = / \d\d\d\d, ПОНЕДЕЛНИК| \d\d\d\d, ВТОРНИК| \d\d\d\d, СРЯДА| \d\d\d\d, ЧЕТВЪРТЪК| \d\d\d\d, ПЕТЪК| \d\d\d\d, СЪБОТА| \d\d\d\d, НЕДЕЛЯ/;
+    const regexType1 = /\d\d\d\d-\d\d-\d\d/gm//;
+    
     const months = {
         "ЯНУАРИ": 1,
         "ФЕВРУАРИ": 2,
@@ -18,19 +20,20 @@ export default function fixDateDoxcHandler(textTv) {
     }
 
     for (let i = 0; i < arrTv.length; i++) {
-        const el = arrTv[i];
-        const match = el.match(regex);
+        const row = arrTv[i];
+        const match = row.match(regex);
 
         if (match && (
-            el.endsWith("ПОНЕДЕЛНИК") ||
-            el.endsWith("ВТОРНИК") ||
-            el.endsWith("СРЯДА") ||
-            el.endsWith("ЧЕТВЪРТЪК") ||
-            el.endsWith("ПЕТЪК") ||
-            el.endsWith("СЪБОТА") ||
-            el.endsWith("НЕДЕЛЯ")
+            row.endsWith("ПОНЕДЕЛНИК") ||
+            row.endsWith("ВТОРНИК") ||
+            row.endsWith("СРЯДА") ||
+            row.endsWith("ЧЕТВЪРТЪК") ||
+            row.endsWith("ПЕТЪК") ||
+            row.endsWith("СЪБОТА") ||
+            row.endsWith("НЕДЕЛЯ")
         )) {
-            const tokens = el.split(" ");
+            console.log("case1")
+            const tokens = row.split(" ");
             let day = tokens[3].toLowerCase();
             let firstLetter = day[0].toUpperCase();
             const dayArr = day.split("");
@@ -51,6 +54,10 @@ export default function fixDateDoxcHandler(textTv) {
             result = `${dayText} ${result}`;
 
             arrTv.splice(i, 1, result)
+        }
+
+        if (row.length > 20 && row.match(regexType1)) {
+            arrTv.splice(i, 1)
         }
 
     }
