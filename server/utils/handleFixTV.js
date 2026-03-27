@@ -1,5 +1,6 @@
 import { EOL } from "os";
 import fixDateDoxcHandler from "./fixDateDoxcHandler.js";
+import { fixDoxcTvHandler } from "./fixDoxcTvHandler.js";
 
 export function handleFixTv(encodedTV, tv) {
 
@@ -14,7 +15,8 @@ export function handleFixTv(encodedTV, tv) {
     }
 
     if (tv.endsWith(".docx")) {
-        result = fixDateDoxcHandler(encodedTV);
+        const tvArr = fixDateDoxcHandler(encodedTV);
+        result = fixDoxcTvHandler(tvArr, tv);
     }
 
     return result;

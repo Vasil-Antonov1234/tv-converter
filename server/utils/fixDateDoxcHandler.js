@@ -1,53 +1,10 @@
-function forDelete(row) {
-    const hourregexPattern = /^\d\d:\d\d/gm;
-
-    if (row.startsWith("Duration:") ||
-        row.startsWith("Cast:") ||
-        row.startsWith("Director:") ||
-        row.startsWith("Origin:") ||
-        row.startsWith("Genre:") ||
-        row.startsWith("Production year:") ||
-        row.startsWith("Parental rating:") ||
-        row.startsWith("Original title:") ||
-        row.startsWith("Season:") ||
-        row.startsWith("Series original title:") ||
-        row.startsWith("Episode original title:") ||
-        row.startsWith("Also") ||
-        row.startsWith('"') ||
-        row.length > 51
-    ) {
-        return true
-    }
-
-    return false
-}
-
-const genres  = {
-    "Action": "Екшън",
-    "Comedy": "Комедия",
-    "Drama": "Драма",
-    "Horror": "Ужаси",
-    "Dramedy": "Драма, Комедия",
-    "History": "Исторически",
-    "Thriller": "Трилър",
-    "Crime": "Криминален",
-    "Mystery": "Мистерия",
-    "Fantasy": "Фентъзи",
-    "Science fiction": "Фантастика",
-    "Sci-fi": "Фантастика",
-    "Biography": "Биографичен",
-    "Animation": "Анимация",
-    "Documentary": "Документален",
-    "Romance": "Романтичен",
-    "Talk-Show": "Токшоу"
-}
+import { EOL } from "os";
 
 export default function fixDateDoxcHandler(textTv) {
 
     const arrTv = textTv.split("\n")
     const regex = / \d\d\d\d, ПОНЕДЕЛНИК| \d\d\d\d, ВТОРНИК| \d\d\d\d, СРЯДА| \d\d\d\d, ЧЕТВЪРТЪК| \d\d\d\d, ПЕТЪК| \d\d\d\d, СЪБОТА| \d\d\d\d, НЕДЕЛЯ/;
     const regexType1 = /\d\d\d\d-\d\d-\d\d/gm//;
-    let genre = undefined;
 
     const months = {
         "ЯНУАРИ": 1,
@@ -111,10 +68,6 @@ export default function fixDateDoxcHandler(textTv) {
             arrTv.splice(i, 1, result)
         }
 
-        if (row.length > 20 && row.match(regexType1)) {
-            arrTv.splice(i, 1)
-        }
-
         if (row.match(regexType1)) {
             const date = new Date(row);
 
@@ -133,28 +86,12 @@ export default function fixDateDoxcHandler(textTv) {
             }
 
             const fullDate = `${weekDay} ${day}.${month}.${year}`;
-            arrTv[i] = `\n${fullDate}\n`
+            arrTv[i] = `${EOL}${fullDate}${EOL}`
         }
-
-        if (row.startsWith("Genre:")) {
-            const tokens = row.split(" ");
-
-            genre = genres[tokens[1].replaceAll(",", "")];
-        }
-
-        if (forDelete(row)) {
-            arrTv.splice(i, 1);
-        }
-
-        // if (!forDelete(row)) {
-        //     // arrTv.splice(i, 1, `${row} - ${genre}`)
-        //     arrTv[i] = `${row} - ${genre}`
-        // }
 
     }
 
-    let convertedTvText = arrTv.filter((x) => x != "");
-    convertedTvText = convertedTvText.filter((x) => x != '"');
+    let convertedArrTv = arrTv.filter((x) => x != "");
 
-    return convertedTvText.join("\n");
+    return convertedArrTv;
 }
