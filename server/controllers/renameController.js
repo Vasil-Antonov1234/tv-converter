@@ -11,6 +11,7 @@ renameController.get("/tv", async (req, res) => {
         res.send(JSON.stringify(`${response} files has been renamed!`));
     } catch (error) {
         
+        res.status(400);
         res.send(JSON.stringify(errorMessageHandler(error)));
     };
 
@@ -26,7 +27,7 @@ renameController.post("/files", (req, res) => {
         res.send(JSON.stringify(`${response} files has been renamed!`));
     } catch (error) {
         res.status(400);
-        res.send(JSON.stringify(error));
+        res.send(JSON.stringify(errorMessageHandler(error)));
     };
 });
 
@@ -40,8 +41,8 @@ renameController.post("/pdf", async (req, res) => {
         res.send(JSON.stringify({ result }));
     } catch (error) {
         res.status(400);
-        res.send(JSON.stringify(error));
-    }
+        res.send(JSON.stringify(errorMessageHandler(error)));
+    };
 })
 
 export default renameController;
