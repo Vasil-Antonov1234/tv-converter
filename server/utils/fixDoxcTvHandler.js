@@ -2,6 +2,10 @@ export function fixDoxcTvHandler(tv, fileName) {
 
     const tvGenres = tv.filter((x) => x.startsWith("Genre:"))
 
+    if (tvGenres.length === 0) {
+        return tv.join("\n");
+    };
+
     const genres = {
         "Action": "Екшън",
         "Comedy": "Комедия",
