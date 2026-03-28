@@ -1,5 +1,6 @@
 import { Router } from "express";
 import renameServices from "../services/renameServices.js";
+import { errorMessageHandler } from "../utils/errorMessageHandler.js";
 
 const renameController = Router();
 
@@ -9,7 +10,8 @@ renameController.get("/tv", async (req, res) => {
         const response = await renameServices.renameAllTv();
         res.send(JSON.stringify(`${response} files has been renamed!`));
     } catch (error) {
-        res.send(JSON.stringify(error));
+        
+        res.send(JSON.stringify(errorMessageHandler(error)));
     };
 
 });

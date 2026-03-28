@@ -44,7 +44,7 @@ export default function fixDateDoxcHandler(textTv) {
             row.endsWith("СЪБОТА") ||
             row.endsWith("НЕДЕЛЯ")
         )) {
-            console.log("case1")
+            // console.log("case1")
             const tokens = row.split(" ");
             let day = tokens[3].toLowerCase();
             let firstLetter = day[0].toUpperCase();
