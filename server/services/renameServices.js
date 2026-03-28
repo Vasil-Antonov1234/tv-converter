@@ -16,7 +16,7 @@ export default {
 
         try {
             const dir = fs.readdirSync(inputFilePath);
-            let result = 0;
+            let renamedTvCount = 0;
 
             const onlyDocx = dir.filter((tv) => tv.endsWith(".docx"))
 
@@ -26,7 +26,7 @@ export default {
                     continue;
                 }
                 
-                result++;
+                renamedTvCount++;
 
                 let fileName = tv.split("_")[0];
                 fileName = `${fileName}.docx`;
@@ -46,7 +46,7 @@ export default {
 
                     const fileExtension = fileExtensionHandler(el);
 
-                    result++;
+                    renamedTvCount++;
 
                     let fileName = el.replace(regex, fileExtension);
 
@@ -95,7 +95,7 @@ export default {
                 }
             }
 
-            return result;
+            return renamedTvCount;
         } catch (error) {
             throw error;
         }
