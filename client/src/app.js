@@ -47,7 +47,7 @@ spinner.classList.add("spinner");
 
 const movies = ["криминален", "документален", "драма", "криминален", "екшън", "приключенски", "ужаси", "комедия",
     "романтичен", "романтика", "фантастика", "трилър", "хорър", "семеен", "уестърн", "мюзикъл", "анимация"];
-const episodePattern = /еп. \d+|еп.\d+|епизод \d+|епизод\d+/;
+const episodePattern = /еп. \d+|еп.\d+|епизод \d+|епизод\d+|Епизод \d+|Епизод\d+/;
 const hourPattern = /\d.\d\d /;
 
 function onConvert(e) {
@@ -527,8 +527,8 @@ function onConvert(e) {
     separatedTv.btvCinema = deleteExcludingForce(separatedTv.btvCinema, rows.btvCinema[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
     separatedTv.btvCinema = deleteRepetedRows1(separatedTv.btvCinema, rows.btvCinema[daySelection]);
     separatedTv.btvCinema = deleteEndComma(separatedTv.btvCinema);
-    
-    
+
+    separatedTv.dizi = deleteAfterEpisode(separatedTv.dizi, rows.dizi[daySelection]);
     separatedTv.dizi = deleteByHours(separatedTv.dizi, rows.dizi[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
     separatedTv.dizi = deleteGenre(separatedTv.dizi, rows.dizi[daySelection]);
     separatedTv.dizi = replaceText(separatedTv.dizi, rows.dizi[daySelection], "Епизод", "еп.");
@@ -1166,8 +1166,10 @@ function deleteAfterEpisode(arr, rows) {
 
             if (match) {
                 let rowArr = row.split(match);
-                row = rowArr[0] + " " + match;
-                result.splice(i, 1, row);
+                row = `${rowArr[0]}${match}`;
+                // row = rowArr[0] + " " + match;
+                result[i] = row;
+                // result.splice(i, 1, row);
                 returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
             };
 
@@ -1937,7 +1939,7 @@ function replaceMultipleSpaces(arr) {
 }
 
 // async function translateAndDeleteAfterEpisode(arr, rows) {
-        
+
 //     let result = arr;
 //     result = result.filter((x) => x !== "");
 
