@@ -15,7 +15,8 @@ export default {
     async renameAllTv() {
 
         try {
-            const dir = fs.readdirSync(inputFilePath);
+            // const dir = fs.readdirSync(inputFilePath);
+            const dir = await fsPromises.readdir(inputFilePath);
             let renamedTvCount = 0;
 
             const onlyDocx = dir.filter((tv) => tv.endsWith(".docx"))
@@ -31,7 +32,8 @@ export default {
                 let fileName = tv.split("_")[0];
                 fileName = `${fileName}.docx`;
 
-                fs.renameSync(`${inputFilePath}${tv}`, `${inputFilePath}${fileName}`);
+                // fs.renameSync(`${inputFilePath}${tv}`, `${inputFilePath}${fileName}`);
+                await fsPromises.rename(`${inputFilePath}${tv}`, `${inputFilePath}${fileName}`);
             }
 
             if (dir.find((x) => x.includes("-"))) {
@@ -50,17 +52,20 @@ export default {
 
                     let fileName = el.replace(regex, fileExtension);
 
-                    fs.renameSync(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`);
+                    // fs.renameSync(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`);
+                    await fsPromises.rename(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`);
                 };
             };
 
-            const renamedDir = fs.readdirSync(inputFilePath);
+            // const renamedDir = fs.readdirSync(inputFilePath);
+            const renamedDir = await fsPromises.readdir(inputFilePath);
 
             for (let tv of renamedDir) {
 
                 if (tvForFix.includes(tv) || tv.endsWith(".docx")) {
 
-                    const buffer = fs.readFileSync(`${inputFilePath}${tv}`);
+                    // const buffer = fs.readFileSync(`${inputFilePath}${tv}`);
+                    const buffer = await fsPromises.readFile(`${inputFilePath}${tv}`);
 
                     if (tv.endsWith(".docx")) {
                         const encodedBuffer = await mammoth.extractRawText({ buffer });
@@ -73,7 +78,8 @@ export default {
 
                         const outputFile = `${outputDir}${filename}.txt`
 
-                        fs.writeFileSync(outputFile, result, { encoding: "utf-8" })
+                        // fs.writeFileSync(outputFile, result, { encoding: "utf-8" })
+                        await fsPromises.writeFile(outputFile, result, { encoding: "utf-8" });
                     }
 
                     if (tv.endsWith(".txt")) {
@@ -90,7 +96,8 @@ export default {
                         let outputDir = paths.input;
                         let outputFile = `${outputDir}${tv}`
 
-                        fs.writeFileSync(outputFile, result, { encoding: "utf-8" });
+                        // fs.writeFileSync(outputFile, result, { encoding: "utf-8" });
+                        fsPromises.writeFile(outputFile, result, { encoding: "utf-8" });
                     }
                 }
             }
