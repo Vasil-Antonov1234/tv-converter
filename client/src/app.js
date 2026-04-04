@@ -527,9 +527,10 @@ function onConvert(e) {
     separatedTv.btvCinema = deleteExcludingForce(separatedTv.btvCinema, rows.btvCinema[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
     separatedTv.btvCinema = deleteRepetedRows1(separatedTv.btvCinema, rows.btvCinema[daySelection]);
     separatedTv.btvCinema = deleteEndComma(separatedTv.btvCinema);
+    separatedTv.dizi = translateAndDeleteAfterEpisode(separatedTv.dizi, rows.dizi[daySelection]);
     separatedTv.dizi = deleteByHours(separatedTv.dizi, rows.dizi[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
     separatedTv.dizi = deleteGenre(separatedTv.dizi, rows.dizi[daySelection]);
-    separatedTv.dizi = replaceText(separatedTv.dizi, rows.dizi[daySelection], "Епизод", "ep.");
+    separatedTv.dizi = replaceText(separatedTv.dizi, rows.dizi[daySelection], "Епизод", "еп.");
     separatedTv.dizi = replacePattern(separatedTv.dizi, rows.dizi[daySelection], /Сезон \d -/, "");
     separatedTv.dizi = replaceMultipleSpaces(separatedTv.dizi);
     separatedTv.dizi = replaceTextForce(separatedTv.dizi, "\t", " ");
@@ -1875,7 +1876,7 @@ function novaMovieHandler(novaTvArr, rows) {
 
         const isTvShow =
             row.includes("водещи") ||
-            row.includes("водещ") || 
+            row.includes("водещ") ||
             row.includes("Водещ") ||
             row.includes("Водещият") ||
             row.includes("водещият") ||
@@ -1926,15 +1927,51 @@ function novaAll(novaTvArr, rows) {
 }
 
 function replaceMultipleSpaces(arr) {
-    // debugger
-    
+
     let result = arr.join("/n");
 
     result = result.split("  ").filter((x) => x !== "").join("").split("/n");
-    // resultArr = resultArr.filter((x) => x !== "")
 
     return result;
 }
+
+function translateAndDeleteAfterEpisode(arr, rows) {
+    let result = arr;
+    result = result.filter((x) => x !== "");
+
+    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+    if (returnsCount <= rows) {
+        return result;
+    };
+
+    for (let i = 0; i < result.length; i++) {
+
+        if (returnsCount <= rows) {
+            return result;
+        };
+
+        let row = result[i];
+
+        const isFound = row.search("Episode") >= 0;
+
+        if (!isFound) {
+            continue;
+        };
+
+        const tokens = row.split(" ");
+        const index = tokens.indexOf("Episode");
+        const episodeCount = tokens[index + 1];
+        const firstPart = row.split("Episode")[0];
+        const convertedRow = `${firstPart}Епизод ${episodeCount}`;
+        // result.splice(i, 1, convertedRow)
+        result[i] = convertedRow;
+
+        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+    }
+
+    return result;
+};
 
 // Other functionality
 
