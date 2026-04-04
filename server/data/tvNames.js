@@ -114,3 +114,7 @@ export const tvForFix = [
     "Cinemax.docx",
     "Cinemax2.docx"
 ];
+
+export const tvForTranslate = [
+    "dizi.txt"
+]

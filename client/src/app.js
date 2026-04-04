@@ -50,7 +50,7 @@ const movies = ["криминален", "документален", "драма"
 const episodePattern = /еп. \d+|еп.\d+|епизод \d+|епизод\d+/;
 const hourPattern = /\d.\d\d /;
 
-async function onConvert(e) {
+function onConvert(e) {
     e.preventDefault();
 
     const tvBookOutput = document.querySelectorAll("#tv-book-form textarea")[1];
@@ -527,7 +527,8 @@ async function onConvert(e) {
     separatedTv.btvCinema = deleteExcludingForce(separatedTv.btvCinema, rows.btvCinema[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
     separatedTv.btvCinema = deleteRepetedRows1(separatedTv.btvCinema, rows.btvCinema[daySelection]);
     separatedTv.btvCinema = deleteEndComma(separatedTv.btvCinema);
-    separatedTv.dizi = await translateAndDeleteAfterEpisode(separatedTv.dizi, rows.dizi[daySelection]);
+    
+    
     separatedTv.dizi = deleteByHours(separatedTv.dizi, rows.dizi[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
     separatedTv.dizi = deleteGenre(separatedTv.dizi, rows.dizi[daySelection]);
     separatedTv.dizi = replaceText(separatedTv.dizi, rows.dizi[daySelection], "Епизод", "еп.");
@@ -1935,55 +1936,55 @@ function replaceMultipleSpaces(arr) {
     return result;
 }
 
-async function translateAndDeleteAfterEpisode(arr, rows) {
+// async function translateAndDeleteAfterEpisode(arr, rows) {
         
-    let result = arr;
-    result = result.filter((x) => x !== "");
+//     let result = arr;
+//     result = result.filter((x) => x !== "");
 
-    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+//     let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
-    if (returnsCount <= rows) {
-        return result;
-    };
+//     if (returnsCount <= rows) {
+//         return result;
+//     };
 
-    for (let i = 0; i < result.length; i++) {
+//     for (let i = 0; i < result.length; i++) {
 
-        if (returnsCount <= rows) {
-            return result;
-        };
+//         if (returnsCount <= rows) {
+//             return result;
+//         };
 
-        let row = result[i];
+//         let row = result[i];
 
-        const isFound = row.search("Episode") >= 0;
+//         const isFound = row.search("Episode") >= 0;
 
-        if (!isFound) {
-            continue;
-        };
+//         if (!isFound) {
+//             continue;
+//         };
 
-        const tokens = row.split(" ");
-        const index = tokens.indexOf("Episode");
-        const episodeCount = tokens[index + 1];
-        const firstPart = row.split("Episode")[0];
-        // const translatredPart = await translate(firstPart);
-        // const convertedRow = `${translatredPart ? translatredPart : firstPart} Епизод ${episodeCount}`;
-        const convertedRow = `${firstPart}Епизод ${episodeCount}`;
+//         const tokens = row.split(" ");
+//         const index = tokens.indexOf("Episode");
+//         const episodeCount = tokens[index + 1];
+//         const firstPart = row.split("Episode")[0];
+//         // const translatredPart = await translate(firstPart);
+//         // const convertedRow = `${translatredPart ? translatredPart : firstPart} Епизод ${episodeCount}`;
+//         const convertedRow = `${firstPart}Епизод ${episodeCount}`;
 
-        result[i] = convertedRow;
-        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-    }
+//         result[i] = convertedRow;
+//         returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+//     }
 
-    return result;
-};
+//     return result;
+// };
 
 // Other functionality
 
-async function translate (text) {
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|bg`;
-    const response = await fetch(url);
-    const data = await response.json();
+// async function translate (text) {
+//     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|bg`;
+//     const response = await fetch(url);
+//     const data = await response.json();
 
-    return data.responseData.translatedText;
-}
+//     return data.responseData.translatedText;
+// }
 
 function hideNotification(currentElement) {
     document.getElementById(currentElement)?.classList.remove("radio-container-notify");
