@@ -112,12 +112,27 @@ export default {
                     let outputDir = paths.input;
                     let outputFile = `${outputDir}${tv}`
 
-                    // const buffer = await fsPromises.readFile(`${inputFilePath}${tv}`);
-                    const textTv = await fsPromises.readFile(`${inputFilePath}${tv}`, { encoding: "utf-8" });
+                    const date = new Date();
+                    const day = date.getDate();
+                    const month = date.getMonth();
+                    const year = date.getFullYear();
+                    const cacheFileName = `translated-${day}-${month}-${year}-${tv}`
 
-                    const result = await translate(textTv);
+                    const cacheDir = await fsPromises.readdir(paths.cache);
 
-                    await fsPromises.writeFile(outputFile, result, { encoding: "utf-8" });
+                    if (cacheDir.includes(cacheFileName)) {
+                        await fsPromises.copyFile(`${paths.cache}${cacheFileName}`, `${inputFilePath}${tv}`);
+                    } else {
+
+                        const textTv = await fsPromises.readFile(`${inputFilePath}${tv}`, { encoding: "utf-8" });
+
+                        const result = await translate(textTv);
+
+                        await fsPromises.writeFile(outputFile, result, { encoding: "utf-8" });
+
+                        await fsPromises.writeFile(`${paths.cache}${cacheFileName}`, result, { encoding: "utf-8" });
+                    }
+
                 }
             }
 
