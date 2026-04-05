@@ -15,7 +15,6 @@ addController.post("/", async (req, res) => {
         res.status(201);
         res.send(JSON.stringify(response));
     } catch (error) {
-        console.log(`Something went wrong! ${errorMessageHandler(error)}.`);
         res.send(JSON.stringify(`Something went wrong! ${errorMessageHandler(error)}.`));
     };
 })
