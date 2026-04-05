@@ -527,7 +527,6 @@ function onConvert(e) {
     separatedTv.btvCinema = deleteExcludingForce(separatedTv.btvCinema, rows.btvCinema[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
     separatedTv.btvCinema = deleteRepetedRows1(separatedTv.btvCinema, rows.btvCinema[daySelection]);
     separatedTv.btvCinema = deleteEndComma(separatedTv.btvCinema);
-
     separatedTv.dizi = deleteAfterEpisode(separatedTv.dizi, rows.dizi[daySelection]);
     separatedTv.dizi = deleteByHours(separatedTv.dizi, rows.dizi[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
     separatedTv.dizi = deleteGenre(separatedTv.dizi, rows.dizi[daySelection]);
@@ -2489,6 +2488,11 @@ function replaceSpaces(text) {
 
 
 async function onTvRename(event) {
+    
+    // TODO report for the whole week
+    const tvMessage = document.getElementById("responseMessage");
+    const missingFilesMessage = document.getElementById("missingFilesMessage");
+    const missingDataMessage = document.getElementById("missingDataMessega");
 
     const renameTvButton = event.currentTarget;
 
@@ -2514,6 +2518,8 @@ async function onTvRename(event) {
                 "content-type": "application/json"
             }
         });
+        
+        // TODO more complex message {}
         const result = await response.json();
 
         message.textContent = result;
