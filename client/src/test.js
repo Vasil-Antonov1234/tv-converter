@@ -1,3 +1,3 @@
-for (let i = 1; i < 9; i++) {
-    console.log(i)
-}
+const a = ["test", "test1"]
+
+console.log(a.join("Епизод"))
