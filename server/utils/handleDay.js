@@ -55,7 +55,7 @@ export function handleNextWeekTvDates() {
     const dayOfWeek = daysNew[baseDate.getDay() - 1];
     const day = baseDate.getDate();
 
-    let interval = dayOfWeek === "Понеделник" ? 3 : 2;
+    let interval = dayOfWeek === "Понеделник" ? 4 : 3;
 
     for (let i = 0; i < 7; i++) {
 
