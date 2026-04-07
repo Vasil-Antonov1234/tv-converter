@@ -48,10 +48,10 @@ export default {
                     allMissindData++;
 
                     if (week[k].length === 0) {
-                        week[k].push(`----------------------\n${day}\n`);
+                        week[k].push(`\n${day}`);
                     };
 
-                    week[k].push(`${allTvNames[i]} - ${tv} - missing data!`);
+                    week[k].push(`${allTvNames[i]} - ${tv} - NO DATA! ❌ `);
                 }
 
             }

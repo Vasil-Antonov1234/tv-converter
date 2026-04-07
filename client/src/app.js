@@ -2490,7 +2490,7 @@ function replaceSpaces(text) {
 
 async function onTvRename(event) {
     
-    // TODO report for the whole week
+    // report for the whole week
     const tvMessage = document.getElementById("responseMessage");
     const missingFilesMessage = document.getElementById("missingFilesMessage");
     const missingFilesMessageCount = document.getElementById("missingFilesCount");
@@ -2522,7 +2522,6 @@ async function onTvRename(event) {
             }
         });
         
-        // TODO more complex message {}
         const result = await response.json();
 
         message.textContent = `${result.renamedFilesCount} files have been renamed`

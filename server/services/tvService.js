@@ -45,7 +45,7 @@ export default {
 
                 if (!encodedTV.includes(`${day} ${date}`)) {
                     tvArr.push(`${allTvNames[i]}${EOL}${day} ${date}${EOL}`);
-                    response.push(`${allTvNames[i]} - NO DATA! ❌ (${allTv[i]})`);
+                    response.push(`${allTvNames[i]} - (${allTv[i]}) - NO DATA! ❌`);
                     continue;
                 }
 
