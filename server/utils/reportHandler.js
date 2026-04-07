@@ -17,6 +17,7 @@ export default {
         const sunday = [];
 
         const week = [friday, saturday, sunday, monday, tuesday, wednesday, thursday];
+        let allMissindData = 0;
 
         for (let i = 0; i < allTv.length; i++) {
             let tv = allTv[i];
@@ -44,9 +45,10 @@ export default {
                 let day = datesToCheck[k];
 
                 if (!currentTv.includes(day)) {
+                    allMissindData++;
 
                     if (week[k].length === 0) {
-                        week[k].push(`${day}`);
+                        week[k].push(`----------------------\n${day}\n`);
                     };
 
                     week[k].push(`${allTvNames[i]} - ${tv} - missing data!`);
@@ -55,12 +57,14 @@ export default {
             }
         }
 
-        let result = [];
+        let report = [];
 
-        week.forEach((x) => result.push(x.join("\n")));
+        week.forEach((x) => report.push(x.join("\n")));
 
-        result = result.filter((x) => x.length > 0);
+        report = report.filter((x) => x.length > 0);
 
-        return result.join("\n");
+        const missingData = report.join("\n"); 
+
+        return { allMissindData, missingData }
     }
 }

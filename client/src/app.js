@@ -2536,6 +2536,8 @@ async function onTvRename(event) {
         missingFilesMessageCount.style.color = result.missingFiles.length === 0 ? green : red;
 
         missingDataMessage.textContent = result.missingData;
+        missingDataMessageCount.textContent = `Missing data: ${result.allMissindData}`;
+        missingDataMessageCount.style.color = result.allMissindData > 0 ? red : green;
 
     } catch (error) {
         message.textContent = error.message;
