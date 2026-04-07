@@ -2492,7 +2492,9 @@ async function onTvRename(event) {
     // TODO report for the whole week
     const tvMessage = document.getElementById("responseMessage");
     const missingFilesMessage = document.getElementById("missingFilesMessage");
+    const missingFilesMessageCount = document.getElementById("missingFilesCount");
     const missingDataMessage = document.getElementById("missingDataMessega");
+    const missingDataMessageCount = document.getElementById("missingDataCount");
 
     const renameTvButton = event.currentTarget;
 
@@ -2522,11 +2524,17 @@ async function onTvRename(event) {
         // TODO more complex message {}
         const result = await response.json();
 
-        message.textContent = result;
+        message.textContent = `${result.renamedFilesCount} files have been renamed`
         message.style.display = "inline";
         message.style.color = green;
 
-        errorMessageHandler(result, green);
+        errorMessageHandler(`${result.renamedFilesCount} files have been renamed`, green);
+
+        missingFilesMessage.textContent = `${result.missingFiles.join("\n")}`;
+        missingFilesMessageCount.textContent = `Missing files: ${result.missingFiles.length}`
+        missingFilesMessageCount.style.color = result.missingFiles.length === 0 ? green : red;
+
+        missingDataMessage.textContent = result.convertedCurrentDate;
 
     } catch (error) {
         message.textContent = error.message;
