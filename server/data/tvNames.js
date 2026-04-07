@@ -106,6 +106,16 @@ export const days = [
     "Неделя"
 ];
 
+export const daysNew = [
+    "Неделя",
+    "Понеделник",
+    "Вторник",
+    "Сряда",
+    "Четвъртък",
+    "Петък",
+    "Събота"
+];
+
 export const tvForFix = [
     "dizi.txt",
     "HBO.docx",

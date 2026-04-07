@@ -1,3 +1,5 @@
+import { days, daysNew } from "../data/tvNames.js";
+
 export function handleDay(tvText) {
 
     tvText = tvText.replaceAll("НЕДЕЛЯ", "Неделя");
@@ -40,6 +42,33 @@ export function handleOutputDay(day) {
         case "Неделя": result = "7-Неделя";
             break;
         default: result = "Day-misspell!"
+    }
+
+    return result;
+}
+
+export function handleNextWeekTvDates() {
+    const result = [];
+
+    const baseDate = new Date();
+
+    const dayOfWeek = daysNew[baseDate.getDay() - 1];
+    const day = baseDate.getDate();
+
+    let interval = dayOfWeek === "Понеделник" ? 3 : 2;
+
+    for (let i = 0; i < 7; i++) {
+
+        baseDate.setDate(day + interval);
+        const startDayOfWeek = daysNew[baseDate.getDay()];
+        const startDay = baseDate.getDate();
+        const startMonth = baseDate.getMonth() + 1;
+        const startYear = baseDate.getFullYear();
+
+        const convertedDate = `${startDayOfWeek} ${String(startDay).padStart(2, 0)}.${String(startMonth).padStart(2, 0)}.${startYear}`;
+        result.push(convertedDate);
+
+        interval++;
     }
 
     return result;

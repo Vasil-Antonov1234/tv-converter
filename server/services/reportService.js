@@ -1,7 +1,7 @@
 import fsPromises from "node:fs/promises";
 import paths from "../paths/paths.js";
 import { allTv } from "../data/tvPaths.js";
-import { days } from "../data/tvNames.js";
+import { handleNextWeekTvDates } from "../utils/handleDay.js";
 
 export default {
     async baseReport(renamedFilesCount) {
@@ -12,22 +12,14 @@ export default {
 
         allFiles.forEach((tv) => dir.includes(tv) ? "" : missingFiles.push(`${tv} file is missing!`));
 
-        const currentDate = new Date();
-        const dayOfWeek = days[currentDate.getDay() - 1];
-        const day = currentDate.getDate();
-        const month = currentDate.getMonth() + 1;
-        const year = currentDate.getFullYear();
-
-        const convertedCurrentDate = `${dayOfWeek} ${String(day).padStart(2, 0)}.${String(month).padStart(2, 0)}.${year}`
-
-        const datesToCheck = [
-            
-        ]
+        // TODO option to set datesToCheck manualy
+        // in the app, if the day is not Monday or Tuesday, require that the dates for check to be set manyally
+        const datesToCheck = handleNextWeekTvDates();
 
         const report = {
             renamedFilesCount,
             missingFiles,
-            convertedCurrentDate
+            datesToCheck
         }
 
         return report;

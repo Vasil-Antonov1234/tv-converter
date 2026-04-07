@@ -527,6 +527,7 @@ function onConvert(e) {
     separatedTv.btvCinema = deleteExcludingForce(separatedTv.btvCinema, rows.btvCinema[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
     separatedTv.btvCinema = deleteRepetedRows1(separatedTv.btvCinema, rows.btvCinema[daySelection]);
     separatedTv.btvCinema = deleteEndComma(separatedTv.btvCinema);
+    separatedTv.dizi = replaceTextForce(separatedTv.dizi, "Episode", "Епизод");
     separatedTv.dizi = deleteAfterEpisode(separatedTv.dizi, rows.dizi[daySelection]);
     separatedTv.dizi = deleteByHours(separatedTv.dizi, rows.dizi[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
     separatedTv.dizi = deleteGenre(separatedTv.dizi, rows.dizi[daySelection]);
@@ -2534,7 +2535,7 @@ async function onTvRename(event) {
         missingFilesMessageCount.textContent = `Missing files: ${result.missingFiles.length}`
         missingFilesMessageCount.style.color = result.missingFiles.length === 0 ? green : red;
 
-        missingDataMessage.textContent = result.convertedCurrentDate;
+        missingDataMessage.textContent = result.datesToCheck;
 
     } catch (error) {
         message.textContent = error.message;
