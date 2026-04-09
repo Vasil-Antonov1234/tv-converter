@@ -12,6 +12,8 @@ export default {
         let dirPhotosSource = "";
         let dirTelSite = "";
 
+        const weekendIssue = issue.includes("-") ? issue.split("-")[0] : issue.split("_")[0];
+
         const photoIssue = handleAgroZlatnoIssue(applicationIssue);
 
         // console.log(photoIssue)
@@ -25,7 +27,7 @@ export default {
 
         if (application === "Weekend") {
             dirFilesSource = await fsPromises.readdir(paths.weekendFiles);
-            dirPhotosSource = await fsPromises.readdir(`${paths.photos}_WEEKEND ${applicationIssue}/OLD/`);
+            dirPhotosSource = await fsPromises.readdir(`${paths.photos}_WEEKEND ${weekendIssue}/OLD/`);
             dirTelSite = await fsPromises.readdir(paths.telSite);
         };
 
@@ -171,7 +173,7 @@ export default {
                     };
 
                     if (application === "Weekend") {
-                        source = path.join(`${paths.photos}_WEEKEND ${applicationIssue}/OLD/`, photo);
+                        source = path.join(`${paths.photos}_WEEKEND ${weekendIssue}/OLD/`, photo);
                     };
 
                     if (application === "currentIssue") {

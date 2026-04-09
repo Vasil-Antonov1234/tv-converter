@@ -403,262 +403,262 @@ function onConvert(e) {
         return radio;
     };
 
-    separatedTv.bnt1 = replaceTextForce(separatedTv.bnt1, "документален", "док.");
-    separatedTv.bnt1 = addLeadingZero(separatedTv.bnt1, /^\d.\d\d /);
+    separatedTv.bnt1 = tvFunctions.replaceTextForce(separatedTv.bnt1, "документален", "док.");
+    separatedTv.bnt1 = tvFunctions.addLeadingZero(separatedTv.bnt1, /^\d.\d\d /);
     separatedTv.bnt1 = tvFunctions.deleteByHours(separatedTv.bnt1, rows.bnt1[daySelection], ["00", "01", "02", "03", "04"]);
     separatedTv.bnt1 = convertAll(separatedTv.bnt1, rows.bnt1[daySelection], tvCalcConstants[tvCalcValue]);
-    separatedTv.bnt1 = deleteGenre(separatedTv.bnt1, rows.bnt1[daySelection]);
+    separatedTv.bnt1 = tvFunctions.deleteGenre(separatedTv.bnt1, rows.bnt1[daySelection]);
     separatedTv.bnt1 = deleteIncluding(separatedTv.bnt1, rows.bnt1[daySelection], "/избрано/");
-    separatedTv.bnt1 = deleteByHourAndTextExcluding(separatedTv.bnt1, rows.bnt1[daySelection], ["05", "06"], "Денят започва", "сутрешен блок");
-    separatedTv.bnt1 = deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "пряко", tvCalcConstants[tvCalcValue]);
-    separatedTv.bnt1 = deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "токшоу", tvCalcConstants[tvCalcValue]);
-    separatedTv.bnt1 = deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "куиз шоу", tvCalcConstants[tvCalcValue]);
+    separatedTv.bnt1 = tvFunctions.deleteByHourAndTextExcluding(separatedTv.bnt1, rows.bnt1[daySelection], ["05", "06"], "Денят започва", "сутрешен блок");
+    separatedTv.bnt1 = tvFunctions.deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "пряко", tvCalcConstants[tvCalcValue]);
+    separatedTv.bnt1 = tvFunctions.deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "токшоу", tvCalcConstants[tvCalcValue]);
+    separatedTv.bnt1 = tvFunctions.deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "куиз шоу", tvCalcConstants[tvCalcValue]);
     separatedTv.bnt1 = deleteIncluding(separatedTv.bnt1, rows.bnt1[daySelection], "режисьор", tvCalcConstants[tvCalcValue]);
-    separatedTv.bnt1 = deleteByHourAndTextExcluding(separatedTv.bnt1, rows.bnt1[daySelection], ["07"], "Денят започва", "сутрешен блок");
-    separatedTv.bnt1 = deleteByHours(separatedTv.bnt1, rows.bnt1[daySelection], ["23"]);
-    separatedTv.bnt1 = deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "Имате среща с ...", tvCalcConstants[tvCalcValue]);
-    separatedTv.bnt1 = replaceText(separatedTv.bnt1, rows.bnt1[daySelection], "БГ киновечер: ", "");
-    separatedTv.bnt1 = deleteEndComma(separatedTv.bnt1);
-    separatedTv.bnt2 = deleteByHours(separatedTv.bnt2, rows.bnt2[daySelection], ["00", "01", "02", "03", "04", "05", "06", "07"]);
-    separatedTv.bnt2 = deleteExcluding(separatedTv.bnt2, rows.bnt2[daySelection], "Лека нощ, деца!", tvCalcConstants[tvCalcValue]);
-    separatedTv.bnt2 = deleteGenre(separatedTv.bnt2, rows.bnt2[daySelection]);
+    separatedTv.bnt1 = tvFunctions.deleteByHourAndTextExcluding(separatedTv.bnt1, rows.bnt1[daySelection], ["07"], "Денят започва", "сутрешен блок");
+    separatedTv.bnt1 = tvFunctions.deleteByHours(separatedTv.bnt1, rows.bnt1[daySelection], ["23"]);
+    separatedTv.bnt1 = tvFunctions.deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "Имате среща с ...", tvCalcConstants[tvCalcValue]);
+    separatedTv.bnt1 = tvFunctions.replaceText(separatedTv.bnt1, rows.bnt1[daySelection], "БГ киновечер: ", "");
+    separatedTv.bnt1 = tvFunctions.deleteEndComma(separatedTv.bnt1);
+    separatedTv.bnt2 = tvFunctions.deleteByHours(separatedTv.bnt2, rows.bnt2[daySelection], ["00", "01", "02", "03", "04", "05", "06", "07"]);
+    separatedTv.bnt2 = tvFunctions.deleteExcluding(separatedTv.bnt2, rows.bnt2[daySelection], "Лека нощ, деца!", tvCalcConstants[tvCalcValue]);
+    separatedTv.bnt2 = tvFunctions.deleteGenre(separatedTv.bnt2, rows.bnt2[daySelection]);
     separatedTv.bnt2 = deleteIncluding(separatedTv.bnt2, rows.bnt2[daySelection], "режисьор", tvCalcConstants[tvCalcValue]);
     separatedTv.bnt2 = deleteIncluding(separatedTv.bnt2, rows.bnt2[daySelection], "предаване", tvCalcConstants[tvCalcValue]);
-    separatedTv.bnt2 = replaceText(separatedTv.bnt2, rows.bnt2[daySelection], "сериен", "сер.");
+    separatedTv.bnt2 = tvFunctions.replaceText(separatedTv.bnt2, rows.bnt2[daySelection], "сериен", "сер.");
     separatedTv.bnt2 = deleteIncluding(separatedTv.bnt2, rows.bnt2[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
-    separatedTv.bnt2 = deleteEndComma(separatedTv.bnt2);
-    separatedTv.bnt3 = deleteByHours(separatedTv.bnt3, rows.bnt3[daySelection], ["01", "02", "03", "04", "05", "06", "00"]);
+    separatedTv.bnt2 = tvFunctions.deleteEndComma(separatedTv.bnt2);
+    separatedTv.bnt3 = tvFunctions.deleteByHours(separatedTv.bnt3, rows.bnt3[daySelection], ["01", "02", "03", "04", "05", "06", "00"]);
     separatedTv.bnt3 = deleteIncluding(separatedTv.bnt3, rows.bnt3[daySelection], "режисьор", tvCalcConstants[tvCalcValue]);
-    separatedTv.bnt3 = deleteGenre(separatedTv.bnt3, rows.bnt3[daySelection]);
-    separatedTv.bnt3 = deleteEndComma(separatedTv.bnt3);
-    separatedTv.bnt4 = deleteByHours(separatedTv.bnt4, rows.bnt4[daySelection], ["02", "03", "04"]);
-    separatedTv.bnt4 = deleteExcluding(separatedTv.bnt4, rows.bnt4[daySelection], "токшоу", tvCalcConstants[tvCalcValue]);
+    separatedTv.bnt3 = tvFunctions.deleteGenre(separatedTv.bnt3, rows.bnt3[daySelection]);
+    separatedTv.bnt3 = tvFunctions.deleteEndComma(separatedTv.bnt3);
+    separatedTv.bnt4 = tvFunctions.deleteByHours(separatedTv.bnt4, rows.bnt4[daySelection], ["02", "03", "04"]);
+    separatedTv.bnt4 = tvFunctions.deleteExcluding(separatedTv.bnt4, rows.bnt4[daySelection], "токшоу", tvCalcConstants[tvCalcValue]);
     separatedTv.btv = convertAll(separatedTv.btv, rows.btv[daySelection], tvCalcConstants[tvCalcValue]);
-    separatedTv.btv = deleteByHours(separatedTv.btv, rows.btv[daySelection], ["01", "02", "03", "04", "05", "06", "00"]);
-    separatedTv.btv = deleteExcluding(separatedTv.btv, rows.btv[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
-    separatedTv.btv = deleteExcluding(separatedTv.btv, rows.btv[daySelection], "токшоу", tvCalcConstants[tvCalcValue]);
-    separatedTv.btv = deleteExcluding(separatedTv.btv, rows.btv[daySelection], "куиз шоу", tvCalcConstants[tvCalcValue]);
-    separatedTv.btv = deleteExcluding(separatedTv.btv, rows.btv[daySelection], "забавно шоу", tvCalcConstants[tvCalcValue]);
-    separatedTv.btv = deleteExcluding(separatedTv.btv, rows.btv[daySelection], "поредица", tvCalcConstants[tvCalcValue]);
-    separatedTv.btv = deleteExcluding(separatedTv.btv, rows.btv[daySelection], "телевизионна игра", tvCalcConstants[tvCalcValue]);
-    separatedTv.btv = deleteGenre(separatedTv.btv, rows.btv[daySelection]);
-    separatedTv.btv = deletePatternIncluding(separatedTv.btv, rows.btv[daySelection], /с водеща |с водещи |с водещ /);
-    separatedTv.btv = deleteEndComma(separatedTv.btv);
-    separatedTv.novaTv = deleteByHours(separatedTv.novaTv, rows.novaTv[daySelection], ["00", "01", "02", "03", "04", "05"]);
+    separatedTv.btv = tvFunctions.deleteByHours(separatedTv.btv, rows.btv[daySelection], ["01", "02", "03", "04", "05", "06", "00"]);
+    separatedTv.btv = tvFunctions.deleteExcluding(separatedTv.btv, rows.btv[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
+    separatedTv.btv = tvFunctions.deleteExcluding(separatedTv.btv, rows.btv[daySelection], "токшоу", tvCalcConstants[tvCalcValue]);
+    separatedTv.btv = tvFunctions.deleteExcluding(separatedTv.btv, rows.btv[daySelection], "куиз шоу", tvCalcConstants[tvCalcValue]);
+    separatedTv.btv = tvFunctions.deleteExcluding(separatedTv.btv, rows.btv[daySelection], "забавно шоу", tvCalcConstants[tvCalcValue]);
+    separatedTv.btv = tvFunctions.deleteExcluding(separatedTv.btv, rows.btv[daySelection], "поредица", tvCalcConstants[tvCalcValue]);
+    separatedTv.btv = tvFunctions.deleteExcluding(separatedTv.btv, rows.btv[daySelection], "телевизионна игра", tvCalcConstants[tvCalcValue]);
+    separatedTv.btv = tvFunctions.deleteGenre(separatedTv.btv, rows.btv[daySelection]);
+    separatedTv.btv = tvFunctions.deletePatternIncluding(separatedTv.btv, rows.btv[daySelection], /с водеща |с водещи |с водещ /);
+    separatedTv.btv = tvFunctions.deleteEndComma(separatedTv.btv);
+    separatedTv.novaTv = tvFunctions.deleteByHours(separatedTv.novaTv, rows.novaTv[daySelection], ["00", "01", "02", "03", "04", "05"]);
     separatedTv.novaTv = convertAll(separatedTv.novaTv, rows.novaTv[daySelection], tvCalcConstants[tvCalcValue]);
-    separatedTv.novaTv = replaceText(separatedTv.novaTv, rows.novaTv[daySelection], "(премиера)", "");
-    separatedTv.novaTv = replaceText(separatedTv.novaTv, rows.novaTv[daySelection], "с уч.", "игрален филм с уч.");
-    separatedTv.novaTv = deleteExcluding(separatedTv.novaTv, rows.novaTv[daySelection], "игрален филм", tvCalcConstants[tvCalcValue]);
+    separatedTv.novaTv = tvFunctions.replaceText(separatedTv.novaTv, rows.novaTv[daySelection], "(премиера)", "");
+    separatedTv.novaTv = tvFunctions.replaceText(separatedTv.novaTv, rows.novaTv[daySelection], "с уч.", "игрален филм с уч.");
+    separatedTv.novaTv = tvFunctions.deleteExcluding(separatedTv.novaTv, rows.novaTv[daySelection], "игрален филм", tvCalcConstants[tvCalcValue]);
     separatedTv.novaTv = equalization(separatedTv.novaTv, rows.novaTv[daySelection], "сер.", "сериен телевизионен филм");
     separatedTv.novaTv = deleteShortShow(separatedTv.novaTv, rows.novaTv[daySelection], 5);
     separatedTv.novaTv = novaAll(separatedTv.novaTv, rows.novaTv[daySelection]);
     separatedTv.novaNews = convertAll(separatedTv.novaNews, rows.novaNews[daySelection], tvCalcConstants[tvCalcValue]);
-    separatedTv.novaNews = deleteByHours(separatedTv.novaNews, rows.novaNews[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "23", "00"]);
-    separatedTv.novaNews = deleteByHourAndText(separatedTv.novaNews, rows.novaNews[daySelection], ["11.00", "13.00", "15.00", "16.00", "18.00", "21.00"], "Новините");
-    separatedTv.novaNews = deleteByHourAndText(separatedTv.novaNews, rows.novaNews[daySelection], ["11.10"], "Твоят");
-    separatedTv.novaNews = deleteExcluding(separatedTv.novaNews, rows.novaNews[daySelection], "поредица", tvCalcConstants[tvCalcValue]);
-    separatedTv.novaNews = replaceText(separatedTv.novaNews, rows.novaNews[daySelection], "документална поредица", "поредица");
-    separatedTv.novaNews = replaceText(separatedTv.novaNews, rows.novaNews[daySelection], " на DW", "");
-    separatedTv.novaNews = replaceText(separatedTv.novaNews, rows.novaNews[daySelection], "(премиера) ", "");
-    separatedTv.novaNews = replaceText(separatedTv.novaNews, rows.novaNews[daySelection], "икономическо предаване", "предаване");
-    separatedTv.novaNews = replaceText(separatedTv.novaNews, rows.novaNews[daySelection], "публицистично токшоу", "токшоу");
-    separatedTv.novaNews = replaceText(separatedTv.novaNews, rows.novaNews[daySelection], " на NOVA NEWS", "");
-    separatedTv.novaNews = replaceText(separatedTv.novaNews, rows.novaNews[daySelection], " на NOVA", "");
-    separatedTv.novaNews = deleteExcluding(separatedTv.novaNews, rows.novaNews[daySelection], "Сутрешен блок", tvCalcConstants[tvCalcValue]);
+    separatedTv.novaNews = tvFunctions.deleteByHours(separatedTv.novaNews, rows.novaNews[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "23", "00"]);
+    separatedTv.novaNews = tvFunctions.deleteByHourAndText(separatedTv.novaNews, rows.novaNews[daySelection], ["11.00", "13.00", "15.00", "16.00", "18.00", "21.00"], "Новините");
+    separatedTv.novaNews = tvFunctions.deleteByHourAndText(separatedTv.novaNews, rows.novaNews[daySelection], ["11.10"], "Твоят");
+    separatedTv.novaNews = tvFunctions.deleteExcluding(separatedTv.novaNews, rows.novaNews[daySelection], "поредица", tvCalcConstants[tvCalcValue]);
+    separatedTv.novaNews = tvFunctions.replaceText(separatedTv.novaNews, rows.novaNews[daySelection], "документална поредица", "поредица");
+    separatedTv.novaNews = tvFunctions.replaceText(separatedTv.novaNews, rows.novaNews[daySelection], " на DW", "");
+    separatedTv.novaNews = tvFunctions.replaceText(separatedTv.novaNews, rows.novaNews[daySelection], "(премиера) ", "");
+    separatedTv.novaNews = tvFunctions.replaceText(separatedTv.novaNews, rows.novaNews[daySelection], "икономическо предаване", "предаване");
+    separatedTv.novaNews = tvFunctions.replaceText(separatedTv.novaNews, rows.novaNews[daySelection], "публицистично токшоу", "токшоу");
+    separatedTv.novaNews = tvFunctions.replaceText(separatedTv.novaNews, rows.novaNews[daySelection], " на NOVA NEWS", "");
+    separatedTv.novaNews = tvFunctions.replaceText(separatedTv.novaNews, rows.novaNews[daySelection], " на NOVA", "");
+    separatedTv.novaNews = tvFunctions.deleteExcluding(separatedTv.novaNews, rows.novaNews[daySelection], "Сутрешен блок", tvCalcConstants[tvCalcValue]);
     separatedTv.novaNews = novaAll(separatedTv.novaNews, rows.novaNews[daySelection]);
     separatedTv.hbo = deleteIncluding(separatedTv.hbo, rows.hbo[daySelection], "реж.", tvCalcConstants[tvCalcValue]);
-    separatedTv.hbo = deleteGenre(separatedTv.hbo, rows.hbo[daySelection]);
-    separatedTv.hbo = deleteByHours(separatedTv.hbo, rows.hbo[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.hbo = deleteEndComma(separatedTv.hbo);
-    separatedTv.axn = deleteAfterEpisode(separatedTv.axn, rows.axn[daySelection]);
-    separatedTv.axn = deleteEndComma(separatedTv.axn);
-    separatedTv.axn = deleteByHours(separatedTv.axn, rows.axn[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.axn = replaceTextForce(separatedTv.axn, "сезон", "сер.");
+    separatedTv.hbo = tvFunctions.deleteGenre(separatedTv.hbo, rows.hbo[daySelection]);
+    separatedTv.hbo = tvFunctions.deleteByHours(separatedTv.hbo, rows.hbo[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.hbo = tvFunctions.deleteEndComma(separatedTv.hbo);
+    separatedTv.axn = tvFunctions.deleteAfterEpisode(separatedTv.axn, rows.axn[daySelection]);
+    separatedTv.axn = tvFunctions.deleteEndComma(separatedTv.axn);
+    separatedTv.axn = tvFunctions.deleteByHours(separatedTv.axn, rows.axn[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.axn = tvFunctions.replaceTextForce(separatedTv.axn, "сезон", "сер.");
     separatedTv.axn = deleteExcludingForce(separatedTv.axn, rows.axn[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
-    separatedTv.axn = replaceTextForce(separatedTv.axn, "сер. ", "сезон ");
-    separatedTv.axn = deleteRepetedRows1(separatedTv.axn, rows.axn[daySelection]);
+    separatedTv.axn = tvFunctions.replaceTextForce(separatedTv.axn, "сер. ", "сезон ");
+    separatedTv.axn = tvFunctions.deleteRepetedRows1(separatedTv.axn, rows.axn[daySelection]);
     separatedTv.axn = equalization(separatedTv.axn, rows.axn[daySelection], "еп.", "епизод");
     separatedTv.axn = equalization(separatedTv.axn, rows.axn[daySelection], ";", " - ");
-    separatedTv.kinoNova = deleteByHours(separatedTv.kinoNova, rows.kinoNova[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
-    separatedTv.kinoNova = deleteGenre(separatedTv.kinoNova, rows.kinoNova[daySelection]);
-    separatedTv.kinoNova = deleteEndComma(separatedTv.kinoNova);
-    separatedTv.diema = deleteGenre(separatedTv.diema, rows.diema[daySelection]);
-    separatedTv.diema = deleteByHours(separatedTv.diema, rows.diema[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
-    separatedTv.diema = deleteEndComma(separatedTv.diema);
-    separatedTv.hbo3 = replaceTextForce(separatedTv.hbo3, "„", "");
-    separatedTv.hbo3 = replaceTextForce(separatedTv.hbo3, "”", "");
-    separatedTv.hbo3 = deleteByHours(separatedTv.hbo3, rows.hbo3[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
-    separatedTv.hbo3 = deleteGenre(separatedTv.hbo3, rows.hbo3[daySelection]);
-    separatedTv.hbo3 = deleteEndComma(separatedTv.hbo3);
-    separatedTv.hbo3 = deleteExcluding(separatedTv.hbo3, rows.hbo3[daySelection], "еп.", tvCalcConstants[tvCalcValue]);
-    separatedTv.btvAction = deleteGenre(separatedTv.btvAction, rows.btvAction[daySelection]);
-    separatedTv.btvAction = deleteByHours(separatedTv.btvAction, rows.btvAction[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
+    separatedTv.kinoNova = tvFunctions.deleteByHours(separatedTv.kinoNova, rows.kinoNova[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
+    separatedTv.kinoNova = tvFunctions.deleteGenre(separatedTv.kinoNova, rows.kinoNova[daySelection]);
+    separatedTv.kinoNova = tvFunctions.deleteEndComma(separatedTv.kinoNova);
+    separatedTv.diema = tvFunctions.deleteGenre(separatedTv.diema, rows.diema[daySelection]);
+    separatedTv.diema = tvFunctions.deleteByHours(separatedTv.diema, rows.diema[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
+    separatedTv.diema = tvFunctions.deleteEndComma(separatedTv.diema);
+    separatedTv.hbo3 = tvFunctions.replaceTextForce(separatedTv.hbo3, "„", "");
+    separatedTv.hbo3 = tvFunctions.replaceTextForce(separatedTv.hbo3, "”", "");
+    separatedTv.hbo3 = tvFunctions.deleteByHours(separatedTv.hbo3, rows.hbo3[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
+    separatedTv.hbo3 = tvFunctions.deleteGenre(separatedTv.hbo3, rows.hbo3[daySelection]);
+    separatedTv.hbo3 = tvFunctions.deleteEndComma(separatedTv.hbo3);
+    separatedTv.hbo3 = tvFunctions.deleteExcluding(separatedTv.hbo3, rows.hbo3[daySelection], "еп.", tvCalcConstants[tvCalcValue]);
+    separatedTv.btvAction = tvFunctions.deleteGenre(separatedTv.btvAction, rows.btvAction[daySelection]);
+    separatedTv.btvAction = tvFunctions.deleteByHours(separatedTv.btvAction, rows.btvAction[daySelection], ["01", "02", "03", "04", "05", "06", "07"]);
     separatedTv.btvAction = deleteExcludingForce(separatedTv.btvAction, rows.btvAction[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
-    separatedTv.btvAction = deleteRepetedRows(separatedTv.btvAction, rows.btvAction[daySelection]);
+    separatedTv.btvAction = tvFunctions.deleteRepetedRows1(separatedTv.btvAction, rows.btvAction[daySelection]);
     separatedTv.btvAction = deleteExcludingForce(separatedTv.btvAction, rows.btvAction[daySelection], "предаване,", tvCalcConstants[tvCalcValue]);
-    separatedTv.btvAction = deleteSpecific(separatedTv.btvAction, "екстремно");
-    separatedTv.btvAction = deleteExcluding(separatedTv.btvAction, rows.btvAction[daySelection], "предаване", tvCalcConstants[tvCalcValue]);
-    separatedTv.btvAction = deleteExcluding(separatedTv.btvAction, rows.btvAction[daySelection], "телевизионна игра", tvCalcConstants[tvCalcValue]);
-    separatedTv.btvAction = deleteEndComma(separatedTv.btvAction);
-    separatedTv.btvAction = replaceText(separatedTv.btvAction, rows.btvAction[daySelection], "ПРЕМИЕРА: ", "");
-    separatedTv.btvAction = replaceText(separatedTv.btvAction, rows.btvAction[daySelection], "Премиера: ", "");
-    separatedTv.btvAction = replaceText(separatedTv.btvAction, rows.btvAction[daySelection], "документална поредица", "поредица");
-    separatedTv.btvAction = deleteByHours(separatedTv.btvAction, rows.btvAction[daySelection], ["00", "23"]);
-    separatedTv.btvComedy = deleteGenre(separatedTv.btvComedy, rows.btvComedy[daySelection]);
+    separatedTv.btvAction = tvFunctions.deleteSpecific(separatedTv.btvAction, "екстремно");
+    separatedTv.btvAction = tvFunctions.deleteExcluding(separatedTv.btvAction, rows.btvAction[daySelection], "предаване", tvCalcConstants[tvCalcValue]);
+    separatedTv.btvAction = tvFunctions.deleteExcluding(separatedTv.btvAction, rows.btvAction[daySelection], "телевизионна игра", tvCalcConstants[tvCalcValue]);
+    separatedTv.btvAction = tvFunctions.deleteEndComma(separatedTv.btvAction);
+    separatedTv.btvAction = tvFunctions.replaceText(separatedTv.btvAction, rows.btvAction[daySelection], "ПРЕМИЕРА: ", "");
+    separatedTv.btvAction = tvFunctions.replaceText(separatedTv.btvAction, rows.btvAction[daySelection], "Премиера: ", "");
+    separatedTv.btvAction = tvFunctions.replaceText(separatedTv.btvAction, rows.btvAction[daySelection], "документална поредица", "поредица");
+    separatedTv.btvAction = tvFunctions.deleteByHours(separatedTv.btvAction, rows.btvAction[daySelection], ["00", "23"]);
+    separatedTv.btvComedy = tvFunctions.deleteGenre(separatedTv.btvComedy, rows.btvComedy[daySelection]);
     separatedTv.btvComedy = deleteExcludingForce(separatedTv.btvComedy, rows.btvComedy[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
     separatedTv.btvComedy = deleteExcludingForce(separatedTv.btvComedy, rows.btvComedy[daySelection], "сер.,", tvCalcConstants[tvCalcValue]);
-    separatedTv.btvComedy = deleteRepetedRows1(separatedTv.btvComedy, rows.btvComedy[daySelection]);
-    separatedTv.btvComedy = replaceTextForce(separatedTv.btvComedy, "Премиера: ", "");
-    separatedTv.btvComedy = deleteByHours(separatedTv.btvComedy, rows.btvComedy[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.btvComedy = replaceText(separatedTv.btvComedy, rows.btvComedy[daySelection], "сериал,", "");
-    separatedTv.btvComedy = replacePattern(separatedTv.btvComedy, rows.btvComedy[daySelection], /с\.\d,/, "");
-    separatedTv.btvComedy = replacePattern(separatedTv.btvComedy, rows.btvComedy[daySelection], /с\.\d\d,/, "");
-    separatedTv.btvComedy = deleteAfterEpisode(separatedTv.btvComedy, rows.btvComedy[daySelection]);
-    separatedTv.btvComedy = replacePattern(separatedTv.btvComedy, rows.btvComedy[daySelection], /еп\.\d\d/, "сер.");
-    separatedTv.btvComedy = replacePattern(separatedTv.btvComedy, rows.btvComedy[daySelection], /еп\.\d/, "сер.");
-    separatedTv.btvComedy = replaceText(separatedTv.btvComedy, rows.btvComedy[daySelection], "  ", " ");
-    separatedTv.btvComedy = deleteRepetedRows1(separatedTv.btvComedy, rows.btvComedy[daySelection]);
-    separatedTv.btvComedy = deleteEndComma(separatedTv.btvComedy);
-    separatedTv.btvCinema = deleteGenre(separatedTv.btvCinema, rows.btvCinema[daySelection]);
-    separatedTv.btvCinema = deleteByHours(separatedTv.btvCinema, rows.btvCinema[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
+    separatedTv.btvComedy = tvFunctions.deleteRepetedRows1(separatedTv.btvComedy, rows.btvComedy[daySelection]);
+    separatedTv.btvComedy = tvFunctions.replaceTextForce(separatedTv.btvComedy, "Премиера: ", "");
+    separatedTv.btvComedy = tvFunctions.deleteByHours(separatedTv.btvComedy, rows.btvComedy[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.btvComedy = tvFunctions.replaceText(separatedTv.btvComedy, rows.btvComedy[daySelection], "сериал,", "");
+    separatedTv.btvComedy = tvFunctions.replacePattern(separatedTv.btvComedy, rows.btvComedy[daySelection], /с\.\d,/, "");
+    separatedTv.btvComedy = tvFunctions.replacePattern(separatedTv.btvComedy, rows.btvComedy[daySelection], /с\.\d\d,/, "");
+    separatedTv.btvComedy = tvFunctions.deleteAfterEpisode(separatedTv.btvComedy, rows.btvComedy[daySelection]);
+    separatedTv.btvComedy = tvFunctions.replacePattern(separatedTv.btvComedy, rows.btvComedy[daySelection], /еп\.\d\d/, "сер.");
+    separatedTv.btvComedy = tvFunctions.replacePattern(separatedTv.btvComedy, rows.btvComedy[daySelection], /еп\.\d/, "сер.");
+    separatedTv.btvComedy = tvFunctions.replaceText(separatedTv.btvComedy, rows.btvComedy[daySelection], "  ", " ");
+    separatedTv.btvComedy = tvFunctions.deleteRepetedRows1(separatedTv.btvComedy, rows.btvComedy[daySelection]);
+    separatedTv.btvComedy = tvFunctions.deleteEndComma(separatedTv.btvComedy);
+    separatedTv.btvCinema = tvFunctions.deleteGenre(separatedTv.btvCinema, rows.btvCinema[daySelection]);
+    separatedTv.btvCinema = tvFunctions.deleteByHours(separatedTv.btvCinema, rows.btvCinema[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
     separatedTv.btvCinema = deleteExcludingForce(separatedTv.btvCinema, rows.btvCinema[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
-    separatedTv.btvCinema = deleteRepetedRows1(separatedTv.btvCinema, rows.btvCinema[daySelection]);
-    separatedTv.btvCinema = deleteEndComma(separatedTv.btvCinema);
-    separatedTv.dizi = replaceTextForce(separatedTv.dizi, "Episode", "Епизод");
-    separatedTv.dizi = deleteAfterEpisode(separatedTv.dizi, rows.dizi[daySelection]);
-    separatedTv.dizi = deleteByHours(separatedTv.dizi, rows.dizi[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
-    separatedTv.dizi = deleteGenre(separatedTv.dizi, rows.dizi[daySelection]);
-    separatedTv.dizi = replaceText(separatedTv.dizi, rows.dizi[daySelection], "Епизод", "еп.");
-    separatedTv.dizi = replacePattern(separatedTv.dizi, rows.dizi[daySelection], /Сезон \d -/, "");
+    separatedTv.btvCinema = tvFunctions.deleteRepetedRows1(separatedTv.btvCinema, rows.btvCinema[daySelection]);
+    separatedTv.btvCinema = tvFunctions.deleteEndComma(separatedTv.btvCinema);
+    separatedTv.dizi = tvFunctions.replaceTextForce(separatedTv.dizi, "Episode", "Епизод");
+    separatedTv.dizi = tvFunctions.deleteAfterEpisode(separatedTv.dizi, rows.dizi[daySelection]);
+    separatedTv.dizi = tvFunctions.deleteByHours(separatedTv.dizi, rows.dizi[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
+    separatedTv.dizi = tvFunctions.deleteGenre(separatedTv.dizi, rows.dizi[daySelection]);
+    separatedTv.dizi = tvFunctions.replaceText(separatedTv.dizi, rows.dizi[daySelection], "Епизод", "еп.");
+    separatedTv.dizi = tvFunctions.replacePattern(separatedTv.dizi, rows.dizi[daySelection], /Сезон \d -/, "");
     separatedTv.dizi = replaceMultipleSpaces(separatedTv.dizi);
-    separatedTv.dizi = replaceTextForce(separatedTv.dizi, "\t", " ");
-    separatedTv.dizi = deleteEndComma(separatedTv.dizi);
-    separatedTv.starLife = replaceTextForce(separatedTv.starLife, " Drama ", " драма ");
-    separatedTv.starLife = replaceTextForce(separatedTv.starLife, " Crime ", " криминален ");
-    separatedTv.starLife = replaceTextForce(separatedTv.starLife, " Comedy ", " комедия ");
-    separatedTv.starLife = replaceTextForce(separatedTv.starLife, " Romance ", " романтичен ");
-    separatedTv.starLife = deleteByHours(separatedTv.starLife, rows.starLife[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
-    separatedTv.starLife = deleteAfterEpisode(separatedTv.starLife, rows.starLife[daySelection]);
-    separatedTv.starLife = deletePatternIncluding(separatedTv.starLife, rows.starLife[daySelection], /еп. \d+/);
-    separatedTv.starLife = deleteRepetedRows1(separatedTv.starLife, rows.starLife[daySelection]);
-    separatedTv.starLife = deleteEndComma(separatedTv.starLife);
+    separatedTv.dizi = tvFunctions.replaceTextForce(separatedTv.dizi, "\t", " ");
+    separatedTv.dizi = tvFunctions.deleteEndComma(separatedTv.dizi);
+    separatedTv.starLife = tvFunctions.replaceTextForce(separatedTv.starLife, " Drama ", " драма ");
+    separatedTv.starLife = tvFunctions.replaceTextForce(separatedTv.starLife, " Crime ", " криминален ");
+    separatedTv.starLife = tvFunctions.replaceTextForce(separatedTv.starLife, " Comedy ", " комедия ");
+    separatedTv.starLife = tvFunctions.replaceTextForce(separatedTv.starLife, " Romance ", " романтичен ");
+    separatedTv.starLife = tvFunctions.deleteByHours(separatedTv.starLife, rows.starLife[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
+    separatedTv.starLife = tvFunctions.deleteAfterEpisode(separatedTv.starLife, rows.starLife[daySelection]);
+    separatedTv.starLife = tvFunctions.deletePatternIncluding(separatedTv.starLife, rows.starLife[daySelection], /еп. \d+/);
+    separatedTv.starLife = tvFunctions.deleteRepetedRows1(separatedTv.starLife, rows.starLife[daySelection]);
+    separatedTv.starLife = tvFunctions.deleteEndComma(separatedTv.starLife);
     separatedTv.starLife = equalization(separatedTv.starLife, rows.starLife[daySelection], "еп.", "сериен игрален филм еп.");
-    separatedTv.ring = replaceText(separatedTv.ring, rows.ring[daySelection], "документална поредица", "поредица");
-    separatedTv.ring = replaceText(separatedTv.ring, rows.ring[daySelection], "ПРЯКО", "");
-    separatedTv.ring = deleteExcluding(separatedTv.ring, rows.ring[daySelection], "обзор", tvCalcConstants[tvCalcValue]);
-    separatedTv.ring = deleteByHours(separatedTv.ring, rows.ring[daySelection], ["03", "04", "05", "06"]);
-    separatedTv.ring = replaceText(separatedTv.ring, rows.ring[daySelection], " : ", " ");
-    separatedTv.cinemax = deleteGenre(separatedTv.cinemax, rows.cinemax[daySelection]);
-    separatedTv.cinemax = deleteByHours(separatedTv.cinemax, rows.cinemax[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08"])
-    separatedTv.cinemax = deleteEndComma(separatedTv.cinemax);
-    separatedTv.viasatKino = replaceTextForce(separatedTv.viasatKino, "/", " ");
-    separatedTv.viasatKino = deleteGenre(separatedTv.viasatKino, rows.viasatKino[daySelection]);
-    separatedTv.viasatKino = deleteByHours(separatedTv.viasatKino, rows.viasatKino[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "00"]);
-    separatedTv.cinemax2 = deletePatternIncluding(separatedTv.cinemax2, rows.cinemax2[daySelection], /, \d\d\d\d;/);
-    separatedTv.cinemax2 = deleteAfterEpisode(separatedTv.cinemax2, rows.cinemax2[daySelection]);
-    separatedTv.starChanel = deleteByHours(separatedTv.starChanel, rows.starChanel[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08"]);
+    separatedTv.ring = tvFunctions.replaceText(separatedTv.ring, rows.ring[daySelection], "документална поредица", "поредица");
+    separatedTv.ring = tvFunctions.replaceText(separatedTv.ring, rows.ring[daySelection], "ПРЯКО", "");
+    separatedTv.ring = tvFunctions.deleteExcluding(separatedTv.ring, rows.ring[daySelection], "обзор", tvCalcConstants[tvCalcValue]);
+    separatedTv.ring = tvFunctions.deleteByHours(separatedTv.ring, rows.ring[daySelection], ["03", "04", "05", "06"]);
+    separatedTv.ring = tvFunctions.replaceText(separatedTv.ring, rows.ring[daySelection], " : ", " ");
+    separatedTv.cinemax = tvFunctions.deleteGenre(separatedTv.cinemax, rows.cinemax[daySelection]);
+    separatedTv.cinemax = tvFunctions.deleteByHours(separatedTv.cinemax, rows.cinemax[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08"])
+    separatedTv.cinemax = tvFunctions.deleteEndComma(separatedTv.cinemax);
+    separatedTv.viasatKino = tvFunctions.replaceTextForce(separatedTv.viasatKino, "/", " ");
+    separatedTv.viasatKino = tvFunctions.deleteGenre(separatedTv.viasatKino, rows.viasatKino[daySelection]);
+    separatedTv.viasatKino = tvFunctions.deleteByHours(separatedTv.viasatKino, rows.viasatKino[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "00"]);
+    separatedTv.cinemax2 = tvFunctions.deletePatternIncluding(separatedTv.cinemax2, rows.cinemax2[daySelection], /, \d\d\d\d;/);
+    separatedTv.cinemax2 = tvFunctions.deleteAfterEpisode(separatedTv.cinemax2, rows.cinemax2[daySelection]);
+    separatedTv.starChanel = tvFunctions.deleteByHours(separatedTv.starChanel, rows.starChanel[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08"]);
     separatedTv.starChanel = equalization(separatedTv.starChanel, rows.starChanel[daySelection], "еп.", "сериен игрален филм еп.");
-    separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, " Drama ", " драма ");
-    separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, " Crime ", " криминален ");
-    separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, " Comedy ", " комедия ");
-    separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, " Romance ", " романтичен ");
-    separatedTv.starCrime = deleteByHours(separatedTv.starCrime, rows.starCrime[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08"]);
-    separatedTv.starCrime = replaceTextForce(separatedTv.starCrime, "еп.", "сер.");
-    separatedTv.starCrime = deleteRepetedRows1(separatedTv.starCrime, rows.starCrime[daySelection]);
-    separatedTv.skat = deleteSpecific(separatedTv.skat, "(повторение)");
-    separatedTv.skat = deleteByHours(separatedTv.skat, rows.skat[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.skat = deleteExcluding(separatedTv.skat, rows.skat[daySelection], "Новини", tvCalcConstants[tvCalcValue]);
-    separatedTv.skat = replaceText(separatedTv.skat, rows.skat[daySelection], "публицистично", "");
-    separatedTv.skat = deleteExcluding(separatedTv.skat, rows.skat[daySelection], "предаване", tvCalcConstants[tvCalcValue]);
+    separatedTv.starCrime = tvFunctions.replaceTextForce(separatedTv.starCrime, " Drama ", " драма ");
+    separatedTv.starCrime = tvFunctions.replaceTextForce(separatedTv.starCrime, " Crime ", " криминален ");
+    separatedTv.starCrime = tvFunctions.replaceTextForce(separatedTv.starCrime, " Comedy ", " комедия ");
+    separatedTv.starCrime = tvFunctions.replaceTextForce(separatedTv.starCrime, " Romance ", " романтичен ");
+    separatedTv.starCrime = tvFunctions.deleteByHours(separatedTv.starCrime, rows.starCrime[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08"]);
+    separatedTv.starCrime = tvFunctions.replaceTextForce(separatedTv.starCrime, "еп.", "сер.");
+    separatedTv.starCrime = tvFunctions.deleteRepetedRows1(separatedTv.starCrime, rows.starCrime[daySelection]);
+    separatedTv.skat = tvFunctions.deleteSpecific(separatedTv.skat, "(повторение)");
+    separatedTv.skat = tvFunctions.deleteByHours(separatedTv.skat, rows.skat[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.skat = tvFunctions.deleteExcluding(separatedTv.skat, rows.skat[daySelection], "Новини", tvCalcConstants[tvCalcValue]);
+    separatedTv.skat = tvFunctions.replaceText(separatedTv.skat, rows.skat[daySelection], "публицистично", "");
+    separatedTv.skat = tvFunctions.deleteExcluding(separatedTv.skat, rows.skat[daySelection], "предаване", tvCalcConstants[tvCalcValue]);
     separatedTv.skat = deleteIncluding(separatedTv.skat, rows.skat[daySelection], "-", tvCalcConstants[tvCalcValue]);
-    separatedTv.diemaFemily = deleteByHours(separatedTv.diemaFemily, rows.diemaFemily[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.diemaFemily = deleteGenre(separatedTv.diemaFemily, rows.diemaFemily[daySelection]);
-    separatedTv.bulgariaOnAir = deleteByHours(separatedTv.bulgariaOnAir, rows.bulgariaOnAir[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.bulgariaOnAir = deleteGenre(separatedTv.bulgariaOnAir, rows.bulgariaOnAir[daySelection]);
+    separatedTv.diemaFemily = tvFunctions.deleteByHours(separatedTv.diemaFemily, rows.diemaFemily[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.diemaFemily = tvFunctions.deleteGenre(separatedTv.diemaFemily, rows.diemaFemily[daySelection]);
+    separatedTv.bulgariaOnAir = tvFunctions.deleteByHours(separatedTv.bulgariaOnAir, rows.bulgariaOnAir[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.bulgariaOnAir = tvFunctions.deleteGenre(separatedTv.bulgariaOnAir, rows.bulgariaOnAir[daySelection]);
     separatedTv.bulgariaOnAir = deleteRow(separatedTv.bulgariaOnAir, rows.bulgariaOnAir[daySelection], "Телепазарен прозорец");
-    separatedTv.btvStory = deleteByHours(separatedTv.btvStory, rows.btvStory[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.btvStory = deleteExcluding(separatedTv.btvStory, rows.btvStory[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
-    separatedTv.btvStory = replaceTextForce(separatedTv.btvStory, "Премиера: ", "");
-    separatedTv.btvStory = deleteRepetedRows1(separatedTv.btvStory, rows.btvStory[daySelection]);
-    separatedTv.btvStory = deleteGenre(separatedTv.btvStory, rows.btvStory[daySelection]);
-    separatedTv.btvStory = replaceText(separatedTv.btvStory, rows.btvStory[daySelection], "сериал,", "");
-    separatedTv.hbo2 = deleteByHours(separatedTv.hbo2, rows.hbo2[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
-    separatedTv.hbo2 = deletePatternIncluding(separatedTv.hbo2, rows.hbo2[daySelection], /\[\d\d\+\]/);
-    separatedTv.hbo2 = deleteGenre(separatedTv.hbo2, rows.hbo2[daySelection]);
-    separatedTv.hbo2 = deleteEndComma(separatedTv.hbo2, rows.hbo2[daySelection]);
-    separatedTv.discovery = deleteByHours(separatedTv.discovery, rows.discovery[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.discovery = replaceTextForce(separatedTv.discovery, "_==", " ");
-    separatedTv.discovery = replaceTextForce(separatedTv.discovery, ":", " -")
-    separatedTv.discovery = replaceTextForce(separatedTv.discovery, "(", "")
-    separatedTv.discovery = replaceTextForce(separatedTv.discovery, ")", "")
+    separatedTv.btvStory = tvFunctions.deleteByHours(separatedTv.btvStory, rows.btvStory[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.btvStory = tvFunctions.deleteExcluding(separatedTv.btvStory, rows.btvStory[daySelection], "сер.", tvCalcConstants[tvCalcValue]);
+    separatedTv.btvStory = tvFunctions.replaceTextForce(separatedTv.btvStory, "Премиера: ", "");
+    separatedTv.btvStory = tvFunctions.deleteRepetedRows1(separatedTv.btvStory, rows.btvStory[daySelection]);
+    separatedTv.btvStory = tvFunctions.deleteGenre(separatedTv.btvStory, rows.btvStory[daySelection]);
+    separatedTv.btvStory = tvFunctions.replaceText(separatedTv.btvStory, rows.btvStory[daySelection], "сериал,", "");
+    separatedTv.hbo2 = tvFunctions.deleteByHours(separatedTv.hbo2, rows.hbo2[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
+    separatedTv.hbo2 = tvFunctions.deletePatternIncluding(separatedTv.hbo2, rows.hbo2[daySelection], /\[\d\d\+\]/);
+    separatedTv.hbo2 = tvFunctions.deleteGenre(separatedTv.hbo2, rows.hbo2[daySelection]);
+    separatedTv.hbo2 = tvFunctions.deleteEndComma(separatedTv.hbo2, rows.hbo2[daySelection]);
+    separatedTv.discovery = tvFunctions.deleteByHours(separatedTv.discovery, rows.discovery[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.discovery = tvFunctions.replaceTextForce(separatedTv.discovery, "_==", " ");
+    separatedTv.discovery = tvFunctions.replaceTextForce(separatedTv.discovery, ":", " -")
+    separatedTv.discovery = tvFunctions.replaceTextForce(separatedTv.discovery, "(", "")
+    separatedTv.discovery = tvFunctions.replaceTextForce(separatedTv.discovery, ")", "")
     separatedTv.discovery = deleteIncluding(separatedTv.discovery, rows.discovery[daySelection], "-", tvCalcConstants[tvCalcValue]);
-    separatedTv.nationalG = deleteByHours(separatedTv.nationalG, rows.nationalG[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.ngWild = deleteByHours(separatedTv.ngWild, rows.ngWild[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.viasatNature = deleteByHours(separatedTv.viasatNature, rows.viasatNature[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.epicDrama = deleteByHours(separatedTv.epicDrama, rows.epicDrama[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
-    separatedTv.epicDrama = deletePatternIncluding(separatedTv.epicDrama, rows.epicDrama[daySelection], /еп. \d+/);
-    separatedTv.viasatExplorer = deleteByHours(separatedTv.viasatExplorer, rows.viasatExplorer[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.history = deleteByHours(separatedTv.history, rows.history[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.kitchen24 = deleteByHours(separatedTv.kitchen24, rows.kitchen24[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
-    separatedTv.kitchen24 = replaceTextForce(separatedTv.kitchen24, "Factual Entertainment ", "");
-    separatedTv.kitchen24 = replaceTextForce(separatedTv.kitchen24, "Cooking ", "");
-    separatedTv.diemaSport = deleteExcluding(separatedTv.diemaSport, rows.diemaSport[daySelection], "Обзор", tvCalcConstants[tvCalcValue]);
-    separatedTv.diemaSport = deleteExcluding(separatedTv.diemaSport, rows.diemaSport[daySelection], "обзор", tvCalcConstants[tvCalcValue]);
-    separatedTv.diemaSport = deleteExcluding(separatedTv.diemaSport, rows.diemaSport[daySelection], "efbet Лига", tvCalcConstants[tvCalcValue]);
-    separatedTv.diemaSport = deletePatternIncluding(separatedTv.diemaSport, rows.diemaSport[daySelection], /\d{4}\/\d{4}/);
-    separatedTv.diemaSport = deletePatternIncluding(separatedTv.diemaSport, rows.diemaSport[daySelection], /\d{2}\.\d{2} Програмна пауза/);
-    separatedTv.diemaSport = replaceText(separatedTv.diemaSport, rows.diemaSport[daySelection], "Световното първенство", "СП");
-    separatedTv.diemaSport2 = deletePatternIncluding(separatedTv.diemaSport2, rows.diemaSport2[daySelection], /\d{4}\/\d{4}/);
-    separatedTv.diemaSport2 = deletePatternIncluding(separatedTv.diemaSport2, rows.diemaSport2[daySelection], /\d{2}\.\d{2} Програмна пауза/);
-    separatedTv.diemaSport2 = replaceText(separatedTv.diemaSport2, rows.diemaSport2[daySelection], " /n/", "");
-    separatedTv.diemaSport2 = replaceText(separatedTv.diemaSport2, rows.diemaSport2[daySelection], "/n/", "");
-    separatedTv.diemaSport2 = replaceText(separatedTv.diemaSport2, rows.diemaSport2[daySelection], "Световното първенство", "СП");
+    separatedTv.nationalG = tvFunctions.deleteByHours(separatedTv.nationalG, rows.nationalG[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.ngWild = tvFunctions.deleteByHours(separatedTv.ngWild, rows.ngWild[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.viasatNature = tvFunctions.deleteByHours(separatedTv.viasatNature, rows.viasatNature[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.epicDrama = tvFunctions.deleteByHours(separatedTv.epicDrama, rows.epicDrama[daySelection], ["01", "02", "03", "04", "05", "06", "07", "00"]);
+    separatedTv.epicDrama = tvFunctions.deletePatternIncluding(separatedTv.epicDrama, rows.epicDrama[daySelection], /еп. \d+/);
+    separatedTv.viasatExplorer = tvFunctions.deleteByHours(separatedTv.viasatExplorer, rows.viasatExplorer[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.history = tvFunctions.deleteByHours(separatedTv.history, rows.history[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.kitchen24 = tvFunctions.deleteByHours(separatedTv.kitchen24, rows.kitchen24[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
+    separatedTv.kitchen24 = tvFunctions.replaceTextForce(separatedTv.kitchen24, "Factual Entertainment ", "");
+    separatedTv.kitchen24 = tvFunctions.replaceTextForce(separatedTv.kitchen24, "Cooking ", "");
+    separatedTv.diemaSport = tvFunctions.deleteExcluding(separatedTv.diemaSport, rows.diemaSport[daySelection], "Обзор", tvCalcConstants[tvCalcValue]);
+    separatedTv.diemaSport = tvFunctions.deleteExcluding(separatedTv.diemaSport, rows.diemaSport[daySelection], "обзор", tvCalcConstants[tvCalcValue]);
+    separatedTv.diemaSport = tvFunctions.deleteExcluding(separatedTv.diemaSport, rows.diemaSport[daySelection], "efbet Лига", tvCalcConstants[tvCalcValue]);
+    separatedTv.diemaSport = tvFunctions.deletePatternIncluding(separatedTv.diemaSport, rows.diemaSport[daySelection], /\d{4}\/\d{4}/);
+    separatedTv.diemaSport = tvFunctions.deletePatternIncluding(separatedTv.diemaSport, rows.diemaSport[daySelection], /\d{2}\.\d{2} Програмна пауза/);
+    separatedTv.diemaSport = tvFunctions.replaceText(separatedTv.diemaSport, rows.diemaSport[daySelection], "Световното първенство", "СП");
+    separatedTv.diemaSport2 = tvFunctions.deletePatternIncluding(separatedTv.diemaSport2, rows.diemaSport2[daySelection], /\d{4}\/\d{4}/);
+    separatedTv.diemaSport2 = tvFunctions.deletePatternIncluding(separatedTv.diemaSport2, rows.diemaSport2[daySelection], /\d{2}\.\d{2} Програмна пауза/);
+    separatedTv.diemaSport2 = tvFunctions.replaceText(separatedTv.diemaSport2, rows.diemaSport2[daySelection], " /n/", "");
+    separatedTv.diemaSport2 = tvFunctions.replaceText(separatedTv.diemaSport2, rows.diemaSport2[daySelection], "/n/", "");
+    separatedTv.diemaSport2 = tvFunctions.replaceText(separatedTv.diemaSport2, rows.diemaSport2[daySelection], "Световното първенство", "СП");
     separatedTv.diemaSport3 = deleteAllExludingSpecific(separatedTv.diemaSport3, rows.diemaSport3[daySelection], "Формула 1");
     separatedTv.diemaSport3 = deleteAllExludingSpecific(separatedTv.diemaSport3, rows.diemaSport3[daySelection], "Формула 2");
     separatedTv.diemaSport3 = deleteAllExludingSpecific(separatedTv.diemaSport3, rows.diemaSport3[daySelection], "Формула 3");
-    separatedTv.diemaSport3 = deleteRepetedRows1(separatedTv.diemaSport3, rows.diemaSport3[daySelection]);
-    separatedTv.diemaSport3 = replaceText(separatedTv.diemaSport3, rows.diemaSport3[daySelection], " /n/", "");
-    separatedTv.diemaSport3 = replaceText(separatedTv.diemaSport3, rows.diemaSport3[daySelection], "/n/", "");
-    separatedTv.diemaSport3 = deletePatternIncluding(separatedTv.diemaSport3, rows.diemaSport3[daySelection], /\d{4}\/\d{4}/);
-    separatedTv.diemaSport3 = replaceText(separatedTv.diemaSport3, rows.diemaSport3[daySelection], "Световното първенство", "СП");
-    separatedTv.novaSport = replaceText(separatedTv.novaSport, rows.novaSport[daySelection], " /n/", "");
-    separatedTv.novaSport = replaceText(separatedTv.novaSport, rows.novaSport[daySelection], "/n/", "");
-    separatedTv.eurosport = replaceText(separatedTv.eurosport, rows.eurosport[daySelection], ":", " :");
+    separatedTv.diemaSport3 = tvFunctions.deleteRepetedRows1(separatedTv.diemaSport3, rows.diemaSport3[daySelection]);
+    separatedTv.diemaSport3 = tvFunctions.replaceText(separatedTv.diemaSport3, rows.diemaSport3[daySelection], " /n/", "");
+    separatedTv.diemaSport3 = tvFunctions.replaceText(separatedTv.diemaSport3, rows.diemaSport3[daySelection], "/n/", "");
+    separatedTv.diemaSport3 = tvFunctions.deletePatternIncluding(separatedTv.diemaSport3, rows.diemaSport3[daySelection], /\d{4}\/\d{4}/);
+    separatedTv.diemaSport3 = tvFunctions.replaceText(separatedTv.diemaSport3, rows.diemaSport3[daySelection], "Световното първенство", "СП");
+    separatedTv.novaSport = tvFunctions.replaceText(separatedTv.novaSport, rows.novaSport[daySelection], " /n/", "");
+    separatedTv.novaSport = tvFunctions.replaceText(separatedTv.novaSport, rows.novaSport[daySelection], "/n/", "");
+    separatedTv.eurosport = tvFunctions.replaceText(separatedTv.eurosport, rows.eurosport[daySelection], ":", " :");
     separatedTv.eurosport = deleteIncluding(separatedTv.eurosport, rows.eurosport[daySelection], ":", tvCalcConstants[tvCalcValue]);
-    separatedTv.eurosport = deleteRepetedRows1(separatedTv.eurosport, rows.eurosport[daySelection]);
-    separatedTv.eurosport2 = replaceText(separatedTv.eurosport2, rows.eurosport2[daySelection], ":", " :");
+    separatedTv.eurosport = tvFunctions.deleteRepetedRows1(separatedTv.eurosport, rows.eurosport[daySelection]);
+    separatedTv.eurosport2 = tvFunctions.replaceText(separatedTv.eurosport2, rows.eurosport2[daySelection], ":", " :");
     separatedTv.eurosport2 = deleteIncluding(separatedTv.eurosport2, rows.eurosport2[daySelection], ":", tvCalcConstants[tvCalcValue]);
-    separatedTv.eurosport2 = deleteRepetedRows1(separatedTv.eurosport2, rows.eurosport2[daySelection]);
+    separatedTv.eurosport2 = tvFunctions.deleteRepetedRows1(separatedTv.eurosport2, rows.eurosport2[daySelection]);
     separatedTv.maxSport1 = removeRepeatedPhrases(separatedTv.maxSport1);
-    separatedTv.maxSport1 = replaceText(separatedTv.maxSport1, rows.maxSport1[daySelection], "ПРЯКО", "");
-    separatedTv.maxSport1 = replaceText(separatedTv.maxSport1, rows.maxSport1[daySelection], " ,", "");
-    separatedTv.maxSport1 = deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "ATP 1000", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport1 = deleteRepetedRows1(separatedTv.maxSport1, rows.maxSport1[daySelection]);
-    separatedTv.maxSport1 = deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Moto GP", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport1 = deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Moto 2", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport1 = deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Moto 3", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport1 = deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Moto E", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport1 = deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Nascar Cup Series", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport1 = deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Световен рали шампионат", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport1 = deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Европейски рали шампионат", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport1 = deleteRepetedRows1(separatedTv.maxSport1, rows.maxSport1[daySelection]);
+    separatedTv.maxSport1 = tvFunctions.replaceText(separatedTv.maxSport1, rows.maxSport1[daySelection], "ПРЯКО", "");
+    separatedTv.maxSport1 = tvFunctions.replaceText(separatedTv.maxSport1, rows.maxSport1[daySelection], " ,", "");
+    separatedTv.maxSport1 = tvFunctions.deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "ATP 1000", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport1 = tvFunctions.deleteRepetedRows1(separatedTv.maxSport1, rows.maxSport1[daySelection]);
+    separatedTv.maxSport1 = tvFunctions.deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Moto GP", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport1 = tvFunctions.deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Moto 2", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport1 = tvFunctions.deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Moto 3", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport1 = tvFunctions.deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Moto E", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport1 = tvFunctions.deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Nascar Cup Series", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport1 = tvFunctions.deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Световен рали шампионат", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport1 = tvFunctions.deleteExcluding(separatedTv.maxSport1, rows.maxSport1[daySelection], "Европейски рали шампионат", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport1 = tvFunctions.deleteRepetedRows1(separatedTv.maxSport1, rows.maxSport1[daySelection]);
     separatedTv.maxSport2 = removeRepeatedPhrases(separatedTv.maxSport2);
-    separatedTv.maxSport2 = deleteExcluding(separatedTv.maxSport2, rows.maxSport2[daySelection], "Moto GP", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport2 = deleteExcluding(separatedTv.maxSport2, rows.maxSport2[daySelection], "Moto 2", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport2 = deleteExcluding(separatedTv.maxSport2, rows.maxSport2[daySelection], "Moto 3", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport2 = deleteExcluding(separatedTv.maxSport2, rows.maxSport2[daySelection], "Световен рали шампионат", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport2 = deleteExcluding(separatedTv.maxSport2, rows.maxSport2[daySelection], "UFC Fight Night", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport2 = deleteExcluding(separatedTv.maxSport2, rows.maxSport2[daySelection], "Nascar Cup Series", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport2 = deleteRepetedRows1(separatedTv.maxSport2, rows.maxSport2[daySelection]);
+    separatedTv.maxSport2 = tvFunctions.deleteExcluding(separatedTv.maxSport2, rows.maxSport2[daySelection], "Moto GP", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport2 = tvFunctions.deleteExcluding(separatedTv.maxSport2, rows.maxSport2[daySelection], "Moto 2", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport2 = tvFunctions.deleteExcluding(separatedTv.maxSport2, rows.maxSport2[daySelection], "Moto 3", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport2 = tvFunctions.deleteExcluding(separatedTv.maxSport2, rows.maxSport2[daySelection], "Световен рали шампионат", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport2 = tvFunctions.deleteExcluding(separatedTv.maxSport2, rows.maxSport2[daySelection], "UFC Fight Night", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport2 = tvFunctions.deleteExcluding(separatedTv.maxSport2, rows.maxSport2[daySelection], "Nascar Cup Series", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport2 = tvFunctions.deleteRepetedRows1(separatedTv.maxSport2, rows.maxSport2[daySelection]);
     separatedTv.maxSport3 = removeRepeatedPhrases(separatedTv.maxSport3);
     separatedTv.maxSport3 = removeRepeatedPhrases(separatedTv.maxSport3);
-    separatedTv.maxSport3 = deleteExcluding(separatedTv.maxSport3, rows.maxSport3[daySelection], "Moto GP", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport3 = deleteExcluding(separatedTv.maxSport3, rows.maxSport3[daySelection], "Moto 2", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport3 = deleteExcluding(separatedTv.maxSport3, rows.maxSport3[daySelection], "Moto 3", tvCalcConstants[tvCalcValue]);
-    separatedTv.maxSport3 = deleteRepetedRows1(separatedTv.maxSport3, rows.maxSport3[daySelection]);
+    separatedTv.maxSport3 = tvFunctions.deleteExcluding(separatedTv.maxSport3, rows.maxSport3[daySelection], "Moto GP", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport3 = tvFunctions.deleteExcluding(separatedTv.maxSport3, rows.maxSport3[daySelection], "Moto 2", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport3 = tvFunctions.deleteExcluding(separatedTv.maxSport3, rows.maxSport3[daySelection], "Moto 3", tvCalcConstants[tvCalcValue]);
+    separatedTv.maxSport3 = tvFunctions.deleteRepetedRows1(separatedTv.maxSport3, rows.maxSport3[daySelection]);
     separatedTv.maxSport4 = removeRepeatedPhrases(separatedTv.maxSport4);
-    separatedTv.maxSport4 = replaceText(separatedTv.maxSport4, rows.maxSport4[daySelection], "ПРЯКО", "");
-    separatedTv.maxSport4 = replaceText(separatedTv.maxSport4, rows.maxSport4[daySelection], " ,", " ");
+    separatedTv.maxSport4 = tvFunctions.replaceText(separatedTv.maxSport4, rows.maxSport4[daySelection], "ПРЯКО", "");
+    separatedTv.maxSport4 = tvFunctions.replaceText(separatedTv.maxSport4, rows.maxSport4[daySelection], " ,", " ");
     separatedTv.maxSport4 = deleteRow(separatedTv.maxSport4, rows.maxSport4[daySelection], 'Студио "Футбол"');
 
     let output = "";
@@ -909,357 +909,340 @@ const tvFunctions = {
 
 
         return result;
-    }
-}
+    },
+
+    deleteByHourAndText(arr, rows, hours, text) {
+        const result = arr;
+        let returnsCount = calcReturnsCount1(arr, tvCalcConstants[tvCalcValue]);
 
 
-function deleteByHourAndText(arr, rows, hours, text) {
-    const result = arr;
-    let returnsCount = calcReturnsCount1(arr, tvCalcConstants[tvCalcValue]);
-
-
-    if (returnsCount > rows) {
-        for (let i = 0; i < result.length; i++) {
-            let row = result[i];
-            let rowArr = row.split(" ");
-
-            if (returnsCount > rows) {
-                let hour = rowArr[0];
-
-                if (hours.includes(hour) && rowArr[1] === text) {
-                    result.splice(i, 1);
-                    i--;
-                    returnsCount = calcReturnsCount1(arr, tvCalcConstants[tvCalcValue]);
-                }
-            } else {
-                break;
-            }
-        }
-    }
-
-    return result;
-}
-
-function deleteByHourAndTextExcluding(arr, rows, hours, text, text2, text3) {
-    const result = arr;
-    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-
-
-    if (returnsCount > rows) {
-        for (let i = 0; i < result.length; i++) {
-            let row = result[i];
-            let rowArr = row.split(" ");
-
-            if (returnsCount > rows) {
-                let hour = rowArr.shift();
-                const rest = rowArr.join(" ");
-                const isIncludes = rest.includes(text) || rest.includes(text2) || rest.includes(text3);
-                let isHour = false;
-
-                hours.forEach((x) => {
-                    if (hour.startsWith(x)) {
-                        isHour = true;
-                    };
-                });
-
-                if (isHour && !isIncludes) {
-                    result.splice(i, 1);
-                    i--;
-                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-                }
-            } else {
-                break;
-            }
-        }
-    }
-
-    return result;
-}
-
-function replaceText(arr, rows, text, newText) {
-    let result = arr;
-    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-
-    if (returnsCount > rows) {
-
-        for (let i = 0; i < result.length; i++) {
-
-            if (returnsCount > rows) {
+        if (returnsCount > rows) {
+            for (let i = 0; i < result.length; i++) {
                 let row = result[i];
-                row = row.replaceAll(text, newText);
-                row = row.replaceAll("  ", " ");
-                result.splice(i, 1, row);
-                returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-            } else {
-                break;
-            }
-        };
-    };
+                let rowArr = row.split(" ");
 
-    return result;
-}
+                if (returnsCount > rows) {
+                    let hour = rowArr[0];
 
-function replacePattern(arr, rows, pattern, newText) {
-
-    let result = arr;
-    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-
-    if (returnsCount > rows) {
-
-        for (let i = 0; i < result.length; i++) {
-
-            let row = result[i];
-            const match = row.match(pattern)
-
-            if (match) {
-                row = row.split(match).join(newText)
-                result.splice(i, 1, row);
-                returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue])
-            }
-
-            if (returnsCount <= rows) {
-                break;
-            };
-        };
-    };
-
-    return result;
-}
-
-function addLeadingZero(arr, pattern) {
-    let result = arr;
-
-    for (let i = 0; i < result.length; i++) {
-
-        let row = result[i];
-        const match = row.match(pattern);
-
-        if (match) {
-            row = `0${row}`;
-            result.splice(i, 1, row);
-        };
-    };
-
-    return result;
-};
-
-function replaceTextForce(arr, text, newText) {
-    let result = [];
-
-    for (let row of arr) {
-        row = row.replaceAll(text, newText);
-        row = row.replaceAll("  ", " ");
-        result.push(row);
-    };
-
-    return result;
-}
-
-function deleteSpecific(arr, text) {
-    let result = [];
-    for (let row of arr) {
-        row = row.replace(text, "");
-        row = row.replace("  ", " ");
-        result.push(row);
-    };
-
-    return result;
-}
-
-
-function deleteRepetedRows(arr, rows) {
-    let result = arr;
-    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-
-    // debugger
-    if (returnsCount > rows) {
-        let el1 = "";
-        let el2 = "";
-
-        for (i = 0; i < result.length; i++) {
-            let row = result[i];
-
-            let rowArr = row.split('"');
-
-            if (!el1) {
-                el1 = rowArr[1];
-                continue;
-            };
-
-            if (el1) {
-                el2 = rowArr[1];
-            };
-
-            if (el1 && el2) {
-
-                if (el1 === el2) {
-                    result.splice(i, 1);
-                    el2 = "";
-                    i--;
-                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                    if (hours.includes(hour) && rowArr[1] === text) {
+                        result.splice(i, 1);
+                        i--;
+                        returnsCount = calcReturnsCount1(arr, tvCalcConstants[tvCalcValue]);
+                    }
                 } else {
-                    el1 = el2;
-                    el2 = "";
+                    break;
                 }
             }
         }
-    }
 
-    return result;
-}
+        return result;
+    },
 
-function deleteRepetedRows1(arr, rows) {
-    let result = arr;
-    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-
-    // debugger
-    if (returnsCount > rows) {
-        let el1 = "";
-        let el2 = "";
-
-        for (i = 0; i < result.length; i++) {
-
-            if (returnsCount <= rows) {
-                break;
-            }
-
-            let row = result[i];
-
-            let match = row.match(hourPattern);
-
-            let rowArr = row.split(match);
-
-            if (!el1) {
-                el1 = rowArr[1];
-                continue;
-            };
-
-            if (el1) {
-                el2 = rowArr[1];
-            };
-
-            if (el1 && el2) {
-
-                if (el1 === el2) {
-                    result.splice(i, 1);
-                    el2 = "";
-                    i--;
-                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-                } else {
-                    el1 = el2;
-                    el2 = "";
-                }
-            }
-        }
-    }
-
-    return result;
-}
-
-function deleteEndComma(arr) {
-    const result = []
-
-    for (let row of arr) {
-        result.push(removeComma(row))
-    };
-
-    return result;
-}
+    deleteByHourAndTextExcluding(arr, rows, hours, text, text2, text3) {
+        const result = arr;
+        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
 
-function deleteGenre(arr, rows) {
-    const result = arr;
-    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        if (returnsCount > rows) {
+            for (let i = 0; i < result.length; i++) {
+                let row = result[i];
+                let rowArr = row.split(" ");
 
+                if (returnsCount > rows) {
+                    let hour = rowArr.shift();
+                    const rest = rowArr.join(" ");
+                    const isIncludes = rest.includes(text) || rest.includes(text2) || rest.includes(text3);
+                    let isHour = false;
 
-    if (returnsCount > rows) {
+                    hours.forEach((x) => {
+                        if (hour.startsWith(x)) {
+                            isHour = true;
+                        };
+                    });
 
-        for (let i = 0; i < result.length; i++) {
-            let row = result[i];
-            let rowArr = row.split(" ");
-
-            if (returnsCount > rows) {
-
-                for (let j = 0; j < rowArr.length; j++) {
-                    let word = rowArr[j];
-                    word = word.replace(",", "");
-
-                    if (movies.includes(word)) {
-                        rowArr.splice(j + 1, rowArr.length - 1);
-                        result.splice(i, 1, rowArr.join(" "));
+                    if (isHour && !isIncludes) {
+                        result.splice(i, 1);
+                        i--;
                         returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-                        break;
-                    };
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+
+        return result;
+    },
+
+    replaceText(arr, rows, text, newText) {
+        let result = arr;
+        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+        if (returnsCount > rows) {
+
+            for (let i = 0; i < result.length; i++) {
+
+                if (returnsCount > rows) {
+                    let row = result[i];
+                    row = row.replaceAll(text, newText);
+                    row = row.replaceAll("  ", " ");
+                    result.splice(i, 1, row);
+                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                } else {
+                    break;
+                }
+            };
+        };
+
+        return result;
+    },
+
+    replacePattern(arr, rows, pattern, newText) {
+
+        let result = arr;
+        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+        if (returnsCount > rows) {
+
+            for (let i = 0; i < result.length; i++) {
+
+                let row = result[i];
+                const match = row.match(pattern)
+
+                if (match) {
+                    row = row.split(match).join(newText)
+                    result.splice(i, 1, row);
+                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue])
+                }
+
+                if (returnsCount <= rows) {
+                    break;
                 };
-
-            } else {
-                break;
-            };
-
-        };
-
-    }
-
-    return result;
-}
-
-function deleteAfterEpisode(arr, rows) {
-    const result = arr;
-    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-
-
-    if (returnsCount > rows) {
-
-        for (let i = 0; i < result.length; i++) {
-            let row = result[i];
-            const match = row.match(episodePattern);
-
-            if (match) {
-                let rowArr = row.split(match);
-                row = `${rowArr[0]}${match}`;
-                // row = rowArr[0] + " " + match;
-                result[i] = row;
-                // result.splice(i, 1, row);
-                returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-            };
-
-            if (returnsCount <= rows) {
-                break;
             };
         };
 
-    };
+        return result;
+    },
 
-    return result;
-};
-
-
-function deletePatternIncluding(arr, rows, pattern) {
-    const result = arr;
-    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-
-    if (returnsCount > rows) {
+    addLeadingZero(arr, pattern) {
+        let result = arr;
 
         for (let i = 0; i < result.length; i++) {
+
             let row = result[i];
             const match = row.match(pattern);
 
             if (match) {
-                let rowArr = row.split(match);
-                row = rowArr[0];
+                row = `0${row}`;
                 result.splice(i, 1, row);
-                returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-            };
-
-            if (returnsCount <= rows) {
-                break;
             };
         };
 
-    };
+        return result;
+    },
 
-    return deleteEmptyReturns(result);
+    replaceTextForce(arr, text, newText) {
+        let result = [];
+
+        for (let row of arr) {
+            row = row.replaceAll(text, newText);
+            row = row.replaceAll("  ", " ");
+            result.push(row);
+        };
+
+        return result;
+    },
+
+    deleteSpecific(arr, text) {
+        let result = [];
+        for (let row of arr) {
+            row = row.replace(text, "");
+            row = row.replace("  ", " ");
+            result.push(row);
+        };
+
+        return result;
+    },
+
+    deleteRepetedRows1(arr, rows) {
+        let result = arr;
+        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+        // debugger
+        if (returnsCount > rows) {
+            let el1 = "";
+            let el2 = "";
+
+            for (i = 0; i < result.length; i++) {
+
+                if (returnsCount <= rows) {
+                    break;
+                }
+
+                let row = result[i];
+
+                let match = row.match(hourPattern);
+
+                let rowArr = row.split(match);
+
+                if (!el1) {
+                    el1 = rowArr[1];
+                    continue;
+                };
+
+                if (el1) {
+                    el2 = rowArr[1];
+                };
+
+                if (el1 && el2) {
+
+                    if (el1 === el2) {
+                        result.splice(i, 1);
+                        el2 = "";
+                        i--;
+                        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                    } else {
+                        el1 = el2;
+                        el2 = "";
+                    }
+                }
+            }
+        }
+
+        return result;
+    },
+
+    deleteEndComma(arr) {
+        const result = []
+
+        for (let row of arr) {
+            result.push(removeComma(row))
+        };
+
+        return result;
+    },
+
+    deleteGenre(arr, rows) {
+        const result = arr;
+        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+
+        if (returnsCount > rows) {
+
+            for (let i = 0; i < result.length; i++) {
+                let row = result[i];
+                let rowArr = row.split(" ");
+
+                if (returnsCount > rows) {
+
+                    for (let j = 0; j < rowArr.length; j++) {
+                        let word = rowArr[j];
+                        word = word.replace(",", "");
+
+                        if (movies.includes(word)) {
+                            rowArr.splice(j + 1, rowArr.length - 1);
+                            result.splice(i, 1, rowArr.join(" "));
+                            returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                            break;
+                        };
+                    };
+
+                } else {
+                    break;
+                };
+
+            };
+
+        }
+
+        return result;
+    },
+
+    deleteAfterEpisode(arr, rows) {
+        const result = arr;
+        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+
+        if (returnsCount > rows) {
+
+            for (let i = 0; i < result.length; i++) {
+                let row = result[i];
+                const match = row.match(episodePattern);
+
+                if (match) {
+                    let rowArr = row.split(match);
+                    row = `${rowArr[0]}${match}`;
+                    // row = rowArr[0] + " " + match;
+                    result[i] = row;
+                    // result.splice(i, 1, row);
+                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                };
+
+                if (returnsCount <= rows) {
+                    break;
+                };
+            };
+
+        };
+
+        return result;
+    },
+
+    deletePatternIncluding(arr, rows, pattern) {
+        const result = arr;
+        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+        if (returnsCount > rows) {
+
+            for (let i = 0; i < result.length; i++) {
+                let row = result[i];
+                const match = row.match(pattern);
+
+                if (match) {
+                    let rowArr = row.split(match);
+                    row = rowArr[0];
+                    result.splice(i, 1, row);
+                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                };
+
+                if (returnsCount <= rows) {
+                    break;
+                };
+            };
+
+        };
+
+        return deleteEmptyReturns(result);
+    },
+
+    deleteExcluding(arr, rows, text, rowCharCount) {
+        const result = arr;
+
+        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+        if (returnsCount > rows) {
+
+            for (let i = 0; i < result.length; i++) {
+                let row = result[i];
+
+                if (returnsCount > rows) {
+
+                    if (row.includes(text) && row.length > rowCharCount) {
+                        row = delTextExcluding(row, text);
+                        result.splice(i, 1, row);
+                        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                    };
+
+                } else {
+                    break;
+                };
+            };
+        };
+        return result;
+    }
 }
+
+// Utils
 
 function deleteEmptyReturns(arr) {
     let text = arr.join("\n");
@@ -1268,7 +1251,6 @@ function deleteEmptyReturns(arr) {
 
     return arr;
 }
-
 
 function delTextIncluding(el, text) {
 
@@ -1307,18 +1289,7 @@ function removeComma(el) {
     return result;
 }
 
-function calcReturnsCount(arr, value) {
-    // debugger
-    let count = 0;
-    for (let el of arr) {
-        count += Math.ceil(el.length / value);
-    };
-
-    return count;
-}
-
 function calcReturnsCount1(arr, value) {
-    // debugger
     let rowsCount = 0;
 
     if (arr[0] !== "") {
@@ -1430,32 +1401,6 @@ function separateTv(arr, allTvNames) {
     };
     return separatedTv;
 };
-
-function deleteExcluding(arr, rows, text, rowCharCount) {
-    const result = arr;
-
-    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-
-    if (returnsCount > rows) {
-
-        for (let i = 0; i < result.length; i++) {
-            let row = result[i];
-
-            if (returnsCount > rows) {
-
-                if (row.includes(text) && row.length > rowCharCount) {
-                    row = delTextExcluding(row, text);
-                    result.splice(i, 1, row);
-                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-                };
-
-            } else {
-                break;
-            };
-        };
-    };
-    return result;
-}
 
 function deleteExcludingForce(arr, rows, text) {
     const result = arr;
@@ -1589,57 +1534,6 @@ function convertAll(arr, rows, rowCharCount) {
     return result;
 
 }
-
-function deleteByHours(arr, rows, hoursArr) {
-
-    const result = arr;
-
-    let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-
-
-
-    for (let i = 0; i < 7; i++) {
-        let row = result[i];
-
-
-        if (returnsCount > rows) {
-            for (let hour of hoursArr) {
-
-                if (row.startsWith(hour)) {
-                    result.splice(i, 1)
-                    i--;
-                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-                    break;
-                }
-            }
-        } else {
-            break;
-        };
-    };
-
-
-
-    for (let j = result.length - 1; j > result.length / 2; j--) {
-        let row = result[j];
-
-        if (returnsCount > rows) {
-            for (let hour of hoursArr) {
-
-                if (row.startsWith(hour)) {
-                    result.splice(j, 1)
-                    // j++;
-                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
-                    break;
-                }
-            }
-        } else {
-            break;
-        };
-    };
-
-
-    return result;
-};
 
 function deleteAllExludingSpecific(arr, rows, text) {
     const result = arr;
@@ -2322,25 +2216,23 @@ function onShowIssue() {
     const currentIssue = document.getElementById("issue");
     const choice = document.getElementById("application").value;
 
-    if (choice !== "currentIssue") {
+    if (choice !== "currentIssue" && choice !== "Weekend") {
 
-        if (choice !== "Weekend") {
-            currentIssue.setAttribute("disabled", true);
-            currentIssue.value = "";
-        }
+        currentIssue.setAttribute("disabled", true);
+        currentIssue.value = "";
 
         applicationIssue.style.display = "inline-block"
     };
 
-    if (choice === "currentIssue") {
+    if (choice === "currentIssue" || choice === "Weekend") {
         applicationIssue.style.display = "none";
         applicationIssue.value = "";
         currentIssue.removeAttribute("disabled");
     };
 
-    if (choice === "Weekend") {
-        currentIssue.removeAttribute("disabled");
-    }
+    // if (choice === "Weekend") {
+    //     currentIssue.removeAttribute("disabled");
+    // }
 }
 
 async function onFindAndReplace(event) {
