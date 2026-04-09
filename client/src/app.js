@@ -336,8 +336,6 @@ function onConvert(e) {
 
     const separatedTv = separateTv(tvArr, allTvNames);
 
-    // console.log(separatedTv);
-
     const weekMatch = (matchArr && (matchArr.includes("Понеделник") || matchArr.includes("Вторник")
         || matchArr.includes("Сряда") || matchArr.includes("Четвъртък")
         || matchArr.includes("Петък")));
@@ -348,7 +346,6 @@ function onConvert(e) {
     if (!weekMatch && !saturdayMatch && !sundayMatch) {
         isError = true;
     }
-    // debugger
 
     // (isError && typeof (radio) === "string")
     if (isError && radio === "nothing") {
@@ -408,7 +405,7 @@ function onConvert(e) {
 
     separatedTv.bnt1 = replaceTextForce(separatedTv.bnt1, "документален", "док.");
     separatedTv.bnt1 = addLeadingZero(separatedTv.bnt1, /^\d.\d\d /);
-    separatedTv.bnt1 = deleteByHours(separatedTv.bnt1, rows.bnt1[daySelection], ["00", "01", "02", "03", "04"]);
+    separatedTv.bnt1 = tvFunctions.deleteByHours(separatedTv.bnt1, rows.bnt1[daySelection], ["00", "01", "02", "03", "04"]);
     separatedTv.bnt1 = convertAll(separatedTv.bnt1, rows.bnt1[daySelection], tvCalcConstants[tvCalcValue]);
     separatedTv.bnt1 = deleteGenre(separatedTv.bnt1, rows.bnt1[daySelection]);
     separatedTv.bnt1 = deleteIncluding(separatedTv.bnt1, rows.bnt1[daySelection], "/избрано/");
@@ -861,6 +858,59 @@ function onResetCalc() {
 
     textArea.value = "";
 };
+
+const tvFunctions = {
+    deleteByHours(arr, rows, hoursArr) {
+
+        const result = arr;
+
+        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+
+
+
+        for (let i = 0; i < 7; i++) {
+            let row = result[i];
+
+
+            if (returnsCount > rows) {
+                for (let hour of hoursArr) {
+
+                    if (row.startsWith(hour)) {
+                        result.splice(i, 1)
+                        i--;
+                        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                        break;
+                    }
+                }
+            } else {
+                break;
+            };
+        };
+
+
+
+        for (let j = result.length - 1; j > result.length / 2; j--) {
+            let row = result[j];
+
+            if (returnsCount > rows) {
+                for (let hour of hoursArr) {
+
+                    if (row.startsWith(hour)) {
+                        result.splice(j, 1)
+                        // j++;
+                        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                        break;
+                    }
+                }
+            } else {
+                break;
+            };
+        };
+
+
+        return result;
+    }
+}
 
 
 function deleteByHourAndText(arr, rows, hours, text) {
@@ -2489,7 +2539,7 @@ function replaceSpaces(text) {
 
 
 async function onTvRename(event) {
-    
+
     // report for the whole week
     const tvMessage = document.getElementById("responseMessage");
     const missingFilesMessage = document.getElementById("missingFilesMessage");
@@ -2521,7 +2571,7 @@ async function onTvRename(event) {
                 "content-type": "application/json"
             }
         });
-        
+
         const result = await response.json();
 
         message.textContent = `${result.renamedFilesCount} files have been renamed`
@@ -2534,7 +2584,7 @@ async function onTvRename(event) {
         missingFilesMessageCount.textContent = `Missing files: ${result.missingFiles.length}`
         missingFilesMessageCount.style.color = result.missingFiles.length === 0 ? green : red;
 
-        missingDataMessage.textContent = result.missingData;
+        missingDataMessage.value = result.missingData;
         missingDataMessageCount.textContent = `Missing data: ${result.allMissindData}`;
         missingDataMessageCount.style.color = result.allMissindData > 0 ? red : green;
 
