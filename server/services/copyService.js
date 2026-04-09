@@ -171,7 +171,7 @@ export default {
                     };
 
                     if (application === "Weekend") {
-                        source = path.join(`${paths.photos}_WEEKEND${applicationIssue}/OLD/`, photo);
+                        source = path.join(`${paths.photos}_WEEKEND ${applicationIssue}/OLD/`, photo);
                     };
 
                     if (application === "currentIssue") {
