@@ -2649,14 +2649,14 @@ async function onSubmitTvData(event) {
 
     } catch (error) {
 
-        if (error.message === "Failed to fetch") {
-            message.textContent = `${error.message}. \nThe server is probably not working!`;
+        if (error === "Failed to fetch") {
+            message.textContent = `${error}. \nThe server is probably not working!`;
             message.style.display = "block-inline";
             message.style.color = red;
             return;
         }
 
-        message.textContent = error.message;
+        message.textContent = error;
     } finally {
         // message.textContent = "";
         isPending = false;
