@@ -25,7 +25,7 @@ export default {
 
         if (application === "Weekend") {
             dirFilesSource = await fsPromises.readdir(paths.weekendFiles);
-            dirPhotosSource = await fsPromises.readdir(`${paths.photos}_WEEKEND${applicationIssue}/OLD/`);
+            dirPhotosSource = await fsPromises.readdir(`${paths.photos}_WEEKEND ${applicationIssue}/OLD/`);
             dirTelSite = await fsPromises.readdir(paths.telSite);
         };
 
