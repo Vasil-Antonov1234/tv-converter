@@ -2,6 +2,8 @@ import { days, daysNew } from "../data/tvNames.js";
 
 export function handleDay(tvText) {
 
+    tvText = tvText.replaceAll("Нeделя", "Неделя");
+
     tvText = tvText.replaceAll("НЕДЕЛЯ", "Неделя");
     tvText = tvText.replaceAll("ПОНЕДЕЛНИК", "Понеделник");
     tvText = tvText.replaceAll("ВТОРНИК", "Вторник");
@@ -10,15 +12,13 @@ export function handleDay(tvText) {
     tvText = tvText.replaceAll("ПЕТЪК", "Петък");
     tvText = tvText.replaceAll("СЪБОТА", "Събота");
 
-    tvText = tvText.replaceAll("Неделя,", "Неделя");
-    tvText = tvText.replaceAll("Понеделник,", "Понеделник");
-    tvText = tvText.replaceAll("Вторник,", "Вторник");
-    tvText = tvText.replaceAll("Сряда,", "Сряда");
-    tvText = tvText.replaceAll("Четвъртък,", "Четвъртък");
-    tvText = tvText.replaceAll("Петък,", "Петък");
-    tvText = tvText.replaceAll("Събота,", "Събота");
-
-    tvText = tvText.replaceAll("Нeделя", "Неделя");
+    tvText = tvText.replaceAll("неделя", "Неделя");
+    tvText = tvText.replaceAll("понеделник", "Понеделник");
+    tvText = tvText.replaceAll("вторник", "Вторник");
+    tvText = tvText.replaceAll("сряда", "Сряда");
+    tvText = tvText.replaceAll("четвъртък", "Четвъртък");
+    tvText = tvText.replaceAll("петък", "Петък");
+    tvText = tvText.replaceAll("събота", "Събота");
 
     return tvText;
 }

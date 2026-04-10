@@ -39,8 +39,6 @@ export default {
             currentTv = iconv.decode(buffer, charSet);
             currentTv = handleDay(currentTv);
 
-
-
             for (let k = 0; k < datesToCheck.length; k++) {
                 let day = datesToCheck[k];
 
@@ -55,6 +53,9 @@ export default {
                 }
 
             }
+
+            await fsPromisses.writeFile(`${paths.input}${tv}`, currentTv, { encoding: "utf-8" });
+
         }
 
         let report = [];
@@ -63,7 +64,7 @@ export default {
 
         report = report.filter((x) => x.length > 0);
 
-        const missingData = report.join("\n"); 
+        const missingData = report.join("\n");
 
         return { allMissindData, missingData }
     }
