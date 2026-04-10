@@ -2,20 +2,18 @@ import fs from "node:fs";
 import iconv from "iconv-lite";
 import jschardet from "jschardet";
 import { EOL } from "os";
-
+import fsPromises from "node:fs/promises"
 import { allTvNames } from "../data/tvNames.js";
 import { allTv } from "../data/tvPaths.js";
 import { handleDay, handleOutputDay } from "../utils/handleDay.js";
 import { handleEndOfCurrentTv } from "../utils/handleEndOfCuttentTv.js";
 import paths from "../paths/paths.js";
 
-const inputFilePath = paths.input;
-
 export default {
-    createTv(day, date) {
+    async createTv(day, date) {
 
         try {
-            const dir = fs.readdirSync(inputFilePath);
+            const dir = await fsPromises.readdir(paths.input);
             const tvArr = [];
 
             const response = [];
@@ -28,22 +26,26 @@ export default {
                     continue;
                 }
 
-                const buffer = fs.readFileSync(`${inputFilePath}${allTv[i]}`);
+                // const buffer = fs.readFileSync(`${inputFilePath}${allTv[i]}`);
 
-                let charSet = jschardet.detect(buffer).encoding;
+                // let charSet = jschardet.detect(buffer).encoding;
 
-                if (charSet === "x-mac-cyrillic") {
-                    charSet = "windows-1251";
-                };
+                // if (charSet === "x-mac-cyrillic") {
+                //     charSet = "windows-1251";
+                // };
 
-                let encodedTV = "";
+                // let currentTv = "";
 
-                encodedTV = iconv.decode(buffer, charSet);
+                // currentTv = iconv.decode(buffer, charSet);
 
-                encodedTV = handleDay(encodedTV);
+                // currentTv = handleDay(currentTv);
+
+                // const buffer = await fsPromises.readFile(`${paths.input}${allTv[i]}`)
+
+                const currentTv = await fsPromises.readFile(`${paths.input}${allTv[i]}`, { encoding: "utf-8"});
                 let splittedTV = [];
 
-                if (!encodedTV.includes(`${day} ${date}`)) {
+                if (!currentTv.includes(`${day} ${date}`)) {
                     tvArr.push(`${allTvNames[i]}${EOL}${day} ${date}${EOL}`);
                     response.push(`${allTvNames[i]} - (${allTv[i]}) - NO DATA! ❌`);
                     continue;
@@ -51,7 +53,7 @@ export default {
 
                 tvArr.push(allTvNames[i]);
 
-                splittedTV = encodedTV.split("\n");
+                splittedTV = currentTv.split("\n");
 
                 let isCurrentDay = false;
 
@@ -89,7 +91,7 @@ export default {
 
             const outputFile = `${outputDir}${handleOutputDay(day)}-${date}.txt`
 
-            fs.writeFileSync(outputFile, result, { encoding: "utf-8" });
+            await fsPromises.writeFile(outputFile, result, { encoding: "utf-8" });
 
             return response;
         } catch (error) {
