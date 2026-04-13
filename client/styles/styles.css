@@ -626,6 +626,25 @@ hr {
     margin-top: 54px;
 }
 
+.date-interval-container {
+    display: none;
+}
+
+.custom-date-checkbox-container {
+    margin-top: 10px;
+}
+
+.custom-date-show {
+    color: green;
+    cursor: pointer;
+}
+
+.custom-date-hide{
+    color: darkred;
+    cursor: pointer;
+    display: none;
+}
+
 textarea:focus {
     background-color: white;
 }
