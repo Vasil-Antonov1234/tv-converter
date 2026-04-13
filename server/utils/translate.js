@@ -114,8 +114,6 @@ export async function translate(tv) {
     for (let i = 0; i < result.length; i++) {
         let translatedPart = translatedArr[i];
 
-        console.log(translatedPart)
-
         if (translatedPart.includes("~")) {
             continue;
         }
