@@ -37,7 +37,7 @@ export default {
                 await fsPromises.rename(`${inputFilePath}${tv}`, `${inputFilePath}${fileName}`);
             }
 
-            if (dir.find((x) => x.includes("-"))) {
+            if (dir.find((x) => x.includes("-") && !x.endsWith("zip"))) {
 
                 for (let el of dir) {
 
