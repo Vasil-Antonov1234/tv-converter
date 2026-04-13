@@ -2413,8 +2413,6 @@ async function onTvRename(event) {
     const missingDataMessage = document.getElementById("missingDataMessega");
     const missingDataMessageCount = document.getElementById("missingDataCount");
 
-    debugger
-
     const customStartDate = document.getElementById("startDate").value;
     const customFinalDate = document.getElementById("endDate").value;
 
@@ -2436,6 +2434,7 @@ async function onTvRename(event) {
 
     try {
 
+        // TODO Refactor send POST with body start and final dates
         const response = await fetch(`${baseURL}/rename/tv`, {
             method: "GET",
             headers: {
