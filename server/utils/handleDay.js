@@ -47,28 +47,49 @@ export function handleOutputDay(day) {
     return result;
 }
 
-export function handleNextWeekTvDates() {
+export function handleNextWeekTvDates(startDate, finalDate) {
     const result = [];
 
-    const baseDate = new Date();
+    if (!startDate || !finalDate) {
 
-    const dayOfWeek = daysNew[baseDate.getDay() - 1];
-    const day = baseDate.getDate();
+        const baseDate = new Date();
 
-    let interval = dayOfWeek === "Понеделник" ? 8 : 7;
+        const dayOfWeek = daysNew[baseDate.getDay() - 1];
+        const day = baseDate.getDate();
 
-    for (let i = 0; i < 7; i++) {
+        let interval = dayOfWeek === "Понеделник" ? 8 : 7;
 
-        baseDate.setDate(day + interval);
-        const startDayOfWeek = daysNew[baseDate.getDay()];
-        const startDay = baseDate.getDate();
-        const startMonth = baseDate.getMonth() + 1;
-        const startYear = baseDate.getFullYear();
+        for (let i = 0; i < 7; i++) {
 
-        const convertedDate = `${startDayOfWeek} ${String(startDay).padStart(2, 0)}.${String(startMonth).padStart(2, 0)}.${startYear}`;
+            baseDate.setDate(day + interval);
+            const startDayOfWeek = daysNew[baseDate.getDay()];
+            const startDay = baseDate.getDate();
+            const startMonth = baseDate.getMonth() + 1;
+            const startYear = baseDate.getFullYear();
+
+            const convertedDate = `${startDayOfWeek} ${String(startDay).padStart(2, 0)}.${String(startMonth).padStart(2, 0)}.${startYear}`;
+            result.push(convertedDate);
+
+            interval++;
+        }
+
+        return result;
+    };
+
+    const date1 = new Date(startDate);
+    const date2 = new Date(finalDate);
+
+    
+    while(date1 <= date2) {
+        const dayOfWeek = daysNew[date1.getDay()];
+        const day = date1.getDate();
+        const month = date1.getMonth() + 1;
+        const year = date1.getFullYear();
+    
+        const convertedDate = `${dayOfWeek} ${String(day).padStart(2, 0)}.${String(month).padStart(2, 0)}.${year}`;
         result.push(convertedDate);
-
-        interval++;
+        
+        date1.setDate(day + 1);
     }
 
     return result;

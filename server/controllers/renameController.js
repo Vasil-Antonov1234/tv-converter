@@ -5,11 +5,15 @@ import reportService from "../services/reportService.js";
 
 const renameController = Router();
 
-renameController.get("/tv", async (req, res) => {
+renameController.post("/tv", async (req, res) => {
 
+    const data = req.body;
+
+    const startDate = data.customStartDate;
+    const finalDate = data.customFinalDate;
     try {
         const renamedFilesCount = await renameServices.renameAllTv();
-        const response = await reportService.baseReport(renamedFilesCount);
+        const response = await reportService.baseReport(renamedFilesCount, startDate, finalDate);
 
         res.send(JSON.stringify(response));
         // res.send(JSON.stringify(`${renamedFilesCount} files has been renamed!`));

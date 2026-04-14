@@ -2317,16 +2317,10 @@ async function onCopyIssue(event) {
         spinner.style.display = "inline-block";
     };
 
+    
     try {
-        const response = await fetch(`${baseURL}/copy/issue`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({ issue, application, applicationIssue })
-        });
-
-        const result = await response.json();
+        
+        const result = await utils.request("/copy/issue", "POST", { issue, application, applicationIssue })
 
         message.value = result;
         message.style.color = green;
@@ -2428,6 +2422,7 @@ async function onTvRename(event) {
     const missingDataMessage = document.getElementById("missingDataMessega");
     const missingDataMessageCount = document.getElementById("missingDataCount");
 
+    // TODO handle wrong input
     const customStartDate = document.getElementById("startDate").value;
     const customFinalDate = document.getElementById("endDate").value;
 
@@ -2450,14 +2445,17 @@ async function onTvRename(event) {
     try {
 
         // TODO Refactor send POST with body start and final dates
-        const response = await fetch(`${baseURL}/rename/tv`, {
-            method: "GET",
-            headers: {
-                "content-type": "application/json"
-            }
-        });
+        
+        const result = await utils.request("/rename/tv", "POST", { customStartDate, customFinalDate });
 
-        const result = await response.json();
+        // const response = await fetch(`${baseURL}/rename/tv`, {
+        //     method: "GET",
+        //     headers: {
+        //         "content-type": "application/json"
+        //     }
+        // });
+
+        // const result = await response.json();
 
         message.textContent = `${result.renamedFilesCount} files have been renamed`
         message.style.display = "inline";

@@ -5,7 +5,7 @@ import { handleNextWeekTvDates } from "../utils/handleDay.js";
 import reportHandler from "../utils/reportHandler.js";
 
 export default {
-    async baseReport(renamedFilesCount) {
+    async baseReport(renamedFilesCount, startDate, finalDate) {
         const dir = await fsPromises.readdir(paths.input);
         const allFiles = allTv;
 
@@ -15,7 +15,7 @@ export default {
 
         // TODO option to set datesToCheck manualy
         // in the app, if the day is not Monday or Tuesday, require that the dates for check to be set manyally
-        const datesToCheck = handleNextWeekTvDates();
+        const datesToCheck = handleNextWeekTvDates(startDate, finalDate);
         const { allMissindData, missingData } = await reportHandler.weekDaysDataReport(datesToCheck, dir);
 
         const report = {
