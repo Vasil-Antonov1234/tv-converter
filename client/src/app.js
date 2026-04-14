@@ -1609,35 +1609,31 @@ const tvFunctions = {
 
 // Utils
 
-// const response = await fetch(`${baseURL}/tv/add`, {
-//     method: "POST",
-//     headers: {
-//         "content-type": "application/json"
-//     },
-//     body: dataJSON
-// });
+const utils = {
+    async request(url, method = "GET", body) {
+        const data = {
+            method
+        }
 
+        if (method != "GET") {
+            data.headers = {
+                "content-type": "application/json"
+            };
 
-// TODO try catch
-async function request(url, method = "GET", body) {
-    const data = {
-        method
-    }
-
-    if (method != "GET") {
-        data.headers = {
-            "content-type": "application/json"
+            data.body = body;
         };
 
-        data.body = body;
-    };
+        try {
+            const response = await fetch(`${baseURL}${url}`, data);
+            const result = await response.json();
 
-    const response = await fetch(`${baseURL}${url}`);
-
-    const result = await response.json();
-
-    return result;
+            return result;
+        } catch (error) {
+            errorMessageHandler(error, red)
+        };
+    }
 }
+
 
 function deleteEmptyReturns(arr) {
     let text = arr.join("\n");
