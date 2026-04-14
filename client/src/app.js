@@ -2426,6 +2426,13 @@ async function onTvRename(event) {
     const customStartDate = document.getElementById("startDate").value;
     const customFinalDate = document.getElementById("endDate").value;
 
+    const date1 = new Date(customStartDate);
+    const date2 = new Date(customFinalDate);
+
+    if (date1 > date2) {
+        return errorMessageHandler("Starting date must be befor ending date!", red);
+    }
+
     const renameTvButton = event.currentTarget;
 
     renameTvButton.setAttribute("disabled", true);
@@ -2448,15 +2455,6 @@ async function onTvRename(event) {
         
         const result = await utils.request("/rename/tv", "POST", { customStartDate, customFinalDate });
 
-        // const response = await fetch(`${baseURL}/rename/tv`, {
-        //     method: "GET",
-        //     headers: {
-        //         "content-type": "application/json"
-        //     }
-        // });
-
-        // const result = await response.json();
-
         message.textContent = `${result.renamedFilesCount} files have been renamed`
         message.style.display = "inline";
         message.style.color = green;
@@ -2475,7 +2473,7 @@ async function onTvRename(event) {
         message.textContent = error.message;
         message.style.color = red;
 
-        errorMessageHandler(error.message, red)
+        errorMessageHandler(error, red)
     } finally {
         isPending = false;
         renameTvButton.removeAttribute("disabled");
