@@ -1608,28 +1608,33 @@ const tvFunctions = {
 }
 
 // Utils
-
 const utils = {
     async request(url, method = "GET", body) {
-        const data = {
+        const options = {
             method
         }
 
-        if (method != "GET") {
-            data.headers = {
+        if (body) {
+            options.headers = {
                 "content-type": "application/json"
             };
 
-            data.body = body;
+            options.body = JSON.stringify(body);
         };
 
         try {
-            const response = await fetch(`${baseURL}${url}`, data);
+            const response = await fetch(`${baseURL}${url}`, options);
+
+            if (!response.ok) {
+                const result = await response.json();
+                throw result;
+            }
+
             const result = await response.json();
 
             return result;
         } catch (error) {
-            errorMessageHandler(error, red)
+            throw error
         };
     }
 }
@@ -2193,23 +2198,13 @@ async function onRenamePdfFiles(event) {
     };
 
     try {
-        const response = await fetch(`${baseURL}/rename/pdf`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({ path, number })
-        });
-
-        const result = await response.json();
-
+        const result = await utils.request("/rename/pdf", "POST", { path, number });
         errorMessageHandler(result.result, green);
     } catch (error) {
-        errorMessageHandler(error.message, red);
+        errorMessageHandler(error, red)
     } finally {
         button.removeAttribute("disabled");
-    };
-
+    }
 }
 
 function onShowIssue() {
@@ -2266,32 +2261,26 @@ async function onFindAndReplace(event) {
         spinner.style.display = "inline-block";
     }
 
-    try {
-        const response = await fetch(`${baseURL}/rename/files`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
 
-        const result = await response.json();
+    try {
+        const result = await utils.request("/rename/files", "POST", data)
 
         message.textContent = result;
         message.style.display = "inline-block";
         message.style.color = green;
 
-        errorMessageHandler(result, green)
+        errorMessageHandler(result, green);
     } catch (error) {
         message.textContent = error;
         message.style.color = red;
         message.style.display = "inline-block";
 
-        errorMessageHandler(error, red)
+        errorMessageHandler(error, red);
     } finally {
         findReplaceButton.removeAttribute("disabled");
         spinner.remove();
-    };
+    }
+
 }
 
 async function onCopyIssue(event) {
@@ -2541,18 +2530,9 @@ async function onSubmitTvData(event) {
         spinner.style.display = "inline-block";
     }
 
-    const dataJSON = JSON.stringify(data);
-
     try {
-        const response = await fetch(`${baseURL}/tv/add`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: dataJSON
-        });
-
-        const result = await response.json();
+                
+        const result = await utils.request("/tv/add", "POST", data);
 
         if (typeof (result) === "string") {
             return errorMessageHandler(result, green);
