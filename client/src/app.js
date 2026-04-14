@@ -1977,6 +1977,9 @@ function tvBookView(event) {
         dateContainerElement.style.display = "none";
         customDateShowElement.style.display = "flex";
         customDateHideElement.style.display = "none";
+
+        document.getElementById("startDate").value = "";
+        document.getElementById("endDate").value = "";
     }
 };
 
@@ -2317,9 +2320,9 @@ async function onCopyIssue(event) {
         spinner.style.display = "inline-block";
     };
 
-    
+
     try {
-        
+
         const result = await utils.request("/copy/issue", "POST", { issue, application, applicationIssue })
 
         message.value = result;
@@ -2452,7 +2455,7 @@ async function onTvRename(event) {
     try {
 
         // TODO Refactor send POST with body start and final dates
-        
+
         const result = await utils.request("/rename/tv", "POST", { customStartDate, customFinalDate });
 
         message.textContent = `${result.renamedFilesCount} files have been renamed`
@@ -2527,7 +2530,7 @@ async function onSubmitTvData(event) {
     }
 
     try {
-                
+
         const result = await utils.request("/tv/add", "POST", data);
 
         if (typeof (result) === "string") {
