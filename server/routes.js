@@ -9,4 +9,9 @@ routes.use("/rename", renameController);
 routes.use("/tv/add", addController);
 routes.use("/copy", copyController);
 
+routes.all("/*url", (req, res) => {
+    res.status(404);
+    res.send(JSON.stringify("Bad request! Wrong url address!"));
+})
+
 export default routes;
