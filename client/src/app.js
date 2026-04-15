@@ -2428,15 +2428,25 @@ async function onTvRename(event) {
     const missingDataMessage = document.getElementById("missingDataMessega");
     const missingDataMessageCount = document.getElementById("missingDataCount");
 
-    // TODO handle wrong input
     const customStartDate = document.getElementById("startDate").value;
     const customFinalDate = document.getElementById("endDate").value;
-
     const date1 = new Date(customStartDate);
     const date2 = new Date(customFinalDate);
 
     if (date1 > date2) {
         return errorMessageHandler("Starting date must be befor ending date!", red);
+    }
+
+    const oneDayLong = 86400000;
+
+    if (oneDayLong * 14 < date2 - date1) {
+        const daysCount = (date2 - date1) / oneDayLong;
+
+        const choice = confirm(`Too long period of time! Are you sure you want a report for ${daysCount} days`);
+
+        if (!choice) {
+            return;
+        }
     }
 
     const renameTvButton = event.currentTarget;
