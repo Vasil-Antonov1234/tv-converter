@@ -682,6 +682,13 @@ hr {
     display: none;
 }
 
+.dates-wrapper {
+    margin-top: 10px;
+    border-radius: 5px;
+    width: 500px;
+    padding: 10px;
+}
+
 textarea:focus {
     background-color: white;
 }

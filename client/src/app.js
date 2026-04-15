@@ -1995,27 +1995,27 @@ function tvBookTemplate() {
         <span id="dateBook">
             <p>Day</p>
         </span>
-    
-        <section class="input-wraper">
-            <div class="input-container">
-    
+
+    <section class="input-wraper">
+        <div class="input-container">
+
             <div>
                 <button class="selectFileBook button" id="listFileBook">Select file</button>
                 <input type="file" id="selectFileBook" accept=".txt" style="display: none">
             </div>
-    
+
             <form id="tv-book-form" class="input">
                 <textarea name="tvText" id="inputBookArea" class="tvText"
                     placeholder="Paste your text here or click the 'Select File' button to choose"></textarea>
                 <button type="submit" class="button mainBtn" id="convertBtnTvBook">Convert</button>
                 <textarea name="output" id="outputArea" class="tvText"
                     placeholder="The converted text will appear here"></textarea>
-    
+
                 <div class="radio-container">
                     <input type="radio" id="tvBook" name="tv-radio" value="tvBook" checked>
                 </div>
             </form>
-    
+
             <div class="calc-container">
                 <h1 id="calcCharsTvBook">Characters count: 0</h1>
                 <h1 id="calcRowsTvBook">Rows count: 0</h1>
@@ -2027,26 +2027,28 @@ function tvBookTemplate() {
         <div id="tvRenameContainer" class="rename-container">
             <button id="rename" class="tvRename button">TV-rename</button>
             <span class="renamedTvMessage" id="renamedTvMessage"></span>
-            <div class="custom-date-checkbox-container">
-                <span class="custom-date-wrapper">Custom date:
-                    <span id="custom-date-show" class="custom-date-show">show</span>
-                    <span id="custom-date-hide" class="custom-date-hide">hide</span>
-                </span>
-            </div>
-            <div id="date-interval-container" class="date-interval-container">
-                <label for="startDate">Start date: </label>
-                <input type="date" id="startDate">
-                <label for="endDate">Final date: </label>
-                <input type="date" id="endDate">
-            </div>
-            <div class="custom-dates-cover" id="custom-dates-cover">CUSTOM DATES</div>
+            <section id="dates-wrapper" class="dates-wrapper">
+                <div id="custom-date-checkbox-container" class="custom-date-checkbox-container">
+                    <span class="custom-date-wrapper">Custom date:
+                        <span id="custom-date-show" class="custom-date-show">show</span>
+                        <span id="custom-date-hide" class="custom-date-hide">hide</span>
+                    </span>
+                </div>
+                <div id="date-interval-container" class="date-interval-container">
+                    <label for="startDate">Start date: </label>
+                    <input type="date" id="startDate">
+                    <label for="endDate">Final date: </label>
+                    <input type="date" id="endDate">
+                </div>
+                <div class="custom-dates-cover" id="custom-dates-cover">CUSTOM DATES</div>
+            </section>
         </div>
-    
+
         <div class="reportMessageTitleContainer">
             <span class="reportMessageTitle" id="missingFilesCount">Missing files: 0</span>
             <span class="reportMessageTitle1" id="missingDataCount">Missing data: 0</span>
         </div>
-    
+
         <form id="submitTvData" class="outputTvDate">
             <select name="day" id="day">
                 <option value="Понеделник" name="day">Понеделник</option>
@@ -2060,7 +2062,7 @@ function tvBookTemplate() {
             <input type="text" name="date" id="tvBookInputDate" placeholder="examle: 01.01.2024">
             <button class="submitAddTvData button" id="submitAddTvDataBtv">submit</button>
         </form>
-    
+
         <div>
             <textarea id="responseMessage" class="responseMessage"></textarea>
             <textarea id="missingFilesMessage" class="responseMessage"></textarea>
@@ -2442,10 +2444,9 @@ async function onTvRename(event) {
     const date2 = new Date(customFinalDate);
     const currentDate = new Date();
 
-    if (currentDate.getDay() !== 1 && currentDate.getDay() !== 2 && (typeof(date1) === "object" || typeof(date2) === "object")) {
+    if (currentDate.getDay() !== 1 && currentDate.getDay() !== 2 && (typeof (date1) === "object" || typeof (date2) === "object")) {
         const customDatesElement = document.getElementById("custom-dates-cover");
-        addClass(customDatesElement, "radio-container-notify", 5000);
-        return errorMessageHandler("Please select dates manualy!", yellow);
+        return errorMessageHandler("Please select dates manualy!", red, "dates-wrapper");
     };
 
     if (date1 > date2) {
