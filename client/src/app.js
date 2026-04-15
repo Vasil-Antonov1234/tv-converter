@@ -1960,6 +1960,7 @@ function tvBookView(event) {
     document.getElementById("submitTvData").addEventListener("submit", onSubmitTvData);
     const getFileElementBook = document.getElementById("listFileBook");
     const selectFileElementBook = document.getElementById("selectFileBook");
+    const coverEl = document.getElementById("custom-dates-cover");
 
     if (!isAddedGetFile) {
         getFileElementBook.addEventListener("click", () => selectFileElementBook.click());
@@ -1971,6 +1972,8 @@ function tvBookView(event) {
         dateContainerElement.style.display = "inline-block";
         customDateShowElement.style.display = "none";
         customDateHideElement.style.display = "inline-block";
+
+        coverEl.style.display = "none";
     };
 
     function onHideDates() {
@@ -1980,6 +1983,8 @@ function tvBookView(event) {
 
         document.getElementById("startDate").value = "";
         document.getElementById("endDate").value = "";
+
+        coverEl.style.display = "flex";
     }
 };
 
@@ -2034,6 +2039,7 @@ function tvBookTemplate() {
                 <label for="endDate">Final date: </label>
                 <input type="date" id="endDate">
             </div>
+            <div class="custom-dates-cover" id="custom-dates-cover">CUSTOM DATES</div>
         </div>
     
         <div class="reportMessageTitleContainer">

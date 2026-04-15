@@ -629,12 +629,32 @@ hr {
 .date-interval-container {
     padding: 10px;
     margin-top: 4px;
-    border: 1.4px solid gray;
     border-radius: 5px;
-    box-shadow: 0 0 1px 0;
+    box-shadow: 0 0 4px 0;
     font-family: sans-serif;
     display: none;
     background-color: rgba(220, 220, 220, 0.774);
+    animation: onShowAnimation 1s ease-out forwards;
+    animation-duration: 0.5s;
+}
+
+.custom-dates-cover {
+    width: 445px;
+    height: 43px;
+    background-color: gray;
+    margin-top: 4px;
+    padding: 2px;
+    color: white;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 24px;
+    border-radius: 5px;
+    box-shadow: 0 0 4px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: onShowAnimation 1s ease-out forwards;
+    animation-duration: 0.5s;
 }
 
 .date-interval-container input {
@@ -656,7 +676,7 @@ hr {
     cursor: pointer;
 }
 
-.custom-date-hide{
+.custom-date-hide {
     color: darkred;
     cursor: pointer;
     display: none;
@@ -770,4 +790,50 @@ input:focus {
 .rotate {
     animation: onConvertWeatherAnimation 1s ease-out forwards;
     animation-duration: 1s;
+}
+
+@keyframes onShowAnimation {
+
+    0% {
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 0.25;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    75% {
+        opacity: 0.75;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes onHideAnimation {
+
+    0% {
+        opacity: 1;
+    }
+
+    25% {
+        opacity: 0.75;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    75% {
+        opacity: 0.25;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
