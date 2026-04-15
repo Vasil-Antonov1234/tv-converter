@@ -2440,6 +2440,13 @@ async function onTvRename(event) {
     const customFinalDate = document.getElementById("endDate").value;
     const date1 = new Date(customStartDate);
     const date2 = new Date(customFinalDate);
+    const currentDate = new Date();
+
+    if (currentDate.getDay() !== 1 && currentDate.getDay() !== 2 && (typeof(date1) === "object" || typeof(date2) === "object")) {
+        const customDatesElement = document.getElementById("custom-dates-cover");
+        addClass(customDatesElement, "radio-container-notify", 5000);
+        return errorMessageHandler("Please select dates manualy!", yellow);
+    };
 
     if (date1 > date2) {
         return errorMessageHandler("Starting date must be befor ending date!", red);
