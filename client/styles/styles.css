@@ -627,11 +627,28 @@ hr {
 }
 
 .date-interval-container {
+    padding: 10px;
+    margin-top: 4px;
+    border: 1.4px solid gray;
+    border-radius: 5px;
+    box-shadow: 0 0 1px 0;
+    font-family: sans-serif;
     display: none;
+    background-color: rgba(220, 220, 220, 0.774);
+}
+
+.date-interval-container input {
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    color: rgb(202, 202, 202);
+    border: none;
 }
 
 .custom-date-checkbox-container {
     margin-top: 10px;
+    font-family: sans-serif;
+    font-weight: bold;
 }
 
 .custom-date-show {

@@ -1968,14 +1968,14 @@ function tvBookView(event) {
     };
 
     function onShowCustomDates() {
-        dateContainerElement.style.display = "flex";
+        dateContainerElement.style.display = "inline-block";
         customDateShowElement.style.display = "none";
-        customDateHideElement.style.display = "flex";
+        customDateHideElement.style.display = "inline-block";
     };
 
     function onHideDates() {
         dateContainerElement.style.display = "none";
-        customDateShowElement.style.display = "flex";
+        customDateShowElement.style.display = "inline-block";
         customDateHideElement.style.display = "none";
 
         document.getElementById("startDate").value = "";
@@ -2023,13 +2023,15 @@ function tvBookTemplate() {
             <button id="rename" class="tvRename button">TV-rename</button>
             <span class="renamedTvMessage" id="renamedTvMessage"></span>
             <div class="custom-date-checkbox-container">
-                <span id="custom-date-show" class="custom-date-show">Show custom dates</span>
-                <span id="custom-date-hide" class="custom-date-hide">Hide custom dates</span>
+                <span class="custom-date-wrapper">Custom date:
+                    <span id="custom-date-show" class="custom-date-show">show</span>
+                    <span id="custom-date-hide" class="custom-date-hide">hide</span>
+                </span>
             </div>
             <div id="date-interval-container" class="date-interval-container">
-                <label for="startDate">Start date</label>
+                <label for="startDate">Start date: </label>
                 <input type="date" id="startDate">
-                <label for="endDate">Final date</label>
+                <label for="endDate">Final date: </label>
                 <input type="date" id="endDate">
             </div>
         </div>
@@ -2466,8 +2468,6 @@ async function onTvRename(event) {
     }
 
     try {
-
-        // TODO Refactor send POST with body start and final dates
 
         const result = await utils.request("/rename/tv", "POST", { customStartDate, customFinalDate });
 
