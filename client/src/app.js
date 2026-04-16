@@ -2334,11 +2334,18 @@ async function onCopyIssue(event) {
     if (application !== "Weekend" && (issue.endsWith("w") || issue.endsWith("W"))) {
         const choice = confirm("If you want to copy the weekend edition of the newspaper, please select 'Weekend' option from the drop-down menu. Otherwise, check the newspapper issue. Do you want to continue anyway?");
 
+        if (!choice) {
+            return;
+        };
+    }
+
+    if (application === "Weekend" && (!issue.endsWith("w") && !issue.endsWith("W"))) {
+        const choice = confirm("This newspaper issue does not met the criteria of an weekend edition number. Do you want to continue anyway?");
 
         if (!choice) {
             return;
-        }
-    }
+        };
+    };
 
     copyIssueButton.setAttribute("disabled", true);
 
