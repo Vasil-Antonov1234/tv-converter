@@ -2183,7 +2183,7 @@ othersTemplate.innerHTML = `
         <textarea id="copyIssueMessage" class="copyIssueMessage"></textarea>
         <select name="application" id="application" class="weekendLabel">
                 <option value="currentIssue" name="currentIssue">Current issue</option>        
-                <option value="Weekend" name="application">Weekend photos</option>
+                <option value="Weekend" name="application">Weekend</option>
                 <option value="ZlatnoVreme" name="application">Zlatno vreme</option>
                 <option value="Agro" name="application">Agro</option>
         </select>
@@ -2327,9 +2327,18 @@ async function onCopyIssue(event) {
         return errorMessageHandler("Issue number is required!", red, "issue");
     };
 
-    if ((application !== "currentIssue") && !applicationIssue) {
+    if ((application !== "currentIssue" && application !== "Weekend") && !applicationIssue) {
         errorMessageHandler("Application isssue is required!", red, "weekend");
     };
+    
+    if (application !== "Weekend" && (issue.endsWith("w") || issue.endsWith("W"))) {
+        const choice = confirm("If you want to copy the weekend edition of the newspaper, please select 'Weekend' option from the drop-down menu. Otherwise, check the newspapper issue. Do you want to continue anyway?");
+
+
+        if (!choice) {
+            return;
+        }
+    }
 
     copyIssueButton.setAttribute("disabled", true);
 
