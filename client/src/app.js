@@ -822,7 +822,7 @@ function onCalc() {
     let input = calcArea.value;
     input = input.replaceAll("\x1F", "");
     // debugger
-    const rows = calcReturnsCount1(input.split("\n"), tvCalcConstants[tvCalcValue]);
+    const rows = utils.calcReturnsCount1(input.split("\n"), tvCalcConstants[tvCalcValue]);
     calcChars.textContent = `Characters count: ${input.length}`;
     calcRows.textContent = `Rows count: ${rows}`;
 };
@@ -864,7 +864,7 @@ const tvFunctions = {
 
         const result = arr;
 
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
 
 
@@ -878,7 +878,7 @@ const tvFunctions = {
                     if (row.startsWith(hour)) {
                         result.splice(i, 1)
                         i--;
-                        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                         break;
                     }
                 }
@@ -898,7 +898,7 @@ const tvFunctions = {
                     if (row.startsWith(hour)) {
                         result.splice(j, 1)
                         // j++;
-                        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                         break;
                     }
                 }
@@ -913,7 +913,7 @@ const tvFunctions = {
 
     deleteByHourAndText(arr, rows, hours, text) {
         const result = arr;
-        let returnsCount = calcReturnsCount1(arr, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(arr, tvCalcConstants[tvCalcValue]);
 
 
         if (returnsCount > rows) {
@@ -927,7 +927,7 @@ const tvFunctions = {
                     if (hours.includes(hour) && rowArr[1] === text) {
                         result.splice(i, 1);
                         i--;
-                        returnsCount = calcReturnsCount1(arr, tvCalcConstants[tvCalcValue]);
+                        returnsCount = utils.calcReturnsCount1(arr, tvCalcConstants[tvCalcValue]);
                     }
                 } else {
                     break;
@@ -940,7 +940,7 @@ const tvFunctions = {
 
     deleteByHourAndTextExcluding(arr, rows, hours, text, text2, text3) {
         const result = arr;
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
 
         if (returnsCount > rows) {
@@ -963,7 +963,7 @@ const tvFunctions = {
                     if (isHour && !isIncludes) {
                         result.splice(i, 1);
                         i--;
-                        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                     }
                 } else {
                     break;
@@ -976,7 +976,7 @@ const tvFunctions = {
 
     replaceText(arr, rows, text, newText) {
         let result = arr;
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount > rows) {
 
@@ -987,7 +987,7 @@ const tvFunctions = {
                     row = row.replaceAll(text, newText);
                     row = row.replaceAll("  ", " ");
                     result.splice(i, 1, row);
-                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                    returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                 } else {
                     break;
                 }
@@ -1000,7 +1000,7 @@ const tvFunctions = {
     replacePattern(arr, rows, pattern, newText) {
 
         let result = arr;
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount > rows) {
 
@@ -1012,7 +1012,7 @@ const tvFunctions = {
                 if (match) {
                     row = row.split(match).join(newText)
                     result.splice(i, 1, row);
-                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue])
+                    returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue])
                 }
 
                 if (returnsCount <= rows) {
@@ -1066,7 +1066,7 @@ const tvFunctions = {
 
     deleteRepetedRows1(arr, rows) {
         let result = arr;
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         // debugger
         if (returnsCount > rows) {
@@ -1100,7 +1100,7 @@ const tvFunctions = {
                         result.splice(i, 1);
                         el2 = "";
                         i--;
-                        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                     } else {
                         el1 = el2;
                         el2 = "";
@@ -1124,7 +1124,7 @@ const tvFunctions = {
 
     deleteGenre(arr, rows) {
         const result = arr;
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
 
         if (returnsCount > rows) {
@@ -1142,7 +1142,7 @@ const tvFunctions = {
                         if (movies.includes(word)) {
                             rowArr.splice(j + 1, rowArr.length - 1);
                             result.splice(i, 1, rowArr.join(" "));
-                            returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                            returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                             break;
                         };
                     };
@@ -1160,7 +1160,7 @@ const tvFunctions = {
 
     deleteAfterEpisode(arr, rows) {
         const result = arr;
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
 
         if (returnsCount > rows) {
@@ -1175,7 +1175,7 @@ const tvFunctions = {
                     // row = rowArr[0] + " " + match;
                     result[i] = row;
                     // result.splice(i, 1, row);
-                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                    returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                 };
 
                 if (returnsCount <= rows) {
@@ -1190,7 +1190,7 @@ const tvFunctions = {
 
     deletePatternIncluding(arr, rows, pattern) {
         const result = arr;
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount > rows) {
 
@@ -1202,7 +1202,7 @@ const tvFunctions = {
                     let rowArr = row.split(match);
                     row = rowArr[0];
                     result.splice(i, 1, row);
-                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                    returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                 };
 
                 if (returnsCount <= rows) {
@@ -1218,7 +1218,7 @@ const tvFunctions = {
     deleteExcluding(arr, rows, text, rowCharCount) {
         const result = arr;
 
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount > rows) {
 
@@ -1230,7 +1230,7 @@ const tvFunctions = {
                     if (row.includes(text) && row.length > rowCharCount) {
                         row = utils.delTextExcluding(row, text);
                         result.splice(i, 1, row);
-                        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                     };
 
                 } else {
@@ -1244,14 +1244,14 @@ const tvFunctions = {
     convertAll(arr, rows, rowCharCount) {
         const result = arr;
 
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount > rows) {
 
             for (let i = 0; i < result.length; i++) {
                 let row = result[i];
 
-                returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
                 if (returnsCount > rows) {
 
@@ -1266,14 +1266,14 @@ const tvFunctions = {
             };
         };
 
-        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount > rows) {
 
             for (let i = 0; i < result.length; i++) {
                 let row = result[i];
 
-                returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
                 if (returnsCount > rows) {
                     if (row.includes("сутрешен блок") && row.length > rows) {
@@ -1286,14 +1286,14 @@ const tvFunctions = {
             };
         };
 
-        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount > rows) {
 
             for (let i = 0; i < result.length; i++) {
                 let row = result[i];
 
-                returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
                 if (returnsCount > rows) {
 
@@ -1307,7 +1307,7 @@ const tvFunctions = {
             };
         };
 
-        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         for (let i = 0; i < result.length; i++) {
             let el = result[i];
@@ -1322,7 +1322,7 @@ const tvFunctions = {
     deleteIncluding(arr, rows, text, rowCharCount) {
         const result = arr;
 
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount > rows) {
 
@@ -1334,7 +1334,7 @@ const tvFunctions = {
                     if (row.includes(text) && row.length > rowCharCount) {
                         row = utils.delTextIncluding(row, text);
                         result.splice(i, 1, row);
-                        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                     };
 
                 } else {
@@ -1349,7 +1349,7 @@ const tvFunctions = {
     equalization(arr, rows, text, newText) {
         let result = arr;
         result = result.filter((x) => x !== "");
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount < rows) {
             for (let i = 0; i < result.length; i++) {
@@ -1359,7 +1359,7 @@ const tvFunctions = {
                     row = row.replace(text, newText);
                     row = row.replace("  ", " ");
                     result.splice(i, 1, row);
-                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                    returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                 } else {
                     break;
                 }
@@ -1373,12 +1373,12 @@ const tvFunctions = {
         let result = tvArr;
 
         result = result.filter((x) => x !== "");
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount > rows) {
             for (let i = 0; i < result.length; i++) {
 
-                returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
                 if (returnsCount <= rows) {
                     return result;
@@ -1449,7 +1449,7 @@ const tvFunctions = {
     deleteExcludingForce(arr, rows, text) {
         const result = arr;
 
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount > rows) {
 
@@ -1461,7 +1461,7 @@ const tvFunctions = {
                     if (row.includes(text)) {
                         row = utils.delTextExcluding(row, text);
                         result.splice(i, 1, row);
-                        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                     };
 
                 } else {
@@ -1483,7 +1483,7 @@ const tvFunctions = {
 
     deleteRow(arr, rows, text) {
         const result = arr;
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount > rows) {
             for (let i = 0; i < result.length; i++) {
@@ -1494,7 +1494,7 @@ const tvFunctions = {
                     result.splice(i, 1);
                     i--;
                 }
-                returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
                 if (returnsCount <= rows) {
                     break;
@@ -1507,7 +1507,7 @@ const tvFunctions = {
 
     deleteAllExludingSpecific(arr, rows, text) {
         const result = arr;
-        let returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount > rows) {
 
@@ -1520,7 +1520,7 @@ const tvFunctions = {
                     const hour = rowArr.shift();
                     row = `${hour} ${text}`;
                     result.splice(i, 1, row);
-                    returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+                    returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                 };
 
                 if (returnsCount <= rows) {
@@ -1682,58 +1682,50 @@ const utils = {
         };
     
         return result;
-    }
+    },
 
-}
-
-
-
-
-
-
-function calcReturnsCount1(arr, value) {
-    let rowsCount = 0;
-
-    if (arr[0] !== "") {
-        rowsCount = arr.length;
-    };
-
-    const lowChars = ["!", ".", ",", "„", "”"];
-    const bigChars = ["Щ", "Ю", "М", "Ж", "М", "Ф"]
-
-    for (let row of arr) {
-        let paragraphCharsCount = 0;
-        let currentRows = 0;
-
-        for (let i = 0; i < row.length; i++) {
-            let char = row[i];
-
-            if (i === 0 || i === 1 || i === 2 || i === 3 || i === 4 || i === 5) {
-                continue;
-            }
-
-            if (lowChars.includes(char)) {
-                paragraphCharsCount += 0.5;
-            } else if (bigChars.includes(char)) {
-                paragraphCharsCount += 1.5;
-            } else {
-                paragraphCharsCount += 1;
+    calcReturnsCount1(arr, value) {
+        let rowsCount = 0;
+    
+        if (arr[0] !== "") {
+            rowsCount = arr.length;
+        };
+    
+        const lowChars = ["!", ".", ",", "„", "”"];
+        const bigChars = ["Щ", "Ю", "М", "Ж", "М", "Ф"]
+    
+        for (let row of arr) {
+            let paragraphCharsCount = 0;
+            let currentRows = 0;
+    
+            for (let i = 0; i < row.length; i++) {
+                let char = row[i];
+    
+                if (i === 0 || i === 1 || i === 2 || i === 3 || i === 4 || i === 5) {
+                    continue;
+                }
+    
+                if (lowChars.includes(char)) {
+                    paragraphCharsCount += 0.5;
+                } else if (bigChars.includes(char)) {
+                    paragraphCharsCount += 1.5;
+                } else {
+                    paragraphCharsCount += 1;
+                };
             };
+        
+            if (paragraphCharsCount > value) {
+                currentRows = Math.ceil(paragraphCharsCount / value);
+                rowsCount += currentRows - 1;
+            };
+    
+    
+            paragraphCharsCount = 0;
+            currentRows = 0;
         };
-
-        // console.log(paragraphCharsCount);
-
-        if (paragraphCharsCount > value) {
-            currentRows = Math.ceil(paragraphCharsCount / value);
-            rowsCount += currentRows - 1;
-        };
-
-
-        paragraphCharsCount = 0;
-        currentRows = 0;
-    };
-
-    return rowsCount;
+    
+        return rowsCount;
+    }
 }
 
 function separateTv(arr, allTvNames) {
@@ -1814,7 +1806,7 @@ function novaFix(novaTvArr, rows, fraze, description) {
     for (let i = 0; i < result.length; i++) {
         let row = result[i];
 
-        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount <= rows) {
             return result;
@@ -1845,7 +1837,7 @@ function novaTvSeriesHandler(novaTvArr, rows) {
     for (let i = 0; i < result.length; i++) {
         let row = result[i];
 
-        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount <= rows) {
             return result;
@@ -1886,7 +1878,7 @@ function novaMovieHandler(novaTvArr, rows) {
     for (let i = 0; i < result.length; i++) {
         let row = result[i];
 
-        returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
+        returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
         if (returnsCount <= rows) {
             return result;
