@@ -1116,7 +1116,7 @@ const tvFunctions = {
         const result = []
 
         for (let row of arr) {
-            result.push(removeComma(row))
+            result.push(utils.removeComma(row))
         };
 
         return result;
@@ -1212,7 +1212,7 @@ const tvFunctions = {
 
         };
 
-        return deleteEmptyReturns(result);
+        return utils.deleteEmptyReturns(result);
     },
 
     deleteExcluding(arr, rows, text, rowCharCount) {
@@ -1228,7 +1228,7 @@ const tvFunctions = {
                 if (returnsCount > rows) {
 
                     if (row.includes(text) && row.length > rowCharCount) {
-                        row = delTextExcluding(row, text);
+                        row = utils.delTextExcluding(row, text);
                         result.splice(i, 1, row);
                         returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                     };
@@ -1256,7 +1256,7 @@ const tvFunctions = {
                 if (returnsCount > rows) {
 
                     if (row.includes("режисьор") && row.length > rowCharCount) {
-                        row = delTextIncluding(row, "режисьор");
+                        row = utils.delTextIncluding(row, "режисьор");
                         result.splice(i, 1, row);
                     };
 
@@ -1277,7 +1277,7 @@ const tvFunctions = {
 
                 if (returnsCount > rows) {
                     if (row.includes("сутрешен блок") && row.length > rows) {
-                        row = delTextExcluding(row, "сутрешен блок");
+                        row = utils.delTextExcluding(row, "сутрешен блок");
                         result.splice(i, 1, row);
                     };
                 } else {
@@ -1298,7 +1298,7 @@ const tvFunctions = {
                 if (returnsCount > rows) {
 
                     if (row.includes("филм") && row.length > rowCharCount) {
-                        row = delTextExcluding(row, "филм");
+                        row = utils.delTextExcluding(row, "филм");
                         result.splice(i, 1, row);
                     };
                 } else {
@@ -1311,7 +1311,7 @@ const tvFunctions = {
 
         for (let i = 0; i < result.length; i++) {
             let el = result[i];
-            el = removeComma(el);
+            el = utils.removeComma(el);
             result.splice(i, 1, el);
         }
 
@@ -1332,7 +1332,7 @@ const tvFunctions = {
                 if (returnsCount > rows) {
 
                     if (row.includes(text) && row.length > rowCharCount) {
-                        row = delTextIncluding(row, text);
+                        row = utils.delTextIncluding(row, text);
                         result.splice(i, 1, row);
                         returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                     };
@@ -1459,7 +1459,7 @@ const tvFunctions = {
                 if (returnsCount > rows) {
 
                     if (row.includes(text)) {
-                        row = delTextExcluding(row, text);
+                        row = utils.delTextExcluding(row, text);
                         result.splice(i, 1, row);
                         returnsCount = calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
                     };
@@ -1599,6 +1599,7 @@ const tvFunctions = {
             if (isModifiet) {
                 paragraph = paragraphArr.join(" ");
                 result.splice(k, 1, paragraph);
+
             };
 
         };
@@ -1636,54 +1637,59 @@ const utils = {
         } catch (error) {
             throw error
         };
-    }
-}
+    },
 
+    deleteEmptyReturns(arr) {
+        let text = arr.join("\n");
+        text = text.replaceAll("\n\n", "\n");
+        arr = text.split("\n");
 
-function deleteEmptyReturns(arr) {
-    let text = arr.join("\n");
-    text = text.replaceAll("\n\n", "\n");
-    arr = text.split("\n");
+        return arr;
+    },
 
-    return arr;
-}
-
-function delTextIncluding(el, text) {
-
-    const elArr = el.split(" ");
-
-    for (let i = 0; i < elArr.length; i++) {
-        const token = elArr[i];
-
-        if (token === text || token === text + ":") {
-            elArr.splice(i, elArr.length - 1);
+    delTextIncluding(el, text) {
+    
+        const elArr = el.split(" ");
+    
+        for (let i = 0; i < elArr.length; i++) {
+            const token = elArr[i];
+    
+            if (token === text || token === text + ":") {
+                elArr.splice(i, elArr.length - 1);
+            };
         };
-    };
+    
+        return elArr.join(" ");
+    },
 
-    return elArr.join(" ");
+    delTextExcluding(row, text) {
+    
+        row = row.replace(text, text + "~")
+    
+        const result = row.split("~");
+    
+        return result[0];
+    },
+
+    removeComma(el) {
+        let result = el.trim();
+    
+        if (result.endsWith(",") || result.endsWith(";")) {
+            elArr = result.split("");
+            elArr.splice(elArr.length - 1, 1);
+    
+            result = elArr.join("");
+        };
+    
+        return result;
+    }
+
 }
 
-function delTextExcluding(row, text) {
 
-    row = row.replace(text, text + "~")
 
-    const result = row.split("~");
 
-    return result[0];
-}
 
-function removeComma(el) {
-    let result = el.trim();
-
-    if (result.endsWith(",") || result.endsWith(";")) {
-        elArr = result.split("");
-        elArr.splice(elArr.length - 1, 1);
-
-        result = elArr.join("");
-    };
-
-    return result;
-}
 
 function calcReturnsCount1(arr, value) {
     let rowsCount = 0;
