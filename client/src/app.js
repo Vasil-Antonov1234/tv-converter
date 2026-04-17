@@ -1,6 +1,6 @@
 const body = document.querySelector("body");
 const root = document.getElementById("root");
-root.replaceChildren(paperTemplate());
+render(paperTemplate());
 // const paperTemplate = document.getElementById("main-container");
 document.querySelector("#main-form").addEventListener("submit", onConvert);
 const inputEl = document.querySelector(".tvText");
@@ -16,10 +16,10 @@ const notifyContainer = document.querySelector("#notify-contayner");
 const errorContainer = document.querySelector("#error");
 const spanClose = document.querySelector(".close");
 spanClose.addEventListener("click", closeNotification);
-document.getElementById("paper-view").addEventListener("click", tvPaperView);
-document.getElementById("tv-book-view").addEventListener("click", tvBookView);
-document.getElementById("tv-weather-view").addEventListener("click", weatherView);
-document.getElementById("others-view").addEventListener("click", onOthersView);
+document.getElementById("paper-view-link").addEventListener("click", tvPaperView);
+document.getElementById("tv-book-view-link").addEventListener("click", tvBookView);
+document.getElementById("tv-weather-view-link").addEventListener("click", weatherView);
+document.getElementById("others-view-link").addEventListener("click", onUtilsView);
 const dateEl = document.querySelector("#date p");
 const dateContainer = document.getElementById("date");
 const getFileElement = document.getElementById("listFile");
@@ -27,6 +27,11 @@ const selectFileElement = document.getElementById("selectFile");
 getFileElement.addEventListener("click", () => selectFileElement.click());
 selectFileElement.addEventListener("change", () => addFileContent("inputArea", selectFileElement));
 const baseURL = "http://localhost:5000";
+
+let paperTemplateRef = document.getElementById("paper-view");
+let tvBookTemplateRef = document.getElementById("tv-book-view");
+let weatherTemplateRef = document.getElementById("weather");
+let utilsTemplateRef = document.getElementById("others");
 
 const tvCalcConstants = {
     paper: 30,
@@ -1729,10 +1734,10 @@ const utils = {
     },
 
     activeLinkHandler(event) {
-    const allHrefs = document.querySelectorAll("nav a");
-    allHrefs.forEach((x) => x.classList.remove("isActive"));
-    event.currentTarget.classList.add("isActive");
-}
+        const allHrefs = document.querySelectorAll("nav a");
+        allHrefs.forEach((x) => x.classList.remove("isActive"));
+        event.currentTarget.classList.add("isActive");
+    }
 }
 
 function separateTv(arr, allTvNames) {
@@ -1938,7 +1943,6 @@ function closeNotification() {
 };
 
 let isAddedGetFile = false;
-// let isAddedSelectPath = false;
 
 function tvBookView(event) {
     utils.activeLinkHandler(event);
@@ -1946,9 +1950,10 @@ function tvBookView(event) {
     body.classList.remove("weather");
     root.classList.remove("others");
     body.classList.remove("others");
-    // root.classList.add("tv-book");
     body.classList.add("tv-book");
-    root.replaceChildren(tvBookTemplate());
+    root.replaceChildren(tvBookTemplate(tvBookTemplateRef));
+    tvBookTemplateRef = document.getElementById("tv-book-view");
+
     const customDateShowElement = document.getElementById("custom-date-show");
     const customDateHideElement = document.getElementById("custom-date-hide");
     const dateContainerElement = document.getElementById("date-interval-container");
@@ -1992,9 +1997,16 @@ function tvBookView(event) {
 };
 
 
-function tvBookTemplate() {
-    const viewContainer = document.createElement("div");
-    viewContainer.innerHTML = `
+function tvBookTemplate(element) {
+
+    if (element) {
+        return element;
+    };
+
+    const container = document.createElement("div");
+    container.setAttribute("id", "tv-book-view");
+
+    container.innerHTML = `
         <span id="dateBook">
             <p>Day</p>
         </span>
@@ -2073,11 +2085,17 @@ function tvBookTemplate() {
         </div>
     </section>
     `;
-    return viewContainer;
+    return container;
 };
 
-function paperTemplate() {
+function paperTemplate(element) {
+
+    if (element) {
+        return element;
+    }
+
     const container = document.createElement("div");
+    container.setAttribute("id", "paper-view");
 
     container.innerHTML = `
         <div id="main-container">
@@ -2136,12 +2154,12 @@ function paperTemplate() {
         </div>
     `;
 
-    // const getFileElement = document.getElementById("listFile");
-    // const selectFileElement = document.getElementById("selectFile");
-    // getFileElement.addEventListener("click", () => selectFileElement.click());
-    // selectFileElement.addEventListener("change", () => addFileContent("inputArea", selectFileElement));
-
     return container;
+};
+
+function render(template) {
+    const rootElement = document.getElementById("root");
+    rootElement.replaceChildren(template);
 };
 
 function tvPaperView(event) {
@@ -2152,10 +2170,11 @@ function tvPaperView(event) {
     body.classList.remove("weather");
     root.classList.remove("others");
     body.classList.remove("others");
-    root.replaceChildren(paperTemplate());
-    tvCalcValue = "paper";
 
-    document.getElementById("resetAll").addEventListener("click", onResetAll);
+    root.replaceChildren(paperTemplate(paperTemplateRef));
+
+    paperTemplateRef = document.getElementById("paper-view");
+    tvCalcValue = "paper";
 }
 
 function weatherView(event) {
@@ -2166,42 +2185,56 @@ function weatherView(event) {
     body.classList.remove("others");
     // root.classList.add("weather");
     body.classList.add("weather");
-    root.replaceChildren(weatherTemplate);
+    root.replaceChildren(weatherTemplate(weatherTemplateRef));
+    weatherTemplateRef = document.getElementById("weather");
+
     document.getElementById("getBtnBG").addEventListener("click", onWeatherConvert);
     document.querySelector("#exchangeRates").addEventListener("click", exchangeRates);
     document.getElementById("exchangeRatesInput").style.display = "none";
 }
 
-const weatherTemplate = document.createElement("div");
-weatherTemplate.setAttribute("id", "weather");
-weatherTemplate.innerHTML = `
-    <div class="weather-container">
-        <textarea name="input" id=input class="text tvText"></textarea>
-        <div id="buttons-container">
-          <button id="getBtnBG" class="reset button">Convert</button>
+function weatherTemplate(element) {
+
+    if (element) {
+        return element;
+    };
+
+    const container = document.createElement("div");
+    container.setAttribute("id", "weather");
+
+    container.innerHTML = `
+        <div class="weather-container">
+            <textarea name="input" id=input class="text tvText"></textarea>
+            <div id="buttons-container">
+              <button id="getBtnBG" class="reset button">Convert</button>
+            </div>
         </div>
-    </div>
 
-    <textarea name="currency" value="test" id="exchangeRatesInput">const currencyList = document.querySelectorAll(".center");
-const currencyListArr = Array.from(currencyList);
+        <textarea name="currency" value="test" id="exchangeRatesInput">const currencyList = document.querySelectorAll(".center");
+        const currencyListArr = Array.from(currencyList);
 
-const usd = currencyListArr[1].textContent;
-const usdPref = currencyListArr[0].textContent;
-const gbp = currencyListArr[13].textContent;
-const gbpPref = currencyListArr[12].textContent;
-const chf = currencyListArr[28].textContent;
-const chfPref = currencyListArr[27].textContent;
-const jpy = currencyListArr[4].textContent;
-const jpyPref = currencyListArr[3].textContent;
+        const usd = currencyListArr[1].textContent;
+        const usdPref = currencyListArr[0].textContent;
+        const gbp = currencyListArr[13].textContent;
+        const gbpPref = currencyListArr[12].textContent;
+        const chf = currencyListArr[28].textContent;
+        const chfPref = currencyListArr[27].textContent;
+        const jpy = currencyListArr[4].textContent;
+        const jpyPref = currencyListArr[3].textContent;
 
-document.write("Централен курс на БНБ: " + usd + "= " + usdPref + "; " + gbp + "= " + gbpPref + "; " + chf + "= " + chfPref + "; " + jpy + "= " + jpyPref)</textarea>
-    <button id="exchangeRates" class="copyCode button">Copy code/ exchange rates</button>
-`;
+        document.write("Централен курс на БНБ: " + usd + "= " + usdPref + "; " + gbp + "= " + gbpPref + "; " + chf + "= " + chfPref + "; " + jpy + "= " + jpyPref)</textarea>
+        <button id="exchangeRates" class="copyCode button">Copy code/ exchange rates</button>
+    `
+
+    return container;
+}
 
 let isPending = false;
 
-function onOthersView(event) {
-    root.replaceChildren(othersTemplate);
+function onUtilsView(event) {
+
+    root.replaceChildren(utilsTemplate(utilsTemplateRef));
+    utilsTemplateRef = document.getElementById("others");
     utils.activeLinkHandler(event);
     root.classList.add("others");
     body.classList.add("others");
@@ -2220,41 +2253,51 @@ function onOthersView(event) {
     // };
 };
 
-const othersTemplate = document.createElement("div");
-othersTemplate.setAttribute("id", "others");
-othersTemplate.innerHTML = `   
-    <h2 class="subTitle">Find and replace multiple files</h2>
-    <form class="othersForm" id="findReplaceForm">
-        <input type="text" name="path" id="path" placeholder="Folder path*">
-        <input type="text" name="find" id="find" placeholder="Find*">
-        <input type="text" name="changeTo" id="changeTo" placeholder="Replace">
-        <input type="text" name="extension" id="extension" placeholder="File extension (Optional)">
-        <button class="selectFile button" id="findReplaceButton">Change</button>
-        <span class="renamedTvMessage" id="renamedFilesMessage"></span>
-        <div class="spinner" id="spinner"></div>
-    </form>
-    <hr>
-    <h2 class="subTitle">Copy issue</h2>
-    <form class="othersForm" id="copyIssueForm">
-        <input type="text" name="issue" id="issue" placeholder="Issue number*">
-        <button class="selectFile button" id="copyIssue">Copy</button>
-        <textarea id="copyIssueMessage" class="copyIssueMessage"></textarea>
-        <select name="application" id="application" class="weekendLabel">
-                <option value="currentIssue" name="currentIssue">Current issue</option>        
-                <option value="Weekend" name="application">Weekend</option>
-                <option value="ZlatnoVreme" name="application">Zlatno vreme</option>
-                <option value="Agro" name="application">Agro</option>
-        </select>
-        <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="Application isssue*">
-    </form>
-    <hr class="mt">
-    <h2 class="subTitle">Rename PDF files</h2>
-    <form class="othersForm" id="renamePdfFiles">
-        <input type="text" name="pathToPDF" id="pathToPDF" placeholder="Folder path*">
-        <input type="text" name="currentDayNumber" id="currentDayNumber" placeholder="PDF files number*">
-        <button class="selectFile button" id="renamePdf">Rename</button>
-    </form>
-`;
+function utilsTemplate(element) {
+    
+    if (element) {
+        return element;
+    };
+    
+    const container = document.createElement("div");
+    container.setAttribute("id", "others");
+
+    container.innerHTML = `
+        <h2 class="subTitle">Find and replace multiple files</h2>
+        <form class="othersForm" id="findReplaceForm">
+            <input type="text" name="path" id="path" placeholder="Folder path*">
+            <input type="text" name="find" id="find" placeholder="Find*">
+            <input type="text" name="changeTo" id="changeTo" placeholder="Replace">
+            <input type="text" name="extension" id="extension" placeholder="File extension (Optional)">
+            <button class="selectFile button" id="findReplaceButton">Change</button>
+            <span class="renamedTvMessage" id="renamedFilesMessage"></span>
+            <div class="spinner" id="spinner"></div>
+        </form>
+        <hr>
+        <h2 class="subTitle">Copy issue</h2>
+        <form class="othersForm" id="copyIssueForm">
+            <input type="text" name="issue" id="issue" placeholder="Issue number*">
+            <button class="selectFile button" id="copyIssue">Copy</button>
+            <textarea id="copyIssueMessage" class="copyIssueMessage"></textarea>
+            <select name="application" id="application" class="weekendLabel">
+                    <option value="currentIssue" name="currentIssue">Current issue</option>        
+                    <option value="Weekend" name="application">Weekend</option>
+                    <option value="ZlatnoVreme" name="application">Zlatno vreme</option>
+                    <option value="Agro" name="application">Agro</option>
+            </select>
+            <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="Application isssue*">
+        </form>
+        <hr class="mt">
+        <h2 class="subTitle">Rename PDF files</h2>
+        <form class="othersForm" id="renamePdfFiles">
+            <input type="text" name="pathToPDF" id="pathToPDF" placeholder="Folder path*">
+            <input type="text" name="currentDayNumber" id="currentDayNumber" placeholder="PDF files number*">
+            <button class="selectFile button" id="renamePdf">Rename</button>
+        </form>
+    `
+
+    return container;
+};
 
 async function onRenamePdfFiles(event) {
     event.preventDefault();

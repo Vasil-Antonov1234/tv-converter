@@ -16,11 +16,11 @@
 <body>
     <header>
         <nav class="navigation">
-            <a href="javascript:void(0)" id="paper-view">Paper</a>
-            <a href="javascript:void(0)" id="tv-book-view">TV Book</a>
-            <a href="javascript:void(0)" id="tv-weather-view">Weather</a>
-            <a href="./redirects/Archive/archive.html" id="archive">Archive</a>
-            <a href="javascript:void(0)" id="others-view">Utils</a>
+            <a href="javascript:void(0)" id="paper-view-link">Paper</a>
+            <a href="javascript:void(0)" id="tv-book-view-link">TV Book</a>
+            <a href="javascript:void(0)" id="tv-weather-view-link">Weather</a>
+            <a href="./redirects/Archive/archive.html" id="archive-link">Archive</a>
+            <a href="javascript:void(0)" id="others-view-link">Utils</a>
             <div class="logo">
                 <div class="logo1">
                     <div class="logo2">
@@ -31,60 +31,6 @@
         </nav>
     </header>
     <div id="root">
-        <!-- <div id="main-container">
-
-            <span id="date">
-                <p>Day</p>
-            </span>
-
-            <section class="input-wraper">
-                <div class="input-container">
-                    <form id="main-form" class="input">
-                        <textarea name="tvText" id="inputArea" class="tvText"
-                            placeholder="Paste your text here or click the 'Select file' button to choose"></textarea>
-                        <button type="submit" id="convertBtn" class="convertBtn button mainBtn">Convert</button>
-                        <textarea name="output" id="outputArea" class="tvText"
-                            placeholder="The converted text will appear here"></textarea>
-                        <div class="radio-container">
-                            <span>Choose a day <span>(optionaly):</span></span>
-                            <select name="tv-radio" id="tvWeek">
-                                <option value="nothing">Day selection</option>
-                                <option value="week">Понеделник-Петък</option>
-                                <option value="saturday">Събота</option>
-                                <option value="sunday">Неделя</option>
-                            </select>
-                            <details>
-                                <summary>Show more...</summary>
-                                <div class="summary">The selected day option has the highest priority and overwrites the
-                                    automatically detected!</div>
-                            </details>
-                        </div>
-                    </form>
-
-
-                    <div class="calc-container">
-                        <h1 id="calcChars">Characters count: 0</h1>
-                        <h1 id="calcRows">Rows count: 0</h1>
-                        <textarea name="calc" id="calcArea" class="calcText"></textarea>
-                        <button class="button calcBtn" id="calcBtn">Calculate chars</button>
-                        <button class="calcReset button" id="resetCalc">Clear</button>
-                    </div>
-                </div>
-            </section>
-
-            <section class="buttons">
-                <div class="buttons-container">
-                    <button class="clear1 button" id="resetInput">Clear</button>
-                    <button class="clear2 button" id="resetOutput">Clear</button>
-                </div>
-            </section>
-
-            <div>
-                <button class="reset-all button" id="resetAll">Clear All</button>
-                <button class="selectFile button" id="listFile">Select file</button>
-                <input type="file" id="selectFile" accept=".txt" style="display: none">
-            </div>
-        </div> -->
     </div>
     <div id="notify-contayner" class="notify">
         <span id="error">error</span>
