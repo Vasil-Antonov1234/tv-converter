@@ -1,6 +1,7 @@
 const body = document.querySelector("body");
 const root = document.getElementById("root");
-const paperTemplate = document.getElementById("main-container");
+root.replaceChildren(paperTemplate());
+// const paperTemplate = document.getElementById("main-container");
 document.querySelector("#main-form").addEventListener("submit", onConvert);
 const inputEl = document.querySelector(".tvText");
 const outputEl = document.getElementById("outputArea");
@@ -1648,63 +1649,63 @@ const utils = {
     },
 
     delTextIncluding(el, text) {
-    
+
         const elArr = el.split(" ");
-    
+
         for (let i = 0; i < elArr.length; i++) {
             const token = elArr[i];
-    
+
             if (token === text || token === text + ":") {
                 elArr.splice(i, elArr.length - 1);
             };
         };
-    
+
         return elArr.join(" ");
     },
 
     delTextExcluding(row, text) {
-    
+
         row = row.replace(text, text + "~")
-    
+
         const result = row.split("~");
-    
+
         return result[0];
     },
 
     removeComma(el) {
         let result = el.trim();
-    
+
         if (result.endsWith(",") || result.endsWith(";")) {
             elArr = result.split("");
             elArr.splice(elArr.length - 1, 1);
-    
+
             result = elArr.join("");
         };
-    
+
         return result;
     },
 
     calcReturnsCount1(arr, value) {
         let rowsCount = 0;
-    
+
         if (arr[0] !== "") {
             rowsCount = arr.length;
         };
-    
+
         const lowChars = ["!", ".", ",", "„", "”"];
         const bigChars = ["Щ", "Ю", "М", "Ж", "М", "Ф"]
-    
+
         for (let row of arr) {
             let paragraphCharsCount = 0;
             let currentRows = 0;
-    
+
             for (let i = 0; i < row.length; i++) {
                 let char = row[i];
-    
+
                 if (i === 0 || i === 1 || i === 2 || i === 3 || i === 4 || i === 5) {
                     continue;
                 }
-    
+
                 if (lowChars.includes(char)) {
                     paragraphCharsCount += 0.5;
                 } else if (bigChars.includes(char)) {
@@ -1713,19 +1714,25 @@ const utils = {
                     paragraphCharsCount += 1;
                 };
             };
-        
+
             if (paragraphCharsCount > value) {
                 currentRows = Math.ceil(paragraphCharsCount / value);
                 rowsCount += currentRows - 1;
             };
-    
-    
+
+
             paragraphCharsCount = 0;
             currentRows = 0;
         };
-    
+
         return rowsCount;
-    }
+    },
+
+    activeLinkHandler(event) {
+    const allHrefs = document.querySelectorAll("nav a");
+    allHrefs.forEach((x) => x.classList.remove("isActive"));
+    event.currentTarget.classList.add("isActive");
+}
 }
 
 function separateTv(arr, allTvNames) {
@@ -1934,9 +1941,7 @@ let isAddedGetFile = false;
 // let isAddedSelectPath = false;
 
 function tvBookView(event) {
-    const allHrefs = document.querySelectorAll("a");
-    allHrefs.forEach((x) => x.classList.remove("isActive"));
-    event.currentTarget.classList.add("isActive");
+    utils.activeLinkHandler(event);
     root.classList.remove("weather");
     body.classList.remove("weather");
     root.classList.remove("others");
@@ -2071,27 +2076,90 @@ function tvBookTemplate() {
     return viewContainer;
 };
 
+function paperTemplate() {
+    const container = document.createElement("div");
+
+    container.innerHTML = `
+        <div id="main-container">
+
+            <span id="date">
+                <p>Day</p>
+            </span>
+
+            <section class="input-wraper">
+                <div class="input-container">
+                    <form id="main-form" class="input">
+                        <textarea name="tvText" id="inputArea" class="tvText"
+                            placeholder="Paste your text here or click the 'Select file' button to choose"></textarea>
+                        <button type="submit" id="convertBtn" class="convertBtn button mainBtn">Convert</button>
+                        <textarea name="output" id="outputArea" class="tvText"
+                            placeholder="The converted text will appear here"></textarea>
+                        <div class="radio-container">
+                            <span>Choose a day <span>(optionaly):</span></span>
+                            <select name="tv-radio" id="tvWeek">
+                                <option value="nothing">Day selection</option>
+                                <option value="week">Понеделник-Петък</option>
+                                <option value="saturday">Събота</option>
+                                <option value="sunday">Неделя</option>
+                            </select>
+                            <details>
+                                <summary>Show more...</summary>
+                                <div class="summary">The selected day option has the highest priority and overwrites the
+                                    automatically detected!</div>
+                            </details>
+                        </div>
+                    </form>
 
 
+                    <div class="calc-container">
+                        <h1 id="calcChars">Characters count: 0</h1>
+                        <h1 id="calcRows">Rows count: 0</h1>
+                        <textarea name="calc" id="calcArea" class="calcText"></textarea>
+                        <button class="button calcBtn" id="calcBtn">Calculate chars</button>
+                        <button class="calcReset button" id="resetCalc">Clear</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="buttons">
+                <div class="buttons-container">
+                    <button class="clear1 button" id="resetInput">Clear</button>
+                    <button class="clear2 button" id="resetOutput">Clear</button>
+                </div>
+            </section>
+
+            <div>
+                <button class="reset-all button" id="resetAll">Clear All</button>
+                <button class="selectFile button" id="listFile">Select file</button>
+                <input type="file" id="selectFile" accept=".txt" style="display: none">
+            </div>
+        </div>
+    `;
+
+    // const getFileElement = document.getElementById("listFile");
+    // const selectFileElement = document.getElementById("selectFile");
+    // getFileElement.addEventListener("click", () => selectFileElement.click());
+    // selectFileElement.addEventListener("change", () => addFileContent("inputArea", selectFileElement));
+
+    return container;
+};
 
 function tvPaperView(event) {
-    const allHrefs = document.querySelectorAll("a");
-    allHrefs.forEach((x) => x.classList.remove("isActive"));
-    event.currentTarget.classList.add("isActive");
+    utils.activeLinkHandler(event);
     root.classList.remove("tv-book");
     body.classList.remove("tv-book");
     root.classList.remove("weather");
     body.classList.remove("weather");
     root.classList.remove("others");
     body.classList.remove("others");
-    root.replaceChildren(paperTemplate);
+    root.replaceChildren(paperTemplate());
     tvCalcValue = "paper";
+
+    document.getElementById("resetAll").addEventListener("click", onResetAll);
 }
 
 function weatherView(event) {
-    const allHrefs = document.querySelectorAll("a");
-    allHrefs.forEach((x) => x.classList.remove("isActive"));
-    event.currentTarget.classList.add("isActive");
+    utils.activeLinkHandler(event);
     root.classList.remove("tv-book");
     body.classList.remove("tv-book");
     root.classList.remove("others");
@@ -2134,9 +2202,7 @@ let isPending = false;
 
 function onOthersView(event) {
     root.replaceChildren(othersTemplate);
-    const allHrefs = document.querySelectorAll("a");
-    allHrefs.forEach((x) => x.classList.remove("isActive"));
-    event.currentTarget.classList.add("isActive");
+    utils.activeLinkHandler(event);
     root.classList.add("others");
     body.classList.add("others");
 
@@ -2322,7 +2388,7 @@ async function onCopyIssue(event) {
     if ((application !== "currentIssue" && application !== "Weekend") && !applicationIssue) {
         errorMessageHandler("Application isssue is required!", red, "weekend");
     };
-    
+
     if (application !== "Weekend" && (issue.endsWith("w") || issue.endsWith("W"))) {
         const choice = confirm("If you want to copy the weekend edition of the newspaper, please select 'Weekend' option from the drop-down menu. Otherwise, check the newspapper issue. Do you want to continue anyway?");
 
