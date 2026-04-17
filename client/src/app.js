@@ -2600,8 +2600,7 @@ async function onTvRename(event) {
     const date2 = new Date(customFinalDate);
     const currentDate = new Date();
 
-    if (currentDate.getDay() !== 1 && currentDate.getDay() !== 2 && (typeof (date1) === "object" || typeof (date2) === "object")) {
-        const customDatesElement = document.getElementById("custom-dates-cover");
+    if (currentDate.getDay() !== 1 && currentDate.getDay() !== 2 && (isNaN(date1.getDate()) || isNaN(date2.getDate()))) {
         return errorMessageHandler("Please select dates manualy!", red, "dates-wrapper");
     };
 
