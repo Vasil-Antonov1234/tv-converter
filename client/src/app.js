@@ -1,7 +1,39 @@
+class Router {
+    _routes
+
+    constructor(routes) {
+        this._routes = routes
+    }
+
+    render(route) {
+        this._routes[route]();
+    };
+
+    navigate(route) {
+        return this._routes[route];
+    };
+
+}
+
+const routes = {
+    "/": tvPaperView,
+    "/tv-book": tvBookView,
+    "/weather": weatherView,
+    "/utils": utilsView
+}
+
+const router = new Router(routes);
+
+let paperTemplateRef = document.getElementById("paper-view");
+let tvBookTemplateRef = document.getElementById("tv-book-view");
+let weatherTemplateRef = document.getElementById("weather");
+let utilsTemplateRef = document.getElementById("others");
+
 const body = document.querySelector("body");
 const root = document.getElementById("root");
-render(paperTemplate());
+// render(paperTemplate());
 // const paperTemplate = document.getElementById("main-container");
+router.render("/");
 document.querySelector("#main-form").addEventListener("submit", onConvert);
 const inputEl = document.querySelector(".tvText");
 const outputEl = document.getElementById("outputArea");
@@ -16,10 +48,10 @@ const notifyContainer = document.querySelector("#notify-contayner");
 const errorContainer = document.querySelector("#error");
 const spanClose = document.querySelector(".close");
 spanClose.addEventListener("click", closeNotification);
-document.getElementById("paper-view-link").addEventListener("click", tvPaperView);
-document.getElementById("tv-book-view-link").addEventListener("click", tvBookView);
-document.getElementById("tv-weather-view-link").addEventListener("click", weatherView);
-document.getElementById("others-view-link").addEventListener("click", onUtilsView);
+document.getElementById("paper-view-link").addEventListener("click", router.navigate("/"));
+document.getElementById("tv-book-view-link").addEventListener("click", router.navigate("/tv-book"));
+document.getElementById("tv-weather-view-link").addEventListener("click", router.navigate("/weather"));
+document.getElementById("others-view-link").addEventListener("click", router.navigate("/utils"));
 const dateEl = document.querySelector("#date p");
 const dateContainer = document.getElementById("date");
 const getFileElement = document.getElementById("listFile");
@@ -27,11 +59,6 @@ const selectFileElement = document.getElementById("selectFile");
 getFileElement.addEventListener("click", () => selectFileElement.click());
 selectFileElement.addEventListener("change", () => addFileContent("inputArea", selectFileElement));
 const baseURL = "http://localhost:5000";
-
-let paperTemplateRef = document.getElementById("paper-view");
-let tvBookTemplateRef = document.getElementById("tv-book-view");
-let weatherTemplateRef = document.getElementById("weather");
-let utilsTemplateRef = document.getElementById("others");
 
 const tvCalcConstants = {
     paper: 30,
@@ -827,7 +854,6 @@ function onCalc() {
 
     let input = calcArea.value;
     input = input.replaceAll("\x1F", "");
-    // debugger
     const rows = utils.calcReturnsCount1(input.split("\n"), tvCalcConstants[tvCalcValue]);
     calcChars.textContent = `Characters count: ${input.length}`;
     calcRows.textContent = `Rows count: ${rows}`;
@@ -1074,7 +1100,6 @@ const tvFunctions = {
         let result = arr;
         let returnsCount = utils.calcReturnsCount1(result, tvCalcConstants[tvCalcValue]);
 
-        // debugger
         if (returnsCount > rows) {
             let el1 = "";
             let el2 = "";
@@ -2163,6 +2188,14 @@ function render(template) {
 };
 
 function tvPaperView(event) {
+
+    if (!paperTemplateRef) {
+       render(paperTemplate());
+       paperTemplateRef = document.getElementById("paper-view");
+
+       return;
+    };
+
     utils.activeLinkHandler(event);
     root.classList.remove("tv-book");
     body.classList.remove("tv-book");
@@ -2231,7 +2264,7 @@ function weatherTemplate(element) {
 
 let isPending = false;
 
-function onUtilsView(event) {
+function utilsView(event) {
 
     root.replaceChildren(utilsTemplate(utilsTemplateRef));
     utilsTemplateRef = document.getElementById("others");
@@ -2254,11 +2287,11 @@ function onUtilsView(event) {
 };
 
 function utilsTemplate(element) {
-    
+
     if (element) {
         return element;
     };
-    
+
     const container = document.createElement("div");
     container.setAttribute("id", "others");
 
