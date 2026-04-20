@@ -22,7 +22,8 @@ export default {
             renamedFilesCount,
             missingFiles,
             missingData,
-            allMissindData
+            allMissindData,
+            datesToCheck
         }
 
         return report;

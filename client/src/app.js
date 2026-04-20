@@ -2654,6 +2654,8 @@ async function onTvRename(event) {
         missingDataMessageCount.textContent = `Missing data: ${result.allMissindData}`;
         missingDataMessageCount.style.color = result.allMissindData > 0 ? red : green;
 
+        tvMessage.value = `Report for \n${result.datesToCheck.join("\n")}`;
+
     } catch (error) {
         message.textContent = error.message;
         message.style.color = red;
