@@ -390,10 +390,10 @@ function onConvert(e) {
     };
 
 
-    
+
     addClass(inputEl, "convertIn", 1500);
     addClass(outputEl, "convertOut", 1500);
-    
+
     if (tvBookOutput) {
         addClass(tvBookInput, "convertIn", 1500);
         addClass(tvBookOutput, "convertOut", 1500);
@@ -805,13 +805,18 @@ function onConvert(e) {
         tvBookOutput.value = output.trim();
     };
 
-    const outputBook = document.getElementById("inputBookArea");
     const dateElBook = document.querySelector("#dateBook p");
     const dateElBookContainer = document.getElementById("dateBook");
 
-    if (outputBook) {
-        outputBook.value = "";
+    if (tvBookInput) {
+        setTimeout(() => {
+            tvBookInput.value = "";
+        }, 500);
     };
+
+    setTimeout(() => {
+        inputEl.value = "";
+    }, 500);
 
     const isCorrectDayInput = isCorrectDayInputHandler(matchArr);
 
@@ -2194,10 +2199,10 @@ function render(template) {
 function tvPaperView(event) {
 
     if (!paperTemplateRef) {
-       render(paperTemplate());
-       paperTemplateRef = document.getElementById("paper-view");
+        render(paperTemplate());
+        paperTemplateRef = document.getElementById("paper-view");
 
-       return;
+        return;
     };
 
     utils.activeLinkHandler(event);
