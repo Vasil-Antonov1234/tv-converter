@@ -86,6 +86,7 @@ const hourPattern = /\d.\d\d /;
 function onConvert(e) {
     e.preventDefault();
 
+    const tvBookInput = document.querySelectorAll("#tv-book-form textarea")[0];
     const tvBookOutput = document.querySelectorAll("#tv-book-form textarea")[1];
     const convertButton = document.getElementById("convertBtn");
     convertButton?.setAttribute("disabled", true);
@@ -388,12 +389,15 @@ function onConvert(e) {
         return;
     };
 
-    addClass(outputEl, "convert", 1500);
 
+    
+    addClass(inputEl, "convertIn", 1500);
+    addClass(outputEl, "convertOut", 1500);
+    
     if (tvBookOutput) {
-        addClass(tvBookOutput, "convert", 1500);
+        addClass(tvBookInput, "convertIn", 1500);
+        addClass(tvBookOutput, "convertOut", 1500);
     }
-
 
     // const weekMatch = (matchArr.includes("Понеделник") && radio === "week" || matchArr.includes("Вторник") && radio === "week"
     //     || matchArr.includes("Сряда") && radio === "week" || matchArr.includes("Четвъртък") && radio === "week"
