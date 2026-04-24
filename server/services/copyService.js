@@ -12,7 +12,10 @@ export default {
         let dirPhotosSource = "";
         let dirTelSite = "";
 
-        const weekendIssue = issue.includes("-") ? issue.split("-")[0] : issue.split("_")[0];
+        if (issue) {
+            const weekendIssue = issue.includes("-") ? issue.split("-")[0] : issue.split("_")[0];
+        }
+
 
         const photoIssue = handleAgroZlatnoIssue(applicationIssue);
 
