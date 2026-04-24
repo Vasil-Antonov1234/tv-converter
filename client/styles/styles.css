@@ -755,33 +755,50 @@ input:focus {
     background-color: white;
 }
 
-.convert {
-    animation: onConvertAnimation 1s ease-out forwards;
-    animation-duration: 0.5s;
+.convertIn {
+    animation: onConvertInAnimation 1s ease-out forwards;
+    /* animation-duration: 0.5s; */
 }
 
-@keyframes onConvertAnimation {
+.convertOut {
+    animation: onConvertOutAnimation 1s ease forwards;
+}
 
+@keyframes onConvertInAnimation {
     0% {
-        transform: rotate3d(4, 5, 2, 10deg);
-    }
-
-    25% {
-        transform: rotate3d(-4, -5, -2, 10deg);
+        transform: translateX(0);
+        box-shadow: 0 0 30px 0 black;
+        transform: translateY(-40px);
     }
 
     50% {
-        transform: rotate3d(2, 2.5, 1, 5deg);
-    }
+        transform: translateX(390px);
 
-    75% {
-        transform: rotate3d(-2, -2.5, -1, 5deg);
     }
 
     100% {
-        transform: rotate3d(0 0 0 0deg);
+        transform: translateX(0px);
+    }
+}
+
+@keyframes onConvertOutAnimation {
+    0% {
+        transform: translateX(0);
+        box-shadow: 0 0 30px 0 black;
+        transform: translateY(-40px);
+        color: rgb(250, 241, 227);
+
     }
 
+    50% {
+        transform: translateX(-390px);
+        color: rgb(250, 241, 227);
+
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
 }
 
 @keyframes onConvertWeatherAnimation {
