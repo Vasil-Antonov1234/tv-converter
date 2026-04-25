@@ -1981,10 +1981,10 @@ let isAddedGetFile = false;
 function tvBookView(event) {
     utils.activeLinkHandler(event);
     root.classList.remove("weather");
-    body.classList.remove("weather");
+    // body.classList.remove("weather");
     root.classList.remove("others");
-    body.classList.remove("others");
-    body.classList.add("tv-book");
+    // body.classList.remove("others");
+    // body.classList.add("tv-book");
     root.replaceChildren(tvBookTemplate(tvBookTemplateRef));
     tvBookTemplateRef = document.getElementById("tv-book-view");
 
@@ -2207,11 +2207,11 @@ function tvPaperView(event) {
 
     utils.activeLinkHandler(event);
     root.classList.remove("tv-book");
-    body.classList.remove("tv-book");
+    // body.classList.remove("tv-book");
     root.classList.remove("weather");
-    body.classList.remove("weather");
+    // body.classList.remove("weather");
     root.classList.remove("others");
-    body.classList.remove("others");
+    // body.classList.remove("others");
 
     root.replaceChildren(paperTemplate(paperTemplateRef));
 
@@ -2222,11 +2222,11 @@ function tvPaperView(event) {
 function weatherView(event) {
     utils.activeLinkHandler(event);
     root.classList.remove("tv-book");
-    body.classList.remove("tv-book");
+    // body.classList.remove("tv-book");
     root.classList.remove("others");
-    body.classList.remove("others");
+    // body.classList.remove("others");
     // root.classList.add("weather");
-    body.classList.add("weather");
+    // body.classList.add("weather");
     root.replaceChildren(weatherTemplate(weatherTemplateRef));
     weatherTemplateRef = document.getElementById("weather");
 
@@ -2245,6 +2245,7 @@ function weatherTemplate(element) {
     container.setAttribute("id", "weather");
 
     container.innerHTML = `
+        <img src="./images/weather-forecast.jpg" alt="" class="weather-background">
         <div class="weather-container">
             <textarea name="input" id=input class="text tvText"></textarea>
             <div id="buttons-container">
@@ -2279,7 +2280,7 @@ function utilsView(event) {
     utilsTemplateRef = document.getElementById("others");
     utils.activeLinkHandler(event);
     root.classList.add("others");
-    body.classList.add("others");
+    // body.classList.add("others");
 
     // const selectPathInput = document.getElementById("dirPath");
     // const selectPathButton = document.getElementById("selectPath");
