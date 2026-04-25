@@ -35,9 +35,6 @@
     height: 100%;
     top: 0%;
     z-index: -1;
-}
-
-.weather-background {
     animation: fadeIn 1.5s ease-in-out forwards;
 }
 
@@ -51,7 +48,10 @@
 .tv-background {
     height: 120%;
     top: 0%;
-    animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+.tv-book-background {
+    height: 140%;
 }
 
 @keyframes fadeIn {
@@ -64,15 +64,18 @@
     }
 }
 
-@keyframes moveUp {
-    from {
-        transform: translateY(700px);
-        opacity: 0;
+@keyframes moveDown {
+    0% {
+        transform: translateY(0px);
+        color: rgba(255, 255, 255, 0);
     }
 
-    to {
+    50% {
+        transform: translateY(-300px);
+    }
+
+    100% {
         transform: translateY(0px);
-        opacity: 0.5;
     }
 }
 
@@ -131,6 +134,16 @@ a:hover {
     color: rgb(61, 42, 165);
     -webkit-text-stroke-width: medium;
     display: none;
+}
+
+#dateBook p {
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.moveDown {
+    animation: moveDown 1s ease-in-out forwards;
 }
 
 #movie-roll {
@@ -734,6 +747,10 @@ hr {
     border-radius: 5px;
     width: 500px;
     padding: 10px;
+}
+
+.custom-date-wrapper {
+    color: white;
 }
 
 textarea:focus {

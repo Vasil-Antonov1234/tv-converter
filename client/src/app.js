@@ -808,6 +808,9 @@ function onConvert(e) {
     const dateElBook = document.querySelector("#dateBook p");
     const dateElBookContainer = document.getElementById("dateBook");
 
+    addClass(dateElBook, "moveDown", 1000);
+    // addClass(dateEl, "moveDown", 1000);
+
     if (tvBookInput) {
         setTimeout(() => {
             tvBookInput.value = "";
@@ -2041,6 +2044,7 @@ function tvBookTemplate(element) {
     container.setAttribute("id", "tv-book-view");
 
     container.innerHTML = `
+        <img src="./images/tv-book-background.jpg" alt="" class="background tv-book-background">        
         <span id="dateBook">
             <p>Day</p>
         </span>
