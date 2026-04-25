@@ -2132,6 +2132,7 @@ function paperTemplate(element) {
     container.setAttribute("id", "paper-view");
 
     container.innerHTML = `
+    <img src="./images/tv-background-3.jpg" alt="" class="background tv-background">
         <div id="main-container">
 
             <span id="date">
@@ -2245,7 +2246,7 @@ function weatherTemplate(element) {
     container.setAttribute("id", "weather");
 
     container.innerHTML = `
-        <img src="./images/weather-forecast.jpg" alt="" class="weather-background">
+        <img src="./images/weather-forecast.jpg" alt="" class="background weather-background">
         <div class="weather-container">
             <textarea name="input" id=input class="text tvText"></textarea>
             <div id="buttons-container">
