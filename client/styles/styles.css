@@ -34,6 +34,7 @@
     width: 100%;
     height: 100%;
     top: 0%;
+    padding: 0;
     z-index: -1;
     animation: fadeIn 1.5s ease-in-out forwards;
 }
@@ -77,10 +78,6 @@
     100% {
         transform: translateY(0px);
     }
-}
-
-.others {
-    background-color: rgb(192, 188, 188);
 }
 
 .othersForm {
@@ -384,6 +381,9 @@ textarea {
 
 .renamedTvMessage {
     font-family: cursive;
+    background-color: rgba(255, 255, 255, 0.678);
+    padding: 5px 10px;
+    border-radius: 5px;
     display: none;
 }
 
@@ -643,9 +643,13 @@ div.radio-container span span {
 }
 
 .reportMessageTitleContainer {
-    margin-bottom: -34px;
+    /* width: 70%; */
+    margin-bottom: -31px;
+    /* margin: 0 auto -31px auto; */
     display: flex;
     justify-content: center;
+    /* background-color: rgba(255, 255, 255, 0.671);
+    padding: 5px 10px; */
 }
 
 .reportMessageTitle,
@@ -653,14 +657,17 @@ div.radio-container span span {
     font-size: 30px;
     font-family: cursive;
     color: rgb(3, 82, 3);
+    background-color: rgba(255, 255, 255, 0.678);
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 .reportMessageTitle {
-    margin-left: 400px;
+    margin-left: 420px;
 }
 
 .reportMessageTitle1 {
-    margin-left: 130px;
+    margin-left: 120px;
 }
 
 hr {
@@ -749,6 +756,13 @@ hr {
     padding: 10px;
 }
 
+.rename-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 10px;
+}
+
 .custom-date-wrapper {
     color: white;
 }
@@ -764,9 +778,10 @@ input:focus {
 .spinner {
     width: 15px;
     height: 15px;
-    border-top: 3px solid brown;
-    border-right: 3px solid brown;
-    border-bottom: 3px solid brown;
+    margin-left: 30px;
+    border-top: 3px solid goldenrod;
+    border-right: 3px solid goldenrod;
+    border-bottom: 3px solid goldenrod;
     border-left: 3px solid rgba(0, 0, 255, 0);
     border-radius: 15px;
     animation: spin 1s linear infinite;

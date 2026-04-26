@@ -2078,8 +2078,10 @@ function tvBookTemplate(element) {
             </div>
         </div>
         <div id="tvRenameContainer" class="rename-container">
-            <button id="rename" class="tvRename button">TV-rename</button>
-            <span class="renamedTvMessage" id="renamedTvMessage"></span>
+            <section id="renameWrapper" class="rename-wrapper">
+                <button id="rename" class="tvRename button">TV-rename</button>
+                <span class="renamedTvMessage" id="renamedTvMessage"></span>
+            </section>
             <section id="dates-wrapper" class="dates-wrapper">
                 <div id="custom-date-checkbox-container" class="custom-date-checkbox-container">
                     <span class="custom-date-wrapper">Custom date:
@@ -2647,7 +2649,7 @@ async function onTvRename(event) {
         message.style.display = "inline";
         message.style.color = "black";
 
-        document.getElementById("tvRenameContainer").appendChild(spinner);
+        document.getElementById("renameWrapper").appendChild(spinner);
         spinner.style.display = "inline-block";
     }
 
