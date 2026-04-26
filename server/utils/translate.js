@@ -1,4 +1,9 @@
 export async function translate(tv) {
+    
+    if (!tv.includes("Episode")) {
+        return tv;
+    }
+    
     let result = tv.split("\n");
     const arrForTranslate = [];
     const staticArr = [];
