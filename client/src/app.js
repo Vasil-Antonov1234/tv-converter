@@ -2320,6 +2320,7 @@ function utilsTemplate(element) {
     container.setAttribute("id", "others");
 
     container.innerHTML = `
+        <img src="./images/settings-background.webp" alt="" class="background">
         <h2 class="subTitle">Find and replace multiple files</h2>
         <form class="othersForm" id="findReplaceForm">
             <input type="text" name="path" id="path" placeholder="Folder path*">
@@ -2360,11 +2361,12 @@ async function onRenamePdfFiles(event) {
     event.preventDefault();
     const button = document.getElementById("renamePdf");
     button.setAttribute("disabled", true);
+    isPending = true;
 
     const formData = new FormData(event.currentTarget);
     const path = formData.get("pathToPDF");
     const number = formData.get("currentDayNumber");
-
+    
     if (!path) {
         errorMessageHandler("PDF's path folder is reqiured!", red, "pathToPDF");
         button.removeAttribute("disabled");
@@ -2377,6 +2379,12 @@ async function onRenamePdfFiles(event) {
         return;
     };
 
+    if (isPending) {
+        // message.value = "Loading...";
+        document.getElementById("renamePdfFiles").appendChild(spinner);
+        spinner.style.display = "inline-block";
+    };
+
     try {
         const result = await utils.request("/rename/pdf", "POST", { path, number });
         errorMessageHandler(result.result, green);
@@ -2384,6 +2392,8 @@ async function onRenamePdfFiles(event) {
         errorMessageHandler(error, red)
     } finally {
         button.removeAttribute("disabled");
+        spinner.remove();
+        isPending = false;
     }
 }
 
@@ -2733,7 +2743,7 @@ async function onSubmitTvData(event) {
         message.style.display = "inline";
         message.style.color = "black";
 
-        document.getElementById("tvRenameContainer").appendChild(spinner);
+        document.getElementById("rename-wrapper").appendChild(spinner);
         spinner.style.display = "inline-block";
     }
 
