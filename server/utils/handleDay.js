@@ -20,6 +20,14 @@ export function handleDay(tvText) {
     tvText = tvText.replaceAll("петък", "Петък");
     tvText = tvText.replaceAll("събота", "Събота");
 
+    tvText = tvText.replaceAll("Неделя,", "Неделя");
+    tvText = tvText.replaceAll("Понеделник,", "Понеделник");
+    tvText = tvText.replaceAll("Вторник,", "Вторник");
+    tvText = tvText.replaceAll("Сряда,", "Сряда");
+    tvText = tvText.replaceAll("Четвъртък,", "Четвъртък");
+    tvText = tvText.replaceAll("Петък,", "Петък");
+    tvText = tvText.replaceAll("Събота,", "Събота");
+
     return tvText;
 }
 
@@ -84,16 +92,16 @@ export function handleNextWeekTvDates(startDate, finalDate) {
     const date1 = new Date(startDate);
     const date2 = new Date(finalDate);
 
-    
-    while(date1 <= date2) {
+
+    while (date1 <= date2) {
         const dayOfWeek = daysNew[date1.getDay()];
         const day = date1.getDate();
         const month = date1.getMonth() + 1;
         const year = date1.getFullYear();
-    
+
         const convertedDate = `${dayOfWeek} ${String(day).padStart(2, 0)}.${String(month).padStart(2, 0)}.${year}`;
         result.push(convertedDate);
-        
+
         date1.setDate(day + 1);
     }
 

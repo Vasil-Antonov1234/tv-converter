@@ -511,7 +511,8 @@ textarea {
     font-family: "Titan One", sans-serif;
     font-size: 28px;
     border: solid;
-    margin-right: 440px;
+    margin-right: 430px;
+    margin-left: 10px;
 }
 
 
