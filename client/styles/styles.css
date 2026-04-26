@@ -122,6 +122,12 @@ a:hover {
     display: none;
 }
 
+#date p {
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
 #dateBook {
     position: absolute;
     left: 950px;
@@ -739,12 +745,12 @@ hr {
 }
 
 .custom-date-show {
-    color: green;
+    color: rgb(83, 184, 83);
     cursor: pointer;
 }
 
 .custom-date-hide {
-    color: darkred;
+    color: rgb(221, 84, 20);
     cursor: pointer;
     display: none;
 }

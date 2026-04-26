@@ -808,8 +808,12 @@ function onConvert(e) {
     const dateElBook = document.querySelector("#dateBook p");
     const dateElBookContainer = document.getElementById("dateBook");
 
-    addClass(dateElBook, "moveDown", 1000);
-    // addClass(dateEl, "moveDown", 1000);
+    if (dateElBook) {
+        addClass(dateElBook, "moveDown", 1000);
+    } else {
+        addClass(dateEl, "moveDown", 1000);
+    }
+
 
     if (tvBookInput) {
         setTimeout(() => {
@@ -835,15 +839,18 @@ function onConvert(e) {
         };
     }
 
-    if (isCorrectDayInput) {
-        dateEl.textContent = matchArr;
-    };
+    if (dateContainer && dateEl) {
+        if (isCorrectDayInput) {
+            dateEl.textContent = matchArr;
+        };
+    
+        if (!isCorrectDayInput) {
+            dateEl.textContent = "Day: undefined!"
+        };
+    
+        dateContainer.style.display = "inline";
+    }
 
-    if (!isCorrectDayInput) {
-        dateEl.textContent = "Day: undefined!"
-    };
-
-    dateContainer.style.display = "inline";
 }
 
 function onCalc() {
