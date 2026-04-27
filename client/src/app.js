@@ -2743,7 +2743,7 @@ async function onSubmitTvData(event) {
         message.style.display = "inline";
         message.style.color = "black";
 
-        document.getElementById("rename-wrapper").appendChild(spinner);
+        document.getElementById("renameWrapper").appendChild(spinner);
         spinner.style.display = "inline-block";
     }
 
