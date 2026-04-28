@@ -1,8 +1,5 @@
 @import "weather.css";
-
-/* body {
-    background-color: rgb(228, 168, 95);
-} */
+@import "archive.css";
 
 .navigation {
     background-color: rgb(129, 103, 103);

@@ -19,25 +19,25 @@ const routes = {
     "/": tvPaperView,
     "/tv-book": tvBookView,
     "/weather": weatherView,
+    "/archive-view": archiveView,
     "/utils": utilsView
 }
 
 const router = new Router(routes);
 
+// Create referemces
 let paperTemplateRef = document.getElementById("paper-view");
 let tvBookTemplateRef = document.getElementById("tv-book-view");
 let weatherTemplateRef = document.getElementById("weather");
+let archiveTemplateRef = document.getElementById("archive-view");
 let utilsTemplateRef = document.getElementById("others");
 
 const body = document.querySelector("body");
 const root = document.getElementById("root");
-// render(paperTemplate());
-// const paperTemplate = document.getElementById("main-container");
 router.render("/");
 document.querySelector("#main-form").addEventListener("submit", onConvert);
 const inputEl = document.querySelector(".tvText");
 const outputEl = document.getElementById("outputArea");
-// const calcArea = document.getElementById("calcArea");
 document.getElementById("calcBtn").addEventListener("click", onCalc);
 document.getElementById("resetInput").addEventListener("click", onResetInput);
 document.getElementById("resetOutput").addEventListener("click", onResetOtput);
@@ -51,6 +51,7 @@ spanClose.addEventListener("click", closeNotification);
 document.getElementById("paper-view-link").addEventListener("click", router.navigate("/"));
 document.getElementById("tv-book-view-link").addEventListener("click", router.navigate("/tv-book"));
 document.getElementById("tv-weather-view-link").addEventListener("click", router.navigate("/weather"));
+document.getElementById("archive-view-link").addEventListener("click", router.navigate("/archive-view"));
 document.getElementById("others-view-link").addEventListener("click", router.navigate("/utils"));
 const dateEl = document.querySelector("#date p");
 const dateContainer = document.getElementById("date");
@@ -843,11 +844,11 @@ function onConvert(e) {
         if (isCorrectDayInput) {
             dateEl.textContent = matchArr;
         };
-    
+
         if (!isCorrectDayInput) {
             dateEl.textContent = "Day: undefined!"
         };
-    
+
         dateContainer.style.display = "inline";
     }
 
@@ -1988,59 +1989,7 @@ function closeNotification() {
 
 let isAddedGetFile = false;
 
-function tvBookView(event) {
-    utils.activeLinkHandler(event);
-    root.classList.remove("weather");
-    // body.classList.remove("weather");
-    root.classList.remove("others");
-    // body.classList.remove("others");
-    // body.classList.add("tv-book");
-    root.replaceChildren(tvBookTemplate(tvBookTemplateRef));
-    tvBookTemplateRef = document.getElementById("tv-book-view");
-
-    const customDateShowElement = document.getElementById("custom-date-show");
-    const customDateHideElement = document.getElementById("custom-date-hide");
-    const dateContainerElement = document.getElementById("date-interval-container");
-    customDateShowElement.addEventListener("click", onShowCustomDates);
-    customDateHideElement.addEventListener("click", onHideDates)
-    tvCalcValue = "book";
-    document.querySelector("#tv-book-form").addEventListener("submit", onConvert);
-    document.querySelector("#tvBook").style.display = "none";
-    document.getElementById("calcBtnTvBook").addEventListener("click", onCalc);
-    document.getElementById("resetCalcTvBook").addEventListener("click", onResetCalc);
-    document.getElementById("rename").addEventListener("click", onTvRename);
-    document.getElementById("submitTvData").addEventListener("submit", onSubmitTvData);
-    const getFileElementBook = document.getElementById("listFileBook");
-    const selectFileElementBook = document.getElementById("selectFileBook");
-    const coverEl = document.getElementById("custom-dates-cover");
-
-    if (!isAddedGetFile) {
-        getFileElementBook.addEventListener("click", () => selectFileElementBook.click());
-        selectFileElementBook.addEventListener("change", () => addFileContent("inputBookArea", selectFileElementBook));
-        isAddedGetFile = true;
-    };
-
-    function onShowCustomDates() {
-        dateContainerElement.style.display = "inline-block";
-        customDateShowElement.style.display = "none";
-        customDateHideElement.style.display = "inline-block";
-
-        coverEl.style.display = "none";
-    };
-
-    function onHideDates() {
-        dateContainerElement.style.display = "none";
-        customDateShowElement.style.display = "inline-block";
-        customDateHideElement.style.display = "none";
-
-        document.getElementById("startDate").value = "";
-        document.getElementById("endDate").value = "";
-
-        coverEl.style.display = "flex";
-    }
-};
-
-
+// Templates and views
 function tvBookTemplate(element) {
 
     if (element) {
@@ -2205,50 +2154,6 @@ function paperTemplate(element) {
     return container;
 };
 
-function render(template) {
-    const rootElement = document.getElementById("root");
-    rootElement.replaceChildren(template);
-};
-
-function tvPaperView(event) {
-
-    if (!paperTemplateRef) {
-        render(paperTemplate());
-        paperTemplateRef = document.getElementById("paper-view");
-
-        return;
-    };
-
-    utils.activeLinkHandler(event);
-    root.classList.remove("tv-book");
-    // body.classList.remove("tv-book");
-    root.classList.remove("weather");
-    // body.classList.remove("weather");
-    root.classList.remove("others");
-    // body.classList.remove("others");
-
-    root.replaceChildren(paperTemplate(paperTemplateRef));
-
-    paperTemplateRef = document.getElementById("paper-view");
-    tvCalcValue = "paper";
-}
-
-function weatherView(event) {
-    utils.activeLinkHandler(event);
-    root.classList.remove("tv-book");
-    // body.classList.remove("tv-book");
-    root.classList.remove("others");
-    // body.classList.remove("others");
-    // root.classList.add("weather");
-    // body.classList.add("weather");
-    root.replaceChildren(weatherTemplate(weatherTemplateRef));
-    weatherTemplateRef = document.getElementById("weather");
-
-    document.getElementById("getBtnBG").addEventListener("click", onWeatherConvert);
-    document.querySelector("#exchangeRates").addEventListener("click", exchangeRates);
-    document.getElementById("exchangeRatesInput").style.display = "none";
-}
-
 function weatherTemplate(element) {
 
     if (element) {
@@ -2285,30 +2190,6 @@ function weatherTemplate(element) {
 
     return container;
 }
-
-let isPending = false;
-
-function utilsView(event) {
-
-    root.replaceChildren(utilsTemplate(utilsTemplateRef));
-    utilsTemplateRef = document.getElementById("others");
-    utils.activeLinkHandler(event);
-    root.classList.add("others");
-    // body.classList.add("others");
-
-    // const selectPathInput = document.getElementById("dirPath");
-    // const selectPathButton = document.getElementById("selectPath");
-    document.getElementById("findReplaceForm").addEventListener("submit", onFindAndReplace);
-    document.getElementById("copyIssueForm").addEventListener("submit", onCopyIssue);
-    document.getElementById("application").addEventListener("change", onShowIssue);
-    document.getElementById("renamePdfFiles").addEventListener("submit", onRenamePdfFiles);
-
-    // if (!isAddedSelectPath) {
-    //     selectPathButton.addEventListener("click", () => selectPathInput.click());
-    //     selectPathInput.addEventListener("change", () => addFileContent("inputBookArea", selectPathInput));
-    //     isAddedSelectPath = true;
-    // };
-};
 
 function utilsTemplate(element) {
 
@@ -2357,6 +2238,139 @@ function utilsTemplate(element) {
     return container;
 };
 
+function archiveTemplate(element) {
+
+    if (element) {
+        return element;
+    }
+
+    const container = document.createElement("div");
+    container.setAttribute("id", "archive-view");
+
+    container.innerHTML = `
+    <img src="./images/archive11.png" alt="" class="background">    
+    <section class="cont-archive">
+            <input type="date" id="input-date" placeholder="mm dd yy" class="input-archive" />
+            <button type="submit" id="button" class="btn-archive">Extract</button>
+        </section>
+    
+        <section class="output-content-archive">
+            <p class="date-issue-archive" id="date-and-issue">issue number: </p>
+            <h3 class="issue-number-archive" id="issue"></h3>
+            <p class="date-and-issue-archive" id="error">The input date must be in the past!</p>
+        </section>
+    `;
+
+    return container;
+}
+
+function render(template) {
+    const rootElement = document.getElementById("root");
+    rootElement.replaceChildren(template);
+};
+
+function tvBookView(event) {
+    utils.activeLinkHandler(event);
+    root.classList.remove("weather");
+    root.classList.remove("others");
+    root.replaceChildren(tvBookTemplate(tvBookTemplateRef));
+    tvBookTemplateRef = document.getElementById("tv-book-view");
+
+    const customDateShowElement = document.getElementById("custom-date-show");
+    const customDateHideElement = document.getElementById("custom-date-hide");
+    const dateContainerElement = document.getElementById("date-interval-container");
+    customDateShowElement.addEventListener("click", onShowCustomDates);
+    customDateHideElement.addEventListener("click", onHideDates)
+    tvCalcValue = "book";
+    document.querySelector("#tv-book-form").addEventListener("submit", onConvert);
+    document.querySelector("#tvBook").style.display = "none";
+    document.getElementById("calcBtnTvBook").addEventListener("click", onCalc);
+    document.getElementById("resetCalcTvBook").addEventListener("click", onResetCalc);
+    document.getElementById("rename").addEventListener("click", onTvRename);
+    document.getElementById("submitTvData").addEventListener("submit", onSubmitTvData);
+    const getFileElementBook = document.getElementById("listFileBook");
+    const selectFileElementBook = document.getElementById("selectFileBook");
+    const coverEl = document.getElementById("custom-dates-cover");
+
+    if (!isAddedGetFile) {
+        getFileElementBook.addEventListener("click", () => selectFileElementBook.click());
+        selectFileElementBook.addEventListener("change", () => addFileContent("inputBookArea", selectFileElementBook));
+        isAddedGetFile = true;
+    };
+
+    function onShowCustomDates() {
+        dateContainerElement.style.display = "inline-block";
+        customDateShowElement.style.display = "none";
+        customDateHideElement.style.display = "inline-block";
+
+        coverEl.style.display = "none";
+    };
+
+    function onHideDates() {
+        dateContainerElement.style.display = "none";
+        customDateShowElement.style.display = "inline-block";
+        customDateHideElement.style.display = "none";
+
+        document.getElementById("startDate").value = "";
+        document.getElementById("endDate").value = "";
+
+        coverEl.style.display = "flex";
+    }
+};
+
+function tvPaperView(event) {
+
+    if (!paperTemplateRef) {
+        render(paperTemplate());
+        paperTemplateRef = document.getElementById("paper-view");
+
+        return;
+    };
+
+    utils.activeLinkHandler(event);
+    root.classList.remove("tv-book");
+    root.classList.remove("weather");
+    root.classList.remove("others");
+
+    root.replaceChildren(paperTemplate(paperTemplateRef));
+
+    paperTemplateRef = document.getElementById("paper-view");
+    tvCalcValue = "paper";
+}
+
+function archiveView(event) {
+    root.replaceChildren(archiveTemplate(archiveTemplateRef));
+    archiveTemplateRef = document.getElementById("archive-view");
+    utils.activeLinkHandler(event);
+}
+
+function weatherView(event) {
+    utils.activeLinkHandler(event);
+    root.classList.remove("tv-book");
+    root.classList.remove("others");
+    root.replaceChildren(weatherTemplate(weatherTemplateRef));
+    weatherTemplateRef = document.getElementById("weather");
+
+    document.getElementById("getBtnBG").addEventListener("click", onWeatherConvert);
+    document.querySelector("#exchangeRates").addEventListener("click", exchangeRates);
+    document.getElementById("exchangeRatesInput").style.display = "none";
+}
+
+let isPending = false;
+
+function utilsView(event) {
+
+    root.replaceChildren(utilsTemplate(utilsTemplateRef));
+    utilsTemplateRef = document.getElementById("others");
+    utils.activeLinkHandler(event);
+    root.classList.add("others");
+
+    document.getElementById("findReplaceForm").addEventListener("submit", onFindAndReplace);
+    document.getElementById("copyIssueForm").addEventListener("submit", onCopyIssue);
+    document.getElementById("application").addEventListener("change", onShowIssue);
+    document.getElementById("renamePdfFiles").addEventListener("submit", onRenamePdfFiles);
+};
+
 async function onRenamePdfFiles(event) {
     event.preventDefault();
     const button = document.getElementById("renamePdf");
@@ -2366,7 +2380,7 @@ async function onRenamePdfFiles(event) {
     const formData = new FormData(event.currentTarget);
     const path = formData.get("pathToPDF");
     const number = formData.get("currentDayNumber");
-    
+
     if (!path) {
         errorMessageHandler("PDF's path folder is reqiured!", red, "pathToPDF");
         button.removeAttribute("disabled");
