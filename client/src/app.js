@@ -451,12 +451,17 @@ function onConvert(e) {
     separatedTv.bnt1 = tvFunctions.deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "пряко", tvCalcConstants[tvCalcValue]);
     separatedTv.bnt1 = tvFunctions.deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "токшоу", tvCalcConstants[tvCalcValue]);
     separatedTv.bnt1 = tvFunctions.deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "куиз шоу", tvCalcConstants[tvCalcValue]);
+    separatedTv.bnt1 = tvFunctions.deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "предаване за култура", tvCalcConstants[tvCalcValue]);
     separatedTv.bnt1 = tvFunctions.deleteIncluding(separatedTv.bnt1, rows.bnt1[daySelection], "режисьор", tvCalcConstants[tvCalcValue]);
     separatedTv.bnt1 = tvFunctions.deleteByHourAndTextExcluding(separatedTv.bnt1, rows.bnt1[daySelection], ["07"], "Денят започва", "сутрешен блок");
     separatedTv.bnt1 = tvFunctions.deleteByHours(separatedTv.bnt1, rows.bnt1[daySelection], ["23"]);
     separatedTv.bnt1 = tvFunctions.deleteExcluding(separatedTv.bnt1, rows.bnt1[daySelection], "Имате среща с ...", tvCalcConstants[tvCalcValue]);
     separatedTv.bnt1 = tvFunctions.replaceText(separatedTv.bnt1, rows.bnt1[daySelection], "БГ киновечер: ", "");
+    separatedTv.bnt1 = tvFunctions.replaceText(separatedTv.bnt1, rows.bnt1[daySelection], "забавно-познавателно семейно куиз шоу", "куиз шоу");
     separatedTv.bnt1 = tvFunctions.deleteEndComma(separatedTv.bnt1);
+    separatedTv.bnt1 = tvFunctions.deleteRepetedRows1(separatedTv.bnt1, rows.bnt1[daySelection]);
+    separatedTv.bnt1 = tvFunctions.deleteRow(separatedTv.bnt1, rows.bnt1[daySelection], "Телепазарен прозорец");
+    separatedTv.bnt1 = tvFunctions.replaceText(separatedTv.bnt1, rows.bnt1[daySelection], "анимационен филм", "анимация");
     separatedTv.bnt2 = tvFunctions.deleteByHours(separatedTv.bnt2, rows.bnt2[daySelection], ["00", "01", "02", "03", "04", "05", "06", "07"]);
     separatedTv.bnt2 = tvFunctions.deleteExcluding(separatedTv.bnt2, rows.bnt2[daySelection], "Лека нощ, деца!", tvCalcConstants[tvCalcValue]);
     separatedTv.bnt2 = tvFunctions.deleteGenre(separatedTv.bnt2, rows.bnt2[daySelection]);
