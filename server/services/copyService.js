@@ -2,18 +2,55 @@ import fsPromises from "fs/promises";
 import path from "path";
 import paths from "../paths/paths.js";
 import { handleAgroZlatnoIssue } from "../utils/handleAgroZlatnoIssue.js";
+import { copyFilesHandler } from "../utils/copyFilesHandler.js";
 
 export default {
-    async copyIssue(issue, application, applicationIssue) {
+    async copyIssue(issue, application, applicationIssue, issueNumber) {
+
+        function pathsHandler(applicationIssue) {
+
+            const pathsFiles = {
+                ready: "",
+                photoOld: "",
+                web: ""
+            }
+
+            switch (applicationIssue) {
+                case "currentIssue":
+                    pathsFiles.ready = paths.readyFiles;
+                    pathsFiles.photoOld = `${paths.photos}Telegraph_OLD/`;
+                    pathsFiles.web = paths.telSite
+                    break;
+                case "Weekend":
+                    pathsFiles.ready = paths.weekendFiles;
+                    // check weekendIssue
+                    pathsFiles.photoOld = `${paths.photos}_WEEKEND ${weekendIssue}/OLD/`;
+                    pathsFiles.web = paths.telSite
+                    break;
+            }
+
+            return pathsFiles;
+        }
+
+        const pathInputFiles = "";
+        const pathInputFotos = "";
+        const filesOutput = "";
+
+
+        // Test copyFileHandler
+        // await copyFilesHandler(issueNumber, application, pathInputFiles, pathInputFotos, filesOutput)
+
+
         const notCopiedFiles = [];
         let report = "Done";
 
         let dirFilesSource = "";
         let dirPhotosSource = "";
         let dirTelSite = "";
+        let weekendIssue = "";
 
         if (issue) {
-            const weekendIssue = issue.includes("-") ? issue.split("-")[0] : issue.split("_")[0];
+            weekendIssue = issue.includes("-") ? issue.split("-")[0] : issue.split("_")[0];
         }
 
 
