@@ -11,9 +11,10 @@ export default {
         const photoIssue = handleAgroZlatnoIssue(applicationIssue);
 
         const pathsFiles = pathsHandler(application, issueNumber, photoIssue);
-       
+
         // Test copyFileHandler
-        // await copyFilesHandler.createFolders(issueNumber, application, pathsFiles.ready, pathsFiles.photoOld, pathsFiles.web);
+        await copyFilesHandler.createFolders(issueNumber, application, pathsFiles.ready, pathsFiles.photoOld, pathsFiles.web);
+        await copyFilesHandler.copyFiles(issueNumber, application, pathsFiles.ready, pathsFiles.photoOld, pathsFiles.web);
 
         const notCopiedFiles = [];
         let report = "Done";
@@ -117,8 +118,6 @@ export default {
             await fsPromises.mkdir(`${paths.pages}${issue}/DOC`);
         };
 
-        // --------------------------
-
         let outputDirPhotos = null;
 
         if (isPaperOrWeekend) {
@@ -172,6 +171,9 @@ export default {
                     await fsPromises.copyFile(source, `${paths.pages}${issue}/DOC/${file}`);
                 }
             }))
+
+            // --------------------------
+
 
             await Promise.all(dirPhotos.map(async (photo) => {
 
