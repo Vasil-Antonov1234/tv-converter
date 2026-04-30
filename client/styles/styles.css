@@ -401,7 +401,7 @@ textarea {
 
 .weekend {
     width: 140px;
-    display: none;
+    /* display: none; */
 }
 
 .weekendLabel {

@@ -2470,7 +2470,7 @@ function utilsView(event) {
 
     document.getElementById("findReplaceForm").addEventListener("submit", onFindAndReplace);
     document.getElementById("copyIssueForm").addEventListener("submit", onCopyIssue);
-    document.getElementById("application").addEventListener("change", onShowIssue);
+    // document.getElementById("application").addEventListener("change", onShowIssue);
     document.getElementById("renamePdfFiles").addEventListener("submit", onRenamePdfFiles);
 };
 

@@ -3,15 +3,15 @@ import { pathsHandler } from "../utils/pathFilesHandler.js";
 import { copyFilesHandler } from "../utils/copyFilesHandler.js";
 
 export default {
-    async copyIssue(application, applicationIssue, issueNumber) {
+    async copyIssue(application, applicationIssue, issue) {
 
-        const photoIssue = handleAgroZlatnoIssue(applicationIssue);
+        const extractedApplicationIssue = handleAgroZlatnoIssue(applicationIssue);
 
-        const pathsFiles = pathsHandler(application, issueNumber, photoIssue);
+        const pathsFiles = pathsHandler(application, issue, extractedApplicationIssue, applicationIssue);
 
         try {
-            await copyFilesHandler.createFolders(issueNumber, application, pathsFiles.web);
-            const report = await copyFilesHandler.copyFiles(issueNumber, application, pathsFiles.ready, pathsFiles.photoOld, pathsFiles.web);
+            await copyFilesHandler.createFolders(issue, application, pathsFiles.web, applicationIssue);
+            const report = await copyFilesHandler.copyFiles(issue, application, pathsFiles.ready, pathsFiles.photoOld, pathsFiles.web, extractedApplicationIssue, applicationIssue);
 
             return report;
         } catch (error) {

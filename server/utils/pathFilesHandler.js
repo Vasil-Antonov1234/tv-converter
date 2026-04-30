@@ -1,6 +1,6 @@
 import paths from "../paths/paths.js";
 
-export function pathsHandler(application, issueNumber, photoIssue) {
+export function pathsHandler(application, issue, extractedApplicationIssue, applicationIssue) {
 
     const pathsFiles = {
         ready: "",
@@ -16,18 +16,18 @@ export function pathsHandler(application, issueNumber, photoIssue) {
             break;
         case "Weekend":
             pathsFiles.ready = paths.weekendFiles;
-            const weekendIssue = issueNumber.includes("-") ? issueNumber.split("-")[0] : issueNumber.split("_")[0];
+            const weekendIssue = issue.includes("-") ? issue.split("-")[0] : issue.split("_")[0];
             pathsFiles.photoOld = `${paths.photos}_WEEKEND ${weekendIssue}/OLD/`;
             pathsFiles.web = paths.telSite
             break;
         case "ZlatnoVreme":
-            pathsFiles.ready = `${paths.zlatno}${issueNumber}/`;
-            pathsFiles.photoOld = `${paths.photos}_ZLATNO_VREME${photoIssue}/OLD/`;
+            pathsFiles.ready = `${paths.zlatno}${applicationIssue}/old/`;
+            pathsFiles.photoOld = `${paths.photos}_ZLATNO_VREME${extractedApplicationIssue}/OLD/`;
             pathsFiles.web = paths.zlatnoOutput;
             break;
         case "Agro":
-            pathsFiles.ready = `${paths.agro}${issueNumber}/old/`;
-            pathsFiles.photoOld = `${paths.photos}_AGRO${photoIssue}/OLD/`;
+            pathsFiles.ready = `${paths.agro}${applicationIssue}/old/`;
+            pathsFiles.photoOld = `${paths.photos}_AGRO${extractedApplicationIssue}/OLD/`;
             pathsFiles.web = paths.agroOutput;
     }
 

@@ -10,10 +10,9 @@ copyController.post("/issue", async (req, res) => {
     const application = req.body.application;
     const applicationIssue = req.body.applicationIssue;
 
-    const issueNumber = issue ? issue : applicationIssue;
     
     try {
-        const result = await copyService.copyIssue(application, applicationIssue, issueNumber);
+        const result = await copyService.copyIssue(application, applicationIssue, issue);
         res.status(200);
         res.send(JSON.stringify(result));
     } catch (error) {

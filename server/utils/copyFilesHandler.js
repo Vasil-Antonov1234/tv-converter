@@ -3,7 +3,13 @@ import paths from "../paths/paths.js";
 import path from "path";
 
 export const copyFilesHandler = {
-    async createFolders(issueNumber, application, pathOutputFiles) {
+    async createFolders(issue, application, pathOutputFiles, applicationIssue) {
+
+        let issueNumber = issue;
+
+        if (application !== "currentIssue" && application !== "Weekend") {
+            issueNumber = applicationIssue;
+        };
 
         try {
             const output = await fsPromises.readdir(pathOutputFiles);
@@ -39,24 +45,30 @@ export const copyFilesHandler = {
         };
 
     },
-    async copyFiles(issueNumber, application, pathInputFiles, pathInputFotos, pathOutputFiles) {
+    async copyFiles(issue, application, pathInputFiles, pathInputFotos, pathOutputFiles, extractedApplicationIssue, applicationIssue) {
         const notCopiedFiles = [];
         let report = "Done";
 
+        let issueNumber = issue;
+
+        if (application !== "currentIssue" && application !== "Weekend") {
+            issueNumber = extractedApplicationIssue;
+        };
+
         let dirReady = "";
         let dirPhotoOld = "";
-        let dirPDF = "";
-        let dirWeb = "";
-        let weekendIssue = "";
+        // let dirPDF = "";
+        // let dirWeb = "";
+        // let weekendIssue = "";
 
-        weekendIssue = issueNumber.includes("-") ? issueNumber.split("-")[0] : issueNumber.split("_")[0];
+        // weekendIssue = issueNumber.includes("-") ? issueNumber.split("-")[0] : issueNumber.split("_")[0];
 
         try {
 
             dirReady = await fsPromises.readdir(pathInputFiles);
             dirPhotoOld = await fsPromises.readdir(pathInputFotos);
-            dirPDF = await fsPromises.readdir(`${pathOutputFiles}/PDF`);
-            dirWeb = await fsPromises.readdir(pathOutputFiles);
+            // dirPDF = await fsPromises.readdir(`${pathOutputFiles}/PDF`);
+            // dirWeb = await fsPromises.readdir(pathOutputFiles);
 
             const dirFiles = dirReady.filter((x) =>
                 x.endsWith(".txt") ||
@@ -77,13 +89,13 @@ export const copyFilesHandler = {
 
             // const dirFilteredPDFs = filterPDFs(dirPDF);
 
-            let outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${issueNumber}/JPG`);
+            let outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${applicationIssue}/JPG`);
 
             await Promise.all(dirFiles.map(async (file) => {
                 const source = path.join(pathInputFiles, file);
-                const destination = path.join(`${pathOutputFiles}${issueNumber}`, file);
+                const destination = path.join(`${pathOutputFiles}${applicationIssue}`, file);
 
-                if (`${pathOutputFiles}${issueNumber}`.includes(file)) {
+                if (`${pathOutputFiles}${applicationIssue}`.includes(file)) {
                     notCopiedFiles.push(file);
                 } else {
                     await fsPromises.copyFile(source, destination);
@@ -100,9 +112,9 @@ export const copyFilesHandler = {
                     notCopiedFiles.push(photo);
                 } else {
                     const source = path.join(pathInputFotos, photo);
-                    const destination = path.join(`${pathOutputFiles}${issueNumber}/JPG`, photo);
+                    const destination = path.join(`${pathOutputFiles}${applicationIssue}/JPG`, photo);
 
-                    if (`${pathOutputFiles}${issueNumber}/JPG`.includes(photo)) {
+                    if (`${pathOutputFiles}${applicationIssue}/JPG`.includes(photo)) {
                         notCopiedFiles.push(photo);
                     } else {
                         await fsPromises.copyFile(source, destination);
