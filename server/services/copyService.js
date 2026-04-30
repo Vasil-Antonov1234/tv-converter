@@ -2,44 +2,18 @@ import fsPromises from "fs/promises";
 import path from "path";
 import paths from "../paths/paths.js";
 import { handleAgroZlatnoIssue } from "../utils/handleAgroZlatnoIssue.js";
+import { pathsHandler } from "../utils/pathFilesHandler.js";
 import { copyFilesHandler } from "../utils/copyFilesHandler.js";
 
 export default {
     async copyIssue(issue, application, applicationIssue, issueNumber) {
 
-        function pathsHandler(applicationIssue) {
+        const photoIssue = handleAgroZlatnoIssue(applicationIssue);
 
-            const pathsFiles = {
-                ready: "",
-                photoOld: "",
-                web: ""
-            }
-
-            switch (applicationIssue) {
-                case "currentIssue":
-                    pathsFiles.ready = paths.readyFiles;
-                    pathsFiles.photoOld = `${paths.photos}Telegraph_OLD/`;
-                    pathsFiles.web = paths.telSite
-                    break;
-                case "Weekend":
-                    pathsFiles.ready = paths.weekendFiles;
-                    // check weekendIssue
-                    pathsFiles.photoOld = `${paths.photos}_WEEKEND ${weekendIssue}/OLD/`;
-                    pathsFiles.web = paths.telSite
-                    break;
-            }
-
-            return pathsFiles;
-        }
-
-        const pathInputFiles = "";
-        const pathInputFotos = "";
-        const filesOutput = "";
-
-
+        const pathsFiles = pathsHandler(application, issueNumber, photoIssue);
+       
         // Test copyFileHandler
-        // await copyFilesHandler(issueNumber, application, pathInputFiles, pathInputFotos, filesOutput)
-
+        // await copyFilesHandler.createFolders(issueNumber, application, pathsFiles.ready, pathsFiles.photoOld, pathsFiles.web);
 
         const notCopiedFiles = [];
         let report = "Done";
@@ -52,9 +26,6 @@ export default {
         if (issue) {
             weekendIssue = issue.includes("-") ? issue.split("-")[0] : issue.split("_")[0];
         }
-
-
-        const photoIssue = handleAgroZlatnoIssue(applicationIssue);
 
         // console.log(photoIssue)
         // console.log(typeof(photoIssue))
@@ -145,6 +116,8 @@ export default {
         if (currentIssue && !currentIssue.includes("DOC")) {
             await fsPromises.mkdir(`${paths.pages}${issue}/DOC`);
         };
+
+        // --------------------------
 
         let outputDirPhotos = null;
 
