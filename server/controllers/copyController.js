@@ -13,7 +13,7 @@ copyController.post("/issue", async (req, res) => {
     const issueNumber = issue ? issue : applicationIssue;
     
     try {
-        const result = await copyService.copyIssue(issue, application, applicationIssue, issueNumber);
+        const result = await copyService.copyIssue(application, applicationIssue, issueNumber);
         res.status(200);
         res.send(JSON.stringify(result));
     } catch (error) {

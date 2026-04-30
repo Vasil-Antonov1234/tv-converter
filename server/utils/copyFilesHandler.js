@@ -3,39 +3,9 @@ import paths from "../paths/paths.js";
 import path from "path";
 
 export const copyFilesHandler = {
-    async createFolders(issueNumber, application, pathInputFiles, pathInputFotos, pathOutputFiles) {
-        // const notCopiedFiles = [];
-        // let report = "Done";
-
-        // let dirReady = "";
-        // let dirPhotoOld = "";
-        // let dirWeb = "";
-        // let weekendIssue = "";
-
-        // weekendIssue = issueNumber.includes("-") ? issueNumber.split("-")[0] : issueNumber.split("_")[0];
-
+    async createFolders(issueNumber, application, pathOutputFiles) {
+       
         try {
-            // dirReady = await fsPromises.readdir(pathInputFiles);
-            // dirPhotoOld = await fsPromises.readdir(pathInputFotos);
-            // dirWeb = await fsPromises.readdir(pathOutputFiles);
-
-            // const dirFiles = dirReady.filter((x) =>
-            //     x.endsWith(".txt") ||
-            //     x.endsWith(".doc") ||
-            //     x.endsWith(".odt") ||
-            //     x.endsWith(".docx")
-            // );
-
-            // const dirPhotos = dirPhotoOld.filter((x) =>
-            //     x.endsWith(".jpg") ||
-            //     x.endsWith(".JPG") ||
-            //     x.endsWith(".jpeg") ||
-            //     x.endsWith(".bmp") ||
-            //     x.endsWith(".png") ||
-            //     x.endsWith(".gif") ||
-            //     x.endsWith(".webp")
-            // );
-
             const output = await fsPromises.readdir(pathOutputFiles);
 
             if (!output.includes(issueNumber)) {
@@ -48,7 +18,7 @@ export const copyFilesHandler = {
             if (!outputDirFiles.includes("JPG")) {
                 await fsPromises.mkdir(`${pathOutputFiles}${issueNumber}/JPG`);
             }
-            
+
 
             let currentIssue = null;
 
@@ -61,7 +31,7 @@ export const copyFilesHandler = {
             };
 
             if (!currentIssue && !outputDirFiles.includes("PDF")) {
-                await fsPromises.mkdir(`${outputDirFiles}${issueNumber}/PDF`);
+                await fsPromises.mkdir(`${pathOutputFiles}${issueNumber}/PDF`);
             };
 
         } catch (error) {
@@ -106,8 +76,8 @@ export const copyFilesHandler = {
             let outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${issueNumber}/JPG`);
 
             await Promise.all(dirFiles.map(async (file) => {
+                const source = path.join(pathInputFiles, file);
                 const destination = path.join(`${pathOutputFiles}${issueNumber}`, file);
-                const source = path.join(`${pathInputFiles}`, file);
 
                 if (`${pathOutputFiles}${issueNumber}`.includes(file)) {
                     notCopiedFiles.push(file);
@@ -121,9 +91,34 @@ export const copyFilesHandler = {
 
             }))
 
-        } catch (error) {
+            await Promise.all(dirPhotos.map(async (photo) => {
+                if (outputDirPhotos.includes(photo)) {
+                    notCopiedFiles.push(photo);
+                } else {
+                    const source = path.join(pathInputFotos, photo);
+                    const destination = path.join(`${pathOutputFiles}${issueNumber}/JPG`, photo);
 
-        }
+                    if (`${pathOutputFiles}${issueNumber}/JPG`.includes(photo)) {
+                        notCopiedFiles.push(photo);
+                    } else {
+                        await fsPromises.copyFile(source, destination);
+                    };
+                };
+            }))
+
+            if (notCopiedFiles.length === 1) {
+                report = `${notCopiedFiles.join(",")} already exists!`
+            }
+
+            if (notCopiedFiles.length > 1) {
+                report = `${notCopiedFiles.join(", ")} already exist!`
+            }
+
+            return report;
+
+        } catch (error) {
+            throw new Error(`ERROR(Cannot copy file - copyFilesHandler.copyFiles): \n${error.message}`);
+        };
     }
 }
 
