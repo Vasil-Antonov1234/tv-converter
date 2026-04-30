@@ -4,7 +4,7 @@ import path from "path";
 
 export const copyFilesHandler = {
     async createFolders(issueNumber, application, pathOutputFiles) {
-       
+
         try {
             const output = await fsPromises.readdir(pathOutputFiles);
 
@@ -45,6 +45,7 @@ export const copyFilesHandler = {
 
         let dirReady = "";
         let dirPhotoOld = "";
+        let dirPDF = "";
         let dirWeb = "";
         let weekendIssue = "";
 
@@ -54,6 +55,7 @@ export const copyFilesHandler = {
 
             dirReady = await fsPromises.readdir(pathInputFiles);
             dirPhotoOld = await fsPromises.readdir(pathInputFotos);
+            dirPDF = await fsPromises.readdir(`${pathOutputFiles}/PDF`);
             dirWeb = await fsPromises.readdir(pathOutputFiles);
 
             const dirFiles = dirReady.filter((x) =>
@@ -72,6 +74,8 @@ export const copyFilesHandler = {
                 x.endsWith(".gif") ||
                 x.endsWith(".webp")
             );
+
+            // const dirFilteredPDFs = filterPDFs(dirPDF);
 
             let outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${issueNumber}/JPG`);
 
@@ -106,6 +110,17 @@ export const copyFilesHandler = {
                 };
             }))
 
+            // await Promise.all(dirFilteredPDFs.map(async (pdf) => {
+            //     const source = path.join(`${paths.agro}/FTP`, pdf);
+            //     const destination = path.join(`${pathOutputFiles}${issueNumber}/PDF`, pdf);
+
+            //     if (`${pathOutputFiles}${issueNumber}/PDF`.includes(pdf)) {
+            //         notCopiedFiles.push(pdf);
+            //     } else {
+            //         fsPromises.copyFile(source, destination);
+            //     }
+            // }))
+
             if (notCopiedFiles.length === 1) {
                 report = `${notCopiedFiles.join(",")} already exists!`
             }
@@ -122,3 +137,23 @@ export const copyFilesHandler = {
     }
 }
 
+// function filterPDFs(dirPDF) {
+
+//     const dirFilteredPDFs = [];
+
+//     if (application === "Agro") {
+
+//         dirFilteredPDFs = dirPDF.filter((x) =>
+//             x.endsWith("13.pdf") ||
+//             x.endsWith("14.pdf") ||
+//             x.endsWith("15.pdf") ||
+//             x.endsWith("16.pdf") ||
+//             x.endsWith("25.pdf") ||
+//             x.endsWith("26.pdf") ||
+//             x.endsWith("27.pdf") ||
+//             x.endsWith("28.pdf")
+//         );
+//     };
+
+//     return dirFilteredPDFs;
+// }
