@@ -67,7 +67,7 @@ export const copyFilesHandler = {
 
             dirReady = await fsPromises.readdir(pathInputFiles);
             dirPhotoOld = await fsPromises.readdir(pathInputFotos);
-            // dirPDF = await fsPromises.readdir(`${pathOutputFiles}/PDF`);
+            dirPDF = await fsPromises.readdir(`${paths.pages}${issue}/FTP`);
             // dirWeb = await fsPromises.readdir(pathOutputFiles);
 
             const dirFiles = dirReady.filter((x) =>
@@ -87,7 +87,7 @@ export const copyFilesHandler = {
                 x.endsWith(".webp")
             );
 
-            // const dirFilteredPDFs = filterPDFs(dirPDF);
+            const dirFilteredPDFs = filterPDFs(dirPDF);
 
             let outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${applicationIssue}/JPG`);
 
@@ -122,16 +122,16 @@ export const copyFilesHandler = {
                 };
             }))
 
-            // await Promise.all(dirFilteredPDFs.map(async (pdf) => {
-            //     const source = path.join(`${paths.agro}/FTP`, pdf);
-            //     const destination = path.join(`${pathOutputFiles}${issueNumber}/PDF`, pdf);
+            await Promise.all(dirFilteredPDFs.map(async (pdf) => {
+                const source = path.join(`${paths.pages}${issue}/FTP`, pdf);
+                const destination = path.join(`${pathOutputFiles}${issueNumber}/PDF`, pdf);
 
-            //     if (`${pathOutputFiles}${issueNumber}/PDF`.includes(pdf)) {
-            //         notCopiedFiles.push(pdf);
-            //     } else {
-            //         fsPromises.copyFile(source, destination);
-            //     }
-            // }))
+                if (`${pathOutputFiles}${issueNumber}/PDF`.includes(pdf)) {
+                    notCopiedFiles.push(pdf);
+                } else {
+                    fsPromises.copyFile(source, destination);
+                };
+            }));
 
             if (notCopiedFiles.length === 1) {
                 report = `${notCopiedFiles.join(",")} already exists!`
@@ -149,23 +149,23 @@ export const copyFilesHandler = {
     }
 }
 
-// function filterPDFs(dirPDF) {
+function filterPDFs(dirPDF) {
 
-//     const dirFilteredPDFs = [];
+    const dirFilteredPDFs = [];
 
-//     if (application === "Agro") {
+    if (application === "Agro") {
 
-//         dirFilteredPDFs = dirPDF.filter((x) =>
-//             x.endsWith("13.pdf") ||
-//             x.endsWith("14.pdf") ||
-//             x.endsWith("15.pdf") ||
-//             x.endsWith("16.pdf") ||
-//             x.endsWith("25.pdf") ||
-//             x.endsWith("26.pdf") ||
-//             x.endsWith("27.pdf") ||
-//             x.endsWith("28.pdf")
-//         );
-//     };
+        dirFilteredPDFs = dirPDF.filter((x) =>
+            x.endsWith("13.pdf") ||
+            x.endsWith("14.pdf") ||
+            x.endsWith("15.pdf") ||
+            x.endsWith("16.pdf") ||
+            x.endsWith("25.pdf") ||
+            x.endsWith("26.pdf") ||
+            x.endsWith("27.pdf") ||
+            x.endsWith("28.pdf")
+        );
+    };
 
-//     return dirFilteredPDFs;
-// }
+    return dirFilteredPDFs;
+}
