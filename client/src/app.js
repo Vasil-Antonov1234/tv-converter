@@ -2604,6 +2604,8 @@ async function onCopyIssue(event) {
 
     const formData = new FormData(event.currentTarget);
 
+    debugger
+
     const issue = formData.get("issue");
     const application = formData.get("application");
     const applicationIssue = formData.get("applicationIssue");
@@ -2613,7 +2615,16 @@ async function onCopyIssue(event) {
     };
 
     if ((application !== "currentIssue" && application !== "Weekend") && !applicationIssue) {
-        errorMessageHandler("Application isssue is required!", red, "weekend");
+        return errorMessageHandler("Application isssue is required!", red, "weekend");
+    };
+
+    if ((application !== "currentIssue" && application !== "Weekend") && !issue) {
+        const choice = confirm("There is no newspaper issue number given! Do you want to continue without copy the PDF files?");
+
+        if (!choice) {
+            return;
+        };
+
     };
 
     if (application === "currentIssue" && (issue.endsWith("w") || issue.endsWith("W"))) {

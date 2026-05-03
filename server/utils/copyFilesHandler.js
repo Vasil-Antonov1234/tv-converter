@@ -3,7 +3,7 @@ import paths from "../paths/paths.js";
 import path from "path";
 
 export const copyFilesHandler = {
-    async createFolders(issue, application, pathOutputFiles, applicationIssue) {
+    async createFolders(issue, application, pathOutputFiles, applicationIssue, isCopyPFDs) {
 
         let issueNumber = issue;
 
@@ -36,7 +36,7 @@ export const copyFilesHandler = {
                 await fsPromises.mkdir(`${paths.pages}${issueNumber}/DOC`);
             };
 
-            if (!currentIssue && !outputDirFiles.includes("PDF")) {
+            if (isCopyPFDs && !currentIssue && !outputDirFiles.includes("PDF")) {
                 await fsPromises.mkdir(`${pathOutputFiles}${issueNumber}/PDF`);
             };
 
@@ -45,10 +45,10 @@ export const copyFilesHandler = {
         };
 
     },
-    async copyFiles(issue, application, pathInputFiles, pathInputFotos, pathOutputFiles, extractedApplicationIssue, applicationIssue) {
+    async copyFiles(issue, application, pathInputFiles, pathInputFotos, pathOutputFiles, extractedApplicationIssue, applicationIssue, isCopyPFDs) {
         const notCopiedFiles = [];
         let report = "Done";
-
+        
         let issueNumber = issue;
 
         if (application !== "currentIssue" && application !== "Weekend") {
@@ -57,7 +57,7 @@ export const copyFilesHandler = {
 
         let dirReady = "";
         let dirPhotoOld = "";
-        // let dirPDF = "";
+        let dirPDF = "";
         // let dirWeb = "";
         // let weekendIssue = "";
 
@@ -67,7 +67,10 @@ export const copyFilesHandler = {
 
             dirReady = await fsPromises.readdir(pathInputFiles);
             dirPhotoOld = await fsPromises.readdir(pathInputFotos);
-            dirPDF = await fsPromises.readdir(`${paths.pages}${issue}/FTP`);
+            
+            if (isCopyPFDs) {
+                dirPDF = await fsPromises.readdir(`${paths.pages}${issue}/FTP`);
+            }
             // dirWeb = await fsPromises.readdir(pathOutputFiles);
 
             const dirFiles = dirReady.filter((x) =>
@@ -87,7 +90,12 @@ export const copyFilesHandler = {
                 x.endsWith(".webp")
             );
 
-            const dirFilteredPDFs = filterPDFs(dirPDF);
+            let dirFilteredPDFs = [];
+            
+            if (isCopyPFDs) {
+                dirFilteredPDFs = filterPDFs(dirPDF, application);
+            }
+            
 
             let outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${applicationIssue}/JPG`);
 
@@ -122,16 +130,19 @@ export const copyFilesHandler = {
                 };
             }))
 
-            await Promise.all(dirFilteredPDFs.map(async (pdf) => {
-                const source = path.join(`${paths.pages}${issue}/FTP`, pdf);
-                const destination = path.join(`${pathOutputFiles}${issueNumber}/PDF`, pdf);
-
-                if (`${pathOutputFiles}${issueNumber}/PDF`.includes(pdf)) {
-                    notCopiedFiles.push(pdf);
-                } else {
-                    fsPromises.copyFile(source, destination);
-                };
-            }));
+            if (isCopyPFDs) {
+                await Promise.all(dirFilteredPDFs.map(async (pdf) => {
+                    const source = path.join(`${paths.pages}${issue}/FTP`, pdf);
+                    const destination = path.join(`${pathOutputFiles}${applicationIssue}/PDF`, pdf);
+    
+                    if (`${pathOutputFiles}${applicationIssue}/PDF`.includes(pdf)) {
+                        notCopiedFiles.push(pdf);
+                    } else {
+                        fsPromises.copyFile(source, destination);
+                    };
+                }));
+            }
+            
 
             if (notCopiedFiles.length === 1) {
                 report = `${notCopiedFiles.join(",")} already exists!`
@@ -149,9 +160,9 @@ export const copyFilesHandler = {
     }
 }
 
-function filterPDFs(dirPDF) {
+function filterPDFs(dirPDF, application) {
 
-    const dirFilteredPDFs = [];
+    let dirFilteredPDFs = [];
 
     if (application === "Agro") {
 

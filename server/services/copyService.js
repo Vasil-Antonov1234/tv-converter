@@ -9,9 +9,20 @@ export default {
 
         const pathsFiles = pathsHandler(application, issue, extractedApplicationIssue, applicationIssue);
 
+        const isCopyPFDs = (application !== "currentIssue" && application !== "Weekend") && issue;
+
         try {
-            await copyFilesHandler.createFolders(issue, application, pathsFiles.web, applicationIssue);
-            const report = await copyFilesHandler.copyFiles(issue, application, pathsFiles.ready, pathsFiles.photoOld, pathsFiles.web, extractedApplicationIssue, applicationIssue);
+            await copyFilesHandler.createFolders(issue, application, pathsFiles.web, applicationIssue, isCopyPFDs);
+            const report = await copyFilesHandler.copyFiles(
+                issue,
+                application,
+                pathsFiles.ready,
+                pathsFiles.photoOld,
+                pathsFiles.web,
+                extractedApplicationIssue,
+                applicationIssue,
+                isCopyPFDs
+            );
 
             return report;
         } catch (error) {
