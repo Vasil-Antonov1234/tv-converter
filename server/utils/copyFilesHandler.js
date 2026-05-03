@@ -47,7 +47,8 @@ export const copyFilesHandler = {
     },
     async copyFiles(issue, application, pathInputFiles, pathInputFotos, pathOutputFiles, extractedApplicationIssue, applicationIssue, isCopyPFDs) {
         const notCopiedFiles = [];
-        let report = "Done";
+        let copiedFilesCount = 0;
+        let report = "undefined";
         
         let issueNumber = issue;
 
@@ -118,10 +119,12 @@ export const copyFilesHandler = {
                     notCopiedFiles.push(file);
                 } else {
                     await fsPromises.copyFile(source, destination);
+                    copiedFilesCount++;
                 };
 
                 if (application === "currentIssue" || application === "Weekend") {
                     await fsPromises.copyFile(source, `${paths.pages}${issueNumber}/DOC/${file}`);
+                    copiedFilesCount++;
                 };
 
             }))
@@ -137,6 +140,7 @@ export const copyFilesHandler = {
                         notCopiedFiles.push(photo);
                     } else {
                         await fsPromises.copyFile(source, destination);
+                        copiedFilesCount++;
                     };
                 };
             }))
@@ -150,10 +154,12 @@ export const copyFilesHandler = {
                         notCopiedFiles.push(pdf);
                     } else {
                         fsPromises.copyFile(source, destination);
+                        copiedFilesCount++;
                     };
                 }));
             }
             
+            report = `${copiedFilesCount} files have been copied!`;
 
             if (notCopiedFiles.length === 1) {
                 report = `${notCopiedFiles.join(",")} already exists!`
@@ -162,6 +168,7 @@ export const copyFilesHandler = {
             if (notCopiedFiles.length > 1) {
                 report = `${notCopiedFiles.join(", ")} already exist!`
             }
+
 
             return report;
 
@@ -186,6 +193,24 @@ function filterPDFs(dirPDF, application) {
             x.endsWith("26.pdf") ||
             x.endsWith("27.pdf") ||
             x.endsWith("28.pdf")
+        );
+    };
+
+    if (application === "ZlatnoVreme") {
+        
+        dirFilteredPDFs = dirPDF.filter((x) => 
+            x.endsWith("11.pdf") ||
+            x.endsWith("12.pdf") ||
+            x.endsWith("13.pdf") ||
+            x.endsWith("14.pdf") ||
+            x.endsWith("15.pdf") ||
+            x.endsWith("16.pdf") ||
+            x.endsWith("25.pdf") ||
+            x.endsWith("26.pdf") ||
+            x.endsWith("27.pdf") ||
+            x.endsWith("28.pdf") ||
+            x.endsWith("29.pdf") ||
+            x.endsWith("30.pdf")
         );
     };
 

@@ -2604,8 +2604,6 @@ async function onCopyIssue(event) {
 
     const formData = new FormData(event.currentTarget);
 
-    debugger
-
     const issue = formData.get("issue");
     const application = formData.get("application");
     const applicationIssue = formData.get("applicationIssue");
@@ -2660,9 +2658,11 @@ async function onCopyIssue(event) {
         message.style.color = green;
         errorMessageHandler(result, green);
 
-        if (result !== "Done") {
+        if (!result.endsWith("copied!")) {
             message.style.color = "darkgoldenrod";
             errorMessageHandler(result, yellow);
+        } else {
+            
         }
     } catch (error) {
         message.value = error;
