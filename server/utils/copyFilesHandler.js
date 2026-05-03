@@ -69,7 +69,18 @@ export const copyFilesHandler = {
             dirPhotoOld = await fsPromises.readdir(pathInputFotos);
             
             if (isCopyPFDs) {
-                dirPDF = await fsPromises.readdir(`${paths.pages}${issue}/FTP`);
+                const check = await fsPromises.readdir(`${paths.pages}${issue}`);
+                let pdfFolderName = "";
+
+                if (check.includes("FTP") || check.includes("ftp")) {
+                    pdfFolderName = "FTP";
+                };
+
+                if (check.includes("PDF") || check.includes("pdf")) {
+                    pdfFolderName = "PDF";
+                };
+
+                dirPDF = await fsPromises.readdir(`${paths.pages}${issue}/${pdfFolderName}`);
             }
             // dirWeb = await fsPromises.readdir(pathOutputFiles);
 
