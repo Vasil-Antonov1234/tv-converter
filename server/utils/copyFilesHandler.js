@@ -49,7 +49,7 @@ export const copyFilesHandler = {
         const notCopiedFiles = [];
         let copiedFilesCount = 0;
         let report = "undefined";
-        
+
         let issueNumber = issue;
 
         if (application !== "currentIssue" && application !== "Weekend") {
@@ -68,7 +68,7 @@ export const copyFilesHandler = {
 
             dirReady = await fsPromises.readdir(pathInputFiles);
             dirPhotoOld = await fsPromises.readdir(pathInputFotos);
-            
+
             if (isCopyPFDs) {
                 const check = await fsPromises.readdir(`${paths.pages}${issue}`);
                 let pdfFolderName = "";
@@ -103,11 +103,11 @@ export const copyFilesHandler = {
             );
 
             let dirFilteredPDFs = [];
-            
+
             if (isCopyPFDs) {
                 dirFilteredPDFs = filterPDFs(dirPDF, application);
             }
-            
+
 
             let outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${applicationIssue}/JPG`);
 
@@ -149,7 +149,7 @@ export const copyFilesHandler = {
                 await Promise.all(dirFilteredPDFs.map(async (pdf) => {
                     const source = path.join(`${paths.pages}${issue}/FTP`, pdf);
                     const destination = path.join(`${pathOutputFiles}${applicationIssue}/PDF`, pdf);
-    
+
                     if (`${pathOutputFiles}${applicationIssue}/PDF`.includes(pdf)) {
                         notCopiedFiles.push(pdf);
                     } else {
@@ -158,7 +158,7 @@ export const copyFilesHandler = {
                     };
                 }));
             }
-            
+
             report = `${copiedFilesCount} files have been copied!`;
 
             if (notCopiedFiles.length === 1) {
@@ -197,8 +197,8 @@ function filterPDFs(dirPDF, application) {
     };
 
     if (application === "ZlatnoVreme") {
-        
-        dirFilteredPDFs = dirPDF.filter((x) => 
+
+        dirFilteredPDFs = dirPDF.filter((x) =>
             x.endsWith("11.pdf") ||
             x.endsWith("12.pdf") ||
             x.endsWith("13.pdf") ||
@@ -213,6 +213,20 @@ function filterPDFs(dirPDF, application) {
             x.endsWith("30.pdf")
         );
     };
+
+    if (application === "Viara") {
+        dirFilteredPDFs = dirPDF.filter((x) =>
+            x.endsWith("13.pdf") ||
+            x.endsWith("14.pdf") ||
+            x.endsWith("15.pdf") ||
+            x.endsWith("16.pdf") ||
+            x.endsWith("25.pdf") ||
+            x.endsWith("26.pdf") ||
+            x.endsWith("27.pdf") ||
+            x.endsWith("28.pdf") ||
+            x.endsWith("27.pdf")
+        );
+    }
 
     return dirFilteredPDFs;
 }
