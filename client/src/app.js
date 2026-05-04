@@ -2323,6 +2323,7 @@ function utilsTemplate(element) {
                     <option value="Weekend" name="application">Weekend</option>
                     <option value="ZlatnoVreme" name="application">Zlatno vreme</option>
                     <option value="Agro" name="application">Agro</option>
+                    <option value="Viara" name="application">Viara</option>
             </select>
             <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="Application isssue*">
         </form>
