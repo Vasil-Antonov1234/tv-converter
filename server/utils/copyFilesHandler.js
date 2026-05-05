@@ -226,7 +226,20 @@ function filterPDFs(dirPDF, application) {
             x.endsWith("28.pdf") ||
             x.endsWith("27.pdf")
         );
-    }
+    };
+
+    if (application === "Zdrave") {
+        dirFilteredPDFs = dirPDF.filter((x) =>
+            x.endsWith("17.pdf") ||
+            x.endsWith("18.pdf") ||
+            x.endsWith("19.pdf") ||
+            x.endsWith("20.pdf") ||
+            x.endsWith("21.pdf") ||
+            x.endsWith("22.pdf") ||
+            x.endsWith("23.pdf") ||
+            x.endsWith("24.pdf")
+        );
+    };
 
     return dirFilteredPDFs;
 }
