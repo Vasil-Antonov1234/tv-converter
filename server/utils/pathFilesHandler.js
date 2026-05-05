@@ -33,6 +33,10 @@ export function pathsHandler(application, issue, extractedApplicationIssue, appl
             pathsFiles.ready = `${paths.viara}${applicationIssue}`;
             pathsFiles.photoOld = `${paths.photos}_VIARA${extractedApplicationIssue}/old/`;
             pathsFiles.web = `${paths.telSite}_____viara/`;
+        case "Zdrave":
+            pathsFiles.ready = `${paths.zdrave}`;
+            pathsFiles.photoOld = `${paths.photos}_ZDRAVE${extractedApplicationIssue}/OLD/`;
+            pathsFiles.web = `${paths.telSite}______Zdrave/`;
     }
 
     return pathsFiles;
