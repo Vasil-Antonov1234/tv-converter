@@ -2324,6 +2324,7 @@ function utilsTemplate(element) {
                     <option value="ZlatnoVreme" name="application">Zlatno vreme</option>
                     <option value="Agro" name="application">Agro</option>
                     <option value="Viara" name="application">Viara</option>
+                    <option value="Zdrave" name="application">Zdrave</option>
             </select>
             <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="Application isssue*">
         </form>
@@ -2593,6 +2594,8 @@ async function onFindAndReplace(event) {
 
 async function onCopyIssue(event) {
     event.preventDefault();
+
+    debugger
 
     // const choice = document.getElementById("application").value;
     const message = document.getElementById("copyIssueMessage");
