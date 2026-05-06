@@ -1,66 +1,84 @@
 .cont-archive {
-    margin-left: 34%;
-    margin-top: 40px;
-  }
-  
-  
-  .input-archive {
-    padding: 10px;
-    border: 0.1px solid gray;
-    border-radius: 4px;
-    font-size: 34px;
-    box-shadow: 1px 1px 10px 0px;
-    color: lightgray;
-  }
-  
-  .btn-archive {
-    font-size: 30px;
-    padding: 15px;
-    border: 2px solid rgb(214, 62, 2);
-    border-radius: 18px;
-    background-color: #ffdd6f;
-    margin-left: 14px;
-    box-shadow: 1px 1px 2px 2px;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-family: sans-serif;
-  }
-  
-  .btn-archive:hover {
-    background-color: darkred;
-    border: 2px solid #ffdd6f;
-    color: white;
-    box-shadow: 1px 1px 2px 2px;
-    cursor: pointer;
-  }
-  
-  
-  .issue-number-archive {
-    font-size: 50px;
-    text-align: center;
-    font-family: cursive;
-    color: #ffdd6f;
-    margin-top: 28px;
-  }
-
-  .output-content-archive {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: -4%;
-    margin-top: 11px;
-    font-family: sans-serif;
-    font-size: 20px;
-  }
+  margin-left: 34%;
+  margin-top: 40px;
+}
 
 
-  .date-issue-archive {
-    color: white;
-    display: none;
+.input-archive {
+  padding: 10px;
+  border: 0.1px solid gray;
+  border-radius: 4px;
+  font-size: 34px;
+  box-shadow: 1px 1px 10px 0px;
+  color: lightgray;
+}
+
+.btn-archive {
+  font-size: 30px;
+  padding: 15px;
+  border: 2px solid rgb(214, 62, 2);
+  border-radius: 18px;
+  background-color: #ffdd6f;
+  margin-left: 14px;
+  box-shadow: 1px 1px 2px 2px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.btn-archive:hover {
+  background-color: darkred;
+  border: 2px solid #ffdd6f;
+  color: white;
+  box-shadow: 1px 1px 2px 2px;
+  cursor: pointer;
+}
+
+.issue-number-archive {
+  font-size: 50px;
+  text-align: center;
+  font-family: cursive;
+  color: #ffdd6f;
+  margin-top: 28px;
+}
+
+.output-content-archive {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 11px;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+
+.date-issue-archive {
+  color: white;
+  text-align: center;
+  display: none;
+}
+
+.date-and-issue-archive {
+  color: white;
+  font-size: 34px;
+  display: none;
+}
+
+.display-on {
+  display: block;
+  animation: fadeIn 1s ease;
+}
+
+.display-off {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
 
-  .date-and-issue-archive {
-    color: white;
-    font-size: 34px;
-    display: none;
+  to {
+    opacity: 1;
   }
+}
