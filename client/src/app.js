@@ -1794,9 +1794,9 @@ const utils = {
         const message = document.getElementById("issue");
         const issueSign = document.getElementById("date-and-issue");
         const error = document.getElementById("error");
-        error.style.display = "none";
-        message.style.display = "none";
-        issueSign.style.display = "none";
+        error.classList.remove("display-on");
+        message.classList.remove("display-off");
+        issueSign.classList.remove("display-on");
 
         if (!inputDate) {
             return;
@@ -1824,7 +1824,8 @@ const utils = {
 
         if (issueInputDateDays > nowDateDays + 1) {
 
-            error.style.display = "block";
+            addClass(error, "display-on");
+            addClass(message, "display-off");
             return;
 
         }
@@ -1876,9 +1877,10 @@ const utils = {
             issue = 0;
         }
 
-        issueSign.style.display = "block";
         message.textContent = `${issue}`;
-        message.style.display = "block";
+
+        addClass(issueSign, "display-on");
+        addClass(message, "display-on", 1000);
 
         return;
 
@@ -2666,7 +2668,7 @@ async function onCopyIssue(event) {
             message.style.color = "darkgoldenrod";
             errorMessageHandler(result, yellow);
         } else {
-            
+
         }
     } catch (error) {
         message.value = error;
@@ -3017,7 +3019,10 @@ function errorMessageHandler(message, color, currentElement) {
 function addClass(element, className, time) {
     element.classList.add(className);
 
-    setTimeout(() => {
-        element.classList.remove(className)
-    }, time);
+    if (time) {
+        setTimeout(() => {
+            element.classList.remove(className)
+        }, time);
+    }
+
 }
