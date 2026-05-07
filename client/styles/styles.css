@@ -896,7 +896,8 @@ input:focus {
     }
 
     50% {
-        background-color: black;
+        background-color: rgba(230, 191, 128, 0);
+        color: rgba(0, 0, 0, 0);
     }
 }
 
