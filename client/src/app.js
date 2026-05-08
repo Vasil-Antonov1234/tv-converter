@@ -2277,16 +2277,16 @@ function weatherTemplate(element) {
         <textarea name="currency" value="test" id="exchangeRatesInput">const currencyList = document.querySelectorAll(".center");
         const currencyListArr = Array.from(currencyList);
 
-        const usd = currencyListArr[1].textContent;
-        const usdPref = currencyListArr[0].textContent;
-        const gbp = currencyListArr[13].textContent;
-        const gbpPref = currencyListArr[12].textContent;
-        const chf = currencyListArr[28].textContent;
-        const chfPref = currencyListArr[27].textContent;
-        const jpy = currencyListArr[4].textContent;
-        const jpyPref = currencyListArr[3].textContent;
+        const usd = currencyListArr[0].textContent;
+        const usdPref = currencyListArr[1].textContent;
+        const gbp = currencyListArr[12].textContent;
+        const gbpPref = currencyListArr[13].textContent;
+        const chf = currencyListArr[27].textContent;
+        const chfPref = currencyListArr[28].textContent;
+        const jpy = currencyListArr[3].textContent;
+        const jpyPref = currencyListArr[4].textContent;
 
-        document.write("Централен курс на БНБ: " + usd + "= " + usdPref + "; " + gbp + "= " + gbpPref + "; " + chf + "= " + chfPref + "; " + jpy + "= " + jpyPref)</textarea>
+        document.write("Централен курс на БНБ: " + usd + " = " + usdPref + "; " + gbp + " = " + gbpPref + "; " + chf + " = " + chfPref + "; " + jpy + " = " + jpyPref)</textarea>
         <button id="exchangeRates" class="copyCode button">Copy code/ exchange rates</button>
     `
 
