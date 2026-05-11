@@ -12,7 +12,7 @@ export function pathsHandler(application, issue, extractedApplicationIssue, appl
         case "currentIssue":
             pathsFiles.ready = paths.readyFiles;
             pathsFiles.photoOld = `${paths.photos}Telegraph_OLD/`;
-            pathsFiles.web = `${paths.telSite}${issue}`;
+            pathsFiles.web = paths.telSite;
             break;
         case "Weekend":
             pathsFiles.ready = paths.weekendFiles;
