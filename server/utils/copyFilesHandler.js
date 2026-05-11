@@ -109,13 +109,13 @@ export const copyFilesHandler = {
             }
 
 
-            let outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${applicationIssue}/JPG`);
+            let outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${issueNumber}/JPG`);
 
             await Promise.all(dirFiles.map(async (file) => {
                 const source = path.join(pathInputFiles, file);
-                const destination = path.join(`${pathOutputFiles}${applicationIssue}`, file);
+                const destination = path.join(`${pathOutputFiles}${issueNumber}`, file);
 
-                if (`${pathOutputFiles}${applicationIssue}`.includes(file)) {
+                if (`${pathOutputFiles}${issueNumber}`.includes(file)) {
                     notCopiedFiles.push(file);
                 } else {
                     await fsPromises.copyFile(source, destination);
@@ -134,9 +134,9 @@ export const copyFilesHandler = {
                     notCopiedFiles.push(photo);
                 } else {
                     const source = path.join(pathInputFotos, photo);
-                    const destination = path.join(`${pathOutputFiles}${applicationIssue}/JPG`, photo);
+                    const destination = path.join(`${pathOutputFiles}${issueNumber}/JPG`, photo);
 
-                    if (`${pathOutputFiles}${applicationIssue}/JPG`.includes(photo)) {
+                    if (`${pathOutputFiles}${issueNumber}/JPG`.includes(photo)) {
                         notCopiedFiles.push(photo);
                     } else {
                         await fsPromises.copyFile(source, destination);
@@ -148,9 +148,9 @@ export const copyFilesHandler = {
             if (isCopyPFDs) {
                 await Promise.all(dirFilteredPDFs.map(async (pdf) => {
                     const source = path.join(`${paths.pages}${issue}/FTP`, pdf);
-                    const destination = path.join(`${pathOutputFiles}${applicationIssue}/PDF`, pdf);
+                    const destination = path.join(`${pathOutputFiles}${issueNumber}/PDF`, pdf);
 
-                    if (`${pathOutputFiles}${applicationIssue}/PDF`.includes(pdf)) {
+                    if (`${pathOutputFiles}${issueNumber}/PDF`.includes(pdf)) {
                         notCopiedFiles.push(pdf);
                     } else {
                         fsPromises.copyFile(source, destination);
