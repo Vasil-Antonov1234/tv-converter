@@ -3,7 +3,7 @@ import { pathsHandler } from "../utils/pathFilesHandler.js";
 import { copyFilesHandler } from "../utils/copyFilesHandler.js";
 
 export default {
-    async copyIssue(application, applicationIssue, issue) {
+    async copyIssue(application, applicationIssue, issue, copyAllFiles) {
 
         const extractedApplicationIssue = handleAgroZlatnoIssue(applicationIssue);
 
@@ -20,8 +20,8 @@ export default {
                 pathsFiles.photoOld,
                 pathsFiles.web,
                 extractedApplicationIssue,
-                applicationIssue,
-                isCopyPFDs
+                isCopyPFDs,
+                copyAllFiles
             );
 
             return report;

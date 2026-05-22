@@ -45,7 +45,7 @@ export const copyFilesHandler = {
         };
 
     },
-    async copyFiles(issue, application, pathInputFiles, pathInputFotos, pathOutputFiles, extractedApplicationIssue, applicationIssue, isCopyPFDs) {
+    async copyFiles(issue, application, pathInputFiles, pathInputFotos, pathOutputFiles, extractedApplicationIssue, isCopyPFDs, copyAllFiles) {
         const notCopiedFiles = [];
         let copiedFilesCount = 0;
         let report = "undefined";
@@ -85,14 +85,14 @@ export const copyFilesHandler = {
             }
             // dirWeb = await fsPromises.readdir(pathOutputFiles);
 
-            const dirFiles = dirReady.filter((x) =>
+            let dirFiles = dirReady.filter((x) =>
                 x.endsWith(".txt") ||
                 x.endsWith(".doc") ||
                 x.endsWith(".odt") ||
                 x.endsWith(".docx")
             );
 
-            const dirPhotos = dirPhotoOld.filter((x) =>
+            let dirPhotos = dirPhotoOld.filter((x) =>
                 x.endsWith(".jpg") ||
                 x.endsWith(".JPG") ||
                 x.endsWith(".jpeg") ||
@@ -102,6 +102,11 @@ export const copyFilesHandler = {
                 x.endsWith(".webp")
             );
 
+            if (application === "Weekend" && !copyAllFiles) {
+                dirFiles = dirFiles.filter((x) => x.toLowerCase().startsWith("w"));
+                dirPhotos = dirPhotos.filter((x) => x.toLowerCase().startsWith("w"));
+            };
+            
             let dirFilteredPDFs = [];
 
             if (isCopyPFDs) {
