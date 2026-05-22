@@ -2336,7 +2336,7 @@ function utilsTemplate(element) {
                     <h2 class="copy-all-sub-title yes">YES</h2>
                 </div>
                 <label class="copy-all-switch" for="copy-all">
-                    <input class="copy-all-check" type="checkbox" id="copy-all">
+                    <input class="copy-all-check" type="checkbox" id="copy-all" name="copyAll">
                     <span class="copy-all-slider"></span>
                 </label>
             </div>
@@ -2624,6 +2624,7 @@ async function onCopyIssue(event) {
     const issue = formData.get("issue");
     const application = formData.get("application");
     const applicationIssue = formData.get("applicationIssue");
+    const copyAllFiles = formData.get("copyAll");
 
     if (!issue && (application === "currentIssue" || application === "Weekend")) {
         return errorMessageHandler("Issue number is required!", red, "issue");
