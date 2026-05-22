@@ -16,9 +16,10 @@ export function pathsHandler(application, issue, extractedApplicationIssue, appl
             break;
         case "Weekend":
             pathsFiles.ready = paths.weekendFiles;
-            const weekendIssue = issue.includes("-") ? issue.split("-")[0] : issue.split("_")[0];
+            let weekendIssue = issue.includes("-") ? issue.split("-")[0] : issue.split("_")[0];
+            weekendIssue = extractedApplicationIssue ? weekendIssue = extractedApplicationIssue : weekendIssue;
             pathsFiles.photoOld = `${paths.photos}_WEEKEND ${weekendIssue}/OLD/`;
-            pathsFiles.web = paths.telSite
+            pathsFiles.web = paths.telSite;
             break;
         case "ZlatnoVreme":
             pathsFiles.ready = `${paths.zlatno}${applicationIssue}`;
