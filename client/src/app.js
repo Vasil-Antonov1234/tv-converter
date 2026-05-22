@@ -2330,7 +2330,11 @@ function utilsTemplate(element) {
             </select>
             <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="Application isssue*">
             <div class="switch-container">
-            <h3 class="copy-all-title">Copy all files</h3>
+                <h3 class="copy-all-title">Copy all files</h3>
+                <div class="copy-all-labesl-wrapper">
+                    <h2 class="copy-all-sub-title no">NO</h2>
+                    <h2 class="copy-all-sub-title yes">YES</h2>
+                </div>
                 <label class="copy-all-switch" for="copy-all">
                     <input class="copy-all-check" type="checkbox" id="copy-all">
                     <span class="copy-all-slider"></span>
