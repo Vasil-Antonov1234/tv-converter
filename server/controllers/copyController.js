@@ -9,6 +9,7 @@ copyController.post("/issue", async (req, res) => {
     const issue = req.body.issue;
     const application = req.body.application;
     const applicationIssue = req.body.applicationIssue;
+    const copyAllFiles = req.body.copyAllFiles;
 
     
     try {

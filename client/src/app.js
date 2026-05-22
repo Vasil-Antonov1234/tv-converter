@@ -2330,7 +2330,7 @@ function utilsTemplate(element) {
             </select>
             <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="Application isssue*">
             <div class="switch-container">
-                <h3 class="copy-all-title">Copy all files</h3>
+                <h3 class="copy-all-title">Copy all files: </h3>
                 <div class="copy-all-labesl-wrapper">
                     <h2 class="copy-all-sub-title no">NO</h2>
                     <h2 class="copy-all-sub-title yes">YES</h2>
@@ -2608,8 +2608,6 @@ async function onFindAndReplace(event) {
 async function onCopyIssue(event) {
     event.preventDefault();
 
-    debugger
-
     // const choice = document.getElementById("application").value;
     const message = document.getElementById("copyIssueMessage");
     message.value = "";
@@ -2670,7 +2668,7 @@ async function onCopyIssue(event) {
 
     try {
 
-        const result = await utils.request("/copy/issue", "POST", { issue, application, applicationIssue })
+        const result = await utils.request("/copy/issue", "POST", { issue, application, applicationIssue, copyAllFiles })
 
         message.value = result;
         message.style.color = green;
