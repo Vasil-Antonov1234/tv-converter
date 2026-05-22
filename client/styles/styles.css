@@ -941,7 +941,6 @@ input:focus {
     background-color: rgba(255, 255, 255, 0.700);
     border-radius: 5px;
     text-transform: uppercase;
-    height: fit-content;
 }
 
 .copy-all-title {
@@ -969,6 +968,25 @@ input:focus {
     background-color: darkred;
     -webkit-transition: 0.4s;
     transition: 0.4s;
+    border-radius: 10px;
+}
+
+.copy-all-labesl-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin: 0 auto;
+    height: 23px;
+}
+
+.no {
+    color: darkred;
+    margin: 0;
+}
+
+.yes {
+    color: darkgreen;
+    margin: 0;
 }
 
 .copy-all-slider::before {
@@ -981,6 +999,7 @@ input:focus {
     background-color: whitesmoke;
     -webkit-transition: 0.4s;
     transition: 0.4s;
+    border-radius: 10px;
 }
 
 .switch-container input:checked + .copy-all-slider {
