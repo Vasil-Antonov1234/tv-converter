@@ -102,17 +102,33 @@ export const copyFilesHandler = {
                 x.endsWith(".webp")
             );
 
-            if (application === "Weekend" && !copyAllFiles) {
-                dirFiles = dirFiles.filter((x) => x.toLowerCase().startsWith("w"));
-                dirPhotos = dirPhotos.filter((x) => x.toLowerCase().startsWith("w"));
+            if (!copyAllFiles) {
+
+                if (application === "Weekend") {
+                    dirFiles = dirFiles.filter((x) => x.toLowerCase().startsWith("w"));
+                    dirPhotos = dirPhotos.filter((x) => x.toLowerCase().startsWith("w"));
+                } else {
+                    const baseDate = new Date();
+                    const day = baseDate.getDay();
+
+                    if (day !== 7) {
+                        dirFiles = dirFiles.filter((x) => x.startsWith(`8${day + 1}`));
+                        dirPhotos = dirPhotos.filter((x) => x.startsWith(`8${day + 1}`));
+                    }
+
+                    if (day === 7) {
+                        dirFiles = dirFiles.filter((x) => x.startsWith("81"));
+                        dirPhotos = dirPhotos.filter((x) => x.startsWith("81"));
+                    }
+
+                }
             };
-            
+
             let dirFilteredPDFs = [];
 
             if (isCopyPFDs) {
                 dirFilteredPDFs = filterPDFs(dirPDF, application);
             }
-
 
             let outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${issueNumber}/JPG`);
 
