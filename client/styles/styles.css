@@ -29,8 +29,10 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    top: 0%;
-    left: 0%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     padding: 0;
     z-index: -1;
     animation: fadeIn 1.5s ease-in-out forwards;
@@ -80,10 +82,6 @@
 .othersForm {
     margin-top: 30px;
     padding: 10px;
-}
-
-.text {
-    margin-top: 90px;
 }
 
 a {
@@ -201,6 +199,11 @@ a:hover {
     transform: translateY(-10px);
 }
 
+.weatherText {
+    width: 410px;
+    height: 410px;
+}
+
 .calcText {
     width: 70%;
     height: 370px;
@@ -232,7 +235,8 @@ a:hover {
     justify-content: flex-end;
 }
 
-h1 {
+.calcChars, .calcRows {
+    font-size: calc(1vw + 10px);
     color: bisque;
     font-family: cursive;
 }
@@ -246,6 +250,13 @@ h1 {
     color: brown;
 }
 
+.weather-container {
+    margin: 90px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
 .convertBtn:hover {
     background-color: brown;
@@ -987,15 +998,15 @@ input:focus {
     border-radius: 10px;
 }
 
-.switch-container input:checked + .copy-all-slider {
+.switch-container input:checked+.copy-all-slider {
     background-color: darkgreen;
 }
 
-.switch-container input:focus + .copy-all-slider {
+.switch-container input:focus+.copy-all-slider {
     box-shadow: 0 0 1px darkgreen;
 }
 
-.switch-container input:checked + .copy-all-slider::before {
+.switch-container input:checked+.copy-all-slider::before {
     -webkit-transform: translateX(52px);
     -ms-transform: translateX(52px);
     transform: translateX(52px);

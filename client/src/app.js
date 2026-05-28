@@ -2145,8 +2145,8 @@ function tvBookTemplate(element) {
                         <textarea name="output" id="outputArea" class="tvText"
                                 placeholder="The converted text will appear here"></textarea>
                         <div class="calc-container">
-                            <h1 id="calcCharsTvBook">Characters count: 0</h1>
-                            <h1 id="calcRowsTvBook">Rows count: 0</h1>
+                            <h2 id="calcCharsTvBook" class="calcChars">Characters count: 0</h2>
+                            <h2 id="calcRowsTvBook" class="calcRows">Rows count: 0</h2>
                             <textarea name="calc" id="calcAreaBook" class="calcText"></textarea>
                             <button class="calcBtn button" id="calcBtnTvBook">Calculate chars</button>
                             <button class="calcReset button" id="resetCalcTvBook">Clear</button>
@@ -2255,8 +2255,8 @@ function paperTemplate(element) {
                             <textarea name="output" id="outputArea" class="tvText"
                                 placeholder="The converted text will appear here"></textarea>
                                 <div class="calc-container">
-                                    <h1 id="calcChars">Characters count: 0</h1>
-                                    <h1 id="calcRows">Rows count: 0</h1>
+                                    <h2 id="calcChars" class="calcChars">Characters count: 0</h2>
+                                    <h2 id="calcRows" class="calcRows">Rows count: 0</h2>
                                     <textarea name="calc" id="calcArea" class="calcText"></textarea>
                                     <button class="button calcBtn" id="calcBtn">Calculate chars</button>
                                     <button class="calcReset button" id="resetCalc">Clear</button>
@@ -2291,7 +2291,7 @@ function weatherTemplate(element) {
     container.innerHTML = `
         <img src="./images/weather-forecast.jpg" alt="" class="background weather-background">
         <div class="weather-container">
-            <textarea name="input" id=input class="text tvText"></textarea>
+            <textarea name="input" id=input class="weatherText tvText"></textarea>
             <div id="buttons-container">
               <button id="getBtnBG" class="reset button">Convert</button>
             </div>

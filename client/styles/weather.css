@@ -1,9 +1,8 @@
-.weather-container .text {
-  width: 400px;
-  height: 400px;
+.weatherText {
+  width: 300px;
+  height: 300px;
   border-radius: 40px;
   border: solid #a0a0e1 1px;
-  margin: 90px auto 0 auto;
 }
 
 #buttons-container {
@@ -32,7 +31,7 @@
 
 .weather-container {
   margin: auto;
-  width: 20%;
+  width: 100%;
 }
 
 #exchangeRates {
