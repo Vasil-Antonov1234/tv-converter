@@ -178,6 +178,10 @@ a:hover {
     gap: 10px;
 }
 
+.main-form-book {
+    margin-top: 94px;
+}
+
 .paper-view-header {
     padding: 0px 30px;
     display: flex;
@@ -284,10 +288,10 @@ textarea {
     outline: none;
 }
 
-#convertBtnTvBook {
-    z-index: 100;
-    position: absolute;
-    margin-top: 14%;
+.convertBtnBook {
+    /* z-index: 100; */
+    /* position: absolute; */
+    /* margin-top: 14%; */
     width: 197px;
     height: 70px;
     border-radius: 14px;

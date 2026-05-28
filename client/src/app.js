@@ -2112,85 +2112,88 @@ function tvBookTemplate(element) {
 
     container.innerHTML = `
         <img src="./images/tv-book-background.jpg" alt="" class="background tv-book-background">        
+        
         <span id="dateBook">
             <p>Day</p>
         </span>
 
-    <section class="input-wraper">
-        <div class="input-container">
+        <section class="input-wraper">
+            <div class="input-container">
+                <form id="tv-book-form" class="main-form main-form-book">
+                    <div class="paper-view-header">
+                        <div class="radio-container">
+                            <input type="radio" id="tvBook" name="tv-radio" value="tvBook" checked>
+                        </div>                    
+                    </div>
+                    <div class="select-file-button-container">
+                        <button class="selectFileBook button" id="listFileBook">Select file</button>
+                        <input type="file" id="selectFileBook" accept=".txt" style="display: none">
+                    </div>
 
-            <div>
-                <button class="selectFileBook button" id="listFileBook">Select file</button>
-                <input type="file" id="selectFileBook" accept=".txt" style="display: none">
+                    <div class="input">
+                        <textarea name="tvText" id="inputBookArea" class="tvText"
+                                placeholder="Paste your text here or click the 'Select File' button to choose"></textarea>
+                        <button type="submit" class="convertBtnBook button mainBtn" id="convertBtnTvBook">Convert</button>
+                        <textarea name="output" id="outputArea" class="tvText"
+                                placeholder="The converted text will appear here"></textarea>
+                        <div class="calc-container">
+                            <h1 id="calcCharsTvBook">Characters count: 0</h1>
+                            <h1 id="calcRowsTvBook">Rows count: 0</h1>
+                            <textarea name="calc" id="calcAreaBook" class="calcText"></textarea>
+                            <button class="calcBtn button" id="calcBtnTvBook">Calculate chars</button>
+                            <button class="calcReset button" id="resetCalcTvBook">Clear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+            <div id="tvRenameContainer" class="rename-container">
+                <section id="renameWrapper" class="rename-wrapper">
+                    <button id="rename" class="tvRename button">TV-rename</button>
+                    <span class="renamedTvMessage" id="renamedTvMessage"></span>
+                </section>
+                <section id="dates-wrapper" class="dates-wrapper">
+                    <div id="custom-date-checkbox-container" class="custom-date-checkbox-container">
+                        <span class="custom-date-wrapper">Custom date:
+                            <span id="custom-date-show" class="custom-date-show">show</span>
+                            <span id="custom-date-hide" class="custom-date-hide">hide</span>
+                        </span>
+                    </div>
+                    <div id="date-interval-container" class="date-interval-container">
+                        <label for="startDate">Start date: </label>
+                        <input type="date" id="startDate">
+                        <label for="endDate">Final date: </label>
+                        <input type="date" id="endDate">
+                    </div>
+                    <div class="custom-dates-cover" id="custom-dates-cover">CUSTOM DATES</div>
+                </section>
             </div>
 
-            <form id="tv-book-form" class="input">
-                <textarea name="tvText" id="inputBookArea" class="tvText"
-                    placeholder="Paste your text here or click the 'Select File' button to choose"></textarea>
-                <button type="submit" class="button mainBtn" id="convertBtnTvBook">Convert</button>
-                <textarea name="output" id="outputArea" class="tvText"
-                    placeholder="The converted text will appear here"></textarea>
+            <div class="reportMessageTitleContainer">
+                <span class="reportMessageTitle" id="missingFilesCount">Missing files: 0</span>
+                <span class="reportMessageTitle1" id="missingDataCount">Missing data: 0</span>
+            </div>
 
-                <div class="radio-container">
-                    <input type="radio" id="tvBook" name="tv-radio" value="tvBook" checked>
-                </div>
+            <form id="submitTvData" class="outputTvDate">
+                <select name="day" id="day">
+                    <option value="Понеделник" name="day">Понеделник</option>
+                    <option value="Вторник" name="day">Вторник</option>
+                    <option value="Сряда" name="day">Сряда</option>
+                    <option value="Четвъртък" name="day">Четвъртък</option>
+                    <option value="Петък" name="day">Петък</option>
+                    <option value="Събота" name="day">Събота</option>
+                    <option value="Неделя" name="day">Неделя</option>
+                </select>
+                <input type="text" name="date" id="tvBookInputDate" placeholder="examle: 01.01.2024">
+                <button class="submitAddTvData button" id="submitAddTvDataBtv">submit</button>
             </form>
 
-            <div class="calc-container">
-                <h1 id="calcCharsTvBook">Characters count: 0</h1>
-                <h1 id="calcRowsTvBook">Rows count: 0</h1>
-                <textarea name="calc" id="calcAreaBook" class="calcText"></textarea>
-                <button class="calcBtn button" id="calcBtnTvBook">Calculate chars</button>
-                <button class="calcReset button" id="resetCalcTvBook">Clear</button>
+            <div>
+                <textarea id="responseMessage" class="responseMessage"></textarea>
+                <textarea id="missingFilesMessage" class="responseMessage"></textarea>
+                <textarea id="missingDataMessega" class="responseMessage"></textarea>
             </div>
-        </div>
-        <div id="tvRenameContainer" class="rename-container">
-            <section id="renameWrapper" class="rename-wrapper">
-                <button id="rename" class="tvRename button">TV-rename</button>
-                <span class="renamedTvMessage" id="renamedTvMessage"></span>
-            </section>
-            <section id="dates-wrapper" class="dates-wrapper">
-                <div id="custom-date-checkbox-container" class="custom-date-checkbox-container">
-                    <span class="custom-date-wrapper">Custom date:
-                        <span id="custom-date-show" class="custom-date-show">show</span>
-                        <span id="custom-date-hide" class="custom-date-hide">hide</span>
-                    </span>
-                </div>
-                <div id="date-interval-container" class="date-interval-container">
-                    <label for="startDate">Start date: </label>
-                    <input type="date" id="startDate">
-                    <label for="endDate">Final date: </label>
-                    <input type="date" id="endDate">
-                </div>
-                <div class="custom-dates-cover" id="custom-dates-cover">CUSTOM DATES</div>
-            </section>
-        </div>
-
-        <div class="reportMessageTitleContainer">
-            <span class="reportMessageTitle" id="missingFilesCount">Missing files: 0</span>
-            <span class="reportMessageTitle1" id="missingDataCount">Missing data: 0</span>
-        </div>
-
-        <form id="submitTvData" class="outputTvDate">
-            <select name="day" id="day">
-                <option value="Понеделник" name="day">Понеделник</option>
-                <option value="Вторник" name="day">Вторник</option>
-                <option value="Сряда" name="day">Сряда</option>
-                <option value="Четвъртък" name="day">Четвъртък</option>
-                <option value="Петък" name="day">Петък</option>
-                <option value="Събота" name="day">Събота</option>
-                <option value="Неделя" name="day">Неделя</option>
-            </select>
-            <input type="text" name="date" id="tvBookInputDate" placeholder="examle: 01.01.2024">
-            <button class="submitAddTvData button" id="submitAddTvDataBtv">submit</button>
-        </form>
-
-        <div>
-            <textarea id="responseMessage" class="responseMessage"></textarea>
-            <textarea id="missingFilesMessage" class="responseMessage"></textarea>
-            <textarea id="missingDataMessega" class="responseMessage"></textarea>
-        </div>
-    </section>
+        </section>
     `;
     return container;
 };
@@ -2420,7 +2423,10 @@ function tvBookView(event) {
     const coverEl = document.getElementById("custom-dates-cover");
 
     if (!isAddedGetFile) {
-        getFileElementBook.addEventListener("click", () => selectFileElementBook.click());
+        getFileElementBook.addEventListener("click", (event) => {
+            event.preventDefault();
+            selectFileElementBook.click();
+        });
         selectFileElementBook.addEventListener("change", () => addFileContent("inputBookArea", selectFileElementBook));
         isAddedGetFile = true;
     };
