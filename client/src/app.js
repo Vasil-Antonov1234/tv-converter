@@ -57,7 +57,10 @@ const dateEl = document.querySelector("#date p");
 const dateContainer = document.getElementById("date");
 const getFileElement = document.getElementById("listFile");
 const selectFileElement = document.getElementById("selectFile");
-getFileElement.addEventListener("click", () => selectFileElement.click());
+getFileElement.addEventListener("click", (event) => {
+    event.preventDefault()
+    selectFileElement.click()
+});
 selectFileElement.addEventListener("change", () => addFileContent("inputArea", selectFileElement));
 const baseURL = "http://localhost:5000";
 
@@ -859,7 +862,9 @@ function onConvert(e) {
 
 }
 
-function onCalc() {
+function onCalc(event) {
+    event.preventDefault();
+    
     let calcArea = undefined;
     let calcChars = undefined;
     let calcRows = undefined;
@@ -885,7 +890,9 @@ function onCalc() {
 };
 
 
-function onResetAll() {
+function onResetAll(event) {
+    event.preventDefault();
+
     document.getElementById("inputArea").value = "";
     document.getElementById("outputArea").value = "";
     document.getElementById("calcArea").value = "";
@@ -901,7 +908,9 @@ function onResetOtput() {
     dateContainer.style.display = "none";
 };
 
-function onResetCalc() {
+function onResetCalc(event) {
+
+    event.preventDefault();
 
     let textArea = undefined;
 
@@ -2205,51 +2214,54 @@ function paperTemplate(element) {
 
             <section class="input-wraper">
                 <div class="input-container">
-                    <form id="main-form" class="input">
-                        <textarea name="tvText" id="inputArea" class="tvText"
-                            placeholder="Paste your text here or click the 'Select file' button to choose"></textarea>
-                        <button type="submit" id="convertBtn" class="convertBtn button mainBtn">Convert</button>
-                        <textarea name="output" id="outputArea" class="tvText"
-                            placeholder="The converted text will appear here"></textarea>
-                        <div class="radio-container">
-                            <span>Choose a day <span>(optionaly):</span></span>
-                            <select name="tv-radio" id="tvWeek">
-                                <option value="nothing">Day selection</option>
-                                <option value="week">Понеделник-Петък</option>
-                                <option value="saturday">Събота</option>
-                                <option value="sunday">Неделя</option>
-                            </select>
-                            <details>
-                                <summary>Show more...</summary>
-                                <div class="summary">The selected day option has the highest priority and overwrites the
-                                    automatically detected!</div>
-                            </details>
+                    <form id="main-form" class="main-form">                    
+                        <div class="paper-view-header">
+                            <div class="radio-container">
+                                <span>Choose a day <span>(optionaly):</span></span>
+                                <select name="tv-radio" id="tvWeek">
+                                    <option value="nothing">Day selection</option>
+                                    <option value="week">Понеделник-Петък</option>
+                                    <option value="saturday">Събота</option>
+                                    <option value="sunday">Неделя</option>
+                                </select>
+                                <details>
+                                    <summary>Show more...</summary>
+                                    <div class="summary">The selected day option has the highest priority and overwrites the
+                                        automatically detected!</div>
+                                </details>
+                            </div>
+                            <button class="reset-all button" id="resetAll">Clear All</button>
+                        </div>
+                        <div class="select-file-button-container">
+                            <button class="selectFile button" id="listFile">Select file</button>
+                            <input type="file" id="selectFile" accept=".txt" style="display: none">
+                        </div>
+
+                        <div class="input">
+                            <textarea name="tvText" id="inputArea" class="tvText"
+                                placeholder="Paste your text here or click the 'Select file' button to choose"></textarea>
+                            <button type="submit" id="convertBtn" class="convertBtn button mainBtn">Convert</button>
+                            <textarea name="output" id="outputArea" class="tvText"
+                                placeholder="The converted text will appear here"></textarea>
+                                <div class="calc-container">
+                                    <h1 id="calcChars">Characters count: 0</h1>
+                                    <h1 id="calcRows">Rows count: 0</h1>
+                                    <textarea name="calc" id="calcArea" class="calcText"></textarea>
+                                    <button class="button calcBtn" id="calcBtn">Calculate chars</button>
+                                    <button class="calcReset button" id="resetCalc">Clear</button>
+                                </div>
                         </div>
                     </form>
 
 
-                    <div class="calc-container">
-                        <h1 id="calcChars">Characters count: 0</h1>
-                        <h1 id="calcRows">Rows count: 0</h1>
-                        <textarea name="calc" id="calcArea" class="calcText"></textarea>
-                        <button class="button calcBtn" id="calcBtn">Calculate chars</button>
-                        <button class="calcReset button" id="resetCalc">Clear</button>
-                    </div>
                 </div>
             </section>
 
             <section class="buttons">
-                <div class="buttons-container">
-                    <button class="clear1 button" id="resetInput">Clear</button>
-                    <button class="clear2 button" id="resetOutput">Clear</button>
-                </div>
+                <button class="clear1 button" id="resetInput">Clear</button>
+                <button class="clear2 button" id="resetOutput">Clear</button>
             </section>
 
-            <div>
-                <button class="reset-all button" id="resetAll">Clear All</button>
-                <button class="selectFile button" id="listFile">Select file</button>
-                <input type="file" id="selectFile" accept=".txt" style="display: none">
-            </div>
         </div>
     `;
 

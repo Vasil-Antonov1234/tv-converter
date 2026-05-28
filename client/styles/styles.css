@@ -166,9 +166,24 @@ a:hover {
 
 .input-wraper {
     width: 100%;
-    display: block;
-    position: absolute;
-    top: 20%;
+    /* display: block; */
+    /* position: absolute; */
+    /* top: 20%; */
+}
+
+.main-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.paper-view-header {
+    padding: 0px 30px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .tvText {
@@ -176,7 +191,7 @@ a:hover {
     height: 510px;
     box-shadow: 0px 0px 10px 0px black;
     padding: 15px;
-    margin-left: 50px;
+    /* margin-left: 50px; */
     background-position: right 35% bottom 45%;
     box-sizing: border-box;
     /* border-radius: 15px; */
@@ -201,33 +216,47 @@ a:hover {
     display: inline;
 }
 
+.input-container {
+    display: flex;
+    width: 100%;
+}
 
 .calc-container {
-    display: inline;
-    top: 10px;
-    position: absolute;
-    margin-left: 110px;
-    width: 400px;
+    /* display: inline; */
+    /* top: 10px; */
+    /* position: absolute; */
+    /* margin-left: 110px; */
+    /* width: 30%; */
 }
 
 .input {
-    display: inline;
+    display: flex;
+    margin-top: -20px;
+    /* width: 100%; */
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
 }
 
+.select-file-button-container {
+    width: 32%;
+    display: flex;
+    justify-content: flex-end;
+}
 
 h1 {
     color: bisque;
     font-family: cursive;
 }
 
-#outputArea {
+/* #outputArea {
     margin-left: 200px;
-}
+} */
 
 .convertBtn {
     z-index: 100;
-    position: absolute;
-    margin-top: 14%;
+    /* position: absolute; */
+    /* margin-top: 14%; */
     width: 197px;
     height: 70px;
     border-radius: 14px;
@@ -340,9 +369,14 @@ textarea {
 
 
 .buttons {
-    position: absolute;
-    top: 730px;
-    left: 57px;
+    width: 74%;
+    padding: 0px 45px;
+    margin-top: -10px;
+    display: flex;
+    justify-content: space-between;
+    /* position: absolute; */
+    /* top: 730px; */
+    /* left: 57px; */
 }
 
 
@@ -409,26 +443,26 @@ textarea {
 }
 
 .clear1 {
-    position: relative;
-    margin-top: 10px;
+    /* position: relative; */
+    /* margin-top: 10px; */
     padding: 10px;
     font-weight: 700;
     border-radius: 10px;
     background-color: antiquewhite;
     color: #a37521;
-    margin-right: 10px;
+    /* margin-right: 10px; */
 }
 
 .clear2 {
-    position: relative;
-    left: 510%;
-    margin-top: 10px;
+    /* position: relative; */
+    /* left: 510%; */
+    /* margin-top: 10px; */
     padding: 10px;
     font-weight: 700;
     border-radius: 10px;
     background-color: antiquewhite;
     color: #a37521;
-    margin-right: 10px;
+    /* margin-right: 10px; */
 }
 
 .submitAddTvData {
@@ -453,14 +487,14 @@ textarea {
 }
 
 .selectFileBook {
-    position: relative;
+    /* position: relative; */
     padding: 10px;
     font-weight: 700;
     border-radius: 10px;
     background-color: antiquewhite;
     color: #a37521;
-    margin-bottom: 30px;
-    left: 28.3%;
+    /* margin-bottom: 30px; */
+    /* left: 28.3%; */
 }
 
 .submitAddTvData:hover,
@@ -510,8 +544,8 @@ textarea {
     font-family: "Titan One", sans-serif;
     font-size: 28px;
     border: solid;
-    margin-right: 430px;
-    margin-left: 10px;
+    /* margin-right: 430px; */
+    /* margin-left: 10px; */
 }
 
 
@@ -527,10 +561,10 @@ textarea {
 
 
 .radio-container {
-    display: inline;
-    position: absolute;
-    top: -100px;
-    left: 70rem;
+    /* display: inline; */
+    /* position: absolute; */
+    /* top: -100px; */
+    /* left: 70rem; */
 }
 
 @keyframes notifyBorderAnimation {
