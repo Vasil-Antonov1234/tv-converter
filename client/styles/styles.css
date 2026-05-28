@@ -8,7 +8,6 @@
     border: solid white 1px;
     box-shadow: 3px 3px 5px black;
     display: flex;
-    /* gap: 30px; */
     justify-content: space-evenly;
     align-items: center;
     max-width: 900px;
@@ -91,7 +90,6 @@ a {
     text-decoration: none;
     margin-right: 15px;
     margin-left: 15px;
-    /* padding: 4px; */
     color: bisque
 }
 
@@ -166,9 +164,6 @@ a:hover {
 
 .input-wraper {
     width: 100%;
-    /* display: block; */
-    /* position: absolute; */
-    /* top: 20%; */
 }
 
 .main-form {
@@ -195,10 +190,8 @@ a:hover {
     height: 510px;
     box-shadow: 0px 0px 10px 0px black;
     padding: 15px;
-    /* margin-left: 50px; */
     background-position: right 35% bottom 45%;
     box-sizing: border-box;
-    /* border-radius: 15px; */
     background-color: rgb(250, 241, 227);
     transition: box-shadow 0.3s, transform 0.3s;
 }
@@ -225,18 +218,9 @@ a:hover {
     width: 100%;
 }
 
-.calc-container {
-    /* display: inline; */
-    /* top: 10px; */
-    /* position: absolute; */
-    /* margin-left: 110px; */
-    /* width: 30%; */
-}
-
 .input {
     display: flex;
     margin-top: -20px;
-    /* width: 100%; */
     align-items: center;
     justify-content: center;
     gap: 30px;
@@ -253,14 +237,8 @@ h1 {
     font-family: cursive;
 }
 
-/* #outputArea {
-    margin-left: 200px;
-} */
-
 .convertBtn {
     z-index: 100;
-    /* position: absolute; */
-    /* margin-top: 14%; */
     width: 197px;
     height: 70px;
     border-radius: 14px;
@@ -289,9 +267,6 @@ textarea {
 }
 
 .convertBtnBook {
-    /* z-index: 100; */
-    /* position: absolute; */
-    /* margin-top: 14%; */
     width: 197px;
     height: 70px;
     border-radius: 14px;
@@ -378,9 +353,6 @@ textarea {
     margin-top: -10px;
     display: flex;
     justify-content: space-between;
-    /* position: absolute; */
-    /* top: 730px; */
-    /* left: 57px; */
 }
 
 
@@ -447,26 +419,19 @@ textarea {
 }
 
 .clear1 {
-    /* position: relative; */
-    /* margin-top: 10px; */
     padding: 10px;
     font-weight: 700;
     border-radius: 10px;
     background-color: antiquewhite;
     color: #a37521;
-    /* margin-right: 10px; */
 }
 
 .clear2 {
-    /* position: relative; */
-    /* left: 510%; */
-    /* margin-top: 10px; */
     padding: 10px;
     font-weight: 700;
     border-radius: 10px;
     background-color: antiquewhite;
     color: #a37521;
-    /* margin-right: 10px; */
 }
 
 .submitAddTvData {
@@ -497,8 +462,6 @@ textarea {
     border-radius: 10px;
     background-color: antiquewhite;
     color: #a37521;
-    /* margin-bottom: 30px; */
-    /* left: 28.3%; */
 }
 
 .submitAddTvData:hover,
@@ -548,8 +511,6 @@ textarea {
     font-family: "Titan One", sans-serif;
     font-size: 28px;
     border: solid;
-    /* margin-right: 430px; */
-    /* margin-left: 10px; */
 }
 
 
@@ -561,14 +522,6 @@ textarea {
 
 #tvWeek::backdrop {
     transition: all 1s ease-in-out;
-}
-
-
-.radio-container {
-    /* display: inline; */
-    /* position: absolute; */
-    /* top: -100px; */
-    /* left: 70rem; */
 }
 
 @keyframes notifyBorderAnimation {
@@ -670,7 +623,6 @@ div.radio-container span {
 div.radio-container span span {
     color: brown;
     font-weight: bolder;
-    /* text-transform: uppercase; */
 }
 
 .responseMessage {
@@ -688,13 +640,9 @@ div.radio-container span span {
 }
 
 .reportMessageTitleContainer {
-    /* width: 70%; */
     margin-bottom: -31px;
-    /* margin: 0 auto -31px auto; */
     display: flex;
     justify-content: center;
-    /* background-color: rgba(255, 255, 255, 0.671);
-    padding: 5px 10px; */
 }
 
 .reportMessageTitle,
@@ -886,7 +834,6 @@ input:focus {
 
 .convertIn {
     animation: onConvertInAnimation 1s ease-out forwards;
-    /* animation-duration: 0.5s; */
 }
 
 .convertOut {

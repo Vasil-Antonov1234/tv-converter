@@ -864,7 +864,7 @@ function onConvert(e) {
 
 function onCalc(event) {
     event.preventDefault();
-    
+
     let calcArea = undefined;
     let calcChars = undefined;
     let calcRows = undefined;
@@ -912,17 +912,25 @@ function onResetCalc(event) {
 
     event.preventDefault();
 
-    let textArea = undefined;
+    let calcArea = undefined;
+    let calcChars = undefined;
+    let calcRows = undefined;
 
-    if (!textArea) {
-        textArea = document.getElementById("calcArea");
+    if (!calcArea) {
+        calcArea = document.getElementById("calcArea");
+        calcChars = document.getElementById("calcChars");
+        calcRows = document.getElementById("calcRows");
     };
 
-    if (!textArea) {
-        textArea = document.getElementById("calcAreaBook");
+    if (!calcArea) {
+        calcArea = document.getElementById("calcAreaBook");
+        calcChars = document.getElementById("calcCharsTvBook");
+        calcRows = document.getElementById("calcRowsTvBook");
     };
 
-    textArea.value = "";
+    calcArea.value = "";
+    calcChars.textContent = "Characters count: 0";
+    calcRows.textContent = "Rows count: 0"
 };
 
 const tvFunctions = {
