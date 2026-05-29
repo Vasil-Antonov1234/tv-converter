@@ -2213,6 +2213,7 @@ function paperTemplate(element) {
 
     const container = document.createElement("div");
     container.setAttribute("id", "paper-view");
+    container.classList.add("paper-view");
 
     container.innerHTML = `
     <img src="./images/tv-background-3.jpg" alt="" class="background tv-background">
@@ -2325,7 +2326,8 @@ function utilsTemplate(element) {
     container.setAttribute("id", "others");
 
     container.innerHTML = `
-        <img src="./images/settings-background.webp" alt="" class="background">
+    <img src="./images/settings-background.webp" alt="" class="background">
+    <div class="utils-wrapper">
         <h2 class="subTitle">Find and replace multiple files</h2>
         <form class="othersForm" id="findReplaceForm">
             <input type="text" name="path" id="path" placeholder="Folder path*">
@@ -2370,6 +2372,7 @@ function utilsTemplate(element) {
             <input type="text" name="currentDayNumber" id="currentDayNumber" placeholder="PDF files number*">
             <button class="selectFile button" id="renamePdf">Rename</button>
         </form>
+    </div>
     `
 
     return container;
@@ -2386,16 +2389,19 @@ function archiveTemplate(element) {
 
     container.innerHTML = `
     <img src="./images/archive11.png" alt="" class="background">    
-    <section class="cont-archive">
+    <div class="archive-wrapper">
+        <section class="cont-archive">
             <input type="date" id="input-date" placeholder="mm dd yy" class="input-archive" />
             <button type="submit" id="button" class="btn-archive">Extract</button>
         </section>
-    
         <section class="output-content-archive">
             <p class="date-issue-archive" id="date-and-issue">issue number: </p>
             <h3 class="issue-number-archive" id="issue"></h3>
             <p class="date-and-issue-archive" id="error">The input date must be in the past!</p>
         </section>
+    </div>
+    
+    
     `;
 
     return container;

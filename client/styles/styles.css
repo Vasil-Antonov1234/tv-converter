@@ -1,6 +1,42 @@
 @import "weather.css";
 @import "archive.css";
 
+html {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.root {
+    position: relative;
+    box-sizing: border-box;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+header {
+    position: absolute;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
 .navigation {
     background-color: rgb(129, 103, 103);
     border-radius: 14px;
@@ -45,9 +81,8 @@
     overflow: hidden;
 }
 
-.tv-background {
-    height: 120%;
-    top: 0%;
+.utils-wrapper {
+    padding-top: 100px;
 }
 
 .tv-book-background {
@@ -161,7 +196,7 @@ a:hover {
 }
 
 .input-wraper {
-    width: 100%;
+    padding: 10px;
 }
 
 .main-form {
@@ -176,6 +211,7 @@ a:hover {
 }
 
 .paper-view-header {
+    margin-top: 70px;
     padding: 0px 30px;
     display: flex;
     flex-direction: row-reverse;
@@ -422,7 +458,6 @@ textarea {
 
 .weekend {
     width: 140px;
-    /* display: none; */
 }
 
 .weekendLabel {
@@ -467,7 +502,6 @@ textarea {
 }
 
 .selectFileBook {
-    /* position: relative; */
     padding: 10px;
     font-weight: 700;
     border-radius: 10px;
@@ -930,6 +964,7 @@ input:focus {
     font-family: monospace;
     font-weight: 700;
     margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     width: fit-content;

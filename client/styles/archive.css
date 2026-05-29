@@ -1,8 +1,10 @@
-.cont-archive {
-  margin-left: 34%;
-  margin-top: 40px;
+.archive-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
 }
-
 
 .input-archive {
   padding: 10px;
@@ -46,11 +48,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 11px;
+  /* margin-top: 11px; */
   font-family: sans-serif;
   font-size: 20px;
 }
-
 
 .date-issue-archive {
   color: white;
