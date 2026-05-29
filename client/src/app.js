@@ -2120,9 +2120,7 @@ function tvBookTemplate(element) {
     container.innerHTML = `
         <img src="./images/tv-book-background.jpg" alt="" class="background tv-book-background">        
         
-        <span id="dateBook">
-            <p>Day</p>
-        </span>
+        
 
         <section class="input-wraper">
             <div class="input-container">
@@ -2136,13 +2134,17 @@ function tvBookTemplate(element) {
                         <button class="selectFileBook button" id="listFileBook">Select file</button>
                         <input type="file" id="selectFileBook" accept=".txt" style="display: none">
                     </div>
-
                     <div class="input">
                         <textarea name="tvText" id="inputBookArea" class="tvText"
-                                placeholder="Paste your text here or click the 'Select File' button to choose"></textarea>
+                            placeholder="Paste your text here or click the 'Select File' button to choose"></textarea>    
                         <button type="submit" class="convertBtnBook button mainBtn" id="convertBtnTvBook">Convert</button>
-                        <textarea name="output" id="outputArea" class="tvText"
+                        <div class="tvText-output-wrapper">
+                            <span id="dateBook" class="dateBook">
+                                <p>Day</p>
+                            </span>
+                            <textarea name="output" id="outputArea" class="tvText tvText-output"
                                 placeholder="The converted text will appear here"></textarea>
+                        </div>
                         <div class="calc-container">
                             <h2 id="calcCharsTvBook" class="calcChars">Characters count: 0</h2>
                             <h2 id="calcRowsTvBook" class="calcRows">Rows count: 0</h2>
@@ -2218,11 +2220,6 @@ function paperTemplate(element) {
     container.innerHTML = `
     <img src="./images/tv-background-3.jpg" alt="" class="background tv-background">
         <div id="main-container">
-
-            <span id="date">
-                <p>Day</p>
-            </span>
-
             <section class="input-wraper">
                 <div class="input-container">
                     <form id="main-form" class="main-form">                    
@@ -2252,8 +2249,13 @@ function paperTemplate(element) {
                             <textarea name="tvText" id="inputArea" class="tvText"
                                 placeholder="Paste your text here or click the 'Select file' button to choose"></textarea>
                             <button type="submit" id="convertBtn" class="convertBtn button mainBtn">Convert</button>
-                            <textarea name="output" id="outputArea" class="tvText"
+                            <div class="tvText-output-wrapper">
+                                <span id="date" class="date">
+                                    <p>Day</p>
+                                </span>
+                                <textarea name="output" id="outputArea" class="tvText tvText-output"
                                 placeholder="The converted text will appear here"></textarea>
+                            </div>
                                 <div class="calc-container">
                                     <h2 id="calcChars" class="calcChars">Characters count: 0</h2>
                                     <h2 id="calcRows" class="calcRows">Rows count: 0</h2>

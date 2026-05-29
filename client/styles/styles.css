@@ -140,11 +140,10 @@ a:hover {
     margin-right: 30px;
 }
 
-
-#date {
+.date {
     position: absolute;
-    left: 950px;
-    top: 110px;
+    left: 0%;
+    top: -90px;
     font-family: sans-serif;
     font-size: 23px;
     color: brown;
@@ -152,16 +151,16 @@ a:hover {
     display: none;
 }
 
-#date p {
+.date p {
     background-color: white;
     padding: 5px 10px;
     border-radius: 4px;
 }
 
-#dateBook {
+.dateBook {
     position: absolute;
-    left: 950px;
-    top: 130px;
+    left: 0%;
+    top: -90px;
     font-family: sans-serif;
     font-size: 23px;
     color: rgb(61, 42, 165);
@@ -169,7 +168,7 @@ a:hover {
     display: none;
 }
 
-#dateBook p {
+.dateBook p {
     background-color: white;
     padding: 5px 10px;
     border-radius: 4px;
@@ -219,6 +218,11 @@ a:hover {
     align-items: center;
 }
 
+.tvText-output-wrapper {
+    width: 30%;
+    position: relative;
+}
+
 .tvText {
     width: 30%;
     height: 510px;
@@ -228,6 +232,10 @@ a:hover {
     box-sizing: border-box;
     background-color: rgb(250, 241, 227);
     transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.tvText-output {
+    width: 100%;
 }
 
 .tvText:hover {
@@ -263,12 +271,14 @@ a:hover {
     align-items: center;
     justify-content: center;
     gap: 30px;
+    position: relative;
 }
 
 .select-file-button-container {
     width: 32%;
     display: flex;
     justify-content: flex-end;
+    padding-bottom: 20px;
 }
 
 .calcChars, .calcRows {
@@ -638,7 +648,7 @@ summary {
 .summary {
     margin-top: 3px;
     background-color: bisque;
-    width: 24rem;
+    width: 21rem;
     padding: 4px;
     border-radius: 3px;
     font-family: cursive;
