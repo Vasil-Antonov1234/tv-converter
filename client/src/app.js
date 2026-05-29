@@ -394,15 +394,6 @@ function onConvert(e) {
     };
 
 
-
-    addClass(inputEl, "convertIn", 1500);
-    addClass(outputEl, "convertOut", 1500);
-
-    if (tvBookOutput) {
-        addClass(tvBookInput, "convertIn", 1500);
-        addClass(tvBookOutput, "convertOut", 1500);
-    }
-
     // const weekMatch = (matchArr.includes("Понеделник") && radio === "week" || matchArr.includes("Вторник") && radio === "week"
     //     || matchArr.includes("Сряда") && radio === "week" || matchArr.includes("Четвъртък") && radio === "week"
     //     || matchArr.includes("Петък") && radio === "week");
@@ -425,6 +416,14 @@ function onConvert(e) {
             return;
         };
     };
+
+    addClass(inputEl, "convertIn", 1500);
+    addClass(outputEl, "convertOut", 1500);
+
+    if (tvBookOutput) {
+        addClass(tvBookInput, "convertIn", 1500);
+        addClass(tvBookOutput, "convertOut", 1500);
+    }
 
     let daySelection = daySelectionHandler(radio, weekMatch, saturdayMatch, sundayMatch);
 
