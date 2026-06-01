@@ -2353,6 +2353,7 @@ function utilsTemplate(element) {
                     <option value="Agro" name="application">Agro</option>
                     <option value="Viara" name="application">Viara</option>
                     <option value="Zdrave" name="application">Zdrave</option>
+                    <option value="Nedelnik" name="application">Nedelnik</option>
             </select>
             <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="App isssue/photo(Opt)">
             <div class="switch-container">
@@ -2649,6 +2650,8 @@ async function onCopyIssue(event) {
     isPending = true;
 
     const copyIssueButton = document.getElementById("copyIssue");
+
+    debugger
 
     const formData = new FormData(event.currentTarget);
 
