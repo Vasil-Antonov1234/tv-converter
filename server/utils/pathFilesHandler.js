@@ -38,6 +38,10 @@ export function pathsHandler(application, issue, extractedApplicationIssue, appl
             pathsFiles.ready = `${paths.zdrave}`;
             pathsFiles.photoOld = `${paths.photos}_ZDRAVE${extractedApplicationIssue}/OLD/`;
             pathsFiles.web = `${paths.telSite}______Zdrave/`;
+        case "Nedelnik":
+            pathsFiles.ready = paths.nedelnik;
+            pathsFiles.photoOld = `${paths.photos}_KULINAR${extractedApplicationIssue}/OLD/`;
+            pathsFiles.web = `${paths.telSite}______Nedelnik/`;
     }
 
     return pathsFiles;
