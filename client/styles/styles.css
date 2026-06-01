@@ -285,6 +285,10 @@ a:hover {
     font-size: calc(1vw + 10px);
     color: bisque;
     font-family: cursive;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.767);
+    border-radius: 5px;
+    width: fit-content;
 }
 
 .convertBtn {
