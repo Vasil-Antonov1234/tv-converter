@@ -1,6 +1,7 @@
 import fsPromises from "fs/promises";
 import paths from "../paths/paths.js";
 import path from "path";
+import { nedelnikIssueHandler } from "./nedelnikIssueHandler.js";
 
 export const copyFilesHandler = {
     async createFolders(issue, application, pathOutputFiles, applicationIssue, isCopyPFDs) {
@@ -12,14 +13,8 @@ export const copyFilesHandler = {
         };
 
         if (application === "Nedelnik") {
-            const today = new Date();
-            let baseDate = new Date(today);
-            baseDate.setDate(baseDate.getDate() + 1);
-            const year = baseDate.getFullYear();
-            const month = baseDate.getMonth().length > 1 ? baseDate.getMonth() : `0${baseDate.getMonth()}`;
-            const day = baseDate.getDate().length > 1 ? baseDate.getDate() : `0${baseDate.getDate()}`;
-
-            issueNumber = `${year}-${month}-${day}`;
+            
+            issueNumber = nedelnikIssueHandler();
         };
 
         try {
@@ -118,7 +113,9 @@ export const copyFilesHandler = {
                 if (application === "Weekend") {
                     dirFiles = dirFiles.filter((x) => x.toLowerCase().startsWith("w"));
                     dirPhotos = dirPhotos.filter((x) => x.toLowerCase().startsWith("w"));
-                } else {
+                }
+
+                if (application === "currentIssue") {
                     const baseDate = new Date();
                     const day = baseDate.getDay();
 
@@ -131,7 +128,6 @@ export const copyFilesHandler = {
                         dirFiles = dirFiles.filter((x) => x.startsWith("81"));
                         dirPhotos = dirPhotos.filter((x) => x.startsWith("81"));
                     }
-
                 }
             };
 
@@ -141,7 +137,14 @@ export const copyFilesHandler = {
                 dirFilteredPDFs = filterPDFs(dirPDF, application);
             }
 
-            let outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${issueNumber}/JPG`);
+            let outputDirPhotos = "";
+
+            if (application === "Nedelnik") {
+                issueNumber = nedelnikIssueHandler();
+                outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${issueNumber}/JPG`);
+            } else {
+                outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${issueNumber}/JPG`);
+            }
 
             await Promise.all(dirFiles.map(async (file) => {
                 const source = path.join(pathInputFiles, file);
