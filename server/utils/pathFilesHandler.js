@@ -22,7 +22,7 @@ export function pathsHandler(application, issue, extractedApplicationIssue, appl
             pathsFiles.web = paths.telSite;
             break;
         case "ZlatnoVreme":
-            pathsFiles.ready = `${paths.zlatno}${applicationIssue}`;
+            pathsFiles.ready = `${paths.zlatno}${applicationIssue}/`;
             pathsFiles.photoOld = `${paths.photos}_ZLATNO VREME${extractedApplicationIssue}/OLD/`;
             pathsFiles.web = paths.zlatnoOutput;
             break;
@@ -31,7 +31,7 @@ export function pathsHandler(application, issue, extractedApplicationIssue, appl
             pathsFiles.photoOld = `${paths.photos}_AGRO${extractedApplicationIssue}/OLD/`;
             pathsFiles.web = paths.agroOutput;
         case "Viara":
-            pathsFiles.ready = `${paths.viara}${applicationIssue}`;
+            pathsFiles.ready = `${paths.viara}${applicationIssue}/`;
             pathsFiles.photoOld = `${paths.photos}_VIARA${extractedApplicationIssue}/old/`;
             pathsFiles.web = `${paths.telSite}_____viara/`;
         case "Zdrave":
