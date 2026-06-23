@@ -30,18 +30,22 @@ export function pathsHandler(application, issue, extractedApplicationIssue, appl
             pathsFiles.ready = `${paths.agro}${applicationIssue}/old/`;
             pathsFiles.photoOld = `${paths.photos}_AGRO${extractedApplicationIssue}/OLD/`;
             pathsFiles.web = paths.agroOutput;
+            break;
         case "Viara":
             pathsFiles.ready = `${paths.viara}${applicationIssue}/`;
             pathsFiles.photoOld = `${paths.photos}_VIARA${extractedApplicationIssue}/old/`;
             pathsFiles.web = `${paths.telSite}_____viara/`;
+            break;
         case "Zdrave":
             pathsFiles.ready = `${paths.zdrave}`;
             pathsFiles.photoOld = `${paths.photos}_ZDRAVE${extractedApplicationIssue}/OLD/`;
             pathsFiles.web = `${paths.telSite}______Zdrave/`;
+            break;
         case "Nedelnik":
             pathsFiles.ready = paths.nedelnik;
             pathsFiles.photoOld = `${paths.photos}_KULINAR${extractedApplicationIssue}/OLD/`;
             pathsFiles.web = `${paths.telSite}______Nedelnik/`;
+            break;
     }
 
     return pathsFiles;
