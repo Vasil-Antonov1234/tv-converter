@@ -105,6 +105,7 @@ export default {
             }
 
             renamedDir = await fsPromises.readdir(inputFilePath);
+            let diziState = "normal";
 
             for (let tv of renamedDir) {
 
@@ -118,9 +119,11 @@ export default {
                     const year = date.getFullYear();
                     const cacheFileName = `translated-${day}-${month}-${year}-${tv}`
 
+
                     const cacheDir = await fsPromises.readdir(paths.cache);
 
                     if (cacheDir.includes(cacheFileName)) {
+                        diziState = "cached"
                         await fsPromises.copyFile(`${paths.cache}${cacheFileName}`, `${inputFilePath}${tv}`);
                     } else {
 
@@ -137,7 +140,7 @@ export default {
             }
 
 
-            return renamedTvCount;
+            return { renamedTvCount, diziState };
         } catch (error) {
             throw error;
         }
