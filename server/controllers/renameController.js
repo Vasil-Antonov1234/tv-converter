@@ -12,8 +12,11 @@ renameController.post("/tv", async (req, res) => {
     const startDate = data.customStartDate;
     const finalDate = data.customFinalDate;
     try {
-        const renamedFilesCount = await renameServices.renameAllTv();
+        const data = await renameServices.renameAllTv();
+        const renamedFilesCount = data.renamedTvCount;
         const response = await reportService.baseReport(renamedFilesCount, startDate, finalDate);
+
+        response.disiState = data.diziState;
 
         res.send(JSON.stringify(response));
         // res.send(JSON.stringify(`${renamedFilesCount} files has been renamed!`));
