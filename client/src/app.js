@@ -2980,11 +2980,13 @@ async function onSubmitTvData(event) {
         tvMessage.value = reportMessage;
         missingFilesMessage.value = reportMissingFilesMessage.join("\n");
         missingDataMessage.value = reportMissingDataMessage.join("\n");
+        
+        const fileName = document.getElementById("tvBookInputDate").value;
 
-        message.textContent = "Done";
+        message.textContent = `A file for "${fileName}" has been generated!`;
         message.style.color = green;
 
-        errorMessageHandler("Done", green);
+        errorMessageHandler(`A file for "${fileName}" has been generated!`, green);
 
     } catch (error) {
 
