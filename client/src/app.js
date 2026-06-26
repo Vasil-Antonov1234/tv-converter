@@ -2158,7 +2158,7 @@ function tvBookTemplate(element) {
         
             <div id="tvRenameContainer" class="rename-container">
                 <section id="renameWrapper" class="rename-wrapper">
-                    <button id="rename" class="tvRename button">TV-rename</button>
+                    <button id="rename" class="tvRename button">Make report</button>
                     <span class="renamedTvMessage" id="renamedTvMessage"></span>
                 </section>
                 <section id="dates-wrapper" class="dates-wrapper">
@@ -2194,7 +2194,7 @@ function tvBookTemplate(element) {
                     <option value="Неделя" name="day">Неделя</option>
                 </select>
                 <input type="text" name="date" id="tvBookInputDate" placeholder="examle: 01.01.2024">
-                <button class="submitAddTvData button" id="submitAddTvDataBtv">submit</button>
+                <button class="submitAddTvData button" id="submitAddTvDataBtv">Generate file</button>
             </form>
 
             <div>
