@@ -2202,6 +2202,7 @@ function tvBookTemplate(element) {
                 <textarea id="missingFilesMessage" class="responseMessage"></textarea>
                 <textarea id="missingDataMessega" class="responseMessage"></textarea>
             </div>
+            <article id="translatedTvState" class="translatedTvState"></article>
         </section>
     `;
     return container;
@@ -2807,6 +2808,7 @@ async function onTvRename(event) {
     const missingFilesMessageCount = document.getElementById("missingFilesCount");
     const missingDataMessage = document.getElementById("missingDataMessega");
     const missingDataMessageCount = document.getElementById("missingDataCount");
+    const translatedTvState = document.getElementById("translatedTvState");
 
     const customStartDate = document.getElementById("startDate").value;
     const customFinalDate = document.getElementById("endDate").value;
@@ -2869,6 +2871,10 @@ async function onTvRename(event) {
         missingDataMessageCount.style.color = result.allMissindData > 0 ? red : green;
 
         tvMessage.value = `Report for \n${result.datesToCheck.join("\n")}`;
+
+        translatedTvState.textContent = `dizi.txt - ${result.translatedTvState}`
+        translatedTvState.style.backgroundColor = result.translatedTvState === "cached" ? red : green;
+        
 
     } catch (error) {
         message.textContent = error.message;

@@ -1060,3 +1060,16 @@ input:focus {
     -ms-transform: translateX(52px);
     transform: translateX(52px);
 }
+
+.translatedTvState {
+    position: relative;
+    left: 27%;
+    width: 330px;
+    height: fit-content;
+    margin-right: 10px;
+    background-color: white;
+    padding: 3px;
+    color: white;
+    font-weight: 900;
+    border-radius: 5px;
+}
