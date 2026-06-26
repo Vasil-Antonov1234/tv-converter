@@ -91,7 +91,9 @@ export default {
                             charSet = "windows-1251";
                         };
 
-                        encodedTV = iconv.decode(buffer, charSet);
+                        if (charSet) {
+                            encodedTV = iconv.decode(buffer, charSet);
+                        };
 
                         const result = handleFixTv(encodedTV, tv);
                         let outputDir = paths.input;
