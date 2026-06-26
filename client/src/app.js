@@ -2106,6 +2106,7 @@ function closeNotification() {
 };
 
 let isAddedGetFile = false;
+let isEventAdded = false;
 
 // Templates and views
 function tvBookTemplate(element) {
@@ -2432,13 +2433,14 @@ function tvBookView(event) {
     root.replaceChildren(tvBookTemplate(tvBookTemplateRef));
     tvBookTemplateRef = document.getElementById("tv-book-view");
 
-    // const customDateShowElement = document.getElementById("custom-date-show");
-    // const customDateHideElement = document.getElementById("custom-date-hide");
     const customDatesSwitchElement = document.getElementById("show-hide-custom-dates");
     const dateContainerElement = document.getElementById("date-interval-container");
-    // customDateShowElement.addEventListener("click", onShowCustomDates);
-    // customDateHideElement.addEventListener("click", onHideDates)
-    customDatesSwitchElement.addEventListener("click", onSwitchCoustomDates);
+
+    if (!isEventAdded) {
+        customDatesSwitchElement.addEventListener("click", onSwitchCoustomDates);
+        isEventAdded = true;
+    };
+
     tvCalcValue = "book";
     document.querySelector("#tv-book-form").addEventListener("submit", onConvert);
     document.querySelector("#tvBook").style.display = "none";
@@ -2459,30 +2461,9 @@ function tvBookView(event) {
         isAddedGetFile = true;
     };
 
-    // function onShowCustomDates() {
-    //     dateContainerElement.style.display = "inline-block";
-    //     customDateShowElement.style.display = "none";
-    //     customDateHideElement.style.display = "inline-block";
-
-    //     coverEl.style.display = "none";
-    // };
-
-    // function onHideDates() {
-    //     dateContainerElement.style.display = "none";
-    //     customDateShowElement.style.display = "inline-block";
-    //     customDateHideElement.style.display = "none";
-
-    //     document.getElementById("startDate").value = "";
-    //     document.getElementById("endDate").value = "";
-
-    //     coverEl.style.display = "flex";
-    // }
-
     let customDateState = false;
 
     function onSwitchCoustomDates() {
- 
-        debugger
 
         customDateState = !customDateState
         coverEl.style.display = customDateState ? "none" : "flex";
@@ -2495,9 +2476,7 @@ function tvBookView(event) {
 
             document.getElementById("startDate").value = "";
             document.getElementById("endDate").value = "";
-
         }
-
     };
 };
 
@@ -3107,5 +3086,4 @@ function addClass(element, className, time) {
             element.classList.remove(className)
         }, time);
     }
-
 }
