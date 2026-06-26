@@ -16,7 +16,6 @@ export default {
     async renameAllTv() {
 
         try {
-            // const dir = fs.readdirSync(inputFilePath);
             const dir = await fsPromises.readdir(inputFilePath);
             let renamedTvCount = 0;
 
@@ -33,7 +32,6 @@ export default {
                 let fileName = tv.split("_")[0];
                 fileName = `${fileName}.docx`;
 
-                // fs.renameSync(`${inputFilePath}${tv}`, `${inputFilePath}${fileName}`);
                 await fsPromises.rename(`${inputFilePath}${tv}`, `${inputFilePath}${fileName}`);
             }
 
@@ -53,19 +51,16 @@ export default {
 
                     let fileName = el.replace(regex, fileExtension);
 
-                    // fs.renameSync(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`);
                     await fsPromises.rename(`${inputFilePath}${el}`, `${inputFilePath}${fileName}`);
                 };
             };
 
-            // const renamedDir = fs.readdirSync(inputFilePath);
             let renamedDir = await fsPromises.readdir(inputFilePath);
 
             for (let tv of renamedDir) {
 
                 if (tvForFix.includes(tv) || tv.endsWith(".docx")) {
 
-                    // const buffer = fs.readFileSync(`${inputFilePath}${tv}`);
                     const buffer = await fsPromises.readFile(`${inputFilePath}${tv}`);
 
                     if (tv.endsWith(".docx")) {
@@ -79,7 +74,6 @@ export default {
 
                         const outputFile = `${outputDir}${filename}.txt`
 
-                        // fs.writeFileSync(outputFile, result, { encoding: "utf-8" })
                         await fsPromises.writeFile(outputFile, result, { encoding: "utf-8" });
                     }
 
@@ -91,10 +85,12 @@ export default {
                             charSet = "windows-1251";
                         };
 
-                        if (charSet) {
-                            encodedTV = iconv.decode(buffer, charSet);
+                        if (!charSet) {
+                            charSet = "utf-8";
                         };
-
+                        
+                        encodedTV = iconv.decode(buffer, charSet);
+                        
                         const result = handleFixTv(encodedTV, tv);
                         let outputDir = paths.input;
                         let outputFile = `${outputDir}${tv}`

@@ -35,12 +35,13 @@ export default {
                 charSet = "windows-1251";
             };
 
+            if (!charSet) {
+                charSet = "utf-8";
+            };
+
             let currentTv = "";
-            
-            if (charSet) {
-                currentTv = iconv.decode(buffer, charSet);
-            }
-            
+                        
+            currentTv = iconv.decode(buffer, charSet);
             currentTv = handleDay(currentTv);
 
             for (let k = 0; k < datesToCheck.length; k++) {
