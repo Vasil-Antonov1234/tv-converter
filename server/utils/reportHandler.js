@@ -36,7 +36,11 @@ export default {
             };
 
             let currentTv = "";
-            currentTv = iconv.decode(buffer, charSet);
+            
+            if (charSet) {
+                currentTv = iconv.decode(buffer, charSet);
+            }
+            
             currentTv = handleDay(currentTv);
 
             for (let k = 0; k < datesToCheck.length; k++) {
