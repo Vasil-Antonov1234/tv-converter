@@ -2163,10 +2163,19 @@ function tvBookTemplate(element) {
                 </section>
                 <section id="dates-wrapper" class="dates-wrapper">
                     <div id="custom-date-checkbox-container" class="custom-date-checkbox-container">
-                        <span class="custom-date-wrapper">Custom date:
-                            <span id="custom-date-show" class="custom-date-show">show</span>
-                            <span id="custom-date-hide" class="custom-date-hide">hide</span>
-                        </span>
+                        
+
+                        <div class="switch-container">
+                            <h3 class="copy-all-title">custom dates</h3>
+                            <div class="copy-all-labesl-wrapper">
+                                <h2 class="copy-all-sub-title-cd no">CLOSE</h2>
+                                <h2 class="copy-all-sub-title-cd yes">OPEN</h2>
+                            </div>
+                            <label class="copy-all-switch" for="custom-dates-checkbox">
+                                <input class="copy-all-check" type="checkbox" id="custom-dates-checkbox" name="custom-dates-checkbox">
+                                <span class="copy-all-slider" id="show-hide-custom-dates" ></span>
+                            </label>
+                        </div>
                     </div>
                     <div id="date-interval-container" class="date-interval-container">
                         <label for="startDate">Start date: </label>
@@ -2423,11 +2432,13 @@ function tvBookView(event) {
     root.replaceChildren(tvBookTemplate(tvBookTemplateRef));
     tvBookTemplateRef = document.getElementById("tv-book-view");
 
-    const customDateShowElement = document.getElementById("custom-date-show");
-    const customDateHideElement = document.getElementById("custom-date-hide");
+    // const customDateShowElement = document.getElementById("custom-date-show");
+    // const customDateHideElement = document.getElementById("custom-date-hide");
+    const customDatesSwitchElement = document.getElementById("show-hide-custom-dates");
     const dateContainerElement = document.getElementById("date-interval-container");
-    customDateShowElement.addEventListener("click", onShowCustomDates);
-    customDateHideElement.addEventListener("click", onHideDates)
+    // customDateShowElement.addEventListener("click", onShowCustomDates);
+    // customDateHideElement.addEventListener("click", onHideDates)
+    customDatesSwitchElement.addEventListener("click", onSwitchCoustomDates);
     tvCalcValue = "book";
     document.querySelector("#tv-book-form").addEventListener("submit", onConvert);
     document.querySelector("#tvBook").style.display = "none";
@@ -2448,24 +2459,46 @@ function tvBookView(event) {
         isAddedGetFile = true;
     };
 
-    function onShowCustomDates() {
-        dateContainerElement.style.display = "inline-block";
-        customDateShowElement.style.display = "none";
-        customDateHideElement.style.display = "inline-block";
+    // function onShowCustomDates() {
+    //     dateContainerElement.style.display = "inline-block";
+    //     customDateShowElement.style.display = "none";
+    //     customDateHideElement.style.display = "inline-block";
 
-        coverEl.style.display = "none";
+    //     coverEl.style.display = "none";
+    // };
+
+    // function onHideDates() {
+    //     dateContainerElement.style.display = "none";
+    //     customDateShowElement.style.display = "inline-block";
+    //     customDateHideElement.style.display = "none";
+
+    //     document.getElementById("startDate").value = "";
+    //     document.getElementById("endDate").value = "";
+
+    //     coverEl.style.display = "flex";
+    // }
+
+    let customDateState = false;
+
+    function onSwitchCoustomDates() {
+ 
+        debugger
+
+        customDateState = !customDateState
+        coverEl.style.display = customDateState ? "none" : "flex";
+
+        if (customDateState) {
+            dateContainerElement.style.display = "inline-block";
+
+        } else {
+            dateContainerElement.style.display = "none";
+
+            document.getElementById("startDate").value = "";
+            document.getElementById("endDate").value = "";
+
+        }
+
     };
-
-    function onHideDates() {
-        dateContainerElement.style.display = "none";
-        customDateShowElement.style.display = "inline-block";
-        customDateHideElement.style.display = "none";
-
-        document.getElementById("startDate").value = "";
-        document.getElementById("endDate").value = "";
-
-        coverEl.style.display = "flex";
-    }
 };
 
 function tvPaperView(event) {
@@ -2651,8 +2684,6 @@ async function onCopyIssue(event) {
     isPending = true;
 
     const copyIssueButton = document.getElementById("copyIssue");
-
-    debugger
 
     const formData = new FormData(event.currentTarget);
 
@@ -2874,7 +2905,7 @@ async function onTvRename(event) {
 
         translatedTvState.textContent = `dizi.txt - ${result.translatedTvState}`
         translatedTvState.style.backgroundColor = result.translatedTvState === "cached" ? red : green;
-        
+
 
     } catch (error) {
         message.textContent = error.message;

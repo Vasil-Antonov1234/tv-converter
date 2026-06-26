@@ -1061,6 +1061,10 @@ input:focus {
     transform: translateX(52px);
 }
 
+.copy-all-sub-title-cd {
+    font-size: 14px;
+}
+
 .translatedTvState {
     position: relative;
     left: 27%;
