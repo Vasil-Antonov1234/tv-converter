@@ -2105,8 +2105,7 @@ function closeNotification() {
     spanClose.style.display = "none";
 };
 
-let isAddedGetFile = false;
-let isEventAdded = false;
+let isFirstRenderTvBookView = false;
 
 // Templates and views
 function tvBookTemplate(element) {
@@ -2414,8 +2413,6 @@ function archiveTemplate(element) {
             <p class="date-and-issue-archive" id="error">The input date must be in the past!</p>
         </section>
     </div>
-    
-    
     `;
 
     return container;
@@ -2436,11 +2433,6 @@ function tvBookView(event) {
     const customDatesSwitchElement = document.getElementById("show-hide-custom-dates");
     const dateContainerElement = document.getElementById("date-interval-container");
 
-    if (!isEventAdded) {
-        customDatesSwitchElement.addEventListener("click", onSwitchCoustomDates);
-        isEventAdded = true;
-    };
-
     tvCalcValue = "book";
     document.querySelector("#tv-book-form").addEventListener("submit", onConvert);
     document.querySelector("#tvBook").style.display = "none";
@@ -2452,13 +2444,16 @@ function tvBookView(event) {
     const selectFileElementBook = document.getElementById("selectFileBook");
     const coverEl = document.getElementById("custom-dates-cover");
 
-    if (!isAddedGetFile) {
+    if (!isFirstRenderTvBookView) {
         getFileElementBook.addEventListener("click", (event) => {
             event.preventDefault();
             selectFileElementBook.click();
         });
         selectFileElementBook.addEventListener("change", () => addFileContent("inputBookArea", selectFileElementBook));
-        isAddedGetFile = true;
+        
+        customDatesSwitchElement.addEventListener("click", onSwitchCoustomDates);
+        
+        isFirstRenderTvBookView = true;
     };
 
     let customDateState = false;
