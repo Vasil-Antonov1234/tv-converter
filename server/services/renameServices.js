@@ -5,9 +5,9 @@ import paths from "../paths/paths.js";
 import iconv from "iconv-lite";
 import jschardet from "jschardet";
 import { handleFixTv } from "../utils/handleFixTV.js";
-import { tvForFix, tvForTranslate } from "../data/tvNames.js";
+import { tvForFix } from "../data/tvNames.js";
 import fileExtensionHandler from "../utils/fileExtensionHandler.js";
-import { translate } from "../utils/translate.js"
+import renameRepository from "../repositories/renameRepository.js";
 
 const inputFilePath = paths.input;
 const regex = /-\d\d.txt$|-\d\d.docx$/
@@ -102,41 +102,7 @@ export default {
 
             }
 
-            renamedDir = await fsPromises.readdir(inputFilePath);
-            let diziState = "normal";
-
-            for (let tv of renamedDir) {
-
-                if (tvForTranslate.includes(tv)) {
-                    let outputDir = paths.input;
-                    let outputFile = `${outputDir}${tv}`
-
-                    const date = new Date();
-                    const day = date.getDate();
-                    const month = date.getMonth() + 1;
-                    const year = date.getFullYear();
-                    const cacheFileName = `translated-${day}-${month}-${year}-${tv}`
-
-
-                    const cacheDir = await fsPromises.readdir(paths.cache);
-
-                    if (cacheDir.includes(cacheFileName)) {
-                        diziState = "cached"
-                        await fsPromises.copyFile(`${paths.cache}${cacheFileName}`, `${inputFilePath}${tv}`);
-                    } else {
-
-                        const textTv = await fsPromises.readFile(`${inputFilePath}${tv}`, { encoding: "utf-8" });
-
-                        const result = await translate(textTv);
-
-                        await fsPromises.writeFile(outputFile, result, { encoding: "utf-8" });
-
-                        await fsPromises.writeFile(`${paths.cache}${cacheFileName}`, result, { encoding: "utf-8" });
-                    }
-
-                }
-            }
-
+            const diziState = await renameRepository.translateTV();
 
             return { renamedTvCount, diziState };
         } catch (error) {
