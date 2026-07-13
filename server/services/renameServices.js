@@ -22,7 +22,7 @@ export default {
 
             const onlyDocx = dir.filter((tv) => tv.endsWith(".docx"))
 
-            renamedTvCount += await tvRepository.renameDox(onlyDocx);
+            renamedTvCount += await tvRepository.renameDocx(onlyDocx);
 
             if (dir.find((x) => x.includes("-") && !x.endsWith("zip"))) {
 
