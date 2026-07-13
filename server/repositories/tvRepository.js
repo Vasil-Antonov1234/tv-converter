@@ -45,5 +45,29 @@ export default {
         } catch (error) {
             throw error
         };
+    },
+
+    async renameDox(onlyDocx) {
+        let renamedTvCount = 0;
+        
+        for (let tv of onlyDocx) {
+
+            if (!tv.includes("_")) {
+                continue;
+            }
+
+            renamedTvCount++;
+
+            let fileName = tv.split("_")[0];
+            fileName = `${fileName}.docx`;
+
+            try {
+                await fsPromises.rename(`${paths.input}${tv}`, `${paths.input}${fileName}`);
+
+                return renamedTvCount;
+            } catch (error) {
+                throw error;
+            };
+        };
     }
 }

@@ -7,7 +7,8 @@ import jschardet from "jschardet";
 import { handleFixTv } from "../utils/handleFixTV.js";
 import { tvForFix } from "../data/tvNames.js";
 import fileExtensionHandler from "../utils/fileExtensionHandler.js";
-import renameRepository from "../repositories/renameRepository.js";
+import renameRepository from "../repositories/tvRepository.js";
+import tvRepository from "../repositories/tvRepository.js";
 
 const inputFilePath = paths.input;
 const regex = /-\d\d.txt$|-\d\d.docx$/
@@ -21,19 +22,7 @@ export default {
 
             const onlyDocx = dir.filter((tv) => tv.endsWith(".docx"))
 
-            for (let tv of onlyDocx) {
-
-                if (!tv.includes("_")) {
-                    continue;
-                }
-
-                renamedTvCount++;
-
-                let fileName = tv.split("_")[0];
-                fileName = `${fileName}.docx`;
-
-                await fsPromises.rename(`${inputFilePath}${tv}`, `${inputFilePath}${fileName}`);
-            }
+            renamedTvCount += await tvRepository.renameDox(onlyDocx);
 
             if (dir.find((x) => x.includes("-") && !x.endsWith("zip"))) {
 
