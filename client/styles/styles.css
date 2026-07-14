@@ -347,9 +347,8 @@ textarea {
     top: 50%;
     max-width: 30%;
     color: white;
-    font-family: cursive;
+    font-family: monospace;
     font-size: 1.4rem;
-    text-transform: uppercase;
     padding: 10px 15px;
     display: none;
     border: solid 0.5px white;

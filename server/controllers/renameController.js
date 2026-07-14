@@ -22,8 +22,7 @@ renameController.post("/tv", async (req, res) => {
         // res.send(JSON.stringify(`${renamedFilesCount} files has been renamed!`));
     } catch (error) {
         
-        res.status(400);
-        res.send(JSON.stringify(errorMessageHandler(error)));
+        res.status(400).send(JSON.stringify(errorMessageHandler(error)));
     };
 
 });
