@@ -2205,6 +2205,7 @@ function tvBookTemplate(element) {
                 <input type="text" name="date" id="tvBookInputDate" placeholder="examle: 01.01.2024">
                 <button class="submitAddTvData button" id="submitAddTvDataBtv">Generate file</button>
             </form>
+            <button class="submitAddTvData button" id="generateAllTv">Generate All</button>
 
             <div>
                 <textarea id="responseMessage" class="responseMessage"></textarea>
@@ -2440,6 +2441,7 @@ function tvBookView(event) {
     document.getElementById("resetCalcTvBook").addEventListener("click", onResetCalc);
     document.getElementById("rename").addEventListener("click", onTvRename);
     document.getElementById("submitTvData").addEventListener("submit", onSubmitTvData);
+    document.getElementById("generateAllTv").addEventListener("click", onGenerateAllTV);
     const getFileElementBook = document.getElementById("listFileBook");
     const selectFileElementBook = document.getElementById("selectFileBook");
     const coverEl = document.getElementById("custom-dates-cover");
@@ -2531,6 +2533,7 @@ function utilsView(event) {
     document.getElementById("renamePdfFiles").addEventListener("submit", onRenamePdfFiles);
 };
 
+// Functions
 async function onRenamePdfFiles(event) {
     event.preventDefault();
     const button = document.getElementById("renamePdf");
@@ -2805,6 +2808,7 @@ function replaceSpaces(text) {
     return text
 };
 
+let allTvForGenerate = null;
 
 async function onTvRename(event) {
 
@@ -2861,6 +2865,8 @@ async function onTvRename(event) {
 
         const result = await utils.request("/rename/tv", "POST", { customStartDate, customFinalDate });
 
+        allTvForGenerate = result.datesToCheck;
+
         message.textContent = `${result.renamedFilesCount} files have been renamed`
         message.style.display = "inline";
         message.style.color = green;
@@ -2892,6 +2898,10 @@ async function onTvRename(event) {
         spinner.remove();
     }
 }
+
+async function onGenerateAllTV() {
+    console.log(allTvForGenerate);
+};
 
 async function onSubmitTvData(event) {
     event.preventDefault();
