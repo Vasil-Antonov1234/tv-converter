@@ -1066,7 +1066,7 @@ input:focus {
 
 .translatedTvState {
     position: relative;
-    left: 27%;
+    left: 15%;
     width: 330px;
     height: fit-content;
     margin-right: 10px;
@@ -1078,7 +1078,28 @@ input:focus {
 }
 
 .rename-container {
+    position: relative;
     background-color: rgba(255, 255, 255, 0.700);
     width: fit-content;
     border-radius: 5px;
+}
+
+.message-container {
+    display: flex;
+}
+
+.report-msg {
+    margin-top: 10px;
+    color: white;
+    font-size: 14px;
+    font-weight: 900;
+    position: absolute;
+    font-family: monospace, 'Courier New', Courier;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.span-report-msg {
+    animation: onShowAnimation 0.5s ease-in-out forwards;
 }

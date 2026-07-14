@@ -2206,11 +2206,14 @@ function tvBookTemplate(element) {
                 <button class="submitAddTvData button" id="submitAddTvDataBtv">Generate file</button>
             </form>
             <button class="submitAddTvData button" id="generateAllTv">Generate All</button>
+            <div class="message-container">
+                <div class="report-msg" id="report-msg"></div>
 
-            <div>
-                <textarea id="responseMessage" class="responseMessage"></textarea>
-                <textarea id="missingFilesMessage" class="responseMessage"></textarea>
-                <textarea id="missingDataMessega" class="responseMessage"></textarea>
+                <div>
+                    <textarea id="responseMessage" class="responseMessage"></textarea>
+                    <textarea id="missingFilesMessage" class="responseMessage"></textarea>
+                    <textarea id="missingDataMessega" class="responseMessage"></textarea>
+                </div>
             </div>
             <article id="translatedTvState" class="translatedTvState"></article>
         </section>
@@ -2902,12 +2905,28 @@ async function onTvRename(event) {
 async function onGenerateAllTV() {
 
     if(!allTvForGenerate || allTvForGenerate.length === 0) {
-        errorMessageHandler("There is nothing to generate!", red);
+        return errorMessageHandler("There is nothing to generate!", red);
     };
 
     try {
+        const generateButton =  document.getElementById("generateAllTv");
+        generateButton.setAttribute("disabled", true);
         const response = await utils.request("/tv/add/createAll", "POST", allTvForGenerate);
+        document.getElementById("report-msg").querySelectorAll("*").forEach((x) => x.remove());
 
+        allTvForGenerate.forEach((x) => {
+            setTimeout(()=> {
+                const span = document.createElement("span");
+                span.classList.add("span-report-msg");
+                span.textContent = `✅ ${x}`
+                document.getElementById("report-msg").appendChild(span);
+            }, 500 * allTvForGenerate.indexOf(x));
+        })
+
+        setTimeout(()=> {
+            generateButton.removeAttribute("disabled")
+        }, 5000);
+        
         console.log(response);
     } catch (error) {
         errorMessageHandler(error, red);   
