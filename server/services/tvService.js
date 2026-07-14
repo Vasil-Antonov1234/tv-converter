@@ -74,7 +74,7 @@ export default {
             const outputFile = `${outputDir}${handleOutputDay(day)}-${date}.txt`
 
             await fsPromises.writeFile(outputFile, result, { encoding: "utf-8" });
-
+            
             return response;
         } catch (error) {
             errorLocationMapper(error, "tvService.createTv");

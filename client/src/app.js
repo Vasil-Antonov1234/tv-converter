@@ -2905,7 +2905,13 @@ async function onGenerateAllTV() {
         errorMessageHandler("There is nothing to generate!", red);
     };
 
-    await utils.request("/tv/add/createAll", "POST", allTvForGenerate);
+    try {
+        const response = await utils.request("/tv/add/createAll", "POST", allTvForGenerate);
+
+        console.log(response);
+    } catch (error) {
+        errorMessageHandler(error, red);   
+    };
 };
 
 async function onSubmitTvData(event) {
