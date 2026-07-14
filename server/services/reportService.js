@@ -3,27 +3,34 @@ import paths from "../paths/paths.js";
 import { allTv } from "../data/tvPaths.js";
 import { handleNextWeekTvDates } from "../utils/handleDay.js";
 import reportHandler from "../utils/reportHandler.js";
+import { errorLocationMapper } from "../utils/errorMessageHandler.js";
 
 export default {
     async baseReport(renamedFilesCount, startDate, finalDate) {
-        const dir = await fsPromises.readdir(paths.input);
-        const allFiles = allTv;
 
-        const missingFiles = [];
+        try {
+            const dir = await fsPromises.readdir(paths.input);
+            const allFiles = allTv;
 
-        allFiles.forEach((tv) => dir.includes(tv) ? "" : missingFiles.push(`${tv} file is missing!`));
+            const missingFiles = [];
 
-        const datesToCheck = handleNextWeekTvDates(startDate, finalDate);
-        const { allMissindData, missingData } = await reportHandler.weekDaysDataReport(datesToCheck, dir);
+            allFiles.forEach((tv) => dir.includes(tv) ? "" : missingFiles.push(`${tv} file is missing!`));
 
-        const report = {
-            renamedFilesCount,
-            missingFiles,
-            missingData,
-            allMissindData,
-            datesToCheck
-        }
+            const datesToCheck = handleNextWeekTvDates(startDate, finalDate);
+            const { allMissindData, missingData } = await reportHandler.weekDaysDataReport(datesToCheck, dir);
 
-        return report;
+            const report = {
+                renamedFilesCount,
+                missingFiles,
+                missingData,
+                allMissindData,
+                datesToCheck
+            }
+
+            return report;
+        } catch (error) {
+            errorLocationMapper(error, "reportService.baseReport");
+            throw error;
+        };
     }
 }

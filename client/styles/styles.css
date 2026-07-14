@@ -347,7 +347,7 @@ textarea {
     top: 50%;
     max-width: 30%;
     color: white;
-    font-family: monospace;
+    font-family: monospace, 'Courier New', Courier;
     font-size: 1.4rem;
     padding: 10px 15px;
     display: none;

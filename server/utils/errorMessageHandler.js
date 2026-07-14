@@ -7,5 +7,17 @@ export function errorMessageHandler(error) {
         result = error
     }
 
+    console.log(error.location.reverse().join("=> \n"));
     return result;
 }
+
+export function errorLocationMapper(error, location) {
+
+    if (!error.location) {
+        error.location = [];
+    };
+
+    if (location) {
+        error.location.push(location);
+    };
+};

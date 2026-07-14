@@ -1,13 +1,11 @@
-import fs from "node:fs";
-import iconv from "iconv-lite";
-import jschardet from "jschardet";
 import { EOL } from "os";
 import fsPromises from "node:fs/promises"
 import { allTvNames } from "../data/tvNames.js";
 import { allTv } from "../data/tvPaths.js";
-import { handleDay, handleOutputDay } from "../utils/handleDay.js";
+import { handleOutputDay } from "../utils/handleDay.js";
 import { handleEndOfCurrentTv } from "../utils/handleEndOfCuttentTv.js";
 import paths from "../paths/paths.js";
+import { errorLocationMapper } from "../utils/errorMessageHandler.js";
 
 export default {
     async createTv(day, date) {
@@ -25,22 +23,6 @@ export default {
                     response.push(`${allTv[i]} (${allTvNames[i]}) - File is missing! ❌`)
                     continue;
                 }
-
-                // const buffer = fs.readFileSync(`${inputFilePath}${allTv[i]}`);
-
-                // let charSet = jschardet.detect(buffer).encoding;
-
-                // if (charSet === "x-mac-cyrillic") {
-                //     charSet = "windows-1251";
-                // };
-
-                // let currentTv = "";
-
-                // currentTv = iconv.decode(buffer, charSet);
-
-                // currentTv = handleDay(currentTv);
-
-                // const buffer = await fsPromises.readFile(`${paths.input}${allTv[i]}`)
 
                 const currentTv = await fsPromises.readFile(`${paths.input}${allTv[i]}`, { encoding: "utf-8"});
                 let splittedTV = [];
@@ -95,8 +77,8 @@ export default {
 
             return response;
         } catch (error) {
-            console.log(error.path)
-            throw(error);
+            errorLocationMapper(error, "tvService.createTv");
+            throw error;
         };
     }
 }

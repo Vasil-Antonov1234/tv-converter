@@ -2,6 +2,7 @@ import fsPromises from "fs/promises";
 import paths from "../paths/paths.js";
 import { tvForTranslate } from "../data/tvNames.js";
 import { translate } from "../utils/translate.js";
+import { errorLocationMapper } from "../utils/errorMessageHandler.js";
 
 export default {
     async translateTV() {
@@ -43,7 +44,8 @@ export default {
 
             return diziState;
         } catch (error) {
-            throw new Error(`tvRepository.translateTV: ${error.message}`);
+            errorLocationMapper(error, `tvRepository.translateTV: ${error.message}`);
+            throw error;
         };
     },
 
@@ -65,7 +67,8 @@ export default {
 
                 return renamedTvCount;
             } catch (error) {
-                throw new Error(`tvRepository.renameDocx: ${error.message}`);
+                errorLocationMapper(error, `tvRepository.renameDocx: ${error.message}`);
+                throw error;
             };
         };
     }

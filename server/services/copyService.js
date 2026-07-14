@@ -1,6 +1,7 @@
 import { handleAgroZlatnoIssue } from "../utils/handleAgroZlatnoIssue.js";
 import { pathsHandler } from "../utils/pathFilesHandler.js";
 import { copyFilesHandler } from "../utils/copyFilesHandler.js";
+import { errorLocationMapper } from "../utils/errorMessageHandler.js";
 
 export default {
     async copyIssue(application, applicationIssue, issue, copyAllFiles) {
@@ -26,6 +27,7 @@ export default {
 
             return report;
         } catch (error) {
+            errorLocationMapper(error, "copyService.copyIssue");
             throw error;
         };
     }

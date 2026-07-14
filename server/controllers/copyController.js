@@ -1,6 +1,6 @@
 import { Router } from "express";
 import copyService from "../services/copyService.js";
-import { errorMessageHandler } from "../utils/errorMessageHandler.js";
+import { errorLocationMapper, errorMessageHandler } from "../utils/errorMessageHandler.js";
 
 const copyController = Router();
 
@@ -14,11 +14,10 @@ copyController.post("/issue", async (req, res) => {
     
     try {
         const result = await copyService.copyIssue(application, applicationIssue, issue, copyAllFiles);
-        res.status(200);
-        res.send(JSON.stringify(result));
+        res.status(200).send(JSON.stringify(result));
     } catch (error) {
-        res.status(400);
-        res.send(JSON.stringify(errorMessageHandler(error)));
+        errorLocationMapper(error, "copyController.post('/issue')")
+        res.status(400).send(JSON.stringify(errorMessageHandler(error)));
     };
 
 });

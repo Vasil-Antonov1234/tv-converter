@@ -9,6 +9,7 @@ import { tvForFix } from "../data/tvNames.js";
 import fileExtensionHandler from "../utils/fileExtensionHandler.js";
 import renameRepository from "../repositories/tvRepository.js";
 import tvRepository from "../repositories/tvRepository.js";
+import { errorLocationMapper } from "../utils/errorMessageHandler.js";
 
 const inputFilePath = paths.input;
 const regex = /-\d\d.txt$|-\d\d.docx$/
@@ -95,6 +96,7 @@ export default {
 
             return { renamedTvCount, diziState };
         } catch (error) {
+            errorLocationMapper(error, "renameService.renameAllTv");
             throw error;
         }
     },
@@ -124,7 +126,8 @@ export default {
 
 
         } catch (error) {
-            throw (error)
+            errorLocationMapper(error, "renameService.renameFiles");
+            throw error;
         }
 
     },
@@ -146,7 +149,9 @@ export default {
 
             return `${renamedFilesCount} files have been renamed`
         } catch (error) {
-            throw (error);
+
+            errorLocationMapper(error, "renameService.renamePDF");
+            throw error;
         };
 
     }

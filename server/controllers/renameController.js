@@ -1,6 +1,6 @@
 import { Router } from "express";
 import renameServices from "../services/renameServices.js";
-import { errorMessageHandler } from "../utils/errorMessageHandler.js";
+import { errorLocationMapper, errorMessageHandler } from "../utils/errorMessageHandler.js";
 import reportService from "../services/reportService.js";
 
 const renameController = Router();
@@ -21,7 +21,7 @@ renameController.post("/tv", async (req, res) => {
         res.send(JSON.stringify(response));
         // res.send(JSON.stringify(`${renamedFilesCount} files has been renamed!`));
     } catch (error) {
-        
+        errorLocationMapper(error, "renameController.post('/tv')");
         res.status(400).send(JSON.stringify(errorMessageHandler(error)));
     };
 
@@ -34,10 +34,10 @@ renameController.post("/files", (req, res) => {
 
     try {
     const response = renameServices.renameFiles(path, find, changeTo, extension);
-        res.send(JSON.stringify(`${response} files has been renamed!`));
+        res.status(200).send(JSON.stringify(`${response} files has been renamed!`));
     } catch (error) {
-        res.status(400);
-        res.send(JSON.stringify(errorMessageHandler(error)));
+        errorLocationMapper(error, "renameController.post('/files')")
+        res.status(400).send(JSON.stringify(errorMessageHandler(error)));
     };
 });
 
@@ -47,11 +47,10 @@ renameController.post("/pdf", async (req, res) => {
 
     try {
         const result = await renameServices.renamePDF(path, number);
-        res.status(200);
-        res.send(JSON.stringify({ result }));
+        res.status(200).send(JSON.stringify({ result }));
     } catch (error) {
-        res.status(400);
-        res.send(JSON.stringify(errorMessageHandler(error)));
+        errorLocationMapper(error, "renameController.post('/pdf')")
+        res.status(400).send(JSON.stringify(errorMessageHandler(error)));
     };
 })
 
