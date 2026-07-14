@@ -2900,7 +2900,12 @@ async function onTvRename(event) {
 }
 
 async function onGenerateAllTV() {
-    console.log(allTvForGenerate);
+
+    if(!allTvForGenerate || allTvForGenerate.length === 0) {
+        errorMessageHandler("There is nothing to generate!", red);
+    };
+
+    await utils.request("/tv/add/createAll", "POST", allTvForGenerate);
 };
 
 async function onSubmitTvData(event) {

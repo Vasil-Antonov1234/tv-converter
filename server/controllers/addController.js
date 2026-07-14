@@ -12,12 +12,17 @@ addController.post("/", async (req, res) => {
     try {
         const response = await tvService.createTv(day, date);
 
-        res.status(201);
-        res.send(JSON.stringify(response));
+        res.status(201).send(JSON.stringify(response));
     } catch (error) {
         errorLocationMapper(error, "addController.post('/')")
-        res.send(JSON.stringify(`Something went wrong! ${errorMessageHandler(error)}.`));
+        res.send(JSON.stringify(errorMessageHandler(error)));
     };
+});
+
+addController.post("/createAll", async (req, res) => {
+    const body = req.body;
+
+    
 })
 
 export default addController;
