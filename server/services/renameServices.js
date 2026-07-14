@@ -1,11 +1,6 @@
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
-import mammoth from "mammoth";
 import paths from "../paths/paths.js";
-import iconv from "iconv-lite";
-import jschardet from "jschardet";
-import { handleFixTv } from "../utils/handleFixTV.js";
-import { tvForFix } from "../data/tvNames.js";
 import fileExtensionHandler from "../utils/fileExtensionHandler.js";
 import renameRepository from "../repositories/tvRepository.js";
 import tvRepository from "../repositories/tvRepository.js";
@@ -19,11 +14,10 @@ export default {
 
         try {
             const dir = await fsPromises.readdir(inputFilePath);
-            let renamedTvCount = 0;
 
             const onlyDocx = dir.filter((tv) => tv.endsWith(".docx"))
 
-            renamedTvCount += await tvRepository.renameDocx(onlyDocx);
+            let renamedTvCount = await tvRepository.renameDocx(onlyDocx);
 
             if (dir.find((x) => x.includes("-") && !x.endsWith("zip"))) {
 
@@ -45,52 +39,7 @@ export default {
                 };
             };
 
-            let renamedDir = await fsPromises.readdir(inputFilePath);
-
-            for (let tv of renamedDir) {
-
-                if (tvForFix.includes(tv) || tv.endsWith(".docx")) {
-
-                    const buffer = await fsPromises.readFile(`${inputFilePath}${tv}`);
-
-                    if (tv.endsWith(".docx")) {
-                        const encodedBuffer = await mammoth.extractRawText({ buffer });
-                        const encodedTv = encodedBuffer.value;
-
-                        const result = handleFixTv(encodedTv, tv);
-                        let outputDir = paths.input;
-
-                        const filename = tv.split(".")[0].toLocaleLowerCase();
-
-                        const outputFile = `${outputDir}${filename}.txt`
-
-                        await fsPromises.writeFile(outputFile, result, { encoding: "utf-8" });
-                    }
-
-                    if (tv.endsWith(".txt")) {
-                        let encodedTV = "";
-                        let charSet = jschardet.detect(buffer).encoding;
-
-                        if (charSet === "x-mac-cyrillic") {
-                            charSet = "windows-1251";
-                        };
-
-                        if (!charSet) {
-                            charSet = "utf-8";
-                        };
-                        
-                        encodedTV = iconv.decode(buffer, charSet);
-                        
-                        const result = handleFixTv(encodedTV, tv);
-                        let outputDir = paths.input;
-                        let outputFile = `${outputDir}${tv}`
-
-                        // fs.writeFileSync(outputFile, result, { encoding: "utf-8" });
-                        await fsPromises.writeFile(outputFile, result, { encoding: "utf-8" });
-                    }
-                }
-
-            }
+            await tvRepository.encodeMany();
 
             const diziState = await renameRepository.translateTV();
 
