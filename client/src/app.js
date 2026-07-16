@@ -2838,7 +2838,7 @@ async function onTvRename(event) {
 
     const oneDayLong = 86400000;
 
-    if (oneDayLong * 14 < date2 - date1) {
+    if (oneDayLong * 7 < date2 - date1) {
         const daysCount = (date2 - date1) / oneDayLong;
 
         const choice = confirm(`Too long period of time! Are you sure you want a report for ${daysCount} days`);
