@@ -13,7 +13,7 @@ export const copyFilesHandler = {
         };
 
         if (application === "Nedelnik") {
-            
+
             issueNumber = nedelnikIssueHandler();
         };
 
@@ -74,10 +74,17 @@ export const copyFilesHandler = {
 
             dirReady = await fsPromises.readdir(pathInputFiles);
             dirPhotoOld = await fsPromises.readdir(pathInputFotos);
+            let pdfFolderName = "";
 
             if (isCopyPFDs) {
-                const check = await fsPromises.readdir(`${paths.pages}${issue}`);
-                let pdfFolderName = "";
+
+                let check = "";
+
+                if (application === "Nedelnik") {
+                    check = await fsPromises.readdir(`${paths.pages}${issue}/Неделник`);
+                } else {
+                    check = await fsPromises.readdir(`${paths.pages}${issue}`);
+                }
 
                 if (check.includes("FTP") || check.includes("ftp")) {
                     pdfFolderName = "FTP";
@@ -87,7 +94,12 @@ export const copyFilesHandler = {
                     pdfFolderName = "PDF";
                 };
 
-                dirPDF = await fsPromises.readdir(`${paths.pages}${issue}/${pdfFolderName}`);
+                if (application === "Nedelnik") {
+                    dirPDF = await fsPromises.readdir(`${paths.pages}${issue}/Неделник/${pdfFolderName}`);
+                } else {
+                    dirPDF = await fsPromises.readdir(`${paths.pages}${issue}/${pdfFolderName}`);
+                }
+
             }
             // dirWeb = await fsPromises.readdir(pathOutputFiles);
 
@@ -182,7 +194,14 @@ export const copyFilesHandler = {
 
             if (isCopyPFDs) {
                 await Promise.all(dirFilteredPDFs.map(async (pdf) => {
-                    const source = path.join(`${paths.pages}${issue}/FTP`, pdf);
+                    let source = "";
+
+                    if (application === "Nedelnik") {
+                        source = path.join(`${paths.pages}${issue}/Неделник/${pdfFolderName}`, pdf);
+                    } else {
+                        source = path.join(`${paths.pages}${issue}/${pdfFolderName}`, pdf);
+                    }
+                    
                     const destination = path.join(`${pathOutputFiles}${issueNumber}/PDF`, pdf);
 
                     if (`${pathOutputFiles}${issueNumber}/PDF`.includes(pdf)) {
@@ -274,6 +293,10 @@ function filterPDFs(dirPDF, application) {
             x.endsWith("23.pdf") ||
             x.endsWith("24.pdf")
         );
+    };
+
+    if (application === "Nedelnik") {
+        dirFilteredPDFs = dirPDF.filter((x) => !x.endsWith("000.pdf"));
     };
 
     return dirFilteredPDFs;
