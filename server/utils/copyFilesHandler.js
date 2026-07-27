@@ -21,7 +21,7 @@ export const copyFilesHandler = {
             const output = await fsPromises.readdir(pathOutputFiles);
 
             if (!output.includes(issueNumber)) {
-                await fsPromises.mkdir(`${pathOutputFiles}${issueNumber}`);
+                await fsPromises.mkdir(`${pathOutputFiles}${`брой ${issueNumber}`}`);
             };
 
 
