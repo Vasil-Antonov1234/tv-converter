@@ -6,15 +6,16 @@ import { nedelnikIssueHandler } from "./nedelnikIssueHandler.js";
 export const copyFilesHandler = {
     async createFolders(issue, application, pathOutputFiles, applicationIssue, isCopyPFDs) {
 
-        let issueNumber = issue;
+        let issueNumber = "";
 
-        if (application !== "currentIssue" && application !== "Weekend" && application !== "Agro") {
-            issueNumber = applicationIssue;
-        };
-
-        if (application === "Nedelnik") {
-
-            issueNumber = nedelnikIssueHandler();
+        switch (application) {
+            case "Nedelnik":
+                issueNumber = nedelnikIssueHandler();
+                break;
+            case "Agro": 
+                issueNumber = `брой ${issue}`;
+                break;
+            default: issueNumber = issue;
         };
 
         try {
