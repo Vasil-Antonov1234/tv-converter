@@ -9,10 +9,10 @@ addonController.post("/rename-many", async (req, res) => {
 
     try {
         const response = await renameServices.renameFiles(path, find, changeTo, extension);
-        res.status(200).send(JSON.stringify(`${response} files has been renamed!`));
+        res.status(200).json(`${response} files has been renamed!`);
     } catch (error) {
         errorLocationMapper(error, "addonController.post('/rename-many')")
-        res.status(400).send(JSON.stringify(errorMessageHandler(error)));
+        res.status(400).json(errorMessageHandler(error));
     };
 });
 
