@@ -1,5 +1,4 @@
 import { Router } from "express";
-import addController from "./controllers/addController.js";
 import copyController from "./controllers/copyController.js";
 import utilController from "./controllers/utilController.js";
 import tvController from "./controllers/tvController.js";
