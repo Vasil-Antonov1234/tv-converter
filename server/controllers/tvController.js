@@ -5,7 +5,7 @@ import { errorMessageHandler } from "../utils/errorMessageHandler";
 
 const tvController = Router();
 
-tvController.post("/tv", async (req, res) => {
+tvController.post("/base-decode-report", async (req, res) => {
     const data = req.body;
 
     const startDate = data.customStartDate;

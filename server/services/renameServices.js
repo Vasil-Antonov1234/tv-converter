@@ -50,10 +50,10 @@ export default {
         }
     },
 
-    renameFiles(path, find, changeTo, extension) {
+    async renameFiles(path, find, changeTo, extension) {
 
         try {
-            let dir = fs.readdirSync(path);
+            let dir = await fsPromises.readdir(path);
             let result = 0;
 
             if (extension) {
@@ -62,10 +62,10 @@ export default {
 
             for (let file of dir) {
 
-                if (file.includes(find)) {
+                if (file.includes(find) && file.includes(".")) {
                     const newFileName = file.replace(find, changeTo);
 
-                    fs.renameSync(`${path}/${file}`, `${path}/${newFileName}`);
+                    await fsPromises.rename(`${path}/${file}`, `${path}/${newFileName}`);
 
                     result++
                 }

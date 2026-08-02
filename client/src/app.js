@@ -2633,7 +2633,8 @@ async function onFindAndReplace(event) {
 
 
     try {
-        const result = await utils.request("/rename/files", "POST", data)
+        const result = await utils.request("/addons/rename-many", "POST", data);
+        // const result = await utils.request("/rename/files", "POST", data)
 
         message.textContent = result;
         message.style.display = "inline-block";
