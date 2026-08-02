@@ -5,6 +5,7 @@ import reportService from "../services/reportService.js";
 
 const renameController = Router();
 
+// moved
 renameController.post("/tv", async (req, res) => {
 
     const data = req.body;
@@ -27,6 +28,7 @@ renameController.post("/tv", async (req, res) => {
 
 });
 
+// moved
 renameController.post("/files", (req, res) => {
     const data = req.body;
 

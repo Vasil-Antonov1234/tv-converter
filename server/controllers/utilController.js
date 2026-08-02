@@ -2,9 +2,9 @@ import { Router } from "express";
 import renameServices from "../services/renameServices.js";
 import { errorLocationMapper, errorMessageHandler } from "../utils/errorMessageHandler.js";
 
-const addonController = Router();
+const utilController = Router();
 
-addonController.post("/rename-many", async (req, res) => {
+utilController.post("/rename-many", async (req, res) => {
     const { path, find, changeTo, extension } = req.body;
 
     try {
@@ -16,4 +16,4 @@ addonController.post("/rename-many", async (req, res) => {
     };
 });
 
-export default addonController;
+export default utilController;
