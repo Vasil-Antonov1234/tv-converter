@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { errorLocationMapper, errorMessageHandler} from "../utils/errorMessageHandler.js";
+import { errorLocationMapper, errorMessageHandler } from "../utils/errorMessageHandler.js";
 import reportService from "../services/reportService.js";
 import tvService from "../services/tvService.js";
 import renameServices from "../services/renameServices.js";
@@ -36,6 +36,27 @@ tvController.post("/create-one", async (req, res) => {
     } catch (error) {
         errorLocationMapper(error, "tvController.post('/create-one')");
         res.status(400).json(errorMessageHandler(error));
+    };
+});
+
+tvController.post("/create-all", async (req, res) => {
+    const datesForTvCreation = req.body;
+
+
+    try {
+
+        datesForTvCreation.forEach(async (x) => {
+            const day = x.split(" ")[0];
+            const date = x.split(" ")[1];
+
+            await tvService.createTv(day, date);
+        });
+
+
+        res.status(200).send(JSON.stringify("Success"));
+    } catch (error) {
+        errorLocationMapper(error, "addController.post('/createAll')");
+        res.send(JSON.stringify(errorMessageHandler(error)));
     };
 })
 

@@ -2866,7 +2866,7 @@ async function onTvRename(event) {
 
     try {
 
-        const result = await utils.request("/rename/tv", "POST", { customStartDate, customFinalDate });
+        const result = await utils.request("/tv/base-decode-report", "POST", { customStartDate, customFinalDate });
 
         allTvForGenerate = result.datesToCheck;
 
@@ -2911,7 +2911,7 @@ async function onGenerateAllTV() {
     try {
         const generateButton =  document.getElementById("generateAllTv");
         generateButton.setAttribute("disabled", true);
-        const response = await utils.request("/tv/add/createAll", "POST", allTvForGenerate);
+        const response = await utils.request("/tv/create-all", "POST", allTvForGenerate);
         document.getElementById("report-msg").querySelectorAll("*").forEach((x) => x.remove());
 
         allTvForGenerate.forEach((x) => {
@@ -2980,7 +2980,7 @@ async function onSubmitTvData(event) {
 
     try {
 
-        const result = await utils.request("/tv/add", "POST", data);
+        const result = await utils.request("/tv/create-one", "POST", data);
 
         if (typeof (result) === "string") {
             return errorMessageHandler(result, green);

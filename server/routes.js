@@ -6,7 +6,6 @@ import tvController from "./controllers/tvController.js";
 
 const routes = Router();
 
-// routes.use("/tv/add", addController);
 routes.use("/copy", copyController);
 routes.use("/utils", utilController);
 routes.use("/tv", tvController);
