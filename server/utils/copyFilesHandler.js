@@ -8,7 +8,7 @@ export const copyFilesHandler = {
 
         let issueNumber = issue;
 
-        if (application !== "currentIssue" && application !== "Weekend") {
+        if (application !== "currentIssue" && application !== "Weekend" && application !== "Agro") {
             issueNumber = applicationIssue;
         };
 
@@ -21,7 +21,7 @@ export const copyFilesHandler = {
             const output = await fsPromises.readdir(pathOutputFiles);
 
             if (!output.includes(issueNumber)) {
-                await fsPromises.mkdir(`${pathOutputFiles}${`брой ${issueNumber}`}`);
+                await fsPromises.mkdir(`${pathOutputFiles}${issueNumber}`);
             };
 
 
@@ -201,7 +201,7 @@ export const copyFilesHandler = {
                     } else {
                         source = path.join(`${paths.pages}${issue}/${pdfFolderName}`, pdf);
                     }
-                    
+
                     const destination = path.join(`${pathOutputFiles}${issueNumber}/PDF`, pdf);
 
                     if (`${pathOutputFiles}${issueNumber}/PDF`.includes(pdf)) {
