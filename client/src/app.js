@@ -2566,7 +2566,7 @@ async function onRenamePdfFiles(event) {
     };
 
     try {
-        const result = await utils.request("/rename/pdf", "POST", { path, number });
+        const result = await utils.request("/utils/remane-pdf", "POST", { path, number });
         errorMessageHandler(result.result, green);
     } catch (error) {
         errorMessageHandler(error, red)
@@ -2634,7 +2634,6 @@ async function onFindAndReplace(event) {
 
     try {
         const result = await utils.request("/utils/rename-many", "POST", data);
-        // const result = await utils.request("/rename/files", "POST", data)
 
         message.textContent = result;
         message.style.display = "inline-block";

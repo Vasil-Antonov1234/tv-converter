@@ -16,4 +16,17 @@ utilController.post("/rename-many", async (req, res) => {
     };
 });
 
+utilController.post("/remane-pdf", async (req, res) => {
+    const path = req.body.path;
+    const number = req.body.number;
+
+    try {
+        const result = await renameServices.renamePDF(path, number);
+        res.status(200).json({ result });
+    } catch (error) {
+        errorLocationMapper(error, "renameController.post('/pdf')")
+        res.status(400).json(errorMessageHandler(error));
+    };
+})
+
 export default utilController;
