@@ -2455,9 +2455,9 @@ function tvBookView(event) {
             selectFileElementBook.click();
         });
         selectFileElementBook.addEventListener("change", () => addFileContent("inputBookArea", selectFileElementBook));
-        
+
         customDatesSwitchElement.addEventListener("click", onSwitchCoustomDates);
-        
+
         isFirstRenderTvBookView = true;
     };
 
@@ -2716,7 +2716,7 @@ async function onCopyIssue(event) {
 
     try {
 
-        const result = await utils.request("/copy/issue", "POST", { issue, application, applicationIssue, copyAllFiles })
+        const result = await utils.request("/issue-addons/copy", "POST", { issue, application, applicationIssue, copyAllFiles });
 
         message.value = result;
         message.style.color = green;
@@ -2904,18 +2904,18 @@ async function onTvRename(event) {
 
 async function onGenerateAllTV() {
 
-    if(!allTvForGenerate || allTvForGenerate.length === 0) {
+    if (!allTvForGenerate || allTvForGenerate.length === 0) {
         return errorMessageHandler("There is nothing to generate!", red);
     };
 
     try {
-        const generateButton =  document.getElementById("generateAllTv");
+        const generateButton = document.getElementById("generateAllTv");
         generateButton.setAttribute("disabled", true);
         const response = await utils.request("/tv/create-all", "POST", allTvForGenerate);
         document.getElementById("report-msg").querySelectorAll("*").forEach((x) => x.remove());
 
         allTvForGenerate.forEach((x) => {
-            setTimeout(()=> {
+            setTimeout(() => {
                 const span = document.createElement("span");
                 span.classList.add("span-report-msg");
                 span.textContent = `✅ ${x}`
@@ -2923,13 +2923,13 @@ async function onGenerateAllTV() {
             }, 500 * allTvForGenerate.indexOf(x));
         })
 
-        setTimeout(()=> {
+        setTimeout(() => {
             generateButton.removeAttribute("disabled")
         }, 5000);
-        
+
         console.log(response);
     } catch (error) {
-        errorMessageHandler(error, red);   
+        errorMessageHandler(error, red);
     };
 };
 
@@ -3015,7 +3015,7 @@ async function onSubmitTvData(event) {
         tvMessage.value = reportMessage;
         missingFilesMessage.value = reportMissingFilesMessage.join("\n");
         missingDataMessage.value = reportMissingDataMessage.join("\n");
-        
+
         const fileName = document.getElementById("tvBookInputDate").value;
 
         message.textContent = `A file for "${fileName}" has been generated!`;
