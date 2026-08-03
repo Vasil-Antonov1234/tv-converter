@@ -10,6 +10,7 @@ const inputFilePath = paths.input;
 const regex = /-\d\d.txt$|-\d\d.docx$/
 
 export default {
+    // Moved
     async renameAllTv() {
 
         try {

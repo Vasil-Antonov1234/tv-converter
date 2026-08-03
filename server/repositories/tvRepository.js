@@ -133,7 +133,6 @@ export default {
             }
         } catch (error) {
             errorLocationMapper(error, `tvRepository.encodeMany: ${error.message}`);
-
             throw error;
         };
     },
@@ -206,8 +205,8 @@ export default {
 
             return response;
         } catch (error) {
-            errorLocationMapper(error, "tvService.createTv");
+            errorLocationMapper(error, "tvRepository.createOne");
             throw error;
         };
-    }
+    },
 }

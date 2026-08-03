@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { errorLocationMapper, errorMessageHandler } from "../utils/errorMessageHandler.js";
-import reportService from "../services/reportService.js";
 import tvService from "../services/tvService.js";
 import renameServices from "../services/renameServices.js";
 
@@ -12,9 +11,9 @@ tvController.post("/base-decode-report", async (req, res) => {
     const startDate = data.customStartDate;
     const finalDate = data.customFinalDate;
     try {
-        const result = await renameServices.renameAllTv();
+        const result = await tvService.renameMany();
         const renamedFilesCount = result.renamedTvCount;
-        const response = await reportService.baseReport(renamedFilesCount, startDate, finalDate);
+        const response = await tvService.baseReport(renamedFilesCount, startDate, finalDate);
 
         response.translatedTvState = result.diziState;
 
@@ -49,8 +48,8 @@ tvController.post("/create-all", async (req, res) => {
         res.status(200).json("Ok");
     } catch (error) {
         errorLocationMapper(error, "tvController.post('/create-all')");
-        res.send(JSON.stringify(errorMessageHandler(error)));
+        res.status(400).json(errorMessageHandler(error));
     };
-})
+});
 
 export default tvController;
