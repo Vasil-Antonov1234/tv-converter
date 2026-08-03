@@ -44,18 +44,11 @@ tvController.post("/create-all", async (req, res) => {
 
 
     try {
+        await tvService.createAll(datesForTvCreation);
 
-        datesForTvCreation.forEach(async (x) => {
-            const day = x.split(" ")[0];
-            const date = x.split(" ")[1];
-
-            await tvService.createTv(day, date);
-        });
-
-
-        res.status(200).send(JSON.stringify("Success"));
+        res.status(200).json("Ok");
     } catch (error) {
-        errorLocationMapper(error, "addController.post('/createAll')");
+        errorLocationMapper(error, "tvController.post('/create-all')");
         res.send(JSON.stringify(errorMessageHandler(error)));
     };
 })

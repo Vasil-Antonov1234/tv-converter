@@ -17,5 +17,20 @@ export default {
             errorLocationMapper(error, "tvService.createTv");
             throw error;
         };
+    },
+
+    async createAll(datesForTvCreation) {
+
+        try {
+            datesForTvCreation.forEach(async (x) => {
+                const day = x.split(" ")[0];
+                const date = x.split(" ")[1];
+
+                await tvRepository.createOne(day, date);
+            });
+        } catch (error) {
+            errorLocationMapper(error, "tvService.createAll");
+            throw error;
+        };
     }
 }
