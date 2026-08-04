@@ -123,10 +123,15 @@ header {
     height: fit-content;
 }
 
+.issue-number {
+    width: 240px;
+}
+
 .copy-issue-ctr {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
