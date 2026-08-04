@@ -2357,10 +2357,8 @@ function utilsTemplate(element) {
         <hr>
         <h2 class="subTitle">Copy issue</h2>
         <form class="othersForm" id="copyIssueForm">
-            <input type="text" name="issue" id="issue" placeholder="Issue number*">
-            <button class="selectFile button" id="copyIssue">Copy</button>
-            <textarea id="copyIssueMessage" class="copyIssueMessage"></textarea>
-            <select name="application" id="application" class="weekendLabel">
+            <div class="copy-issue-ctr">
+                <select name="app-type" id="application" class="weekendLabel">
                     <option value="currentIssue" name="currentIssue">Current issue</option>        
                     <option value="Weekend" name="application">Weekend</option>
                     <option value="ZlatnoVreme" name="application">Zlatno vreme</option>
@@ -2368,19 +2366,26 @@ function utilsTemplate(element) {
                     <option value="Viara" name="application">Viara</option>
                     <option value="Zdrave" name="application">Zdrave</option>
                     <option value="Nedelnik" name="application">Nedelnik</option>
-            </select>
-            <input type="text" id="weekend" class="weekend" name="applicationIssue" placeholder="App isssue/photo(Opt)">
-            <div class="switch-container">
-                <h3 class="copy-all-title">Copy all files</h3>
-                <div class="copy-all-labesl-wrapper">
-                    <h2 class="copy-all-sub-title no">OFF</h2>
-                    <h2 class="copy-all-sub-title yes">ON</h2>
+                </select>
+                <input type="text" name="current-issue-or-application-number" id="issue" class="issue" placeholder="Current issue/application number*">
+                <input type="text" id="weekend" class="issue" name="old-photos" placeholder="Photos(Opt)">
+                <input type="text" id="app-folder-name" class="issue" name="application-folder-name" placeholder="Application folder name">
+                <div class="switch-container">
+                    <h3 class="copy-all-title">Copy all files</h3>
+                    <div class="copy-all-labesl-wrapper">
+                        <h2 class="copy-all-sub-title no">OFF</h2>
+                        <h2 class="copy-all-sub-title yes">ON</h2>
+                    </div>
+                    <label class="copy-all-switch" for="copy-all">
+                        <input class="copy-all-check" type="checkbox" id="copy-all" name="copyAll">
+                        <span class="copy-all-slider"></span>
+                    </label>
                 </div>
-                <label class="copy-all-switch" for="copy-all">
-                    <input class="copy-all-check" type="checkbox" id="copy-all" name="copyAll">
-                    <span class="copy-all-slider"></span>
-                </label>
             </div>
+            <div class="copy-issue-ctr">
+                <button class="selectFile button" id="copyIssue">Copy</button>
+                <textarea id="copyIssueMessage" class="copyIssueMessage"></textarea>
+            </div>            
         </form>
         <hr class="mt">
         <h2 class="subTitle">Rename PDF files</h2>
@@ -2667,20 +2672,21 @@ async function onCopyIssue(event) {
 
     const formData = new FormData(event.currentTarget);
 
-    const issue = formData.get("issue");
-    const application = formData.get("application");
-    const applicationIssue = formData.get("applicationIssue");
+    const applicationType = formData.get("app-type");
+    const currentIssueOrAppNumber = formData.get("current-issue-or-application-number");
+    const photoOldNumber = formData.get("old-photos");
+    const applicationFolderName = formData.get("application-folder-name");
     const copyAllFiles = formData.get("copyAll");
 
-    if (!issue && (application === "currentIssue" || application === "Weekend")) {
+    if (!currentIssueOrAppNumber && (applicationType === "currentIssue" || applicationType === "Weekend")) {
         return errorMessageHandler("Issue number is required!", red, "issue");
     };
 
-    if ((application !== "currentIssue" && application !== "Weekend") && !applicationIssue) {
-        return errorMessageHandler("Application isssue is required!", red, "weekend");
+    if ((applicationType !== "currentIssue" && applicationType !== "Weekend") && !photoOldNumber) {
+        return errorMessageHandler("Photo old is required!", red, "weekend");
     };
 
-    if ((application !== "currentIssue" && application !== "Weekend") && !issue) {
+    if ((applicationType !== "currentIssue" && applicationType !== "Weekend") && !currentIssueOrAppNumber) {
         const choice = confirm("There is no newspaper issue number given! Do you want to continue without copy the PDF files?");
 
         if (!choice) {
@@ -2689,7 +2695,7 @@ async function onCopyIssue(event) {
 
     };
 
-    if (application === "currentIssue" && (issue.endsWith("w") || issue.endsWith("W"))) {
+    if (applicationType === "currentIssue" && (currentIssueOrAppNumber.endsWith("w") || currentIssueOrAppNumber.endsWith("W"))) {
         const choice = confirm("If you want to copy the weekend edition of the newspaper, please select 'Weekend' option from the drop-down menu. Otherwise, check the newspapper issue. Do you want to continue anyway?");
 
         if (!choice) {
@@ -2697,7 +2703,7 @@ async function onCopyIssue(event) {
         };
     }
 
-    if (application === "Weekend" && (!issue.endsWith("w") && !issue.endsWith("W"))) {
+    if (applicationType === "Weekend" && (!currentIssueOrAppNumber.endsWith("w") && !currentIssueOrAppNumber.endsWith("W"))) {
         const choice = confirm("This newspaper issue does not met the criteria of an weekend edition number. Do you want to continue anyway?");
 
         if (!choice) {
@@ -2716,7 +2722,13 @@ async function onCopyIssue(event) {
 
     try {
 
-        const result = await utils.request("/issue-addons/copy", "POST", { issue, application, applicationIssue, copyAllFiles });
+        const result = await utils.request("/issue-addons/copy", "POST", {
+            currentIssueOrAppNumber,
+            applicationType,
+            photoOldNumber,
+            copyAllFiles,
+            applicationFolderName
+        });
 
         message.value = result;
         message.style.color = green;
