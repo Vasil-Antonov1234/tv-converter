@@ -6,11 +6,13 @@ import issueService from "../services/issueService.js";
 const issueController = Router();
 
 issueController.post("/copy", async (req, res) => {
-    const issue = req.body.issue;
-    const application = req.body.application;
-    const applicationIssue = req.body.applicationIssue;
-    const copyAllFiles = req.body.copyAllFiles;
-
+    const {
+        applicationType,
+        currentIssueOrAppNumber,
+        photoOldNumber,
+        applicationFolderName,
+        copyAllFiles
+    } = req.body;
 
     try {
         const result = await issueService.copy(application, applicationIssue, issue, copyAllFiles);
