@@ -119,6 +119,17 @@ header {
     padding: 10px;
 }
 
+.issue {
+    height: fit-content;
+}
+
+.copy-issue-ctr {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
 a {
     text-decoration: none;
     margin-right: 15px;
@@ -281,7 +292,8 @@ a:hover {
     padding-bottom: 20px;
 }
 
-.calcChars, .calcRows {
+.calcChars,
+.calcRows {
     font-size: calc(1vw + 10px);
     color: bisque;
     font-family: cursive;
@@ -463,7 +475,6 @@ textarea {
 }
 
 .copyIssueMessage {
-    position: absolute;
     margin-left: 10px;
     width: 280px;
     height: 70px;
@@ -471,10 +482,6 @@ textarea {
 
 .weekend {
     width: 140px;
-}
-
-.weekendLabel {
-    margin-left: 310px;
 }
 
 .clear1 {
