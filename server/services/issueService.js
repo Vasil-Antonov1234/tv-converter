@@ -22,7 +22,8 @@ export default {
                 pathsFiles.web,
                 extractedApplicationIssue,
                 isCopyPFDs,
-                copyAllFiles
+                copyAllFiles,
+                applicationIssue
             );
 
             return report;

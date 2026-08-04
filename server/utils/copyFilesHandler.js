@@ -12,8 +12,11 @@ export const copyFilesHandler = {
             case "Nedelnik":
                 issueNumber = nedelnikIssueHandler();
                 break;
-            case "Agro": 
+            case "Agro":
                 issueNumber = `брой ${issue}`;
+                break;
+            case "ZlatnoVreme":
+                issueNumber = applicationIssue;
                 break;
             default: issueNumber = issue;
         };
@@ -52,7 +55,17 @@ export const copyFilesHandler = {
         };
 
     },
-    async copyFiles(issue, application, pathInputFiles, pathInputFotos, pathOutputFiles, extractedApplicationIssue, isCopyPFDs, copyAllFiles) {
+    async copyFiles(
+        issue,
+        application,
+        pathInputFiles,
+        pathInputFotos,
+        pathOutputFiles,
+        extractedApplicationIssue,
+        isCopyPFDs,
+        copyAllFiles,
+        applicationIssue
+    ) {
         const notCopiedFiles = [];
         let copiedFilesCount = 0;
         let report = "undefined";
@@ -61,6 +74,10 @@ export const copyFilesHandler = {
 
         if (application !== "currentIssue" && application !== "Weekend") {
             issueNumber = extractedApplicationIssue;
+        };
+
+        if (application === "ZlatnoVreme") {
+            issueNumber = applicationIssue;
         };
 
         let dirReady = "";
