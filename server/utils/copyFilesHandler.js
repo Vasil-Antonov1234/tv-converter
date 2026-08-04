@@ -13,7 +13,7 @@ export const copyFilesHandler = {
                 issueNumber = nedelnikIssueHandler();
                 break;
             case "Agro":
-                issueNumber = `брой ${issue}`;
+                issueNumber = `брой ${applicationIssue}`;
                 break;
             case "ZlatnoVreme":
                 issueNumber = applicationIssue;

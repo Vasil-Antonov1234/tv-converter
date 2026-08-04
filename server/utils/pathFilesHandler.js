@@ -27,7 +27,7 @@ export function pathsHandler(application, issue, extractedApplicationIssue, appl
             pathsFiles.web = paths.zlatnoOutput;
             break;
         case "Agro":
-            pathsFiles.ready = `${paths.agro}${applicationIssue}/old/`;
+            pathsFiles.ready = `${paths.agro}${issue}/old/`;
             pathsFiles.photoOld = `${paths.photos}_AGRO${extractedApplicationIssue}/OLD/`;
             pathsFiles.web = paths.agroOutput;
             break;
