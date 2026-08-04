@@ -1,6 +1,7 @@
 import { Router } from "express";
 import copyService from "../services/copyService.js";
 import { errorLocationMapper, errorMessageHandler } from "../utils/errorMessageHandler.js";
+import issueService from "../services/issueService.js";
 
 const issueController = Router();
 
@@ -12,12 +13,12 @@ issueController.post("/copy", async (req, res) => {
 
 
     try {
-        const result = await copyService.copyIssue(application, applicationIssue, issue, copyAllFiles);
+        const result = await issueService.copy(application, applicationIssue, issue, copyAllFiles);
         res.status(200).json(result);
     } catch (error) {
         errorLocationMapper(error, "issueController.post('/copy')")
         res.status(400).json(errorMessageHandler(error));
     };
-})
+});
 
 export default issueController;
