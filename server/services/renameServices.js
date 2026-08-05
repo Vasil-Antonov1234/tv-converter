@@ -50,7 +50,7 @@ export default {
             throw error;
         }
     },
-
+// Moved
     async renameFiles(path, find, changeTo, extension) {
 
         try {

@@ -131,7 +131,7 @@ export const copyFilesHandler = {
                 x.endsWith(".webp")
             );
 
-            if (!copyAllFiles && (applicationType === "currentIssue" && applicationType === "Weekend")) {
+            if (!copyAllFiles && (applicationType === "currentIssue" || applicationType === "Weekend")) {
 
                 if (applicationType === "Weekend") {
                     dirFiles = dirFiles.filter((x) => x.toLowerCase().startsWith("w"));
