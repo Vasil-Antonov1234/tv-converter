@@ -16,8 +16,6 @@ export function pathsHandler(applicationType, currentIssueOrAppNumber, photoOldN
             break;
         case "Weekend":
             pathsFiles.ready = paths.weekendFiles;
-            // let weekendIssue = issue.includes("-") ? issue.split("-")[0] : issue.split("_")[0];
-            // weekendIssue = extractedApplicationIssue ? weekendIssue = extractedApplicationIssue : weekendIssue;
             pathsFiles.photoOld = `${paths.photos}_WEEKEND ${photoOldNumber}/OLD/`;
             pathsFiles.web = paths.telSite;
             break;
@@ -28,7 +26,7 @@ export function pathsHandler(applicationType, currentIssueOrAppNumber, photoOldN
             break;
         case "Agro":
             pathsFiles.ready = `${paths.agro}${applicationFolderName}/old/`;
-            pathsFiles.photoOld = `${paths.photos}_AGRO${currentIssueOrAppNumber}/OLD/`;
+            pathsFiles.photoOld = `${paths.photos}_AGRO${photoOldNumber}/OLD/`;
             pathsFiles.web = paths.agroOutput;
             break;
         case "Viara":

@@ -20,9 +20,6 @@ export const copyFilesHandler = {
             case "Nedelnik":
                 outputFolderName = nedelnikIssueHandler();
                 break;
-            case "Agro":
-                outputFolderName = `брой ${currentIssueOrAppNumber}`;
-                break;
             default: outputFolderName = applicationFolderName;
         };
 
@@ -75,11 +72,11 @@ export const copyFilesHandler = {
         let copiedFilesCount = 0;
         let report = "undefined";
 
-        let issueNumber = currentIssueOrAppNumber;
+        let issueNumber = applicationFolderName;
 
-        if (applicationType === "ZlatnoVreme") {
-            issueNumber = applicationFolderName;
-        };
+        // if (applicationType === "ZlatnoVreme") {
+        //     issueNumber = applicationFolderName;
+        // };
 
         let dirReady = "";
         let dirPhotoOld = "";
@@ -134,7 +131,7 @@ export const copyFilesHandler = {
                 x.endsWith(".webp")
             );
 
-            if (!copyAllFiles) {
+            if (!copyAllFiles && (applicationType === "currentIssue" && applicationType === "Weekend")) {
 
                 if (applicationType === "Weekend") {
                     dirFiles = dirFiles.filter((x) => x.toLowerCase().startsWith("w"));
