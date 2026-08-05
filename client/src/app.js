@@ -2367,7 +2367,7 @@ function utilsTemplate(element) {
                     <option value="Zdrave" name="application">Zdrave</option>
                     <option value="Nedelnik" name="application">Nedelnik</option>
                 </select>
-                <input type="text" name="current-issue-or-application-number" id="issue" class="issue issue-number" placeholder="Current issue/application number*">
+                <input type="text" name="current-issue-or-application-number" id="issue" class="issue issue-number" placeholder="Current issue/get DPFs from*">
                 <input type="text" id="weekend" class="issue" name="old-photos" placeholder="Photos(Opt)">
                 <input type="text" id="app-folder-name" class="issue" name="application-folder-name" placeholder="Application folder name">
                 <div class="switch-container">

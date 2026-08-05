@@ -172,15 +172,16 @@ export const copyFilesHandler = {
                 outputDirPhotos = await fileRepository.readDirectoryContent(`${pathOutputFiles}${issueNumber}/JPG`);
             }
 
-            let destinationFolder = "";
+            let destinationFolder = `${pathOutputFiles}${applicationFolderName}`;
 
-            switch (applicationType) {
-                case "currentIssue":
-                    destinationFolder = `${pathOutputFiles}${applicationFolderName}`;
-                    break;
-                case "Weekend":
-                    destinationFolder = `${pathOutputFiles}${applicationFolderName}`;
-            };
+            // switch (applicationType) {
+            //     case "currentIssue" || "ZlatnoVreme":
+            //         destinationFolder = `${pathOutputFiles}${applicationFolderName}`;
+            //         break;
+            //     case "Weekend":
+            //         destinationFolder = `${pathOutputFiles}${applicationFolderName}`;
+            //     break;
+            // };
 
             const isCopyText = true;
 
