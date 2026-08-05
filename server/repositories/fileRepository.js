@@ -1,6 +1,7 @@
 import fsPromises from "fs/promises";
 import { errorLocationMapper } from "../utils/errorMessageHandler.js";
 import paths from "../paths/paths.js";
+import path from "path";
 
 export default {
     async readDirectoryContent(path) {
@@ -39,18 +40,31 @@ export default {
         }
     },
 
-    async copyMany(arr, source, destination, copyedFilesCound, existingFiles, applicationType, issueNumber) {
+    async copyMany(
+        arr,
+        sourceFolder,
+        destinationFolder,
+        copyedFilesCound,
+        existingFiles,
+        applicationType,
+        applicationFolderName,
+        isCopyText
+    ) {
+        const destinationFolderContent = await fsPromises.readdir(destinationFolder);
+
         await Promise.all(arr.map(async (x) => {
-            if(destination.includes(x)) {
+            const source = path.join(sourceFolder, x);
+            const destination = path.join(destinationFolder, x);
+
+            if (destinationFolderContent.includes(x)) {
                 existingFiles.push(x);
             } else {
                 await fsPromises.copyFile(source, destination);
                 copyedFilesCound++;
             };
 
-            if (applicationType === "currentIssue" || applicationType === "Weekend") {
-                await fsPromises.copyFile(source, `${paths.pages}${issueNumber}/DOC/${x}`);
-                copyedFilesCound++
+            if (isCopyText && (applicationType === "currentIssue" || applicationType === "Weekend")) {
+                await fsPromises.copyFile(source, `${paths.pages}${applicationFolderName}/DOC/${x}`);
             };
         }));
 

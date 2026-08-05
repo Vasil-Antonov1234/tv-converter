@@ -2,52 +2,57 @@ import fsPromises from "fs/promises";
 import paths from "../paths/paths.js";
 import path from "path";
 import { nedelnikIssueHandler } from "./nedelnikIssueHandler.js";
+import fileRepository from "../repositories/fileRepository.js";
 
 export const copyFilesHandler = {
-    async createFolders(issue, application, pathOutputFiles, applicationIssue, isCopyPFDs) {
+    async createFolders(
+        currentIssueOrAppNumber,
+        applicationType,
+        web,
+        photoOldNumber,
+        isCopyPFDs,
+        applicationFolderName
+    ) {
 
-        let issueNumber = "";
+        let outputFolderName = "";
 
-        switch (application) {
+        switch (applicationType) {
             case "Nedelnik":
-                issueNumber = nedelnikIssueHandler();
+                outputFolderName = nedelnikIssueHandler();
                 break;
             case "Agro":
-                issueNumber = `брой ${applicationIssue}`;
+                outputFolderName = `брой ${currentIssueOrAppNumber}`;
                 break;
-            case "ZlatnoVreme":
-                issueNumber = applicationIssue;
-                break;
-            default: issueNumber = issue;
+            default: outputFolderName = applicationFolderName;
         };
 
         try {
-            const output = await fsPromises.readdir(pathOutputFiles);
+            const output = await fileRepository.readDirectoryContent(web);
 
-            if (!output.includes(issueNumber)) {
-                await fsPromises.mkdir(`${pathOutputFiles}${issueNumber}`);
+            if (!output.includes(outputFolderName)) {
+                await fileRepository.makeDirectory(`${web}${outputFolderName}`);
             };
 
 
-            const outputDirFiles = await fsPromises.readdir(`${pathOutputFiles}${issueNumber}`);
+            const createdFolder = await fileRepository.readDirectoryContent(`${web}${outputFolderName}`);
 
-            if (!outputDirFiles.includes("JPG")) {
-                await fsPromises.mkdir(`${pathOutputFiles}${issueNumber}/JPG`);
+            if (!createdFolder.includes("JPG")) {
+                await fileRepository.makeDirectory(`${web}${outputFolderName}/JPG`);
             }
 
 
             let currentIssue = null;
 
-            if (application === "currentIssue" || application === "Weekend") {
-                currentIssue = await fsPromises.readdir(`${paths.pages}${issueNumber}`);
+            if (applicationType === "currentIssue" || applicationType === "Weekend") {
+                currentIssue = await fileRepository.readDirectoryContent(`${paths.pages}${outputFolderName}`);
             };
 
             if (currentIssue && !currentIssue.includes("DOC")) {
-                await fsPromises.mkdir(`${paths.pages}${issueNumber}/DOC`);
+                await fileRepository.makeDirectory(`${paths.pages}${outputFolderName}/DOC`);
             };
 
-            if (isCopyPFDs && !currentIssue && !outputDirFiles.includes("PDF")) {
-                await fsPromises.mkdir(`${pathOutputFiles}${issueNumber}/PDF`);
+            if (isCopyPFDs && !currentIssue && !createdFolder.includes("PDF")) {
+                await fileRepository.makeDirectory(`${web}${outputFolderName}/PDF`);
             };
 
         } catch (error) {
@@ -55,53 +60,45 @@ export const copyFilesHandler = {
         };
 
     },
+
     async copyFiles(
-        issue,
-        application,
-        pathInputFiles,
+        currentIssueOrAppNumber,
+        applicationType,
+        sourceFolder,
         pathInputFotos,
         pathOutputFiles,
-        extractedApplicationIssue,
         isCopyPFDs,
         copyAllFiles,
-        applicationIssue
+        applicationFolderName
     ) {
-        const notCopiedFiles = [];
+        let existingFiles = [];
         let copiedFilesCount = 0;
         let report = "undefined";
 
-        let issueNumber = issue;
+        let issueNumber = currentIssueOrAppNumber;
 
-        if (application !== "currentIssue" && application !== "Weekend") {
-            issueNumber = extractedApplicationIssue;
-        };
-
-        if (application === "ZlatnoVreme") {
-            issueNumber = applicationIssue;
+        if (applicationType === "ZlatnoVreme") {
+            issueNumber = applicationFolderName;
         };
 
         let dirReady = "";
         let dirPhotoOld = "";
         let dirPDF = "";
-        // let dirWeb = "";
-        // let weekendIssue = "";
-
-        // weekendIssue = issueNumber.includes("-") ? issueNumber.split("-")[0] : issueNumber.split("_")[0];
 
         try {
 
-            dirReady = await fsPromises.readdir(pathInputFiles);
-            dirPhotoOld = await fsPromises.readdir(pathInputFotos);
+            dirReady = await fileRepository.readDirectoryContent(sourceFolder);
+            dirPhotoOld = await fileRepository.readDirectoryContent(pathInputFotos);
             let pdfFolderName = "";
 
             if (isCopyPFDs) {
 
                 let check = "";
 
-                if (application === "Nedelnik") {
-                    check = await fsPromises.readdir(`${paths.pages}${issue}/Неделник`);
+                if (applicationType === "Nedelnik") {
+                    check = await fileRepository.readDirectoryContent(`${paths.pages}${currentIssueOrAppNumber}/Неделник`);
                 } else {
-                    check = await fsPromises.readdir(`${paths.pages}${issue}`);
+                    check = await fileRepository.readDirectoryContent(`${paths.pages}${currentIssueOrAppNumber}`);
                 }
 
                 if (check.includes("FTP") || check.includes("ftp")) {
@@ -112,14 +109,13 @@ export const copyFilesHandler = {
                     pdfFolderName = "PDF";
                 };
 
-                if (application === "Nedelnik") {
-                    dirPDF = await fsPromises.readdir(`${paths.pages}${issue}/Неделник/${pdfFolderName}`);
+                if (applicationType === "Nedelnik") {
+                    dirPDF = await fileRepository.readDirectoryContent(`${paths.pages}${currentIssueOrAppNumber}/Неделник/${pdfFolderName}`);
                 } else {
-                    dirPDF = await fsPromises.readdir(`${paths.pages}${issue}/${pdfFolderName}`);
+                    dirPDF = await fileRepository.readDirectoryContent(`${paths.pages}${currentIssueOrAppNumber}/${pdfFolderName}`);
                 }
 
             }
-            // dirWeb = await fsPromises.readdir(pathOutputFiles);
 
             let dirFiles = dirReady.filter((x) =>
                 x.endsWith(".txt") ||
@@ -140,12 +136,12 @@ export const copyFilesHandler = {
 
             if (!copyAllFiles) {
 
-                if (application === "Weekend") {
+                if (applicationType === "Weekend") {
                     dirFiles = dirFiles.filter((x) => x.toLowerCase().startsWith("w"));
                     dirPhotos = dirPhotos.filter((x) => x.toLowerCase().startsWith("w"));
                 }
 
-                if (application === "currentIssue") {
+                if (applicationType === "currentIssue") {
                     const baseDate = new Date();
                     const day = baseDate.getDay();
 
@@ -164,81 +160,90 @@ export const copyFilesHandler = {
             let dirFilteredPDFs = [];
 
             if (isCopyPFDs) {
-                dirFilteredPDFs = filterPDFs(dirPDF, application);
+                dirFilteredPDFs = filterPDFs(dirPDF, applicationType);
             }
 
             let outputDirPhotos = "";
 
-            if (application === "Nedelnik") {
+            if (applicationType === "Nedelnik") {
                 issueNumber = nedelnikIssueHandler();
-                outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${issueNumber}/JPG`);
+                outputDirPhotos = await fileRepository.readDirectoryContent(`${pathOutputFiles}${issueNumber}/JPG`);
             } else {
-                outputDirPhotos = await fsPromises.readdir(`${pathOutputFiles}${issueNumber}/JPG`);
+                outputDirPhotos = await fileRepository.readDirectoryContent(`${pathOutputFiles}${issueNumber}/JPG`);
             }
 
-            await Promise.all(dirFiles.map(async (file) => {
-                const source = path.join(pathInputFiles, file);
-                const destination = path.join(`${pathOutputFiles}${issueNumber}`, file);
+            let destinationFolder = "";
 
-                if (`${pathOutputFiles}${issueNumber}`.includes(file)) {
-                    notCopiedFiles.push(file);
-                } else {
-                    await fsPromises.copyFile(source, destination);
-                    copiedFilesCount++;
-                };
+            switch (applicationType) {
+                case "currentIssue":
+                    destinationFolder = `${pathOutputFiles}${applicationFolderName}`;
+                    break;
+                case "Weekend":
+                    destinationFolder = `${pathOutputFiles}${applicationFolderName}`;
+            };
 
-                if (application === "currentIssue" || application === "Weekend") {
-                    await fsPromises.copyFile(source, `${paths.pages}${issueNumber}/DOC/${file}`);
-                    copiedFilesCount++;
-                };
+            const isCopyText = true;
 
-            }))
+            // Copy text files
+            let result = await fileRepository.copyMany(
+                dirFiles,
+                sourceFolder,
+                destinationFolder,
+                copiedFilesCount,
+                existingFiles,
+                applicationType,
+                applicationFolderName,
+                isCopyText
+            );
 
-            await Promise.all(dirPhotos.map(async (photo) => {
-                if (outputDirPhotos.includes(photo)) {
-                    notCopiedFiles.push(photo);
-                } else {
-                    const source = path.join(pathInputFotos, photo);
-                    const destination = path.join(`${pathOutputFiles}${issueNumber}/JPG`, photo);
+            copiedFilesCount = result.copyedFilesCound;
 
-                    if (`${pathOutputFiles}${issueNumber}/JPG`.includes(photo)) {
-                        notCopiedFiles.push(photo);
-                    } else {
-                        await fsPromises.copyFile(source, destination);
-                        copiedFilesCount++;
-                    };
-                };
-            }))
+            // Copy iamges
+            destinationFolder = `${destinationFolder}/JPG`;
 
+            result = await fileRepository.copyMany(
+                dirPhotos,
+                pathInputFotos,
+                destinationFolder,
+                copiedFilesCount,
+                existingFiles,
+                applicationType,
+                applicationFolderName
+            );
+
+            copiedFilesCount = result.copyedFilesCound;
+
+            // Copy PDF files
             if (isCopyPFDs) {
-                await Promise.all(dirFilteredPDFs.map(async (pdf) => {
-                    let source = "";
+                destinationFolder = `${pathOutputFiles}${issueNumber}/PDF`;
 
-                    if (application === "Nedelnik") {
-                        source = path.join(`${paths.pages}${issue}/Неделник/${pdfFolderName}`, pdf);
-                    } else {
-                        source = path.join(`${paths.pages}${issue}/${pdfFolderName}`, pdf);
-                    }
+                let sourceFolder = `${paths.pages}${currentIssueOrAppNumber}/${pdfFolderName}`;
 
-                    const destination = path.join(`${pathOutputFiles}${issueNumber}/PDF`, pdf);
+                if (applicationType === "Nedelnik") {
+                    sourceFolder = `${paths.pages}${currentIssueOrAppNumber}/Неделник/${pdfFolderName}`;
+                };
 
-                    if (`${pathOutputFiles}${issueNumber}/PDF`.includes(pdf)) {
-                        notCopiedFiles.push(pdf);
-                    } else {
-                        fsPromises.copyFile(source, destination);
-                        copiedFilesCount++;
-                    };
-                }));
-            }
+                result = await fileRepository.copyMany(
+                    dirFilteredPDFs,
+                    sourceFolder,
+                    destinationFolder,
+                    copiedFilesCount,
+                    existingFiles,
+                    applicationType,
+                    applicationFolderName
+                );
+
+                copiedFilesCount = result.copyedFilesCound;
+            };
 
             report = `${copiedFilesCount} files have been copied!`;
 
-            if (notCopiedFiles.length === 1) {
-                report = `${notCopiedFiles.join(",")} already exists!`
+            if (existingFiles.length === 1) {
+                report = `${existingFiles.join(",")} already exists!`
             }
 
-            if (notCopiedFiles.length > 1) {
-                report = `${notCopiedFiles.join(", ")} already exist!`
+            if (existingFiles.length > 1) {
+                report = `${existingFiles.join(", ")} already exist!`
             }
 
 

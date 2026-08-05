@@ -15,7 +15,13 @@ issueController.post("/copy", async (req, res) => {
     } = req.body;
 
     try {
-        const result = await issueService.copy(application, applicationIssue, issue, copyAllFiles);
+        const result = await issueService.copy(
+            applicationType,
+            currentIssueOrAppNumber,
+            photoOldNumber,
+            applicationFolderName,
+            copyAllFiles
+        );
         res.status(200).json(result);
     } catch (error) {
         errorLocationMapper(error, "issueController.post('/copy')")

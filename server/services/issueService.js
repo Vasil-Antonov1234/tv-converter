@@ -4,26 +4,37 @@ import { pathsHandler } from "../utils/pathFilesHandler.js";
 import { copyFilesHandler } from "../utils/copyFilesHandler.js";
 
 export default {
-    async copy(application, applicationIssue, issue, copyAllFiles) {
-        const extractedApplicationIssue = handleAgroZlatnoIssue(applicationIssue);
+    async copy(
+        applicationType,
+        currentIssueOrAppNumber,
+        photoOldNumber,
+        applicationFolderName,
+        copyAllFiles
+    ) {
 
-        const pathsFiles = pathsHandler(application, issue, extractedApplicationIssue, applicationIssue);
+        const pathsFiles = pathsHandler(applicationType, currentIssueOrAppNumber, photoOldNumber, applicationFolderName);
 
-        const isCopyPFDs = (application !== "currentIssue" && application !== "Weekend") && issue;
+        const isCopyPFDs = (applicationType !== "currentIssue" && applicationType !== "Weekend");
 
         try {
-            await copyFilesHandler.createFolders(issue, application, pathsFiles.web, applicationIssue, isCopyPFDs);
+            await copyFilesHandler.createFolders(
+                currentIssueOrAppNumber,
+                applicationType,
+                pathsFiles.web,
+                photoOldNumber,
+                isCopyPFDs,
+                applicationFolderName
+            );
 
             const report = await copyFilesHandler.copyFiles(
-                issue,
-                application,
+                currentIssueOrAppNumber,
+                applicationType,
                 pathsFiles.ready,
                 pathsFiles.photoOld,
                 pathsFiles.web,
-                extractedApplicationIssue,
                 isCopyPFDs,
                 copyAllFiles,
-                applicationIssue
+                applicationFolderName
             );
 
             return report;
