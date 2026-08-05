@@ -46,8 +46,12 @@ document.getElementById("resetAll").addEventListener("click", onResetAll);
 const radioContainerElement = document.querySelector(".radio-container");
 const notifyContainer = document.querySelector("#notify-contayner");
 const errorContainer = document.querySelector("#error");
-const spanClose = document.querySelector(".close");
-spanClose.addEventListener("click", closeNotification);
+const notifyMessageContainer = document.querySelector("#notify-message-contayner")
+const messageContainer = document.querySelector("#message");
+const spanClose = document.querySelector("#close-error");
+spanClose.addEventListener("click", () => closeNotification(notifyContainer, spanClose));
+const spanCloseMsg = document.querySelector("#close-msg");
+spanCloseMsg.addEventListener("click", () => closeNotification(notifyMessageContainer, messageContainer));
 document.getElementById("paper-view-link").addEventListener("click", router.navigate("/"));
 document.getElementById("tv-book-view-link").addEventListener("click", router.navigate("/tv-book"));
 document.getElementById("tv-weather-view-link").addEventListener("click", router.navigate("/weather"));
@@ -2091,6 +2095,8 @@ function hideNotification(currentElement) {
     inputEl.classList.add("tvText");
     notifyContainer.style.display = "none";
     spanClose.style.display = "none";
+    notifyMessageContainer.style.display = "none";
+    messageContainer.style.display = "none";
 }
 
 function hideNotificationInput() {
@@ -2098,11 +2104,17 @@ function hideNotificationInput() {
     inputEl.classList.add("tvText");
     notifyContainer.style.display = "none";
     spanClose.style.display = "none";
+    notifyMessageContainer.style.display = "none";
+    messageContainer.style.display = "none";
 }
 
-function closeNotification() {
-    notifyContainer.style.display = "none";
-    spanClose.style.display = "none";
+function closeNotification(divElement, spanElement) {
+    // notifyContainer.style.display = "none";
+    // spanClose.style.display = "none";
+    // notifyMessageContainer.style.display = "none";
+    // messageContainer.style.display = "none";
+    divElement.style.display = "none";
+    spanElement.style.display = "none";
 };
 
 let isFirstRenderTvBookView = false;
@@ -2729,16 +2741,20 @@ async function onCopyIssue(event) {
             applicationFolderName
         });
 
-        message.value = result;
+        message.value = result.copyFiles;
         message.style.color = green;
-        errorMessageHandler(result, green);
+        errorMessageHandler(result.copyFiles, green);
 
-        if (!result.endsWith("copied!")) {
-            message.style.color = "darkgoldenrod";
-            errorMessageHandler(result, yellow);
-        } else {
+        if (result.existing) {
 
-        }
+            setTimeout(() => {
+                message.style.color = "darkgoldenrod";
+                message.value = `${result.copyFiles}\n${result.existing}`;
+                errorMessageHandler("", yellow, "", result.existing);
+            }, 1000);
+
+        };
+
     } catch (error) {
         message.value = error;
         message.style.color = red;
@@ -3117,12 +3133,23 @@ function isCorrectDayInputHandler(matchArr) {
     return false;
 };
 
-function errorMessageHandler(message, color, currentElement) {
-    document.getElementById(currentElement)?.classList.add("radio-container-notify");
-    errorContainer.textContent = message;
-    notifyContainer.style.display = "flex";
-    notifyContainer.style.background = color;
-    spanClose.style.display = "flex";
+function errorMessageHandler(message, color, currentElement, additionalMessage) {
+
+    if (message) {
+        document.getElementById(currentElement)?.classList.add("radio-container-notify");
+        errorContainer.textContent = message;
+        notifyContainer.style.display = "flex";
+        notifyContainer.style.background = color;
+        spanClose.style.display = "flex";
+    };
+
+    if (additionalMessage) {
+        messageContainer.textContent = additionalMessage;
+        notifyMessageContainer.style.display = "flex";
+        notifyMessageContainer.style.background = "darkgoldenrod";
+        spanClose.style.display = "flex";
+    };
+
     setTimeout(() => hideNotification(currentElement), 5000);
 }
 

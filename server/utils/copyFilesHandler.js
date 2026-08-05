@@ -74,10 +74,6 @@ export const copyFilesHandler = {
 
         let issueNumber = applicationFolderName;
 
-        // if (applicationType === "ZlatnoVreme") {
-        //     issueNumber = applicationFolderName;
-        // };
-
         let dirReady = "";
         let dirPhotoOld = "";
         let dirPDF = "";
@@ -171,16 +167,6 @@ export const copyFilesHandler = {
                 outputDirPhotos = await fileRepository.readDirectoryContent(`${pathOutputFiles}${issueNumber}/JPG`);
             }
 
-
-            // switch (applicationType) {
-            //     case "currentIssue" || "ZlatnoVreme":
-            //         destinationFolder = `${pathOutputFiles}${applicationFolderName}`;
-            //         break;
-            //     case "Weekend":
-            //         destinationFolder = `${pathOutputFiles}${applicationFolderName}`;
-            //     break;
-            // };
-
             const isCopyText = true;
 
             // Copy text files
@@ -235,15 +221,20 @@ export const copyFilesHandler = {
                 copiedFilesCount = result.copyedFilesCound;
             };
 
-            report = `${copiedFilesCount} files have been copied!`;
+            const report = {
+                copyFiles: `${copiedFilesCount} files have been copied!`,
+                existing: ""
+            };
+
+            // report.copyFiles = `${copiedFilesCount} files have been copied!`;
 
             if (existingFiles.length === 1) {
-                report = `${existingFiles.join(",")} already exists!`
-            }
+                report.existing = `${existingFiles.join(",")} already exists!`
+            };
 
             if (existingFiles.length > 1) {
-                report = `${existingFiles.join(", ")} already exist!`
-            }
+                report.existing = `${existingFiles.join(", ")} already exist!`
+            };
 
 
             return report;

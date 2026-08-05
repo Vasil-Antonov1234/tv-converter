@@ -381,6 +381,10 @@ textarea {
     z-index: 100;
 }
 
+.notify-msg {
+    top: 60%;
+}
+
 @keyframes fadeInMove {
     to {
         opacity: 1;
