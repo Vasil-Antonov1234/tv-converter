@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { errorLocationMapper, errorMessageHandler } from "../utils/errorMessageHandler.js";
 import tvService from "../services/tvService.js";
-import renameServices from "../services/renameServices.js";
 
 const tvController = Router();
 

@@ -30,5 +30,27 @@ export default {
             errorLocationMapper(error, "utilService.renameManyFiles");
             throw error;
         }
+    },
+
+    async renamePDFs(path, number) {
+        let renamedFilesCount = 0;
+        const newNumber = number.split("").slice(0, number.length - 2).join("");
+
+        try {
+            const dir = (await fileRepository.readDirectoryContent(path)).filter((x) => x.endsWith(".pdf"))
+
+            await Promise.all(dir.map(async (x) => {
+                let newName = x.slice(-6);
+                newName = newNumber + newName;
+
+                await fileRepository.rename(`${path}/${x}`, `${path}/${newName}`);
+                renamedFilesCount++;
+            }));
+
+            return `${renamedFilesCount} files have been renamed`
+        } catch (error) {
+            errorLocationMapper(error, "renameService.renamePDF");
+            throw error;
+        };
     }
 }

@@ -1,5 +1,4 @@
 import { Router } from "express";
-import renameServices from "../services/renameServices.js";
 import { errorLocationMapper, errorMessageHandler } from "../utils/errorMessageHandler.js";
 import utilService from "../services/utilService.js";
 
@@ -22,7 +21,7 @@ utilController.post("/remane-pdf", async (req, res) => {
     const number = req.body.number;
 
     try {
-        const result = await renameServices.renamePDF(path, number);
+        const result = await utilService.renamePDFs(path, number);
         res.status(200).json({ result });
     } catch (error) {
         errorLocationMapper(error, "utilController.post('/remane-pdf')");
