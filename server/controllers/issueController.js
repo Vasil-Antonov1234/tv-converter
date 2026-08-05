@@ -1,5 +1,4 @@
 import { Router } from "express";
-import copyService from "../services/copyService.js";
 import { errorLocationMapper, errorMessageHandler } from "../utils/errorMessageHandler.js";
 import issueService from "../services/issueService.js";
 
