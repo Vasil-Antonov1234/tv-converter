@@ -34,13 +34,8 @@ export function pathsHandler(applicationType, currentIssueOrAppNumber, photoOldN
             pathsFiles.photoOld = `${paths.photos}_VIARA${photoOldNumber}/old/`;
             pathsFiles.web = `${paths.telSite}_____viara/`;
             break;
-        case "Zdrave":
-            pathsFiles.ready = `${paths.zdrave}`;
-            pathsFiles.photoOld = `${paths.photos}_ZDRAVE${photoOldNumber}/OLD/`;
-            pathsFiles.web = `${paths.telSite}______Zdrave/`;
-            break;
         case "Nedelnik":
-            pathsFiles.ready = paths.nedelnik;
+            pathsFiles.ready = `${paths.nedelnik}${applicationFolderName}/`;
             pathsFiles.photoOld = `${paths.photos}_KULINAR${photoOldNumber}/OLD/`;
             pathsFiles.web = `${paths.telSite}______Nedelnik/`;
             break;

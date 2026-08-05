@@ -2364,7 +2364,6 @@ function utilsTemplate(element) {
                     <option value="ZlatnoVreme" name="application">Zlatno vreme</option>
                     <option value="Agro" name="application">Agro</option>
                     <option value="Viara" name="application">Viara</option>
-                    <option value="Zdrave" name="application">Zdrave</option>
                     <option value="Nedelnik" name="application">Nedelnik</option>
                 </select>
                 <input type="text" name="current-issue-or-application-number" id="issue" class="issue issue-number" placeholder="Current issue/get DPFs from*">

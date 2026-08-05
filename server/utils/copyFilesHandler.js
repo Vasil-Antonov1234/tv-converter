@@ -161,15 +161,16 @@ export const copyFilesHandler = {
             }
 
             let outputDirPhotos = "";
+            let destinationFolder = `${pathOutputFiles}${applicationFolderName}`;
 
             if (applicationType === "Nedelnik") {
                 issueNumber = nedelnikIssueHandler();
                 outputDirPhotos = await fileRepository.readDirectoryContent(`${pathOutputFiles}${issueNumber}/JPG`);
+                destinationFolder = `${pathOutputFiles}${issueNumber}`;
             } else {
                 outputDirPhotos = await fileRepository.readDirectoryContent(`${pathOutputFiles}${issueNumber}/JPG`);
             }
 
-            let destinationFolder = `${pathOutputFiles}${applicationFolderName}`;
 
             // switch (applicationType) {
             //     case "currentIssue" || "ZlatnoVreme":
