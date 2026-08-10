@@ -2217,7 +2217,10 @@ function tvBookTemplate(element) {
                 <input type="text" name="date" id="tvBookInputDate" placeholder="examle: 01.01.2024">
                 <button class="submitAddTvData button" id="submitAddTvDataBtv">Generate file</button>
             </form>
-            <div class="loading-line" id="loading-line"></div>
+                <div class="loading-wrapper">
+                <div class="loading-line" id="loading-line"></div>
+                <span class="percentage" id="percentage"></span>
+            </div>
             <button class="submitAddTvData button" id="generateAllTv">Generate All</button>
             <div class="message-container">
                 <div class="report-msg" id="report-msg"></div>
@@ -2939,13 +2942,32 @@ async function onGenerateAllTV() {
     try {
         const generateButton = document.getElementById("generateAllTv");
         const loadingLine = document.getElementById("loading-line");
+        const percentageSpan = document.getElementById("percentage");
         loadingLine.classList.remove("loading");
+        
+        loadingLine.classList.add("loading");
+        percentageSpan.textContent = "0%";
+        let percentage = 0;
+
+        const percentageCount = setInterval(() => {
+            percentage++
+            percentageSpan.textContent = `${percentage}`
+        }, 250);
+
+        percentageCount();
+
+        function stopPercentageCount() {
+            clearInterval(percentageCount)
+        };
+
+        stopPercentageCount();
+
+        return
         
         generateButton.setAttribute("disabled", true);
         const response = await utils.request("/tv/create-all", "POST", allTvForGenerate);
         document.getElementById("report-msg").querySelectorAll("*").forEach((x) => x.remove());
         
-        loadingLine.classList.add("loading");
         allTvForGenerate.forEach((x) => {
             setTimeout(() => {
                 const span = document.createElement("span");
