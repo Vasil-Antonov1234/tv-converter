@@ -2217,6 +2217,7 @@ function tvBookTemplate(element) {
                 <input type="text" name="date" id="tvBookInputDate" placeholder="examle: 01.01.2024">
                 <button class="submitAddTvData button" id="submitAddTvDataBtv">Generate file</button>
             </form>
+            <div class="loading-line" id="loading-line"></div>
             <button class="submitAddTvData button" id="generateAllTv">Generate All</button>
             <div class="message-container">
                 <div class="report-msg" id="report-msg"></div>
@@ -2931,16 +2932,20 @@ async function onTvRename(event) {
 
 async function onGenerateAllTV() {
 
-    if (!allTvForGenerate || allTvForGenerate.length === 0) {
-        return errorMessageHandler("There is nothing to generate!", red);
-    };
+    // if (!allTvForGenerate || allTvForGenerate.length === 0) {
+    //     return errorMessageHandler("There is nothing to generate!", red);
+    // };
 
     try {
         const generateButton = document.getElementById("generateAllTv");
+        const loadingLine = document.getElementById("loading-line");
+        loadingLine.classList.remove("loading");
+        
         generateButton.setAttribute("disabled", true);
         const response = await utils.request("/tv/create-all", "POST", allTvForGenerate);
         document.getElementById("report-msg").querySelectorAll("*").forEach((x) => x.remove());
-
+        
+        loadingLine.classList.add("loading");
         allTvForGenerate.forEach((x) => {
             setTimeout(() => {
                 const span = document.createElement("span");
