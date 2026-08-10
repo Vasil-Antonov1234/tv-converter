@@ -2935,39 +2935,35 @@ async function onTvRename(event) {
 
 async function onGenerateAllTV() {
 
-    // if (!allTvForGenerate || allTvForGenerate.length === 0) {
-    //     return errorMessageHandler("There is nothing to generate!", red);
-    // };
+    if (!allTvForGenerate || allTvForGenerate.length === 0) {
+        return errorMessageHandler("There is nothing to generate!", red);
+    };
+    
+    const generateButton = document.getElementById("generateAllTv");
+    const loadingLine = document.getElementById("loading-line");
+    const percentageSpan = document.getElementById("percentage");
+    
+    loadingLine.classList.remove("loading");
+    generateButton.setAttribute("disabled", true);
 
     try {
-        const generateButton = document.getElementById("generateAllTv");
-        const loadingLine = document.getElementById("loading-line");
-        const percentageSpan = document.getElementById("percentage");
-        loadingLine.classList.remove("loading");
-        
+
+        const response = await utils.request("/tv/create-all", "POST", allTvForGenerate);
+        document.getElementById("report-msg").querySelectorAll("*").forEach((x) => x.remove());
+
         loadingLine.classList.add("loading");
         percentageSpan.textContent = "0%";
         let percentage = 0;
 
-        const percentageCount = setInterval(() => {
-            percentage++
-            percentageSpan.textContent = `${percentage}`
-        }, 250);
+        const intervalValue = setInterval(() => {
+            percentage += 1
+            percentageSpan.textContent = `${percentage}%`
+        }, 35);
 
-        percentageCount();
+        setTimeout(() => {
+            clearInterval(intervalValue);
+        }, 3500);
 
-        function stopPercentageCount() {
-            clearInterval(percentageCount)
-        };
-
-        stopPercentageCount();
-
-        return
-        
-        generateButton.setAttribute("disabled", true);
-        const response = await utils.request("/tv/create-all", "POST", allTvForGenerate);
-        document.getElementById("report-msg").querySelectorAll("*").forEach((x) => x.remove());
-        
         allTvForGenerate.forEach((x) => {
             setTimeout(() => {
                 const span = document.createElement("span");
