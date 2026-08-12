@@ -1111,6 +1111,8 @@ input:focus {
     font-weight: 900;
     position: absolute;
     font-family: monospace, 'Courier New', Courier;
+    max-height: 200px;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     gap: 5px;

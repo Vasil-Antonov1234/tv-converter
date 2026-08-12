@@ -2955,6 +2955,7 @@ async function onGenerateAllTV() {
 
         const loadingAnimationDuration = allTvForGenerate.length * 0.5;
         const percentageAnimationDuration = allTvForGenerate.length * 5;
+        const intervalDuration = percentageAnimationDuration * 101;
 
         loadingLine.style.display = "flex"
         loadingLine.style.animation = `loading ${loadingAnimationDuration}s forwards ease`;
@@ -2968,7 +2969,7 @@ async function onGenerateAllTV() {
 
         setTimeout(() => {
             clearInterval(intervalValue);
-        }, 3500);
+        }, intervalDuration);
 
         allTvForGenerate.forEach((x) => {
             setTimeout(() => {
