@@ -2217,8 +2217,10 @@ function tvBookTemplate(element) {
                 <input type="text" name="date" id="tvBookInputDate" placeholder="examle: 01.01.2024">
                 <button class="submitAddTvData button" id="submitAddTvDataBtv">Generate file</button>
             </form>
-                <div class="loading-wrapper">
-                <div class="loading-line" id="loading-line"></div>
+            <div class="loading-wrapper">
+                <div class="loading-line-wrapper">
+                    <div class="loading-line" id="loading-line"></div>
+                </div>    
                 <span class="percentage" id="percentage"></span>
             </div>
             <button class="submitAddTvData button" id="generateAllTv">Generate All</button>
@@ -2938,12 +2940,12 @@ async function onGenerateAllTV() {
     if (!allTvForGenerate || allTvForGenerate.length === 0) {
         return errorMessageHandler("There is nothing to generate!", red);
     };
-    
+
     const generateButton = document.getElementById("generateAllTv");
     const loadingLine = document.getElementById("loading-line");
     const percentageSpan = document.getElementById("percentage");
-    
-    loadingLine.classList.remove("loading");
+
+    loadingLine.style.display = "none";
     generateButton.setAttribute("disabled", true);
 
     try {
@@ -2951,14 +2953,18 @@ async function onGenerateAllTV() {
         const response = await utils.request("/tv/create-all", "POST", allTvForGenerate);
         document.getElementById("report-msg").querySelectorAll("*").forEach((x) => x.remove());
 
-        loadingLine.classList.add("loading");
+        const loadingAnimationDuration = allTvForGenerate.length * 0.5;
+        const percentageAnimationDuration = allTvForGenerate.length * 5;
+
+        loadingLine.style.display = "flex"
+        loadingLine.style.animation = `loading ${loadingAnimationDuration}s forwards ease`;
         percentageSpan.textContent = "0%";
         let percentage = 0;
 
         const intervalValue = setInterval(() => {
-            percentage += 1
+            percentage = percentage > 99 ? 100 : percentage + 1;
             percentageSpan.textContent = `${percentage}%`
-        }, 35);
+        }, percentageAnimationDuration);
 
         setTimeout(() => {
             clearInterval(intervalValue);
