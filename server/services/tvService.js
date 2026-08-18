@@ -38,7 +38,7 @@ export default {
     },
 
     async renameMany() {
-        const regex = /-\d\d.txt$|-\d\d.docx$/
+        const regex = /-\d\d.txt$|=\d\d.txt$|-\d\d.docx$/
 
         try {
             const dir = await fileRepository.readDirectoryContent(paths.input);
@@ -47,7 +47,7 @@ export default {
 
             let renamedTvCount = await tvRepository.renameDocx(onlyDocx);
 
-            if (dir.find((x) => x.includes("-") && !x.endsWith("zip"))) {
+            if (dir.find((x) => (x.includes("-") || x.includes("=")) && !x.endsWith("zip"))) {
 
                 for (let el of dir) {
 
@@ -58,12 +58,12 @@ export default {
                     };
 
                     const fileExtension = fileExtensionHandler(el);
-
-                    renamedTvCount++;
-
+                    
                     let fileName = el.replace(regex, fileExtension);
-
+                    
                     await fileRepository.rename(`${paths.input}${el}`, `${paths.input}${fileName}`);
+                    
+                    renamedTvCount++;
                 };
             };
 
