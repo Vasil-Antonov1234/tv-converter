@@ -2939,7 +2939,7 @@ async function onTvRename(event) {
 async function onGenerateAllTV() {
 
     if (!allTvForGenerate || allTvForGenerate.length === 0) {
-        return errorMessageHandler("There is nothing to generate!", red);
+        return errorMessageHandler("Create a report before generating the files", red, "tvRenameContainer");
     };
 
     const generateButton = document.getElementById("generateAllTv");
