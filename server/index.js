@@ -7,12 +7,14 @@ import { allTv } from "./data/tvPaths.js";
 import { handleDay, handleOutputDay } from "./utils/handleDay.js";
 import { handleEndOfCurrentTv } from "./utils/handleEndOfCuttentTv.js";
 import paths from "./paths/paths.js";
+import "dotenv/config";
 
 // const bufferBnt1 = fs.readFileSync("D:/-TV-/bg/ntv-13.txt");
 // const encodedBnt1 = iconv.decode(bufferBnt1, "win1251");
 // const a = bufferBnt1.toString("utf-8");
 
-const inputFilePath = paths.input;
+// const inputFilePath = paths.input;
+const inputFilePath = process.env.OUTPUT
 const dir = fs.readdirSync(inputFilePath);
 
 const tvArr = [];

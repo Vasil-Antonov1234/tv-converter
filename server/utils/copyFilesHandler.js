@@ -41,11 +41,13 @@ export const copyFilesHandler = {
             let currentIssue = null;
 
             if (applicationType === "currentIssue" || applicationType === "Weekend") {
-                currentIssue = await fileRepository.readDirectoryContent(`${paths.pages}${outputFolderName}`);
+                // currentIssue = await fileRepository.readDirectoryContent(`${paths.pages}${outputFolderName}`);
+                currentIssue = await fileRepository.readDirectoryContent(`${process.env.PAGES}${outputFolderName}`);
             };
 
             if (currentIssue && !currentIssue.includes("DOC")) {
-                await fileRepository.makeDirectory(`${paths.pages}${outputFolderName}/DOC`);
+                // await fileRepository.makeDirectory(`${paths.pages}${outputFolderName}/DOC`);
+                await fileRepository.makeDirectory(`${process.env.PAGES}${outputFolderName}/DOC`);
             };
 
             if (isCopyPFDs && !currentIssue && !createdFolder.includes("PDF")) {
@@ -89,9 +91,11 @@ export const copyFilesHandler = {
                 let check = "";
 
                 if (applicationType === "Nedelnik") {
-                    check = await fileRepository.readDirectoryContent(`${paths.pages}${currentIssueOrAppNumber}/Неделник`);
+                    // check = await fileRepository.readDirectoryContent(`${paths.pages}${currentIssueOrAppNumber}/Неделник`);
+                    check = await fileRepository.readDirectoryContent(`${process.env.PAGES}${currentIssueOrAppNumber}/Неделник`);
                 } else {
-                    check = await fileRepository.readDirectoryContent(`${paths.pages}${currentIssueOrAppNumber}`);
+                    // check = await fileRepository.readDirectoryContent(`${paths.pages}${currentIssueOrAppNumber}`);
+                    check = await fileRepository.readDirectoryContent(`${process.env.PAGES}${currentIssueOrAppNumber}`);
                 }
 
                 if (check.includes("FTP") || check.includes("ftp")) {
@@ -103,9 +107,11 @@ export const copyFilesHandler = {
                 };
 
                 if (applicationType === "Nedelnik") {
-                    dirPDF = await fileRepository.readDirectoryContent(`${paths.pages}${currentIssueOrAppNumber}/Неделник/${pdfFolderName}`);
+                    // dirPDF = await fileRepository.readDirectoryContent(`${paths.pages}${currentIssueOrAppNumber}/Неделник/${pdfFolderName}`);
+                    dirPDF = await fileRepository.readDirectoryContent(`${process.env.PAGES}${currentIssueOrAppNumber}/Неделник/${pdfFolderName}`);
                 } else {
-                    dirPDF = await fileRepository.readDirectoryContent(`${paths.pages}${currentIssueOrAppNumber}/${pdfFolderName}`);
+                    // dirPDF = await fileRepository.readDirectoryContent(`${paths.pages}${currentIssueOrAppNumber}/${pdfFolderName}`);
+                    dirPDF = await fileRepository.readDirectoryContent(`${process.env.PAGES}${currentIssueOrAppNumber}/${pdfFolderName}`);
                 }
 
             }
@@ -202,10 +208,12 @@ export const copyFilesHandler = {
             if (isCopyPFDs) {
                 destinationFolder = `${pathOutputFiles}${issueNumber}/PDF`;
 
-                let sourceFolder = `${paths.pages}${currentIssueOrAppNumber}/${pdfFolderName}`;
+                // let sourceFolder = `${paths.pages}${currentIssueOrAppNumber}/${pdfFolderName}`;
+                let sourceFolder = `${process.env.PAGES}${currentIssueOrAppNumber}/${pdfFolderName}`;
 
                 if (applicationType === "Nedelnik") {
-                    sourceFolder = `${paths.pages}${currentIssueOrAppNumber}/Неделник/${pdfFolderName}`;
+                    // sourceFolder = `${paths.pages}${currentIssueOrAppNumber}/Неделник/${pdfFolderName}`;
+                    sourceFolder = `${process.env.PAGES}${currentIssueOrAppNumber}/Неделник/${pdfFolderName}`;
                 };
 
                 result = await fileRepository.copyMany(

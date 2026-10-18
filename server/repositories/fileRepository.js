@@ -64,7 +64,8 @@ export default {
             };
 
             if (isCopyText && (applicationType === "currentIssue" || applicationType === "Weekend")) {
-                await fsPromises.copyFile(source, `${paths.pages}${applicationFolderName}/DOC/${x}`);
+                // await fsPromises.copyFile(source, `${paths.pages}${applicationFolderName}/DOC/${x}`);
+                await fsPromises.copyFile(source, `${process.env.PAGES}${applicationFolderName}/DOC/${x}`);
             };
         }));
 

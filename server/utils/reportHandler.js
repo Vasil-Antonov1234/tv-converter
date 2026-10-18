@@ -30,7 +30,8 @@ export default {
     
                 // const currentTv = await fsPromisses.readFile(`${paths.input}${tv}`, { encoding: "utf-8" });
     
-                const buffer = await fsPromisses.readFile(`${paths.input}${tv}`);
+                // const buffer = await fsPromisses.readFile(`${paths.input}${tv}`);
+                const buffer = await fsPromisses.readFile(`${process.env.INPUT}${tv}`);
                 let charSet = jschardet.detect(buffer).encoding;
     
                 if (charSet === "x-mac-cyrillic") {
@@ -61,7 +62,8 @@ export default {
     
                 }
     
-                await fsPromisses.writeFile(`${paths.input}${tv}`, currentTv, { encoding: "utf-8" });
+                // await fsPromisses.writeFile(`${paths.input}${tv}`, currentTv, { encoding: "utf-8" });
+                await fsPromisses.writeFile(`${process.env.INPUT}${tv}`, currentTv, { encoding: "utf-8" });
     
             }
     

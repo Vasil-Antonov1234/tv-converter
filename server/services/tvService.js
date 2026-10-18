@@ -10,6 +10,7 @@ import tvRepository from "../repositories/tvRepository.js";
 import fileExtensionHandler from "../utils/fileExtensionHandler.js";
 import fileRepository from "../repositories/fileRepository.js";
 import reportHandler from "../utils/reportHandler.js";
+import "dotenv/config";
 
 export default {
     async createTv(day, date) {
@@ -40,8 +41,11 @@ export default {
     async renameMany() {
         const regex = /-\d\d.txt$|=\d\d.txt$|-\d\d.docx$/
 
+        console.log(process.env.INPUT);
+
         try {
-            const dir = await fileRepository.readDirectoryContent(paths.input);
+            // const dir = await fileRepository.readDirectoryContent(paths.input);
+            const dir = await fileRepository.readDirectoryContent(process.env.INPUT);
 
             const onlyDocx = dir.filter((tv) => tv.endsWith(".docx"))
 
@@ -61,7 +65,8 @@ export default {
                     
                     let fileName = el.replace(regex, fileExtension);
                     
-                    await fileRepository.rename(`${paths.input}${el}`, `${paths.input}${fileName}`);
+                    // await fileRepository.rename(`${paths.input}${el}`, `${paths.input}${fileName}`);
+                    await fileRepository.rename(`${process.env.INPUT}${el}`, `${process.env.INPUT}${fileName}`);
                     
                     renamedTvCount++;
                 };
@@ -82,7 +87,10 @@ export default {
     async baseReport(renamedFilesCount, startDate, finalDate) {
 
         try {
-            const dir = await fileRepository.readDirectoryContent(paths.input);
+            // const dir = await fileRepository.readDirectoryContent(paths.input);
+
+
+            const dir = await fileRepository.readDirectoryContent(process.env.INPUT);
 
             const allFiles = allTv;
             const missingFiles = [];

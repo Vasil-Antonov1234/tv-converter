@@ -17,13 +17,15 @@ export default {
     async translateTV() {
 
         try {
-            const renamedDir = await fsPromises.readdir(paths.input);
+            // const renamedDir = await fsPromises.readdir(paths.input);
+            const renamedDir = await fsPromises.readdir(process.env.INPUT);
             let diziState = "normal";
 
             for (let tv of renamedDir) {
 
                 if (tvForTranslate.includes(tv)) {
-                    let outputDir = paths.input;
+                    // let outputDir = paths.input;
+                    let outputDir = process.env.INPUT
                     let outputFile = `${outputDir}${tv}`
 
                     const date = new Date();
@@ -33,20 +35,24 @@ export default {
                     const cacheFileName = `translated-${day}-${month}-${year}-${tv}`
 
 
-                    const cacheDir = await fsPromises.readdir(paths.cache);
+                    // const cacheDir = await fsPromises.readdir(paths.cache);
+                    const cacheDir = await fsPromises.readdir(process.env.CACHE);
 
                     if (cacheDir.includes(cacheFileName)) {
                         diziState = "cached"
-                        await fsPromises.copyFile(`${paths.cache}${cacheFileName}`, `${paths.input}${tv}`);
+                        // await fsPromises.copyFile(`${paths.cache}${cacheFileName}`, `${paths.input}${tv}`);
+                        await fsPromises.copyFile(`${process.env.CACHE}${cacheFileName}`, `${process.env.INPUT}${tv}`);
                     } else {
 
-                        const textTv = await fsPromises.readFile(`${paths.input}${tv}`, { encoding: "utf-8" });
+                        // const textTv = await fsPromises.readFile(`${paths.input}${tv}`, { encoding: "utf-8" });
+                        const textTv = await fsPromises.readFile(`${process.env.INPUT}${tv}`, { encoding: "utf-8" });
 
                         const result = await translate(textTv);
 
                         await fsPromises.writeFile(outputFile, result, { encoding: "utf-8" });
 
-                        await fsPromises.writeFile(`${paths.cache}${cacheFileName}`, result, { encoding: "utf-8" });
+                        // await fsPromises.writeFile(`${paths.cache}${cacheFileName}`, result, { encoding: "utf-8" });
+                        await fsPromises.writeFile(`${process.env.CACHE}${cacheFileName}`, result, { encoding: "utf-8" });
                     };
                 };
             };
@@ -73,7 +79,8 @@ export default {
 
             try {
                 renamedTvCount++;
-                await fsPromises.rename(`${paths.input}${tv}`, `${paths.input}${fileName}`);
+                // await fsPromises.rename(`${paths.input}${tv}`, `${paths.input}${fileName}`);
+                await fsPromises.rename(`${process.env.INPUT}${tv}`, `${process.env.INPUT}${fileName}`);
 
             } catch (error) {
                 errorLocationMapper(error, `tvRepository.renameDocx: ${error.message}`);
@@ -87,20 +94,23 @@ export default {
     async encodeMany() {
 
         try {
-            let renamedDir = await fsPromises.readdir(paths.input);
+            // let renamedDir = await fsPromises.readdir(paths.input);
+            let renamedDir = await fsPromises.readdir(process.env.INPUT);
 
             for (let tv of renamedDir) {
 
                 if (tvForFix.includes(tv) || tv.endsWith(".docx")) {
 
-                    const buffer = await fsPromises.readFile(`${paths.input}${tv}`);
+                    // const buffer = await fsPromises.readFile(`${paths.input}${tv}`);
+                    const buffer = await fsPromises.readFile(`${process.env.INPUT}${tv}`);
 
                     if (tv.endsWith(".docx")) {
                         const encodedBuffer = await mammoth.extractRawText({ buffer });
                         const encodedTv = encodedBuffer.value;
 
                         const result = handleFixTv(encodedTv, tv);
-                        let outputDir = paths.input;
+                        // let outputDir = paths.input;
+                        let outputDir = process.env.INPUT;
 
                         const filename = tv.split(".")[0].toLocaleLowerCase();
 
@@ -124,7 +134,8 @@ export default {
                         encodedTV = iconv.decode(buffer, charSet);
 
                         const result = handleFixTv(encodedTV, tv);
-                        let outputDir = paths.input;
+                        // let outputDir = paths.input;
+                        let outputDir = process.env.INPUT;
                         let outputFile = `${outputDir}${tv}`
 
                         await fsPromises.writeFile(outputFile, result, { encoding: "utf-8" });
@@ -139,7 +150,8 @@ export default {
 
     async createOne(day, date) {
         try {
-            const dir = await fsPromises.readdir(paths.input);
+            // const dir = await fsPromises.readdir(paths.input);
+            const dir = await fsPromises.readdir(process.env.INPUT);
             const tvArr = [];
 
             const response = [];
@@ -152,7 +164,8 @@ export default {
                     continue;
                 }
 
-                const currentTv = await fsPromises.readFile(`${paths.input}${allTv[i]}`, { encoding: "utf-8" });
+                // const currentTv = await fsPromises.readFile(`${paths.input}${allTv[i]}`, { encoding: "utf-8" });
+                const currentTv = await fsPromises.readFile(`${process.env.INPUT}${allTv[i]}`, { encoding: "utf-8" });
                 let splittedTV = [];
 
                 if (!currentTv.includes(`${day} ${date}`)) {
@@ -197,7 +210,8 @@ export default {
             let result = tvArr.join("\n");
             result = result.replaceAll("•", "-").trim();
 
-            const outputDir = paths.output;
+            // const outputDir = paths.output;
+            const outputDir = process.env.OUTPUT;
 
             const outputFile = `${outputDir}${handleOutputDay(day)}-${date}.txt`
 
