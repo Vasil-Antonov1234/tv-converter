@@ -2848,6 +2848,8 @@ function replaceSpaces(text) {
 let allTvForGenerate = null;
 
 async function onTvRename(event) {
+    const makeReportButton = event.currentTarget;
+    makeReportButton.setAttribute("disabled", true);
 
     const tvMessage = document.getElementById("responseMessage");
     const missingFilesMessage = document.getElementById("missingFilesMessage");
@@ -2882,9 +2884,6 @@ async function onTvRename(event) {
         }
     }
 
-    const renameTvButton = event.currentTarget;
-
-    renameTvButton.setAttribute("disabled", true);
     const message = document.getElementById("renamedTvMessage");
 
     isPending = true;
@@ -2932,16 +2931,16 @@ async function onTvRename(event) {
         errorMessageHandler(error, red)
     } finally {
         isPending = false;
-        renameTvButton.removeAttribute("disabled");
         spinner.remove();
-    }
-}
+        makeReportButton.removeAttribute("disabled");
+    };
+};
 
 let width = 1;
 let percentageCounter = 0;
 
 async function onGenerateAllTV() {
-    
+
     if (width > 1) {
         return
     };
@@ -2950,6 +2949,8 @@ async function onGenerateAllTV() {
         return errorMessageHandler("Create a report before generating the files", red, "tvRenameContainer");
     };
 
+    const makeReportButton = document.getElementById("rename");
+    makeReportButton.setAttribute("disabled", true);
     const generateButton = document.getElementById("generateAllTv");
     const loadingLine = document.getElementById("loading-line");
     const percentageSpan = document.getElementById("percentage");
@@ -2988,11 +2989,12 @@ async function onGenerateAllTV() {
         })
 
         setTimeout(() => {
-            generateButton.removeAttribute("disabled")
+            generateButton.removeAttribute("disabled");
+            makeReportButton.removeAttribute("disabled");
         }, 5000);
     } catch (error) {
         errorMessageHandler(error, red);
-    };
+    }
 };
 
 async function onSubmitTvData(event) {
