@@ -2221,8 +2221,8 @@ function tvBookTemplate(element) {
             <div class="loading-wrapper">
                 <div class="loading-line-wrapper">
                     <div class="loading-line" id="loading-line"></div>
+                    <span class="percentage" id="percentage"></span>
                 </div>    
-                <span class="percentage" id="percentage"></span>
             </div>
             <button class="submitAddTvData button" id="generateAllTv">Generate All</button>
             <div class="message-container">
@@ -2922,7 +2922,8 @@ async function onTvRename(event) {
 
         translatedTvState.textContent = `dizi.txt - ${result.translatedTvState}`
         translatedTvState.style.backgroundColor = result.translatedTvState === "cached" ? red : green;
-
+        width = 1;
+        percentageCounter = 0;
 
     } catch (error) {
         message.textContent = error.message;
@@ -2936,7 +2937,14 @@ async function onTvRename(event) {
     }
 }
 
+let width = 1;
+let percentageCounter = 0;
+
 async function onGenerateAllTV() {
+    
+    if (width > 1) {
+        return
+    };
 
     if (!allTvForGenerate || allTvForGenerate.length === 0) {
         return errorMessageHandler("Create a report before generating the files", red, "tvRenameContainer");
@@ -2946,31 +2954,29 @@ async function onGenerateAllTV() {
     const loadingLine = document.getElementById("loading-line");
     const percentageSpan = document.getElementById("percentage");
 
-    loadingLine.style.display = "none";
     generateButton.setAttribute("disabled", true);
 
     try {
-
         const response = await utils.request("/tv/create-all", "POST", allTvForGenerate);
         document.getElementById("report-msg").querySelectorAll("*").forEach((x) => x.remove());
 
-        const loadingAnimationDuration = allTvForGenerate.length * 0.5;
-        const percentageAnimationDuration = allTvForGenerate.length * 5;
-        const intervalDuration = percentageAnimationDuration * 101;
+        loadingLine.style.display = "block";
 
-        loadingLine.style.display = "flex"
-        loadingLine.style.animation = `loading ${loadingAnimationDuration}s forwards ease`;
-        percentageSpan.textContent = "0%";
-        let percentage = 0;
+        const interval = setInterval(() => {
+            loadingLine.style.width = `${width}px`;
+            width += 1.05;
+        }, 15);
 
-        const intervalValue = setInterval(() => {
-            percentage = percentage > 99 ? 100 : percentage + 1;
-            percentageSpan.textContent = `${percentage}%`
-        }, percentageAnimationDuration);
+        const intervalPercentage = setInterval(() => {
+            percentageSpan.textContent = `${percentageCounter}%`;
+            percentageCounter++;
+        }, 30)
 
         setTimeout(() => {
-            clearInterval(intervalValue);
-        }, intervalDuration);
+            clearInterval(interval);
+            clearInterval(intervalPercentage);
+            percentageSpan.textContent = `100%`;
+        }, 3000);
 
         allTvForGenerate.forEach((x) => {
             setTimeout(() => {
@@ -2984,8 +2990,6 @@ async function onGenerateAllTV() {
         setTimeout(() => {
             generateButton.removeAttribute("disabled")
         }, 5000);
-
-        console.log(response);
     } catch (error) {
         errorMessageHandler(error, red);
     };

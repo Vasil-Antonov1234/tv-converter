@@ -41,8 +41,6 @@ export default {
     async renameMany() {
         const regex = /-\d\d.txt$|=\d\d.txt$|-\d\d.docx$/
 
-        console.log(process.env.INPUT);
-
         try {
             // const dir = await fileRepository.readDirectoryContent(paths.input);
             const dir = await fileRepository.readDirectoryContent(process.env.INPUT);
