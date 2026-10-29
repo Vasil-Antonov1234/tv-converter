@@ -23,7 +23,7 @@ export const allTvNames = [
     "HBO",
     "HBO 2",
     "Cinemax",
-    "Viasat Kino (TV 1000)",
+    "Viasat Kino",
     "Cinemax 2",
     "National G",
     "NG wild",
