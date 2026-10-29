@@ -174,7 +174,7 @@ export default {
                     continue;
                 }
 
-                tvArr.push(allTvNames[i]);
+                tvArr.push(`${allTvNames[i]} (${allTv[i]})`);
 
                 splittedTV = currentTv.split("\n");
 
