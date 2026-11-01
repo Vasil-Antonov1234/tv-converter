@@ -169,12 +169,13 @@ export default {
                 let splittedTV = [];
 
                 if (!currentTv.includes(`${day} ${date}`)) {
-                    tvArr.push(`${allTvNames[i]}${EOL}${day} ${date}${EOL}`);
+                    tvArr.push(`${allTvNames[i]} ${allTv[i]}${EOL}${day} ${date}${EOL}`);
                     response.push(`${allTvNames[i]} - (${allTv[i]}) - NO DATA! ❌`);
                     continue;
                 }
 
                 tvArr.push(`${allTvNames[i]} (${allTv[i]})`);
+                // tvArr.push(allTvNames[i]);
 
                 splittedTV = currentTv.split("\n");
 
