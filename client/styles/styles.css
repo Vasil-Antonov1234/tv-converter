@@ -51,6 +51,7 @@ header {
     font-size: xx-large;
     text-decoration: none;
     margin: 0 auto;
+    position: relative;
 }
 
 .tv-book {
@@ -904,6 +905,92 @@ input:focus {
     height: 50%;
     border-radius: 50%;
     background-color: white;
+}
+
+.ring {
+    position: absolute;
+    /* border: 3px solid rgba(0, 0, 0, 0.3); */
+    border-radius: 50%;
+    width: 80px;
+    height: 100px;
+    top: 70%;
+    left: 94%;
+    animation: rotate 20s linear infinite;
+    /* background-color: #3f3b35; */
+}
+
+.ring:nth-child(2) {
+    width: 320px;
+    height: 320px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ring:nth-child(3) {
+    width: 380px;
+    height: 380px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-duration: 30s;
+    border-color: rgba(168, 85, 247, 0.2);
+}
+
+@keyframes rotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.ball {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #dab36a;
+    border-radius: 50%;
+    box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.514);
+    top: 0;
+    left: 100%;
+    transform: translateY(-50%);
+    animation: orbit 20s linear infinite;
+}
+
+.ball1 {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #746957;
+    border-radius: 50%;
+    box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.514);
+    top: 0;
+    left: 70%;
+    transform: translateY(50%);
+    animation: orbit1 10s linear infinite;
+}
+
+@keyframes orbit {
+    from {
+        transform: translateY(-50%) rotate(0deg) translateX(160px) rotate(0deg);
+    }
+
+    to {
+        transform: translateY(-50%) rotate(360deg) translateX(160px) rotate(-360deg);
+    }
+}
+
+@keyframes orbit1 {
+    from {
+        transform: translateY(-50%) rotate(180deg) translateX(160px) rotate(-180deg);
+    }
+
+    to {
+        transform: translateY(-50%) rotate(360deg) translateX(-160px) rotate(-360deg);
+    }
 }
 
 .convertIn {
