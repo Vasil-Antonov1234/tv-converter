@@ -66,6 +66,7 @@ getFileElement.addEventListener("click", (event) => {
     selectFileElement.click()
 });
 selectFileElement.addEventListener("change", () => addFileContent("inputArea", selectFileElement));
+
 const baseURL = "http://localhost:5000";
 
 const tvCalcConstants = {
@@ -327,7 +328,7 @@ function onConvert(e) {
             "tvBook": 36
         },
         discovery: {
-            "tvBook": 17
+            "tvBook": 54
         },
         viasatExplorer: {
             "tvBook": 44
@@ -635,6 +636,7 @@ function onConvert(e) {
     separatedTv.hbo2 = tvFunctions.deletePatternIncluding(separatedTv.hbo2, rows.hbo2[daySelection], /\[\d\d\+\]/);
     separatedTv.hbo2 = tvFunctions.deleteGenre(separatedTv.hbo2, rows.hbo2[daySelection]);
     separatedTv.hbo2 = tvFunctions.deleteEndComma(separatedTv.hbo2, rows.hbo2[daySelection]);
+    separatedTv.discovery = tvFunctions.discoveryFix(separatedTv.discovery);
     separatedTv.discovery = tvFunctions.deleteByHours(separatedTv.discovery, rows.discovery[daySelection], ["01", "02", "03", "04", "05", "06", "07", "08", "00"]);
     separatedTv.discovery = tvFunctions.replaceTextForce(separatedTv.discovery, "_==", " ");
     separatedTv.discovery = tvFunctions.replaceTextForce(separatedTv.discovery, ":", " -")
@@ -1681,6 +1683,47 @@ const tvFunctions = {
         };
 
         return result;
+    },
+
+    discoveryFix(arr) {
+
+        let firstRows = 0;
+        const result = [];
+        let isStartOfTheRow = true;
+        let currentRow = [];
+
+        for (const row of arr) {
+
+            if (row.startsWith("(")) {
+                continue;
+            };
+
+            if (firstRows < 2) {
+                firstRows++;
+                result.push(row);
+                continue;
+            };
+
+
+            if (row.startsWith("0") || row.startsWith("1") || row.startsWith("2") || row.startsWith("3") || row.startsWith("4") || row.startsWith("5") || row.startsWith("6") || row.startsWith("7") || row.startsWith("8") || row.startsWith("9")) {
+
+                if (isStartOfTheRow) {
+                    isStartOfTheRow = false;
+                    currentRow.push(row.replace(/\[[a-zA-Z0-9 \-]+\]/, ""));
+                    continue;
+                };
+
+                result.push(currentRow.join(" "));
+                currentRow = [];
+                currentRow.push(row.replace(/\[[a-zA-Z0-9 \-]+\]/, ""));
+                continue;
+
+            };
+
+            currentRow.push(row.replace(/\[[a-zA-Z0-9 \-]+\]/, ""));
+        }
+        return result;
+
     }
 }
 
@@ -2258,7 +2301,7 @@ function paperTemplate(element) {
                     <form id="main-form" class="main-form">                    
                         <div class="paper-view-header">
                             <div class="radio-container">
-                                <span>Choose a day <span>(optionaly):</span></span>
+                                <span>Choose a day <span>(optional):</span></span>
                                 <select name="tv-radio" id="tvWeek">
                                     <option value="nothing">Day selection</option>
                                     <option value="week">Понеделник-Петък</option>
@@ -2268,7 +2311,8 @@ function paperTemplate(element) {
                                 <details>
                                     <summary>Show more...</summary>
                                     <div class="summary">The selected day option has the highest priority and overwrites the
-                                        automatically detected!</div>
+                                        automatically detected!
+                                    </div>
                                 </details>
                             </div>
                             <button class="reset-all button" id="resetAll">Clear All</button>
