@@ -917,7 +917,9 @@ input:focus {
     top: 70%;
     left: 100%;
     animation: rotate 20s linear infinite;
-    background-image: linear-gradient(to right, #4e3a15, #a19174, #9c8251, #9b9489, #a37521);
+    /* background-image: linear-gradient(to right, #4e3a15, #a19174, #9c8251, #9b9489, #a37521); */
+    background-image: url("../images/mercury.png");
+    background-position: center;
     z-index: 1;
 }
 
