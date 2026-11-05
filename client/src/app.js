@@ -1691,10 +1691,14 @@ const tvFunctions = {
         const result = [];
         let isStartOfTheRow = true;
         let currentRow = [];
+        const hourPattern = /^[0-9][0-9]\.[0-9][0-9]/;
+        const pattern = /\[[a-zA-Z0-9 \-]+\]/;
+        const pattern1 = /\([A-Za-z \/'":\-0-1\.?!,]+\)/;
 
         for (const row of arr) {
+            const match1 = row.match(pattern1);
 
-            if (row.startsWith("(")) {
+            if (match1 && firstRows > 1) {
                 continue;
             };
 
@@ -1704,23 +1708,24 @@ const tvFunctions = {
                 continue;
             };
 
+            const match = row.match(hourPattern);
 
-            if (row.startsWith("0") || row.startsWith("1") || row.startsWith("2") || row.startsWith("3") || row.startsWith("4") || row.startsWith("5") || row.startsWith("6") || row.startsWith("7") || row.startsWith("8") || row.startsWith("9")) {
+            if (match) {
 
                 if (isStartOfTheRow) {
                     isStartOfTheRow = false;
-                    currentRow.push(row.replace(/\[[a-zA-Z0-9 \-]+\]/, ""));
+                    currentRow.push(row.replace(pattern, ""));
                     continue;
                 };
 
                 result.push(currentRow.join(" "));
                 currentRow = [];
-                currentRow.push(row.replace(/\[[a-zA-Z0-9 \-]+\]/, ""));
+                currentRow.push(row.replace(pattern, ""));
                 continue;
 
             };
 
-            currentRow.push(row.replace(/\[[a-zA-Z0-9 \-]+\]/, ""));
+            currentRow.push(row.replace(pattern, ""));
         }
         return result;
 
